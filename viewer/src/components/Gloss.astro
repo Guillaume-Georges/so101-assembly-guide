@@ -1,0 +1,27 @@
+---
+/**
+ * A plain sentence with glossary popovers on the first use of each term on the page. The caller owns
+ * `seen` so one set spans the whole page (goal line, panel, servo card).
+ */
+import { glossify, sourceLink, type GlossaryEntry } from '../lib/data';
+interface Props { text: string; seen: Set<string> }
+const { text, seen } = Astro.props;
+const segs = glossify(text, seen);
+const cite = (g: GlossaryEntry) => (g.source ?? []).map((s) => sourceLink(s));
+---
+{segs.map((s) =>
+  s.entry ? (
+    <details class="term">
+      <summary>{s.text}</summary>
+      <span class="termpanel">
+        <strong>{s.entry.term}.</strong>{' '}{s.entry.meaning}
+        <small>
+          {s.entry.kind === 'definition' ? 'General meaning, not a kit fact.' : 'Source: '}
+          {s.entry.kind === 'fact' && cite(s.entry).map((l, i) => <span>{i ? ' · ' : ''}<a href={l.href} rel="noopener">{l.label}</a></span>)}
+        </small>
+      </span>
+    </details>
+  ) : (
+    s.text
+  ),
+)}

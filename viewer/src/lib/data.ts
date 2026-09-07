@@ -14,6 +14,7 @@ export type Part = Flagged & {
   geometry_names?: string[];
   aka?: string[];
   notes?: string;
+  name_plain?: string;
 };
 export type ServoVariant = {
   part: string;
@@ -43,6 +44,7 @@ export type Fastener = Flagged & {
   where_used?: string;
   drive?: string;
   notes?: string;
+  name_plain?: string;
 };
 export type Tool = Flagged & { id: string; name: string; size?: string; purchase_note?: string };
 export type Issue = Flagged & {
@@ -115,6 +117,19 @@ export type Step = Flagged & {
   instructions?: string;
   provenance?: string;
   title_short?: string;
+  plain?: Plain;
+};
+/** Plain register: each sentence rewords what `from` points at (validated by scripts/src/plain.ts). */
+export type PlainSentence = { text: string; from: string[] };
+export type Plain = { do: PlainSentence[]; done: PlainSentence };
+export type GlossaryEntry = {
+  id: string;
+  term: string;
+  match: string[];
+  kind: 'definition' | 'fact';
+  meaning: string;
+  source?: Source[];
+  unverified?: boolean;
 };
 export type Bundle = {
   generated_at: string;
@@ -129,6 +144,7 @@ export type Bundle = {
   compare: PageRow[];
   faq: PageRow[];
   printing: PageRow[];
+  glossary: GlossaryEntry[];
   assemblies: Record<string, Step[]>;
 };
 
@@ -141,6 +157,16 @@ export const parts = byId(data.parts);
 export const fasteners = byId(data.fasteners);
 export const tools = byId(data.tools);
 export const cables = byId(data.cables);
+export const glossary = data.glossary ?? [];
+/** Plain name for the builder, exact name for the record. */
+export const partName = (id: string) => {
+  const p = parts.get(id);
+  return p?.name_plain ?? p?.name ?? id;
+};
+export const fastenerName = (id: string) => {
+  const f = fasteners.get(id);
+  return f?.name_plain ?? f?.spec ?? id;
+};
 export const servoBySlot = (assembly: string, joint: string) =>
   data.servos.find((s) => s.assembly === assembly && s.joint === joint);
 export const steps = (assembly: string) => data.assemblies[assembly] ?? [];
@@ -218,4 +244,126 @@ export function stepGroups(assembly: string): StepGroup[] {
     g.steps.push(s);
   }
   return out;
+}
+
+/**
+ * Glossary linking: split a plain sentence into text and term segments. Only the first occurrence of
+ * each entry per page gets a popover; the caller owns `seen` so one set spans the whole page.
+ */
+export type GlossSegment = { text: string; entry?: GlossaryEntry };
+const GLOSS_RE = (() => {
+  const words = glossary
+    .flatMap((g) => g.match.map((m) => ({ m, g })))
+    .sort((a, b) => b.m.length - a.m.length);
+  if (!words.length) return null;
+  const esc = (w: string) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return {
+    re: new RegExp(`(?<![\\w:])(${words.map((w) => esc(w.m)).join('|')})(?![\\w:])`, 'gi'),
+    byWord: new Map(words.map((w) => [w.m.toLowerCase(), w.g])),
+  };
+})();
+export function glossify(text: string, seen: Set<string>): GlossSegment[] {
+  if (!GLOSS_RE) return [{ text }];
+  const out: GlossSegment[] = [];
+  let last = 0;
+  for (const m of text.matchAll(GLOSS_RE.re)) {
+    const entry = GLOSS_RE.byWord.get(m[1].toLowerCase());
+    const i = m.index ?? 0;
+    if (!entry || seen.has(entry.id)) continue;
+    seen.add(entry.id);
+    if (i > last) out.push({ text: text.slice(last, i) });
+    out.push({ text: m[1], entry });
+    last = i + m[1].length;
+  }
+  if (last < text.length) out.push({ text: text.slice(last) });
+  return out;
+}
+
+/**
+ * What a plain sentence rewords, as a label + the exact text, for the "src" marks. `href` is an
+ * absolute URL (external source) or a guide-relative path the component passes through seo.withBase.
+ */
+export type FromDesc = { label: string; text: string; href?: string };
+const FIELD_LABEL: Record<string, string> = {
+  title: 'title',
+  title_short: 'short title',
+  check: 'check',
+  orientation_note: 'orientation note',
+  instructions: 'instructions',
+  warnings: 'warnings',
+  servo_slot: 'motor slot',
+  parts: 'parts',
+  fasteners: 'fasteners',
+  tools: 'tools',
+  cables: 'cables',
+  prep: 'preparation step',
+};
+export function describeFrom(ref: string, step: Step): FromDesc {
+  const rec = ref.match(/^(part|fastener|tool|cable):(.+)$/);
+  if (rec) {
+    const id = rec[2];
+    if (rec[1] === 'part')
+      return {
+        label: `parts.yaml · ${id}`,
+        text: parts.get(id)?.name ?? id,
+        href: `/parts/${id}/`,
+      };
+    if (rec[1] === 'fastener')
+      return {
+        label: `fasteners.yaml · ${id}`,
+        text: fasteners.get(id)?.spec ?? id,
+        href: `/parts/#fastener-${id}`,
+      };
+    if (rec[1] === 'tool')
+      return {
+        label: `tools.yaml · ${id}`,
+        text: tools.get(id)?.name ?? id,
+        href: `/tools/${id}/`,
+      };
+    const c = cables.get(id);
+    return {
+      label: `cables.yaml · ${id}`,
+      text: c ? `${jointLabel(c.from)} → ${jointLabel(c.to)}` : id,
+    };
+  }
+  let target: Step | undefined = step;
+  let field = ref;
+  const other = ref.match(/^([FL]-\d{3})\.(.+)$/);
+  if (other) {
+    target = stepById(other[1]);
+    field = other[2];
+  }
+  const who = other ? `${other[1]} · ` : '';
+  if (!target) return { label: `${who}${field}`, text: '' };
+  const href = other ? stepPath(target) : undefined;
+  const src = field.match(/^source\[(\d+)\]$/);
+  if (src) {
+    const s = target.source?.[Number(src[1])];
+    if (!s) return { label: `${who}source`, text: '' };
+    const l = sourceLink(s);
+    return { label: `${who}${l.label}`, text: s.note ?? '', href: l.href };
+  }
+  if (field === 'servo') {
+    const v = target.servo_slot ? servoBySlot(target.assembly, target.servo_slot) : undefined;
+    return {
+      label: `servos.yaml · ${target.assembly}/${target.servo_slot ?? '?'}`,
+      text: v
+        ? `ID ${v.bus_id} · ${v.model} ${v.gear_ratio} · ${parts.get(v.part)?.name ?? v.part}`
+        : '',
+      href: v ? `/servos/${v.assembly}/${v.joint}/` : undefined,
+    };
+  }
+  const v = (target as unknown as Record<string, unknown>)[field];
+  const text = Array.isArray(v)
+    ? v
+        .map((x) =>
+          typeof x === 'string'
+            ? x
+            : `${(x as { qty?: number }).qty ?? ''} × ${(x as { id?: string }).id ?? ''}`,
+        )
+        .join(' · ')
+    : v === undefined
+      ? ''
+      : String(v);
+  return { label: `${who}${FIELD_LABEL[field] ?? field}`, text, href };
 }

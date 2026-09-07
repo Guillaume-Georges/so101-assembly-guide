@@ -1,0 +1,30 @@
+---
+/**
+ * Plain / Exact register switch. Plain is the builder's wording (data `plain`, `name_plain`); Exact is the
+ * sourced wording verbatim. The choice sits on <html data-register> (applied before paint in Base.astro)
+ * and is remembered per device. Without JavaScript the page shows Plain, and every "src" mark still opens.
+ */
+---
+<div class="seg register" role="group" aria-label="Wording">
+  <button type="button" data-register-set="plain" aria-pressed="true">Plain</button>
+  <button type="button" data-register-set="exact" aria-pressed="false">Exact</button>
+</div>
+<script>
+  const root = document.documentElement;
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-register-set]'));
+  const sync = () => {
+    const r = root.dataset.register === 'exact' ? 'exact' : 'plain';
+    for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.registerSet === r));
+  };
+  for (const b of buttons)
+    b.addEventListener('click', () => {
+      const r = b.dataset.registerSet;
+      if (r === 'exact') root.dataset.register = 'exact';
+      else delete root.dataset.register;
+      try {
+        localStorage.setItem('so101:register', r ?? 'plain');
+      } catch {}
+      sync();
+    });
+  sync();
+</script>

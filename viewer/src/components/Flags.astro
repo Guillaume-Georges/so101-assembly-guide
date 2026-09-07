@@ -2,7 +2,8 @@
 /**
  * Flag pills. Inline (default) for headings and tables; `popover` renders each pill as a <details>
  * whose panel carries the plain-language meaning and the item's own note, so a builder can learn
- * what the flag means without leaving the step. The flag itself is always visible (CLAUDE.md 1).
+ * what the flag means without leaving the step. The flag word is always visible (CLAUDE.md 1); in the
+ * Plain register it carries a short gloss beside it.
  */
 interface Props { unverified?: boolean; approximation?: boolean; popover?: boolean; note?: string }
 const { unverified, approximation, popover = false, note } = Astro.props;
@@ -10,25 +11,26 @@ const MEANING = {
   unverified: 'Not checked yet: no public source confirms this. Treat it as a best guess and report what you find.',
   approximation: 'Stand-in shape: the 3D geometry or placement is not measured from the real part.',
 };
+const GLOSS = { unverified: 'no source yet', approximation: '3D stand-in' };
 ---
 {popover ? (
   <>
     {unverified && (
       <details class="flagmore">
-        <summary class="flag unverified">unverified</summary>
+        <summary class="flag unverified">unverified<span class="x-plain gloss"> · {GLOSS.unverified}</span></summary>
         <div class="flagpanel"><p>{MEANING.unverified}</p>{note && <p class="note">{note}</p>}</div>
       </details>
     )}
     {approximation && (
       <details class="flagmore">
-        <summary class="flag approximation">approximation</summary>
+        <summary class="flag approximation">approximation<span class="x-plain gloss"> · {GLOSS.approximation}</span></summary>
         <div class="flagpanel"><p>{MEANING.approximation}</p>{note && <p class="note">{note}</p>}</div>
       </details>
     )}
   </>
 ) : (
   <>
-    {unverified && <span class="flag unverified" title={MEANING.unverified}>unverified</span>}
-    {approximation && <span class="flag approximation" title={MEANING.approximation}>approximation</span>}
+    {unverified && <span class="flag unverified" title={MEANING.unverified}>unverified<span class="x-plain gloss"> · {GLOSS.unverified}</span></span>}
+    {approximation && <span class="flag approximation" title={MEANING.approximation}>approximation<span class="x-plain gloss"> · {GLOSS.approximation}</span></span>}
   </>
 )}

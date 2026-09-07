@@ -1,7 +1,9 @@
 ---
 import Base from '../../../../layouts/Base.astro';
 import Sources from '../../../../components/Sources.astro';
-import { data, jointLabel, stepPath } from '../../../../lib/data';
+import Gloss from '../../../../components/Gloss.astro';
+import RegisterToggle from '../../../../components/RegisterToggle.astro';
+import { data, parts, jointLabel, stepPath } from '../../../../lib/data';
 import { withBase, breadcrumbs } from '../../../../lib/seo';
 export function getStaticPaths() {
   return data.servos.map((s) => ({ params: { assembly: s.assembly, joint: s.joint }, props: { s } }));
@@ -9,20 +11,40 @@ export function getStaticPaths() {
 const { s } = Astro.props;
 const stepsUsing = (data.assemblies[s.assembly] ?? []).filter((st) => st.servo_slot === s.joint);
 const site = Astro.site ?? new URL('https://kitsmith.dev');
-const title = `${s.assembly} ${jointLabel(s.joint)} servo`;
+const seen = new Set<string>();
+const arm = `${s.assembly[0].toUpperCase()}${s.assembly.slice(1)} arm`;
+const title = `Motor ${s.bus_id} · ${jointLabel(s.joint)} (${s.assembly})`;
+const plainName = (id: string) => parts.get(id)?.name_plain ?? parts.get(id)?.name ?? id;
+const std = s.variants.find((v) => v.default) ?? s.variants[0];
+const optional = s.variants.filter((v) => !v.default);
 ---
-<Base title={title} path={`/servos/${s.assembly}/${s.joint}/`} section="/servos/" description={`SO-101 ${s.assembly} ${jointLabel(s.joint)}: bus ID ${s.bus_id}, ${s.model} ${s.gear_ratio}, ${s.variants.map((v) => v.servo_voltage + ' on ' + v.supply).join(' or ')}.`} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Servos', path: '/servos/' }, { name: title, path: `/servos/${s.assembly}/${s.joint}/` }], site.toString())]}>
-  <p class="muted"><a href={withBase('/servos/')}>Servos</a> · {s.assembly}</p>
-  <h1>{jointLabel(s.joint)} — ID {s.bus_id}, {s.model} {s.gear_ratio}</h1>
-  <div class="card">
-    <ul class="plain">
-      <li><strong>Default part:</strong> <a href={withBase(`/parts/${s.part}/`)}>{s.part}</a></li>
-      {s.variants.map((v) => <li><strong>{v.default ? 'Standard' : 'Optional'}:</strong> <a href={withBase(`/parts/${v.part}/`)}>{v.part}</a>, {v.servo_voltage} servo, {v.supply} supply. {v.note}</li>)}
-      {s.orientation_note && <li><strong>Orientation:</strong> {s.orientation_note}</li>}
-      {s.notes && <li>{s.notes}</li>}
-    </ul>
+<Base title={title} path={`/servos/${s.assembly}/${s.joint}/`} section="/servos/" description={`SO-101 ${s.assembly} motor ${s.bus_id} (${jointLabel(s.joint)}): ${s.model} ${s.gear_ratio}, ${s.variants.map((v) => v.servo_voltage + ' on ' + v.supply).join(' or ')}.`} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Servos', path: '/servos/' }, { name: title, path: `/servos/${s.assembly}/${s.joint}/` }], site.toString())]}>
+  <p class="muted"><a href={withBase('/servos/')}>Motors</a> · {arm}</p>
+  <h1>Motor {s.bus_id} · <Gloss text={jointLabel(s.joint)} seen={seen} /></h1>
+  <div class="card steppanel">
+    <div class="panelhead">
+      <h3>Which motor goes here</h3>
+      <RegisterToggle />
+    </div>
+    <ol class="do x-plain">
+      <li><span class="sentence"><Gloss text={`Use the motor you labelled ${s.bus_id}. It must be a ${plainName(s.part)}.`} seen={seen} /></span></li>
+      {std && <li><span class="sentence"><Gloss text={`Power it from a ${std.supply} supply; that is the supply for the standard ${std.servo_voltage} motor.`} seen={seen} /></span></li>}
+      {optional.map((v) => (
+        <li><span class="sentence"><Gloss text={`Only if you bought the optional ${v.servo_voltage} motors (${plainName(v.part)}): use a ${v.supply} supply instead.`} seen={seen} /></span></li>
+      ))}
+      {s.orientation_note && <li><span class="sentence"><Gloss text={s.orientation_note} seen={seen} /></span></li>}
+    </ol>
+    <div class="exact x-exact">
+      <ul class="plain">
+        <li><strong>Joint:</strong> {s.joint} · bus ID {s.bus_id} · {s.model} {s.gear_ratio}</li>
+        <li><strong>Default part:</strong> <a href={withBase(`/parts/${s.part}/`)}>{parts.get(s.part)?.name ?? s.part}</a> <code>{s.part}</code></li>
+        {s.variants.map((v) => <li><strong>{v.default ? 'Standard' : 'Optional'}:</strong> <a href={withBase(`/parts/${v.part}/`)}>{parts.get(v.part)?.name ?? v.part}</a> <code>{v.part}</code>, {v.servo_voltage} servo, {v.supply} supply. {v.note}</li>)}
+        {s.orientation_note && <li><strong>Orientation:</strong> {s.orientation_note}</li>}
+        {s.notes && <li>{s.notes}</li>}
+      </ul>
+    </div>
   </div>
-  <h2>Steps for this joint</h2>
+  <h2>Steps for this motor</h2>
   <ul class="plain">{stepsUsing.map((st) => <li><a href={withBase(stepPath(st))}>{st.id} {st.title}</a></li>)}</ul>
   <Sources sources={[...s.source, ...s.variants.flatMap((v) => v.source)]} />
 </Base>

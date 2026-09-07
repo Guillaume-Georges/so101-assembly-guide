@@ -54,6 +54,8 @@ const navGroups: [string, [string, string][]][] = [
       try {
         const t = localStorage.getItem('so101:theme');
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        // Wording register (Plain / Exact) likewise; Plain is the default and needs no attribute.
+        if (localStorage.getItem('so101:register') === 'exact') document.documentElement.dataset.register = 'exact';
       } catch {}
     </script>
     <title>{fullTitle}</title>

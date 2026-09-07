@@ -33,9 +33,10 @@ const COLORS: Record<Visibility, string> = {
 function readColors(): void {
   const cs = getComputedStyle(document.documentElement);
   const v = (name: string, fallback: string) => cs.getPropertyValue(name).trim() || fallback;
-  COLORS.current = v('--accent', COLORS.current);
-  COLORS.installed = v('--muted', COLORS.installed);
-  COLORS.future = v('--line', COLORS.future);
+  // Mesh tokens are lighter than the text tokens they echo: a lit mesh of --muted reads as black.
+  COLORS.current = v('--mesh-current', v('--accent', COLORS.current));
+  COLORS.installed = v('--mesh-built', v('--muted', COLORS.installed));
+  COLORS.future = v('--mesh-future', v('--line', COLORS.future));
 }
 /** Crease lines: near-black reads on the lit grey and orange meshes in both themes. */
 const EDGE = '#0b0d12';

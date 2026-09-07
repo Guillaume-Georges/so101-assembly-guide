@@ -1,10 +1,11 @@
 ---
 import { sourceLink, type Source } from '../lib/data';
-interface Props { sources: Source[]; title?: string }
-const { sources, title = 'Sources' } = Astro.props;
+interface Props { sources: Source[]; title?: string; note?: string }
+const { sources, title = 'Sources', note } = Astro.props;
 ---
 <details class="sources" open>
   <summary>{title} ({sources.length})</summary>
+  {note && <p class="muted srcnote">{note}</p>}
   <ul>
     {sources.map((s) => {
       const l = sourceLink(s);

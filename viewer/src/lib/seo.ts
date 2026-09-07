@@ -27,7 +27,8 @@ export function sitePath(path: string): string {
 
 export function stepDescription(s: Step): string {
   const bits = [`Step ${s.id}: ${s.title}.`];
-  if (s.servo_slot) bits.push(`Servo slot ${s.servo_slot.replace(/_/g, ' ')}.`);
+  if (s.plain) return [...bits, ...s.plain.do.map((d) => d.text)].join(' ').slice(0, 158);
+  if (s.servo_slot) bits.push(`Motor slot ${s.servo_slot.replace(/_/g, ' ')}.`);
   if (s.fasteners?.length)
     bits.push(`Fasteners: ${s.fasteners.map((f) => `${f.qty}× ${f.id}`).join(', ')}.`);
   bits.push(`Check: ${s.check}`);

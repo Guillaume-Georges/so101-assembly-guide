@@ -1,27 +1,74 @@
 ---
-import { parts, fasteners, tools, cables, servoBySlot, jointLabel, type Step } from '../lib/data';
+/**
+ * The step's text, in two registers. Plain: the builder's sentences from data `plain`, glossary terms
+ * linked on first use, each sentence with a "src" mark that opens what it rewords. Exact: the sourced
+ * wording verbatim (upstream quotes, our check/orientation/instructions, ids and specs, placement
+ * evidence). An unverified step shows Exact in full and dims Plain, so a rewording never softens a gap.
+ */
+import { parts, fasteners, tools, cables, servoBySlot, jointLabel, partName, fastenerName, describeFrom, sourceLink, type Step } from '../lib/data';
 import { withBase } from '../lib/seo';
 import Flags from './Flags.astro';
+import Gloss from './Gloss.astro';
+import RegisterToggle from './RegisterToggle.astro';
 import Icon, { iconForCategory } from './Icon.astro';
-interface Props { s: Step }
-const { s } = Astro.props;
+interface Props { s: Step; seen: Set<string> }
+const { s, seen } = Astro.props;
 const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
+const servoPart = servo ? parts.get(servo.part) : undefined;
+const busOf = (joint: string) => (joint === 'board' ? 'the board' : `motor ${servoBySlot(s.assembly, joint)?.bus_id ?? '?'}`);
+const href = (h?: string) => (h && !/^https?:/.test(h) ? withBase(h) : h);
+const quoted = s.source.filter((x) => x.note);
+const inherited = s.extends && s.assembly === 'leader';
 ---
-<aside class="card">
-  {s.instructions && <p>{s.instructions}</p>}
-  {s.orientation_note && <p><strong>Orientation:</strong> {s.orientation_note}</p>}
+<aside class={`card steppanel${s.unverified ? ' unverified' : ''}`}>
+  <div class="panelhead">
+    <h3>Do this</h3>
+    <RegisterToggle />
+  </div>
   {s.warnings?.length ? s.warnings.map((w) => <p class="warning"><Icon name="warn" size={20} /> <span>{w}</span></p>) : null}
-  {servo && (
-    <section>
-      <h3>Servo: {jointLabel(servo.joint)} (ID {servo.bus_id})</h3>
+
+  {s.plain ? (
+    <ol class="do x-plain">
+      {s.plain.do.map((d) => (
+        <li>
+          <span class="body"><span class="sentence"><Gloss text={d.text} seen={seen} /></span>{' '}
+          <details class="from">
+            <summary aria-label="What this sentence rewords">src</summary>
+            <ul class="fromlist">
+              {d.from.map((f) => {
+                const r = describeFrom(f, s);
+                return <li>{r.href ? <a href={href(r.href)} rel="noopener">{r.label}</a> : <span>{r.label}</span>}{r.text && <span class="q"> — {r.text}</span>}</li>;
+              })}
+            </ul>
+          </details></span>
+        </li>
+      ))}
+    </ol>
+  ) : null}
+  {s.plain && <p class="goal x-plain"><strong>Done when</strong> <span><Gloss text={s.plain.done.text} seen={seen} /></span></p>}
+
+  <div class={`exact x-exact${s.unverified ? ' always' : ''}`}>
+    {inherited && <p class="muted">Upstream numbers the follower's steps; this leader step is the same build step (extends {s.extends}).</p>}
+    {quoted.map((x) => { const l = sourceLink(x); return <blockquote class="q"><a href={l.href} rel="noopener">{l.label}</a><span>{x.note}</span></blockquote>; })}
+    {s.orientation_note && <p><strong>Orientation:</strong> {s.orientation_note}</p>}
+    {s.instructions && <p><strong>Notes:</strong> {s.instructions}</p>}
+    <p><strong>Check:</strong> {s.check}</p>
+    {servo && (
       <p>
-        <a href={withBase(`/servos/${servo.assembly}/${servo.joint}/`)}>{servo.model} {servo.gear_ratio}</a> ·
-        {servo.variants.map((v) => (
-          <span> {v.servo_voltage} servo on a {v.supply} supply{v.default ? '' : ' (optional variant)'};</span>
-        ))}
+        <strong>Motor slot:</strong> {s.servo_slot} · ID {servo.bus_id} · <a href={withBase(`/servos/${servo.assembly}/${servo.joint}/`)}>{servo.model} {servo.gear_ratio}</a> ·
+        {servo.variants.map((v) => <span> {v.servo_voltage} servo on a {v.supply} supply{v.default ? '' : ' (optional variant)'};</span>)}
       </p>
+    )}
+    {s.provenance && <p class="muted"><strong>How we placed it:</strong> {s.provenance}</p>}
+  </div>
+
+  {servo && (
+    <section class="servo">
+      <h3>Motor {servo.bus_id} · {jointLabel(servo.joint)}</h3>
+      <p class="x-plain"><Gloss text={`The motor you labelled ${servo.bus_id}: ${servoPart?.name_plain ?? servoPart?.name ?? servo.part}.`} seen={seen} /> <a href={withBase(`/servos/${servo.assembly}/${servo.joint}/`)}>details</a></p>
     </section>
   )}
+
   <section class="need">
     <h3>You need</h3>
     <ul class="plain">
@@ -30,7 +77,10 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
         return (
           <li class="row">
             <Icon name={iconForCategory(p?.category)} />
-            <span class="what">{p?.name ?? id} <Flags popover unverified={p?.unverified} approximation={p?.approximation} note={p?.notes} /></span>
+            <span class="what">
+              <span class="x-plain">{partName(id)}</span><span class="x-exact">{p?.name ?? id} <code>{id}</code></span>
+              <Flags popover unverified={p?.unverified} approximation={p?.approximation} note={p?.notes} />
+            </span>
             <a class="more" href={withBase(`/parts/${id}/`)} aria-label={`${p?.name ?? id}: part details and sources`}>details</a>
           </li>
         );
@@ -40,7 +90,10 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
         return (
           <li class="row">
             <Icon name="screw" />
-            <span class="what">{spec?.spec ?? f.id} <Flags popover unverified={spec?.unverified} note={spec?.notes} /></span>
+            <span class="what">
+              <span class="x-plain">{fastenerName(f.id)}</span><span class="x-exact">{spec?.spec ?? f.id} <code>{f.id}</code></span>
+              <Flags popover unverified={spec?.unverified} note={spec?.notes} />
+            </span>
             <span class="qty">×{f.qty}</span>
             <a class="more" href={withBase(`/parts/#fastener-${f.id}`)} aria-label={`${spec?.spec ?? f.id}: fastener details`}>details</a>
           </li>
@@ -61,8 +114,8 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
   </section>
   {s.cables?.length ? (
     <section>
-      <h3>Cables</h3>
-      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li class="row"><Icon name="cable" /><span class="what">{cb ? `${jointLabel(cb.from)} → ${jointLabel(cb.to)}` : c} <Flags popover approximation={cb?.approximation} note={cb?.notes} /></span></li>; })}</ul>
+      <h3>Cables in the 3D view</h3>
+      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li class="row"><Icon name="cable" /><span class="what">{cb ? <><span class="x-plain">{busOf(cb.from)} → {busOf(cb.to)}</span><span class="x-exact">{jointLabel(cb.from)} → {jointLabel(cb.to)} <code>{c}</code></span></> : c} <Flags popover approximation={cb?.approximation} note={cb?.notes} /></span></li>; })}</ul>
     </section>
   ) : null}
 </aside>

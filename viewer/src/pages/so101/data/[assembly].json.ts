@@ -20,7 +20,7 @@ export const GET: APIRoute = ({ params }) => {
       .filter((c) => c.assembly.includes(assembly))
       .map((c) => ({ id: c.id, path: c.path, diameter_m: c.diameter_m ?? 0.0025 })),
     parts: Object.fromEntries(
-      data.parts.map((p) => [p.id, { name: p.name, category: p.category }]),
+      data.parts.map((p) => [p.id, { name: p.name_plain ?? p.name, category: p.category }]),
     ),
   };
   return new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json' } });

@@ -18,6 +18,8 @@ const prev = list[i - 1];
 const next = list[i + 1];
 const groups = stepGroups(assembly);
 const gi = groups.findIndex((g) => g.steps.includes(s));
+/** One glossary `seen` set per page: a term gets its popover on first use only. */
+const seen = new Set<string>();
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const arm = `${assembly[0].toUpperCase()}${assembly.slice(1)} arm`;
 const jsonLd = [
@@ -48,7 +50,7 @@ const jsonLd = [
   {s.unverified && (
     <div class="banner"><strong>Unverified.</strong> Part of this step is not confirmed by any public source yet (see the sources below). Follow the upstream video for this joint and report what you find.</div>
   )}
-  <p class="goal"><strong>Done when</strong> {s.check}</p>
+  {!s.plain && <p class="goal"><strong>Done when</strong> {s.check}</p>}
   <div class="grid step">
     <div>
       <div class="viewer">
@@ -56,10 +58,10 @@ const jsonLd = [
         <noscript><p class="fallback">3D view needs JavaScript; every instruction is in the text.</p></noscript>
       </div>
     </div>
-    <StepPanel s={s} />
+    <StepPanel s={s} seen={seen} />
   </div>
-  <Sources sources={s.source} />
-  {s.provenance && <p class="provenance muted"><strong>How we placed it:</strong> {s.provenance}</p>}
+  <Sources sources={s.source} note={s.extends && assembly === 'leader' ? `Upstream numbers the follower's steps; this leader step is the same build step (extends ${s.extends}).` : undefined} />
+  {s.provenance && <details class="provenance muted"><summary>How we placed it</summary><p>{s.provenance}</p></details>}
   {!next && (
     <section class="finished">
       <h2>{arm} built.</h2>
