@@ -22,14 +22,25 @@ const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | unde
 // "{page} · SO-101 guide · Kitsmith": kit first (what people search), brand last (what accumulates).
 const landing = path === '/';
 const fullTitle = landing ? title : title === SITE_NAME ? `${GUIDE_NAME} · ${BRAND}` : `${title} · ${GUIDE_NAME} · ${BRAND}`;
-const nav = [
-  ['Follower', '/follower/'],
-  ['Leader', '/leader/'],
-  ['Servos', '/servos/'],
-  ['Parts', '/parts/'],
-  ['Troubleshooting', '/troubleshooting/'],
-  ['Kits', '/kits/'],
-  ['FAQ', '/faq/'],
+// Two labelled groups so the header reads as sections of the guide, not as steps of the arm.
+const navGroups: [string, [string, string][]][] = [
+  [
+    'Build',
+    [
+      ['Follower arm', '/follower/'],
+      ['Leader arm', '/leader/'],
+    ],
+  ],
+  [
+    'Reference',
+    [
+      ['Parts', '/parts/'],
+      ['Servos', '/servos/'],
+      ['Troubleshooting', '/troubleshooting/'],
+      ['Kits', '/kits/'],
+      ['FAQ', '/faq/'],
+    ],
+  ],
 ];
 ---
 
@@ -82,11 +93,23 @@ const nav = [
             <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h14M3 10h14M3 15h14" /></svg>
             Menu
           </summary>
-          <nav class="primary" aria-label="Sections">
-            {nav.map(([label, href]) => (
-              <a href={withBase(href)} aria-current={section === href ? 'page' : undefined}>{label}</a>
-            ))}
-          </nav>
+          {landing ? (
+            <nav class="primary" aria-label="Kitsmith">
+              <a href={withBase('/')}>SO-101 guide</a>
+              <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">GitHub</a>
+            </nav>
+          ) : (
+            <nav class="primary grouped" aria-label="Guide sections">
+              {navGroups.map(([name, links]) => (
+                <div class="grp" role="group" aria-label={name}>
+                  <span class="grplbl" aria-hidden="true">{name}</span>
+                  {links.map(([label, href]) => (
+                    <a href={withBase(href)} aria-current={section === href ? 'page' : undefined}>{label}</a>
+                  ))}
+                </div>
+              ))}
+            </nav>
+          )}
           <Search />
         </details>
         <button type="button" class="theme" aria-label="Theme: follows your device" title="Theme: follows your device" data-theme-toggle>
