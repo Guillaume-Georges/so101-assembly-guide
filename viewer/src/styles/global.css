@@ -1,27 +1,37 @@
+/*
+ * Kitsmith tokens (brand proposal 2026-09-07). One accent (signal blue) is the brand colour, the
+ * primary button, links, and the island's "this step" highlight. Semantic colours are reserved:
+ * --ok for "done", --warn for unverified, --caution for approximation and warnings. Every text
+ * token clears 4.5:1 on both grounds; --line-strong clears 3:1 for control edges.
+ */
 :root {
   color-scheme: dark light;
-  --bg: #111318;
-  --bg-2: #1a1d24;
-  --fg: #e8eaf0;
-  --muted: #9aa1ad;
-  --accent: #ffb454;
-  --warn: #ff7b72;
-  --ok: #7ee787;
-  --line: #2a2f3a;
-  --link: #79b8ff;
+  --bg: #101827;
+  --bg-2: #182337;
+  --fg: #eef2f7;
+  --muted: #9fabbe;
+  --accent: #4da3ff;
+  --warn: #ff8a80;
+  --caution: #ffc857;
+  --ok: #8fd14f;
+  --line: #22314a;
+  --line-strong: #6f7f9c;
+  --link: #8ec4ff;
   --max: 72rem;
   --tap: 44px;
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #fafafa;
+    --bg: #f6f7fa;
     --bg-2: #ffffff;
-    --fg: #16181d;
-    --muted: #5a6170;
-    --accent: #b36b00;
-    --warn: #b42318;
+    --fg: #101827;
+    --muted: #4b5a72;
+    --accent: #0b57d0;
+    --warn: #a8281c;
+    --caution: #6f4600;
     --ok: #1a7f37;
-    --line: #dcdfe5;
+    --line: #d9dee7;
+    --line-strong: #767d89;
     --link: #0b57d0;
   }
 }
@@ -865,4 +875,24 @@ ol.milestones .lbl {
   font-size: 0.8rem;
   white-space: nowrap;
   transform: translateY(-1.4rem);
+}
+
+/* Token pass (B1): control edges use --line-strong; approximation and warnings use --caution. */
+form.search input,
+nav.steps a,
+a.button,
+.viewer .reset,
+details.menu > summary {
+  border-color: var(--line-strong);
+}
+.flag.approximation {
+  color: var(--caution);
+  border-color: var(--caution);
+}
+.warning {
+  border-left-color: var(--caution);
+  background: color-mix(in srgb, var(--caution) 10%, var(--bg-2));
+}
+.viewer .lbl3d {
+  border-color: var(--accent);
 }
