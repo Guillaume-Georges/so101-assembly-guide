@@ -4,8 +4,8 @@ import Sources from '../../../components/Sources.astro';
 import Flags from '../../../components/Flags.astro';
 import StepPanel from '../../../components/StepPanel.astro';
 import Viewer from '../../../island/Viewer';
-import { ASSEMBLIES, steps, stepPath, stepNumber } from '../../../lib/data';
-import { withBase, breadcrumbs, techArticle, stepDescription, sitePath } from '../../../lib/seo';
+import { ASSEMBLIES, steps, stepPath, stepNumber, stepGroups } from '../../../lib/data';
+import { withBase, sitePath, breadcrumbs, techArticle, stepDescription } from '../../../lib/seo';
 export function getStaticPaths() {
   return ASSEMBLIES.flatMap((assembly) =>
     steps(assembly).map((s, i) => ({ params: { assembly, step: `${stepNumber(s.id)}-${s.slug}` }, props: { s, i } })),
@@ -16,6 +16,8 @@ const { s, i } = Astro.props;
 const list = steps(assembly);
 const prev = list[i - 1];
 const next = list[i + 1];
+const groups = stepGroups(assembly);
+const gi = groups.findIndex((g) => g.steps.includes(s));
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const arm = `${assembly[0].toUpperCase()}${assembly.slice(1)} arm`;
 const jsonLd = [
@@ -25,8 +27,19 @@ const jsonLd = [
 ---
 <Base title={`${s.id} ${s.title}`} path={stepPath(s)} section={`/${assembly}/`} description={stepDescription(s)} noindex={!!s.unverified} jsonLd={jsonLd} ogImage={`/og/${assembly}/${stepNumber(s.id)}.png`}>
   <div class="stepbar">
-    <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · <span class="id">{s.id}</span></p>
-    <div class="progress" role="progressbar" aria-label={`Step ${i + 1} of ${list.length}`} aria-valuemin="1" aria-valuemax={list.length} aria-valuenow={i + 1}><span style={`width:${Math.round(((i + 1) / list.length) * 100)}%`}></span></div>
+    <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · {groups[gi].label} · <span class="id">{s.id}</span></p>
+    <ol class="milestones" role="progressbar" aria-label={`Step ${i + 1} of ${list.length}, ${groups[gi].label}`} aria-valuemin="1" aria-valuemax={list.length} aria-valuenow={i + 1}>
+      {groups.map((g, n) => {
+        const done = n < gi;
+        const here = n === gi;
+        const within = here ? Math.round(((g.steps.indexOf(s) + 1) / g.steps.length) * 100) : done ? 100 : 0;
+        return (
+          <li class={done ? 'done' : here ? 'here' : ''} title={g.label}>
+            <a href={withBase(stepPath(g.steps[0]))} aria-label={`${g.label}: ${g.steps.length} steps`}><span class="bar"><span style={`width:${within}%`}></span></span><span class="lbl">{g.label}</span></a>
+          </li>
+        );
+      })}
+    </ol>
   </div>
   <h1>{s.title} <Flags unverified={s.unverified} approximation={s.approximation} /></h1>
   {s.unverified && (
