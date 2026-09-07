@@ -59,6 +59,17 @@ const jsonLd = [
     <StepPanel s={s} />
   </div>
   <Sources sources={s.source} />
+  {!next && (
+    <section class="finished">
+      <h2>{arm} built.</h2>
+      <p>That was the last of the {list.length} steps. Calibration and the LeRobot software setup are outside this guide; the upstream page carries on from here.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/huggingface/lerobot/blob/3f2c29ef7e44b1ddccbcda3b6a63939e53639e9e/docs/source/so101.mdx" rel="noopener">Continue on the LeRobot SO-101 page →</a>
+        <a class="button" href={withBase(assembly === 'follower' ? '/leader/' : '/follower/')}>Build the {assembly === 'follower' ? 'leader' : 'follower'} arm</a>
+        <a class="button" href={withBase('/troubleshooting/')}>Something's wrong</a>
+      </div>
+    </section>
+  )}
   <nav class="steps" aria-label="Step navigation">
     <div class="wrap">
       {prev ? (
