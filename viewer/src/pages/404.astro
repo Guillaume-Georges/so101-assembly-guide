@@ -1,8 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
+import { steps, stepPath } from '../lib/data';
 import { withBase } from '../lib/seo';
+const first = { follower: steps('follower')[0], leader: steps('leader')[0] };
 ---
 <Base title="Not found" path="/404/" noindex>
-  <h1>Not found</h1>
-  <p>Step and part URLs never change once published, so this link was probably mistyped. <a href={withBase('/')}>Guide start page</a>.</p>
+  <div class="hero">
+    <h1>That page isn't here.</h1>
+    <p>Step and part URLs never change once published, so this link was probably mistyped or cut short. Paste an error message in the search box above, or start from one of these.</p>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+    <a class="card" href={withBase('/')}><h3>SO-101 guide home</h3><p>Before you start, both arms, reference tables.</p></a>
+    <a class="card" href={withBase(stepPath(first.follower))}><h3>Follower arm, step 1</h3><p>{first.follower.title}</p></a>
+    <a class="card" href={withBase(stepPath(first.leader))}><h3>Leader arm, step 1</h3><p>{first.leader.title}</p></a>
+    <a class="card" href={withBase('/troubleshooting/')}><h3>Troubleshooting</h3><p>Assembly issues by error string.</p></a>
+  </div>
 </Base>
