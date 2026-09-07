@@ -27,7 +27,7 @@ const jsonLd = [
 ---
 <Base title={`${s.id} ${s.title}`} path={stepPath(s)} section={`/${assembly}/`} description={stepDescription(s)} noindex={!!s.unverified} jsonLd={jsonLd} ogImage={`/og/${assembly}/${stepNumber(s.id)}.png`}>
   <div class="stepbar">
-    <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · {groups[gi].label} · <span class="id">{s.id}</span></p>
+    <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · <span class="id">{s.id}</span></p>
     <ol class="milestones" role="progressbar" aria-label={`Step ${i + 1} of ${list.length}, ${groups[gi].label}`} aria-valuemin="1" aria-valuemax={list.length} aria-valuenow={i + 1}>
       {groups.map((g, n) => {
         const done = n < gi;
