@@ -18,6 +18,11 @@ const COLORS: Record<Visibility, string> = {
   installed: '#8a94a6',
   future: '#3a4050',
 };
+const LEGEND: [Visibility, string][] = [
+  ['current', 'This step'],
+  ['installed', 'Built'],
+  ['future', 'Later'],
+];
 
 function Part({
   p,
@@ -97,7 +102,15 @@ function Part({
 }
 
 /** Frame the built-so-far group once its meshes exist (Bounds would fit before world matrices update). */
-function FitCamera({ target, k }: { target: React.RefObject<THREE.Group | null>; k: number }) {
+function FitCamera({
+  target,
+  k,
+  fit,
+}: {
+  target: React.RefObject<THREE.Group | null>;
+  k: number;
+  fit: number;
+}) {
   const { camera, controls, invalidate, scene } = useThree();
   useEffect(() => {
     (window as unknown as { __so101?: unknown }).__so101 = {
@@ -138,7 +151,20 @@ function FitCamera({ target, k }: { target: React.RefObject<THREE.Group | null>;
       c.update();
     } else cam.lookAt(centre);
     invalidate();
-  }, [target, k, camera, controls, invalidate]);
+  }, [target, k, fit, camera, controls, invalidate]);
+  return null;
+}
+
+/**
+ * OrbitControls sets touch-action: none on the canvas, which turns a phone's vertical swipe into a
+ * rotate and traps the page scroll under a 55vh canvas. pan-y gives the swipe back to the page;
+ * a sideways drag still rotates and a pinch still zooms.
+ */
+function TouchPolicy() {
+  const { gl, controls } = useThree();
+  useEffect(() => {
+    gl.domElement.style.touchAction = 'pan-y';
+  }, [gl, controls]);
   return null;
 }
 
@@ -146,6 +172,7 @@ function Scene({
   arm,
   placements,
   k,
+  fit,
   explode,
   ghost,
   onPick,
@@ -154,6 +181,7 @@ function Scene({
   arm: ArmData;
   placements: Placement[];
   k: number;
+  fit: number;
   explode: number;
   ghost: boolean;
   onPick: (p: Placement) => void;
@@ -189,7 +217,7 @@ function Scene({
       <directionalLight position={[1, 2, 1]} intensity={1.2} />
       <directionalLight position={[-1, 1, -1]} intensity={0.4} />
       {/* Camera frames only what is built so far; ghosted future parts sit in a sibling group. */}
-      <FitCamera target={built} k={k} />
+      <FitCamera target={built} k={k} fit={fit} />
       <group ref={built}>
         {placements.map((p, i) => {
           if (p.kind === 'cable') return null;
@@ -241,6 +269,7 @@ function Scene({
         position={[0, -0.001, 0]}
       />
       <OrbitControls makeDefault enableDamping={false} />
+      <TouchPolicy />
     </>
   );
 }
@@ -250,6 +279,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   const [placements, setPlacements] = useState<Placement[] | null>(null);
   const [explode, setExplode] = useState(0);
   const [ghost, setGhost] = useState(true);
+  const [fit, setFit] = useState(0);
   const [picked, setPicked] = useState<Placement | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -261,17 +291,40 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         setArm(a);
         setPlacements((g.placements as Placement[]).filter((p) => p.assembly.includes(assembly)));
       })
-      .catch((e) => setError(String(e)));
+      .catch((e) => {
+        console.error('so101 island', e);
+        setError(String(e));
+      });
   }, [assembly, base]);
   const k = arm ? arm.steps.findIndex((s) => s.id === stepId) : -1;
-  if (error) return <p className="fallback">3D view unavailable: {error}</p>;
-  if (!arm || !placements || k < 0) return <p className="fallback">Loading 3D view…</p>;
+  if (error)
+    return (
+      <p className="fallback" role="status">
+        The 3D view did not load. Every instruction is in the text; reload the page to try again.
+      </p>
+    );
+  if (!arm || !placements || k < 0)
+    return (
+      <p className="fallback" aria-live="polite">
+        Loading 3D view…
+      </p>
+    );
   // preload the meshes of the next step
   const next = arm.steps[k + 1];
   if (next)
     for (const p of placements)
       if (visibility(p, arm.steps, k + 1, assembly) === 'current')
         useGLTF.preload(`${base}so101/geometry/${p.mesh}`);
+  const currentNames = placements
+    .filter((p) => p.kind !== 'cable' && visibility(p, arm.steps, k, assembly) === 'current')
+    .map((p) => arm.parts[p.id]?.name ?? p.name);
+  const label = `3D view of step ${stepId}. Highlighted: ${[...new Set(currentNames)].join(', ') || 'nothing yet'}. Drag sideways to turn, pinch or scroll to zoom.`;
+  const explodeText =
+    explode === 0
+      ? 'together'
+      : explode >= 0.99
+        ? 'fully apart'
+        : `${Math.round(explode * 100)}% apart`;
   return (
     <>
       <Canvas
@@ -280,12 +333,15 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         camera={{ position: [0.35, 0.3, 0.45], near: 0.005, far: 10, fov: 40 }}
         style={{ height: embed ? '100vh' : '55vh', minHeight: 320 }}
         onPointerMissed={() => setPicked(null)}
+        role="img"
+        aria-label={label}
       >
         <Suspense fallback={null}>
           <Scene
             arm={arm}
             placements={placements}
             k={k}
+            fit={fit}
             explode={explode}
             ghost={ghost}
             onPick={setPicked}
@@ -293,26 +349,63 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
           />
         </Suspense>
       </Canvas>
+      <div className="legend" aria-hidden="true">
+        {LEGEND.map(([vis, text]) => (
+          <span key={vis} className={`key ${vis}`}>
+            <i style={{ background: COLORS[vis] }} />
+            {text}
+          </span>
+        ))}
+      </div>
+      <button
+        type="button"
+        className="reset"
+        onClick={() => {
+          setExplode(0);
+          setFit((n) => n + 1);
+        }}
+        aria-label="Reset the 3D view"
+        title="Reset view"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 14 14"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          aria-hidden="true"
+        >
+          <path d="M2 7a5 5 0 1 0 1.5-3.5M2 2v3h3" />
+        </svg>
+        <span>Reset view</span>
+      </button>
       <div className="hud">
-        <label>
-          Explode{' '}
+        <label htmlFor="so101-explode">
+          Pull apart{' '}
           <input
+            id="so101-explode"
             type="range"
             min={0}
             max={1}
             step={0.01}
             value={explode}
             onChange={(e) => setExplode(Number(e.target.value))}
-            aria-label="Explode current step"
+            aria-valuetext={explodeText}
           />
         </label>
-        <label>
-          <input type="checkbox" checked={ghost} onChange={(e) => setGhost(e.target.checked)} />{' '}
-          ghost future parts
+        <label htmlFor="so101-ghost">
+          <input
+            id="so101-ghost"
+            type="checkbox"
+            checked={ghost}
+            onChange={(e) => setGhost(e.target.checked)}
+          />{' '}
+          Show later parts
         </label>
       </div>
       {picked && (
-        <div className="pick">
+        <div className="pick" role="status">
           <strong>{arm.parts[picked.id]?.name ?? picked.id}</strong>{' '}
           {picked.approximation ? <span className="flag approximation">approximation</span> : null}
           <div>
