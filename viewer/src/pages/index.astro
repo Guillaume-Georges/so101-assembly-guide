@@ -1,18 +1,94 @@
 ---
 import Base from '../layouts/Base.astro';
-import { data, steps } from '../lib/data';
+import { data, steps, stepPath, stepNumber } from '../lib/data';
 import { withBase, sitePath } from '../lib/seo';
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Kitsmith', url: new URL(sitePath('/'), site).toString(), description: 'Source-traceable build companions for open-hardware kits.' }];
+// One real step on the landing: the first follower step with a servo slot (a joint, not prep).
+const sample = steps('follower').find((s) => s.servo_slot) ?? steps('follower')[0];
+const embed = withBase(`/embed/follower/${stepNumber(sample.id)}-${sample.slug}/`);
+const total = steps('follower').length + steps('leader').length;
 ---
 <Base title="Kitsmith" path="/" description="Kitsmith: source-traceable, step-by-step build companions for open-hardware kits. First guide: the SO-101 robot arm, with a 3D view for every step." jsonLd={jsonLd}>
-  <h1>Kitsmith</h1>
-  <p>Build companions for open-hardware kits: one page per step, the exact parts and screws, a check before you move on, and a source for every fact. Nothing invented; what no source confirms is flagged.</p>
+  <div class="hero landing">
+    <div>
+      <h1>Build guides that show you every step.</h1>
+      <p>One page per step: what you need, what to do, and how to know you got it right. A 3D view of the part going on, and a source for every fact. If we don't know, the page says so.</p>
+      <div class="actions">
+        <a class="button primary" href={withBase('/')}>Build the SO-101 robot arm →</a>
+        <a class="button" href="https://github.com/Guillaume-Georges/so101-assembly-guide">How the guides are made</a>
+      </div>
+    </div>
+    <figure class="sample">
+      <figcaption><a href={withBase(stepPath(sample))}>{sample.id} {sample.title}</a> <span class="muted">· live 3D view, drag to turn</span></figcaption>
+      <iframe src={embed} title={`3D view of step ${sample.id}: ${sample.title}`} loading="lazy"></iframe>
+    </figure>
+  </div>
+  <div class="grid proof" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+    <div class="card"><h3>Every fact has a source</h3><p>Each screw, size and motor assignment comes from the upstream files, a page with a retrieval date, or a video timestamp. Every step lists its sources.</p></div>
+    <div class="card"><h3>We say when we're not sure</h3><p>Steps no source confirms are marked <span class="flag unverified">unverified</span> and stand-in shapes are marked <span class="flag approximation">approximation</span>. Never hidden.</p></div>
+    <div class="card"><h3>Works with any kit</h3><p>Part numbers cross-referenced for {data.vendors.length} kit vendors. We sell nothing and take no cut.</p></div>
+  </div>
+  <h2>Guides</h2>
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));">
     <a class="card" href={withBase('/')}>
-      <h2>SO-101 robot arm</h2>
-      <p>{steps('follower').length + steps('leader').length} steps across the follower and leader arms, {data.parts.length} parts, servo and gear ratio per joint, 3D view per step.</p>
+      <h3>SO-101 robot arm</h3>
+      <p>{total} steps across the follower and leader arms, {data.parts.length} parts, servo and gear ratio per joint, 3D view per step.</p>
     </a>
+    <div class="card ghost"><h3>More kits later</h3><p>Same rules, same data model.</p></div>
   </div>
-  <p class="muted">More kits later. Source and corrections on <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">GitHub</a>.</p>
+  <p class="muted">Source and corrections on <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">GitHub</a>.</p>
 </Base>
+<style>
+  .hero.landing {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    margin: 2rem 0 1.5rem;
+  }
+  @media (min-width: 60rem) {
+    .hero.landing {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  .hero.landing h1 {
+    font-size: 2.4rem;
+    line-height: 1.1;
+    max-width: 16ch;
+  }
+  .hero.landing > div > p {
+    font-size: 1.1rem;
+    max-width: 46ch;
+  }
+  figure.sample {
+    margin: 0;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  figure.sample figcaption {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+  figure.sample iframe {
+    display: block;
+    width: 100%;
+    height: 320px;
+    border: 0;
+    background: var(--bg-2);
+  }
+  .proof .card h3 {
+    margin-top: 0;
+  }
+  .proof .card p {
+    margin-bottom: 0;
+    color: var(--muted);
+  }
+  .card.ghost {
+    border-style: dashed;
+    background: transparent;
+    color: var(--muted);
+  }
+</style>
