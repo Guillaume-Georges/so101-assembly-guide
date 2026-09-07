@@ -48,6 +48,11 @@ uvx pre-commit install          # ruff, prettier, schema validation on commit
 Node 22+, pnpm 10, uv. CI runs the same validation on every push and deploys
 the viewer to GitHub Pages from `main`.
 
+Toolchain on the dev Mac: pnpm is installed via `npm i -g pnpm@10` and uv via
+Astral's installer into `~/.local/bin` (Homebrew stalled during bootstrap).
+They are not Homebrew-managed: upgrade with `npm i -g pnpm@latest` and
+`uv self update`.
+
 ## Licence
 
 Our code and data files: MIT (see [LICENSE](LICENSE)). Upstream assets keep
