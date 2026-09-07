@@ -45,8 +45,12 @@ uv run --directory pipeline pytest
 uvx pre-commit install          # ruff, prettier, schema validation on commit
 ```
 
-Node 22+, pnpm 10, uv. CI runs the same validation on every push and deploys
-the viewer to GitHub Pages from `main`.
+Node 22+, pnpm 10, uv. CI runs the same validation on every push. A push to
+`main` deploys to https://kitsmith.dev (the guide lives at `/so101/`): the site
+is built in Actions, rsynced to a release directory on the server through a
+jailed deploy user, activated by an atomic symlink swap, smoke-checked through
+Cloudflare and the edge cache purged. Server-side files are under `deploy/`.
+The old GitHub Pages URL only redirects.
 
 Toolchain on the dev Mac: pnpm is installed via `npm i -g pnpm@10` and uv via
 Astral's installer into `~/.local/bin` (Homebrew stalled during bootstrap).
