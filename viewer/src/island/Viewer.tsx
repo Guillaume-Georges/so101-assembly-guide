@@ -535,7 +535,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         frameloop="demand"
         dpr={[1, 1.5]}
         camera={{ position: [0.35, 0.3, 0.45], near: 0.005, far: 10, fov: 40 }}
-        style={{ height: embed ? 'calc(100vh - 6.5rem)' : '55vh', minHeight: 320 }}
+        style={{ height: embed ? 'calc(100vh - 6.5rem)' : 'var(--island-h, 55vh)', minHeight: 320 }}
         onPointerMissed={() => setPicked(null)}
         role="img"
         aria-label={label}

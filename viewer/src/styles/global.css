@@ -1436,6 +1436,10 @@ details.term .termpanel small {
 .flag .gloss {
   font-weight: 400;
 }
+.flag .gloss::before {
+  content: ' · ';
+  white-space: pre;
+}
 details.provenance > summary {
   cursor: pointer;
   font-size: 0.9rem;
@@ -1482,4 +1486,24 @@ details.provenance > summary {
 .steppanel section h3 {
   margin-top: 1.1rem;
   margin-bottom: 0.3rem;
+}
+
+/* Phones: the picture leaves room for the first instruction on the first screen; the current milestone
+   label may overflow its narrow segment (the others are unlabelled); "Done when" flows as a paragraph. */
+@media (max-width: 40rem) {
+  .viewer {
+    --island-h: 38vh;
+    min-height: 38vh;
+  }
+  ol.milestones li.here .lbl {
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .steppanel .goal {
+    display: block;
+  }
+  .steppanel .goal strong {
+    white-space: normal;
+    margin-right: 0.3rem;
+  }
 }

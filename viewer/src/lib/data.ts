@@ -272,8 +272,10 @@ export function glossify(text: string, seen: Set<string>): GlossSegment[] {
     if (!entry || seen.has(entry.id)) continue;
     seen.add(entry.id);
     if (i > last) out.push({ text: text.slice(last, i) });
-    out.push({ text: m[1], entry });
-    last = i + m[1].length;
+    // Trailing punctuation rides inside the term so an inline-block popover never orphans a comma.
+    const tail = /^[,.;:]/.exec(text.slice(i + m[1].length))?.[0] ?? '';
+    out.push({ text: m[1] + tail, entry });
+    last = i + m[1].length + tail.length;
   }
   if (last < text.length) out.push({ text: text.slice(last) });
   return out;
