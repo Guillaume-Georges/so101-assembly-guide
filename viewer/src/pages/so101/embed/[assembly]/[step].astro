@@ -22,7 +22,7 @@ const site = Astro.site ?? new URL('https://kitsmith.dev');
   <body>
     <div class="viewer">
       <Viewer client:load assembly={assembly} stepId={s.id} base={sitePath('/')} embed />
-      <a class="pick" style="top:auto;bottom:0.5rem;right:0.5rem;left:auto" href={new URL(withBase(stepPath(s)), site).toString()} target="_top">{s.id} {s.title} ↗</a>
+      <a class="pick steplink" style="top:auto;bottom:4.2rem;right:0.5rem;left:auto;max-width:60%" href={new URL(withBase(stepPath(s)), site).toString()} target="_top">{s.id} {s.title} ↗</a>
     </div>
   </body>
 </html>
