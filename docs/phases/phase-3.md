@@ -105,9 +105,9 @@ photo showing which M2 hole the screw uses.
 
 1. Analytics provider (cookieless, script-only) and Search Console: which,
    and may I add the script/verification file once you have the tokens?
-2. Domain: the brief's naming note (repo `so101`, multi-kit ambition) argues
-   for deciding the custom domain before URLs get indexed. Deploy is live on
-   the Pages URL now; say if you want `noindex` site-wide until the domain
-   is decided.
+2. Domain: decided 2026-09-07 — the whole site is `noindex` with
+   `Disallow: /` until the custom domain is live (`SITE_INDEXABLE=true` at
+   build flips pages, robots.txt and the sitemap link together; the
+   Lighthouse job audits that variant).
 3. Phase 4 scope check: printable checklist route from the same data, the
    search-index perf fix, and the Discord/forum post draft. Go?

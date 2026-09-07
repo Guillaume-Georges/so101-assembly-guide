@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, DESCRIPTION, withBase } from '../lib/seo';
+import { SITE_NAME, DESCRIPTION, withBase, NOINDEX } from '../lib/seo';
 import Search from '../components/Search.astro';
 
 interface Props {
@@ -38,7 +38,7 @@ const nav = [
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {(noindex || NOINDEX) && <meta name="robots" content="noindex" />}
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={fullTitle} />
@@ -49,7 +49,7 @@ const nav = [
     <meta name="theme-color" content="#111318" />
     <link rel="manifest" href={withBase('/manifest.webmanifest')} />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
-    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+    {!NOINDEX && <link rel="sitemap" href={withBase('/sitemap-index.xml')} />}
     {jsonLd.map((o) => <script is:inline type="application/ld+json" set:html={JSON.stringify(o)} />)}
     {analytics && <script is:inline defer data-domain={analyticsDomain} src={analytics}></script>}
   </head>

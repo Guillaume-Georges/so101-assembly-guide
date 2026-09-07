@@ -30,5 +30,9 @@ export default defineConfig({
     }),
   ],
   build: { inlineStylesheets: 'auto' },
-  vite: { build: { chunkSizeWarningLimit: 1200 } },
+  vite: {
+    build: { chunkSizeWarningLimit: 1200 },
+    // Site-wide index switch, baked at build time so pages, robots.txt and the sitemap link agree.
+    define: { __SITE_INDEXABLE__: JSON.stringify(process.env.SITE_INDEXABLE ?? 'false') },
+  },
 });

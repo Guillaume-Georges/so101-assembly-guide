@@ -20,6 +20,7 @@ jobs:
       - run: pnpm build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
+          SITE_INDEXABLE: 'true' # audit the indexable variant; the deployed site stays noindex until the domain is live
       - name: Serve dist under the Pages base path
         run: |
           mkdir -p site/${{ github.event.repository.name }}
