@@ -1,17 +1,15 @@
 # ADR-0002 — Astro static pages with a React Three Fiber island
 
 Status: accepted (2026-09-07). Supersedes the **Viewer** line of ADR-0001
-only; data, geometry and tooling lines stand. Reasoning in
-`docs/seo-market-brief.md`.
+only; data, geometry and tooling lines stand.
 
 ## Context
 
-ADR-0001 fixed the viewer as a Vite + React SPA. The SEO & market brief
-(`docs/seo-market-brief.md`, §4) shows that an SPA whose content lives inside
-a WebGL canvas is invisible to crawlers and heavy on a bench phone. The
-audiences that matter arrive by search for step names, part names and exact
-error strings, and by links from upstream docs. None of that traffic reaches a
-page that renders as an empty `<canvas>`.
+ADR-0001 fixed the viewer as a Vite + React SPA. An SPA whose content lives
+inside a WebGL canvas is invisible to crawlers and heavy on a bench phone.
+Builders arrive by search for step names, part names and exact error strings,
+and by links from upstream docs. None of that reaches a page that renders as
+an empty `<canvas>`.
 
 `viewer/` is an uncommitted three-file scaffold at the time of writing, so
 the cost of changing now is near zero.

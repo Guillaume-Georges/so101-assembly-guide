@@ -19,3 +19,6 @@ pipeline/out/
 # Local
 .env
 .DS_Store
+
+# Local-only notes, never published
+docs/private/

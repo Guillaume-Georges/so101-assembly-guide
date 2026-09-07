@@ -42,7 +42,7 @@ Accuracy beats polish. A wrong step is worse than a missing step.
 /pipeline               # Python (uv): STEP/STL -> GLB + placements.json
 /viewer                 # Astro static pages + React Three Fiber client island (ADR-0002)
 /scripts                # validate, build-data, export-checklist
-/docs                   # thesis, decisions (ADRs), phase reports, seo-market-brief.md
+/docs                   # thesis, decisions (ADRs), phase reports
 SOURCES.md
 ```
 
@@ -112,4 +112,4 @@ troubleshooting pages in v1 cover assembly issues only (wrong servo at joint,
 wrong ID, binding, cable pinch); calibration and LeRobot error strings are a
 named post-v1 phase. `/compare/` in v1 is SO-100 vs SO-101 only, sourced from
 the shared upstream repo. `/kits` links vendors; no prices without a
-`retrieved` date. Market and SEO reasoning: `docs/seo-market-brief.md`.
+`retrieved` date.
