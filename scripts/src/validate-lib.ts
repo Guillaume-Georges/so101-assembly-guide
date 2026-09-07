@@ -139,6 +139,8 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
           p.push({ file, where: st.id, message: `unknown fastener '${f.id}'` });
       for (const t of st.tools ?? [])
         if (!toolIds.has(t)) p.push({ file, where: st.id, message: `unknown tool '${t}'` });
+      for (const c of st.cables ?? [])
+        if (!cableIds.has(c)) p.push({ file, where: st.id, message: `unknown cable '${c}'` });
       if (st.servo_slot && !servoSlots.has(`${name}/${st.servo_slot}`))
         p.push({
           file,

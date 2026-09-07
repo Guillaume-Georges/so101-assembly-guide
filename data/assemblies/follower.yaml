@@ -112,7 +112,7 @@
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
-  check: 'Four M2x6 in: two from the top, two from the bottom. Motor 1 cable reaches the base opening.'
+  check: 'Four motor-tab screws in: two from the top, two from the bottom. Motor 1 cable reaches the base opening.'
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note:
@@ -135,7 +135,9 @@
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
-  check: Holder sits flush on the base; one M2x6 on each side; one motor-1 cable routed out of the base opening.
+  check:
+    Holder sits flush on the base; one motor-tab screw on each side; one motor-1 cable routed out of the base
+    opening.
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: Base_08p (= base motor holder)
     encloses 74% of servo 1 and sits on the base.'
@@ -236,7 +238,7 @@
     - screwdriver-ph1
   cables:
     - cable-shoulder-pan-to-shoulder-lift
-  check: Motor 2 held by 4 M2x6; its cable connects to motor 1 (either port).
+  check: Motor 2 held by 4 motor-tab screws; its cable connects to motor 1 (either port).
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: servo 2 sits in Motor_holder_SO101_Base
     (42% enclosed), entered from above.'
@@ -306,7 +308,7 @@
     - screwdriver-ph1
   cables:
     - cable-shoulder-lift-to-elbow-flex
-  check: Motor 3 held by 4 M2x6; its cable connects to motor 2.
+  check: Motor 3 held by 4 motor-tab screws; its cable connects to motor 2.
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
       note: '"Insert motor 3 and fasten using 4 M2x6mm screws."'
@@ -399,7 +401,7 @@
     - screwdriver-ph1
   cables:
     - cable-elbow-flex-to-wrist-flex
-  check: Motor 4 held by 4 M2x6; its cable connects to motor 3.
+  check: Motor 4 held by 4 motor-tab screws; its cable connects to motor 3.
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: servo 4 sits in Motor_holder_SO101_Wrist
     (44% enclosed).'
@@ -432,7 +434,9 @@
     - cable-wrist-flex-to-wrist-roll
   warnings:
     - 'Route the cables before inserting motor 5: "otherwise it is easy to tear the wire" (Waveshare).'
-  check: Motor 5 held by 2 M2x6 at the front; both cables routed through the holder before the motor went in.
+  check:
+    Motor 5 held by 2 motor-tab screws at the front; both cables routed through the holder before the motor
+    went in.
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Pitch (SO100-named solid)
     encloses 97% of servo 5: the wrist holder.'
@@ -540,7 +544,7 @@
     - screwdriver-ph1
   cables:
     - cable-wrist-roll-to-gripper
-  check: 2 M2x6 on each side; cable connects to motor 5.
+  check: 2 motor-tab screws on each side; cable connects to motor 5.
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Follower_SO101 encloses
     100% of servo 6: the gripper body.'
