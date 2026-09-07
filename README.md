@@ -12,13 +12,13 @@ checklist is another.
 
 ## Status
 
-| Phase | Scope                                                                 | State       |
-| ----- | --------------------------------------------------------------------- | ----------- |
-| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger        | in review   |
-| 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md` | pending |
-| 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model | pending    |
-| 3     | Viewer: step navigation, highlight/ghost, explode, side panel, cable path, part inspector, mobile | pending |
-| 4     | Printable checklist from the same data; call for builders to break it | pending     |
+| Phase | Scope                                                                                                                    | State     |
+| ----- | ------------------------------------------------------------------------------------------------------------------------ | --------- |
+| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                           | in review |
+| 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md` | pending   |
+| 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model                                                  | pending   |
+| 3     | Viewer: step navigation, highlight/ghost, explode, side panel, cable path, part inspector, mobile                        | pending   |
+| 4     | Printable checklist from the same data; call for builders to break it                                                    | pending   |
 
 Phases gate on review. The standing rules live in [CLAUDE.md](CLAUDE.md).
 
