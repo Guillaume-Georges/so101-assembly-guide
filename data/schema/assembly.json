@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://so101-assembly-guide/schema/assembly.json",
-  "title": "assemblies/<name>.yaml — ordered build steps",
+  "title": "assemblies/<name>.yaml \u2014 ordered build steps",
   "type": "array",
   "items": {
     "type": "object",
@@ -11,11 +11,24 @@
         "pattern": "^[FL]-\\d{3}$",
         "description": "F-### for follower, L-### for leader. Stable; never reused."
       },
-      "title": { "type": "string", "minLength": 1 },
-      "assembly": { "$ref": "common.json#/$defs/assembly" },
+      "slug": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "maxLength": 60,
+        "description": "URL slug, unique across all steps, frozen at first publish and never changed (ADR-0002)"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "assembly": {
+        "$ref": "common.json#/$defs/assembly"
+      },
       "parts": {
         "type": "array",
-        "items": { "$ref": "common.json#/$defs/id" },
+        "items": {
+          "$ref": "common.json#/$defs/id"
+        },
         "minItems": 1,
         "uniqueItems": true,
         "description": "parts.yaml ids installed in this step"
@@ -25,14 +38,21 @@
         "pattern": "^[a-z][a-z0-9_]*$",
         "description": "joint name resolved via servos.yaml for this assembly"
       },
-      "orientation_note": { "type": "string" },
+      "orientation_note": {
+        "type": "string"
+      },
       "fasteners": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "id": { "$ref": "common.json#/$defs/id" },
-            "qty": { "type": "integer", "minimum": 1 }
+            "id": {
+              "$ref": "common.json#/$defs/id"
+            },
+            "qty": {
+              "type": "integer",
+              "minimum": 1
+            }
           },
           "required": ["id", "qty"],
           "additionalProperties": false
@@ -40,15 +60,25 @@
       },
       "tools": {
         "type": "array",
-        "items": { "$ref": "common.json#/$defs/id" },
+        "items": {
+          "$ref": "common.json#/$defs/id"
+        },
         "uniqueItems": true
       },
       "cable_path": {
         "type": "array",
-        "items": { "$ref": "common.json#/$defs/point3" },
+        "items": {
+          "$ref": "common.json#/$defs/point3"
+        },
         "minItems": 2
       },
-      "warnings": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "warnings": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "check": {
         "type": "string",
         "minLength": 1,
@@ -58,11 +88,19 @@
         "type": "string",
         "description": "Free-text detail; must not introduce facts absent from source"
       },
-      "source": { "$ref": "common.json#/$defs/sources" },
-      "unverified": { "type": "boolean", "default": false },
-      "approximation": { "type": "boolean", "default": false }
+      "source": {
+        "$ref": "common.json#/$defs/sources"
+      },
+      "unverified": {
+        "type": "boolean",
+        "default": false
+      },
+      "approximation": {
+        "type": "boolean",
+        "default": false
+      }
     },
-    "required": ["id", "title", "assembly", "parts", "check", "source"],
+    "required": ["id", "slug", "title", "assembly", "parts", "check", "source"],
     "additionalProperties": false
   }
 }

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/troubleshooting.json",
+  "title": "troubleshooting.yaml — assembly issues, titled by the exact error string or symptom",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "slug": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "maxLength": 60,
+        "description": "URL slug, unique, frozen at first publish"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Exact error string or the symptom as a builder would type it"
+      },
+      "aliases": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "symptoms": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+      "cause": { "type": "string", "minLength": 1 },
+      "fix": { "type": "string", "minLength": 1 },
+      "related_steps": {
+        "type": "array",
+        "items": { "type": "string", "pattern": "^[FL]-\\d{3}$" },
+        "uniqueItems": true
+      },
+      "related_parts": {
+        "type": "array",
+        "items": { "$ref": "common.json#/$defs/id" },
+        "uniqueItems": true
+      },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "slug", "title", "symptoms", "cause", "fix", "source"],
+    "additionalProperties": false
+  }
+}

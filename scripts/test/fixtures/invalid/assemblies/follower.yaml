@@ -1,4 +1,5 @@
 - id: F-001
+  slug: mount-shoulder-pan-servo
   title: Bad step
   assembly: follower
   parts: [does-not-exist]

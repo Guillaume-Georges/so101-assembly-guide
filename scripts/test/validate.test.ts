@@ -36,6 +36,7 @@ describe('cross-references', () => {
   it('lists flags', () => {
     expect(listFlags(loadDataset(fx('valid')))).toEqual([
       { file: 'tools.yaml', id: 'hex-1.5', flag: 'unverified' },
+      { file: 'troubleshooting.yaml', id: 'horn-binds', flag: 'unverified' },
     ]);
   });
 });

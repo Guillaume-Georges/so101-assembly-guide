@@ -1,4 +1,5 @@
 - id: F-001
+  slug: mount-shoulder-pan-servo
   title: Mount shoulder-pan servo to base
   assembly: follower
   parts: [base-plate, servo-sts3215-345]

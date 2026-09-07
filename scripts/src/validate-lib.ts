@@ -66,6 +66,8 @@ export function validateCrossRefs(ds: Dataset, placementsPath = PLACEMENTS_JSON)
   const fastenerIds = uniqueIds(ds.fasteners, 'fasteners.yaml', p);
   const toolIds = uniqueIds(ds.tools, 'tools.yaml', p);
   uniqueIds(ds.servos, 'servos.yaml', p);
+  uniqueIds(ds.troubleshooting, 'troubleshooting.yaml', p);
+  uniqueIds(ds.vendors, 'vendors.yaml', p);
 
   const requireSource = (
     file: string,
@@ -91,12 +93,18 @@ export function validateCrossRefs(ds: Dataset, placementsPath = PLACEMENTS_JSON)
   }
 
   const stepIds = new Set<string>();
+  const slugs = new Set<string>();
+  const uniqueSlug = (file: string, it: { id: string; slug: string }) => {
+    if (slugs.has(it.slug)) p.push({ file, where: it.id, message: `duplicate slug '${it.slug}'` });
+    slugs.add(it.slug);
+  };
   for (const [name, steps] of Object.entries(ds.assemblies)) {
     const file = `assemblies/${name}.yaml`;
     const prefix = name === 'follower' ? 'F-' : name === 'leader' ? 'L-' : null;
     for (const st of steps) {
       if (stepIds.has(st.id)) p.push({ file, where: st.id, message: 'duplicate step id (global)' });
       stepIds.add(st.id);
+      uniqueSlug(file, st);
       if (st.assembly !== name)
         p.push({ file, where: st.id, message: `assembly '${st.assembly}' != file '${name}'` });
       if (prefix && !st.id.startsWith(prefix))
@@ -116,6 +124,27 @@ export function validateCrossRefs(ds: Dataset, placementsPath = PLACEMENTS_JSON)
           message: `servo_slot '${st.servo_slot}' not in servos.yaml for ${name}`,
         });
     }
+  }
+
+  for (const t of ds.troubleshooting) {
+    requireSource('troubleshooting.yaml', t);
+    uniqueSlug('troubleshooting.yaml', t);
+    for (const id of t.related_steps ?? [])
+      if (!stepIds.has(id))
+        p.push({ file: 'troubleshooting.yaml', where: t.id, message: `unknown step '${id}'` });
+    for (const id of t.related_parts ?? [])
+      if (!partIds.has(id))
+        p.push({ file: 'troubleshooting.yaml', where: t.id, message: `unknown part '${id}'` });
+  }
+  for (const v of ds.vendors) {
+    requireSource('vendors.yaml', v);
+    for (const m of v.part_map ?? [])
+      if (!partIds.has(m.part))
+        p.push({
+          file: 'vendors.yaml',
+          where: v.id,
+          message: `unknown part '${m.part}' in part_map`,
+        });
   }
 
   // Geometry ↔ BOM mapping (Phase 2 output). Every placed solid must map to a part id.
@@ -164,6 +193,8 @@ export function listFlags(
   scan('servos.yaml', ds.servos);
   scan('fasteners.yaml', ds.fasteners);
   scan('tools.yaml', ds.tools);
+  scan('troubleshooting.yaml', ds.troubleshooting);
+  scan('vendors.yaml', ds.vendors);
   for (const [n, s] of Object.entries(ds.assemblies)) scan(`assemblies/${n}.yaml`, s);
   return out;
 }

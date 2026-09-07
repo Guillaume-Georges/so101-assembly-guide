@@ -39,8 +39,29 @@ export type Fastener = Flagged & {
   notes?: string;
 };
 export type Tool = Flagged & { id: string; name: string; size?: string; purchase_note?: string };
+export type Issue = Flagged & {
+  id: string;
+  slug: string;
+  title: string;
+  aliases?: string[];
+  symptoms: string[];
+  cause: string;
+  fix: string;
+  related_steps?: string[];
+  related_parts?: string[];
+};
+export type Vendor = Flagged & {
+  id: string;
+  name: string;
+  url: string;
+  region?: string;
+  kits?: { name: string; url: string; includes: string[] }[];
+  part_map?: { vendor_ref: string; part: string; note?: string }[];
+  notes?: string;
+};
 export type Step = Flagged & {
   id: string;
+  slug: string;
   title: string;
   assembly: string;
   parts: string[];
@@ -59,6 +80,8 @@ export type Dataset = {
   servos: Servo[];
   fasteners: Fastener[];
   tools: Tool[];
+  troubleshooting: Issue[];
+  vendors: Vendor[];
   assemblies: Record<string, Step[]>;
 };
 
@@ -80,6 +103,8 @@ export function dataFiles(dataDir = DATA_DIR): { file: string; schema: string }[
     { file: path.join(dataDir, 'servos.yaml'), schema: 'servos' },
     { file: path.join(dataDir, 'fasteners.yaml'), schema: 'fasteners' },
     { file: path.join(dataDir, 'tools.yaml'), schema: 'tools' },
+    { file: path.join(dataDir, 'troubleshooting.yaml'), schema: 'troubleshooting' },
+    { file: path.join(dataDir, 'vendors.yaml'), schema: 'vendors' },
     ...assemblies,
   ];
 }
@@ -95,6 +120,8 @@ export function loadDataset(dataDir = DATA_DIR): Dataset {
     servos: readYaml(path.join(dataDir, 'servos.yaml')) as Servo[],
     fasteners: readYaml(path.join(dataDir, 'fasteners.yaml')) as Fastener[],
     tools: readYaml(path.join(dataDir, 'tools.yaml')) as Tool[],
+    troubleshooting: readYaml(path.join(dataDir, 'troubleshooting.yaml')) as Issue[],
+    vendors: readYaml(path.join(dataDir, 'vendors.yaml')) as Vendor[],
     assemblies,
   };
 }

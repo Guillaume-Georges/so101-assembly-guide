@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/vendors.json",
+  "title": "vendors.yaml — kit vendors and their part-numbering cross-reference",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "name": { "type": "string", "minLength": 1 },
+      "url": { "type": "string", "pattern": "^https?://" },
+      "region": {
+        "type": "string",
+        "description": "As written upstream, e.g. US, EU, International"
+      },
+      "kits": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "url": { "type": "string", "pattern": "^https?://" },
+            "includes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["printed-frame", "electronics", "complete-arm", "assembled", "parts"]
+              },
+              "minItems": 1
+            },
+            "price": {
+              "type": "object",
+              "description": "Only with a retrieved date (contract: no prices without one)",
+              "properties": {
+                "amount": { "type": "number" },
+                "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+                "retrieved": { "type": "string", "format": "date" }
+              },
+              "required": ["amount", "currency", "retrieved"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["name", "url", "includes"],
+          "additionalProperties": false
+        }
+      },
+      "part_map": {
+        "type": "array",
+        "description": "Vendor part number or name -> our part id",
+        "items": {
+          "type": "object",
+          "properties": {
+            "vendor_ref": { "type": "string", "minLength": 1 },
+            "part": { "$ref": "common.json#/$defs/id" },
+            "note": { "type": "string" }
+          },
+          "required": ["vendor_ref", "part"],
+          "additionalProperties": false
+        }
+      },
+      "notes": { "type": "string" },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "name", "url", "source"],
+    "additionalProperties": false
+  }
+}
