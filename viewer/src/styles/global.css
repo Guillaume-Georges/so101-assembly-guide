@@ -853,3 +853,16 @@ ol.milestones .lbl {
 .viewer {
   background: color-mix(in srgb, var(--bg-2) 88%, var(--fg));
 }
+
+/* Part name chips anchored to current parts in the island; hidden while dragging. */
+.viewer .lbl3d {
+  display: inline-block;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  color: var(--fg);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transform: translateY(-1.4rem);
+}
