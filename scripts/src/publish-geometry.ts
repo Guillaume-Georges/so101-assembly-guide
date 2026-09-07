@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { REPO_ROOT } from './paths.js';
 
 const SRC = path.join(REPO_ROOT, 'pipeline', 'out');
-const DST = path.join(REPO_ROOT, 'viewer', 'public', 'geometry');
+const DST = path.join(REPO_ROOT, 'viewer', 'public', 'so101', 'geometry');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const cli = path.join(here, '..', 'node_modules', '.bin', 'gltf-transform');
 
@@ -32,5 +32,5 @@ for (const f of fs
 }
 fs.copyFileSync(path.join(SRC, 'placements.json'), path.join(DST, 'placements.json'));
 console.log(
-  `✓ published ${fs.readdirSync(DST).length - 1} GLBs to viewer/public/geometry (${(before / 1024).toFixed(0)} KB -> ${(after / 1024).toFixed(0)} KB, meshopt)`,
+  `✓ published ${fs.readdirSync(DST).length - 1} GLBs to viewer/public/so101/geometry (${(before / 1024).toFixed(0)} KB -> ${(after / 1024).toFixed(0)} KB, meshopt)`,
 );

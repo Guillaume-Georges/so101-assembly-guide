@@ -1,0 +1,21 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Sources from '../../../components/Sources.astro';
+import { data } from '../../../lib/data';
+import { withBase, breadcrumbs } from '../../../lib/seo';
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: data.faq.map((q) => ({ '@type': 'Question', name: q.question, acceptedAnswer: { '@type': 'Answer', text: q.answer } })) };
+---
+<Base title="FAQ" path="/faq/" section="/faq/" description="SO-101 assembly FAQ: which servo at which joint, which power supply, which screws, servo IDs before assembly, cable clips, why motor 5 has one horn." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq/' }], site.toString()), faq]}>
+  <h1>Frequently asked questions</h1>
+  {data.faq.map((q) => (
+    <section class="card" id={q.id}>
+      <h2>{q.question}</h2>
+      <p>{q.answer}</p>
+      {q.related?.length ? <p class="muted">See: {q.related.map((r) => <a href={withBase(r)}>{r} </a>)}</p> : null}
+      <Sources sources={q.source} />
+    </section>
+  ))}
+  <h2>Where sources disagree</h2>
+  <p>Six recorded discrepancies between the upstream repo, the LeRobot page, the Feetech datasheet and vendor wikis are kept in <a href="https://github.com/Guillaume-Georges/so101-assembly-guide/blob/main/data/discrepancies.md">discrepancies.md</a>.</p>
+</Base>

@@ -1,0 +1,38 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Flags from '../../../components/Flags.astro';
+import { ASSEMBLIES, steps, stepPath, data, JOINT_ORDER, jointLabel } from '../../../lib/data';
+import { withBase, breadcrumbs } from '../../../lib/seo';
+export function getStaticPaths() {
+  return ASSEMBLIES.map((assembly) => ({ params: { assembly } }));
+}
+const { assembly } = Astro.params as { assembly: string };
+const list = steps(assembly);
+const servos = JOINT_ORDER.map((j) => data.servos.find((s) => s.assembly === assembly && s.joint === j)).filter(Boolean);
+const title = `${assembly[0].toUpperCase()}${assembly.slice(1)} arm assembly`;
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+---
+<Base title={title} path={`/${assembly}/`} section={`/${assembly}/`} description={`All ${list.length} SO-101 ${assembly} arm assembly steps in upstream order, with servo, screws, tool and check for each.`} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: title, path: `/${assembly}/` }], site.toString())]}>
+  <h1>{title}</h1>
+  <p>{list.length} steps in the order of the LeRobot SO-101 page. <span id="resume"></span></p>
+  <h2>Servos for this arm</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>ID</th><th>Joint</th><th>Gear ratio</th><th>Servo</th><th>Supply</th></tr></thead>
+    <tbody>{servos.map((s) => s && (
+      <tr><td>{s.bus_id}</td><td><a href={withBase(`/servos/${s.assembly}/${s.joint}/`)}>{jointLabel(s.joint)}</a></td><td>{s.gear_ratio}</td><td><a href={withBase(`/parts/${s.part}/`)}>{s.part}</a></td><td>{s.variants.map((v) => `${v.servo_voltage} → ${v.supply}`).join(' / ')}</td></tr>
+    ))}</tbody>
+  </table></div>
+  <h2>Steps</h2>
+  <ol class="steps">
+    {list.map((s) => (
+      <li><a href={withBase(stepPath(s))}>{s.id} {s.title}</a> <Flags unverified={s.unverified} approximation={s.approximation} /></li>
+    ))}
+  </ol>
+  <script is:inline define:vars={{ assembly }}>
+    try {
+      const last = localStorage.getItem(`so101:last:${assembly}`);
+      const el = document.getElementById('resume');
+      if (last && el) el.innerHTML = `<a href="${last}">Resume where you left off →</a>`;
+    } catch {}
+  </script>
+</Base>

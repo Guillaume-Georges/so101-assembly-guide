@@ -1,0 +1,39 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Flags from '../../../components/Flags.astro';
+import Sources from '../../../components/Sources.astro';
+import { data, stepPath } from '../../../lib/data';
+import { withBase, breadcrumbs } from '../../../lib/seo';
+export function getStaticPaths() {
+  return data.parts.map((p) => ({ params: { id: p.id }, props: { p } }));
+}
+const { p } = Astro.props;
+const used = Object.values(data.assemblies).flat().filter((s) => s.parts.includes(p.id));
+const vendorRefs = data.vendors.flatMap((v) => (v.part_map ?? []).filter((m) => m.part === p.id).map((m) => ({ vendor: v.name, ref: m.vendor_ref, note: m.note })));
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+const upstream = p.source_file ? `https://github.com/TheRobotStudio/SO-ARM100/blob/eecbe3e0a9ebb23e25ad7b2759b03884c6660903/${p.source_file.replace('upstream/SO-ARM100/', '')}` : undefined;
+---
+<Base title={p.name} path={`/parts/${p.id}/`} section="/parts/" description={`${p.name}: SO-101 ${p.category} part, qty ${p.qty}, used in ${used.length} steps. ${(p.notes ?? '').slice(0, 90)}`} noindex={!!p.unverified} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Parts', path: '/parts/' }, { name: p.name, path: `/parts/${p.id}/` }], site.toString())]}>
+  <p class="muted"><a href={withBase('/parts/')}>Parts</a> · {p.category}</p>
+  <h1>{p.name} <Flags unverified={p.unverified} approximation={p.approximation} /></h1>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+    <div class="card">
+      <h2>Details</h2>
+      <ul class="plain">
+        <li><strong>Id:</strong> <code>{p.id}</code></li>
+        <li><strong>Quantity:</strong> {p.qty}</li>
+        <li><strong>Arms:</strong> {p.assembly.join(', ')}</li>
+        {p.source_file && <li><strong>Upstream file:</strong> <a href={upstream}>{p.source_file.replace('upstream/SO-ARM100/', '')}</a> ({p.licence})</li>}
+        {p.aka?.length ? <li><strong>Also called:</strong> {p.aka.join('; ')}</li> : null}
+        {p.geometry_names?.length ? <li><strong>Name in the assembly CAD:</strong> {p.geometry_names.join(', ')}</li> : null}
+      </ul>
+      {p.notes && <p>{p.notes}</p>}
+    </div>
+    <div class="card">
+      <h2>Used in</h2>
+      <ul class="plain">{used.map((s) => <li><a href={withBase(stepPath(s))}>{s.id} {s.title}</a></li>)}</ul>
+      {vendorRefs.length ? (<><h2>Vendor part numbers</h2><ul class="plain">{vendorRefs.map((v) => <li>{v.vendor}: <strong>{v.ref}</strong>{v.note ? <span class="muted"> — {v.note}</span> : null}</li>)}</ul></>) : null}
+    </div>
+  </div>
+  <Sources sources={p.source} />
+</Base>

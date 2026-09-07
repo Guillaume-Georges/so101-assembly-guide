@@ -4,8 +4,8 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import { readFileSync } from 'node:fs';
 
-// GitHub Pages project site until a custom domain exists (ADR-0002). CI passes SITE/BASE.
-const site = process.env.SITE ?? 'https://guillaume-georges.github.io';
+// kitsmith.dev at base /. Any other host/base is passed in by CI (SITE / VITE_BASE).
+const site = process.env.SITE ?? 'https://kitsmith.dev';
 const base = (process.env.VITE_BASE ?? process.env.BASE ?? '/').replace(/\/$/, '') || '/';
 
 // unverified steps and issues are noindex and never in the sitemap (CLAUDE.md non-negotiable 1)
@@ -26,7 +26,8 @@ export default defineConfig({
     react(),
     sitemap({
       // site-relative paths; `page` is the absolute URL. Embeds are noindex too.
-      filter: (page) => !page.includes('/embed/') && ![...noindex].some((p) => page.includes(p)),
+      filter: (page) =>
+        !page.includes('/so101/embed/') && ![...noindex].some((p) => page.includes(p)),
     }),
   ],
   build: { inlineStylesheets: 'auto' },

@@ -8,6 +8,6 @@ export const GET: APIRoute = ({ site }) => {
   // this file and the per-page noindex meta together (see lib/seo.ts).
   const body = NOINDEX
     ? 'User-agent: *\nDisallow: /\n'
-    : `User-agent: *\nAllow: /\nDisallow: ${base}/embed/\n\nSitemap: ${sitemap}\n`;
+    : `User-agent: *\nAllow: /\nDisallow: ${base}/so101/embed/\n\nSitemap: ${sitemap}\n`;
   return new Response(body, { headers: { 'Content-Type': 'text/plain' } });
 };

@@ -1,0 +1,15 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Sources from '../../../components/Sources.astro';
+import { data } from '../../../lib/data';
+import { breadcrumbs } from '../../../lib/seo';
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+---
+<Base title="SO-100 vs SO-101" path="/compare/so-100-vs-so-101/" description="SO-100 vs SO-101: what changed between the two TheRobotStudio arms — assembly (no gear removal), wiring grooves, leader servo gear ratios, base part and print settings — from the upstream repo." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'SO-100 vs SO-101', path: '/compare/so-100-vs-so-101/' }], site.toString())]}>
+  <h1>SO-100 vs SO-101</h1>
+  <p>Both arms live in the same upstream repository; every row cites it or a vendor wiki. Other arms are out of scope here.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Topic</th><th>SO-100</th><th>SO-101</th><th>Source</th></tr></thead>
+    <tbody>{data.compare.map((r) => <tr><td><strong>{r.topic}</strong></td><td>{r.so100}</td><td>{r.so101}</td><td><Sources sources={r.source} title="src" /></td></tr>)}</tbody>
+  </table></div>
+</Base>

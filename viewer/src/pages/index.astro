@@ -1,31 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 import { data, steps } from '../lib/data';
-import { withBase, SITE_NAME, DESCRIPTION } from '../lib/seo';
-const counts = { follower: steps('follower').length, leader: steps('leader').length };
-const site = Astro.site ?? new URL('https://guillaume-georges.github.io');
-const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: new URL(withBase('/'), site).toString(), description: DESCRIPTION }];
+import { withBase, sitePath } from '../lib/seo';
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Kitsmith', url: new URL(sitePath('/'), site).toString(), description: 'Source-traceable build companions for open-hardware kits.' }];
 ---
-<Base title={SITE_NAME} path="/" jsonLd={jsonLd}>
-  <h1>SO-101 Assembly Guide</h1>
-  <p>
-    A build companion for the <a href="https://github.com/TheRobotStudio/SO-ARM100">SO-101</a> open-source robot arm. Every step
-    says which parts, which servo and gear ratio, which screws and tool, how the cable runs, and what to check before moving on.
-    Every fact links to its public source. What no source confirms is flagged, never invented.
-  </p>
-  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
-    <a class="card" href={withBase('/follower/')}><h2>Follower arm</h2><p>{counts.follower} steps · six STS3215 1:345 servos</p></a>
-    <a class="card" href={withBase('/leader/')}><h2>Leader arm</h2><p>{counts.leader} steps · three gear ratios, handle and trigger</p></a>
-    <a class="card" href={withBase('/servos/')}><h2>Servos by joint</h2><p>IDs, gear ratios, voltages and supply per joint</p></a>
-    <a class="card" href={withBase('/parts/')}><h2>Bill of materials</h2><p>{data.parts.length} parts with upstream file, licence and vendor names</p></a>
-    <a class="card" href={withBase('/troubleshooting/')}><h2>Troubleshooting</h2><p>{data.troubleshooting.length} assembly issues, searchable by error string</p></a>
-    <a class="card" href={withBase('/kits/')}><h2>Kits and vendor part numbers</h2><p>{data.vendors.length} vendors, cross-referenced to upstream part names</p></a>
+<Base title="Kitsmith" path="/" description="Kitsmith: source-traceable, step-by-step build companions for open-hardware kits. First guide: the SO-101 robot arm, with a 3D view for every step." jsonLd={jsonLd}>
+  <h1>Kitsmith</h1>
+  <p>Build companions for open-hardware kits: one page per step, the exact parts and screws, a check before you move on, and a source for every fact. Nothing invented; what no source confirms is flagged.</p>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));">
+    <a class="card" href={withBase('/')}>
+      <h2>SO-101 robot arm</h2>
+      <p>{steps('follower').length + steps('leader').length} steps across the follower and leader arms, {data.parts.length} parts, servo and gear ratio per joint, 3D view per step.</p>
+    </a>
   </div>
-  <h2>Before you start</h2>
-  <ul>
-    <li><a href={withBase('/print-settings/')}>Print settings</a> from the upstream README.</li>
-    <li><a href={withBase('/follower/002-follower-set-servo-ids/')}>Set servo IDs before assembling</a>: every source agrees.</li>
-    <li><a href={withBase('/compare/so-100-vs-so-101/')}>SO-100 vs SO-101</a> if you are not sure which arm you have.</li>
-  </ul>
-  <p class="muted">Data compiled {data.generated_at.slice(0, 10)} from SO-ARM100 and LeRobot at pinned commits; build {data.commit}.</p>
+  <p class="muted">More kits later. Source and corrections on <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">GitHub</a>.</p>
 </Base>

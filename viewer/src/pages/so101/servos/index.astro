@@ -1,0 +1,30 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Sources from '../../../components/Sources.astro';
+import { data, JOINT_ORDER, jointLabel } from '../../../lib/data';
+import { withBase, breadcrumbs } from '../../../lib/seo';
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+const rows = JOINT_ORDER.map((j) => ({ j, f: data.servos.find((s) => s.assembly === 'follower' && s.joint === j), l: data.servos.find((s) => s.assembly === 'leader' && s.joint === j) }));
+const uniq = [...new Map(data.servos.flatMap((s) => s.source).map((s) => [s.ref + (s.note ?? ''), s])).values()];
+---
+<Base title="Which servo goes at which joint" path="/servos/" section="/servos/" description="SO-101 servo table: bus ID, gear ratio (1:345, 1:191, 1:147), Feetech product code, servo voltage and power supply for every follower and leader joint." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Servos', path: '/servos/' }], site.toString())]}>
+  <h1>Servos by joint</h1>
+  <p>All servos are Feetech STS3215. The follower uses one gear ratio at every joint; the leader uses three so it holds its own weight yet moves freely. IDs count from the base.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>ID</th><th>Joint</th><th>Follower</th><th>Leader</th></tr></thead>
+    <tbody>{rows.map(({ j, f, l }) => (
+      <tr>
+        <td>{f?.bus_id}</td>
+        <td>{jointLabel(j)}</td>
+        <td>{f && <a href={withBase(`/servos/follower/${j}/`)}>{f.gear_ratio}</a>} <span class="muted">{f?.part.replace('servo-sts3215-', '')}</span></td>
+        <td>{l && <a href={withBase(`/servos/leader/${j}/`)}>{l.gear_ratio}</a>} <span class="muted">{l?.part.replace('servo-sts3215-', '')}</span></td>
+      </tr>
+    ))}</tbody>
+  </table></div>
+  <h2>Voltage and supply</h2>
+  <ul>
+    {data.servos.filter((s) => s.assembly === 'follower').slice(0, 1).flatMap((s) => s.variants).map((v) => <li>Follower: {v.servo_voltage} servos on a {v.supply} supply{v.default ? ' (standard)' : ' (optional)'}. {v.note}</li>)}
+    {data.servos.filter((s) => s.assembly === 'leader').slice(0, 1).flatMap((s) => s.variants).map((v) => <li>Leader: {v.servo_voltage} servos on a {v.supply} supply. {v.note}</li>)}
+  </ul>
+  <Sources sources={uniq} />
+</Base>

@@ -1,0 +1,10 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { data } from '../../../lib/data';
+import { withBase, breadcrumbs } from '../../../lib/seo';
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+---
+<Base title="Tools" path="/tools/" description="Tools needed to assemble the SO-101: Phillips #0 and #1 screwdrivers, a small screwdriver and a putty knife for print cleanup." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Tools', path: '/tools/' }], site.toString())]}>
+  <h1>Tools</h1>
+  <ul class="plain">{data.tools.map((t) => <li><a href={withBase(`/tools/${t.id}/`)}>{t.name}</a>{t.size ? ` (${t.size})` : ''}</li>)}</ul>
+</Base>

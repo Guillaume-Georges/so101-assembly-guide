@@ -204,7 +204,7 @@ function Scene({
               centre={centre}
               ghost={ghost}
               onPick={onPick}
-              url={`${base}geometry/${p.mesh}`}
+              url={`${base}so101/geometry/${p.mesh}`}
             />
           );
         })}
@@ -228,7 +228,7 @@ function Scene({
               centre={centre}
               ghost={ghost}
               onPick={onPick}
-              url={`${base}geometry/${p.mesh}`}
+              url={`${base}so101/geometry/${p.mesh}`}
             />
           );
         })}
@@ -254,8 +254,8 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     Promise.all([
-      fetch(`${base}data/${assembly}.json`).then((r) => r.json()),
-      fetch(`${base}geometry/placements.json`).then((r) => r.json()),
+      fetch(`${base}so101/data/${assembly}.json`).then((r) => r.json()),
+      fetch(`${base}so101/geometry/placements.json`).then((r) => r.json()),
     ])
       .then(([a, g]) => {
         setArm(a);
@@ -271,7 +271,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   if (next)
     for (const p of placements)
       if (visibility(p, arm.steps, k + 1, assembly) === 'current')
-        useGLTF.preload(`${base}geometry/${p.mesh}`);
+        useGLTF.preload(`${base}so101/geometry/${p.mesh}`);
   return (
     <>
       <Canvas
@@ -316,7 +316,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
           <strong>{arm.parts[picked.id]?.name ?? picked.id}</strong>{' '}
           {picked.approximation ? <span className="flag approximation">approximation</span> : null}
           <div>
-            <a href={`${base}parts/${picked.id}/`}>BOM entry and sources →</a>
+            <a href={`${base}so101/parts/${picked.id}/`}>BOM entry and sources →</a>
           </div>
         </div>
       )}

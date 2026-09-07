@@ -1,0 +1,20 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Sources from '../../../components/Sources.astro';
+import { data, stepPath } from '../../../lib/data';
+import { withBase, breadcrumbs } from '../../../lib/seo';
+export function getStaticPaths() {
+  return data.tools.map((t) => ({ params: { id: t.id }, props: { t } }));
+}
+const { t } = Astro.props;
+const used = Object.values(data.assemblies).flat().filter((s) => s.tools?.includes(t.id));
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+---
+<Base title={t.name} path={`/tools/${t.id}/`} description={`${t.name}${t.size ? ' ' + t.size : ''}: used in ${used.length} SO-101 assembly steps. ${t.purchase_note ?? ''}`} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Tools', path: '/tools/' }, { name: t.name, path: `/tools/${t.id}/` }], site.toString())]}>
+  <p class="muted"><a href={withBase('/tools/')}>Tools</a></p>
+  <h1>{t.name}{t.size ? ` (${t.size})` : ''}</h1>
+  {t.purchase_note && <p>{t.purchase_note}</p>}
+  <h2>Used in</h2>
+  <ul class="plain">{used.map((s) => <li><a href={withBase(stepPath(s))}>{s.id} {s.title}</a></li>)}</ul>
+  <Sources sources={t.source} />
+</Base>

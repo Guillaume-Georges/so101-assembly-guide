@@ -10,7 +10,14 @@ export const NOINDEX = __SITE_INDEXABLE__ !== 'true';
 export const DESCRIPTION =
   'Source-traceable, step-by-step assembly guide for the SO-101 robot arm: parts, servos and gear ratios per joint, screws, tools, cable routing, checks, and a 3D view for every step.';
 
+/** The SO-101 guide lives under /so101/ on kitsmith.dev (brand site, more kits later). */
+export const GUIDE = '/so101';
+/** Site-relative path for a page of the SO-101 guide. */
 export function withBase(path: string): string {
+  return sitePath(GUIDE + (path.startsWith('/') ? path : '/' + path));
+}
+/** Site-relative path for a root-level asset or page (manifest, favicon, landing). */
+export function sitePath(path: string): string {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   return base + (path.startsWith('/') ? path : '/' + path);
 }

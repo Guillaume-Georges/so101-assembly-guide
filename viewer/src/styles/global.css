@@ -365,3 +365,12 @@ ol.steps li a {
     break-inside: avoid;
   }
 }
+
+header.site a.kitsmith {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+}

@@ -3,9 +3,9 @@
     "collect": {
       "staticDistDir": "./viewer/dist",
       "url": [
-        "http://localhost/so101-assembly-guide/follower/011-follower-joint1-motor-into-base/",
-        "http://localhost/so101-assembly-guide/",
-        "http://localhost/so101-assembly-guide/troubleshooting/setup-motors-error-check-cables/"
+        "http://localhost/so101/follower/011-follower-joint1-motor-into-base/",
+        "http://localhost/",
+        "http://localhost/so101/troubleshooting/setup-motors-error-check-cables/"
       ],
       "numberOfRuns": 1,
       "settings": { "preset": "desktop" }

@@ -1,0 +1,28 @@
+---
+import '../../../../styles/global.css';
+import Viewer from '../../../../island/Viewer';
+import { ASSEMBLIES, steps, stepNumber, stepPath } from '../../../../lib/data';
+import { withBase } from '../../../../lib/seo';
+export function getStaticPaths() {
+  return ASSEMBLIES.flatMap((assembly) => steps(assembly).map((s) => ({ params: { assembly, step: `${stepNumber(s.id)}-${s.slug}` }, props: { s } })));
+}
+const { assembly } = Astro.params as { assembly: string };
+const { s } = Astro.props;
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{s.id} {s.title} — embed</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={new URL(withBase(stepPath(s)), site).toString()} />
+    <style>html, body { height: 100%; margin: 0; } .viewer { min-height: 100vh; border: 0; border-radius: 0; }</style>
+  </head>
+  <body>
+    <div class="viewer">
+      <Viewer client:load assembly={assembly} stepId={s.id} base={withBase('/')} embed />
+      <a class="pick" style="top:auto;bottom:0.5rem;right:0.5rem;left:auto" href={new URL(withBase(stepPath(s)), site).toString()} target="_top">{s.id} {s.title} ↗</a>
+    </div>
+  </body>
+</html>

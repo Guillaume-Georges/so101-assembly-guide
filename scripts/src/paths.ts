@@ -11,6 +11,7 @@ export const PLACEMENTS_JSON = path.join(
   REPO_ROOT,
   'viewer',
   'public',
+  'so101',
   'geometry',
   'placements.json',
 );

@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, DESCRIPTION, withBase, NOINDEX } from '../lib/seo';
+import { SITE_NAME, DESCRIPTION, withBase, sitePath, NOINDEX } from '../lib/seo';
 import Search from '../components/Search.astro';
 
 interface Props {
@@ -13,12 +13,13 @@ interface Props {
   section?: string;
 }
 const { title, description = DESCRIPTION, path, noindex = false, jsonLd = [], ogImage, section } = Astro.props;
-const site = Astro.site ?? new URL('https://guillaume-georges.github.io');
-const canonical = new URL(withBase(path), site).toString();
+const site = Astro.site ?? new URL('https://kitsmith.dev');
+const canonicalPath = path === '/' ? sitePath('/') : withBase(path);
+const canonical = new URL(canonicalPath, site).toString();
 const og = new URL(withBase(ogImage ?? '/og/site.png'), site).toString();
 const analytics = import.meta.env.PUBLIC_ANALYTICS_SCRIPT as string | undefined;
 const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | undefined;
-const fullTitle = path === '/' ? SITE_NAME : `${title} · ${SITE_NAME}`;
+const fullTitle = path === '/' ? title : title === SITE_NAME ? `${SITE_NAME} · Kitsmith` : `${title} · ${SITE_NAME}`;
 const nav = [
   ['Follower', '/follower/'],
   ['Leader', '/leader/'],
@@ -47,9 +48,9 @@ const nav = [
     <meta property="og:image" content={og} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#111318" />
-    <link rel="manifest" href={withBase('/manifest.webmanifest')} />
-    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
-    {!NOINDEX && <link rel="sitemap" href={withBase('/sitemap-index.xml')} />}
+    <link rel="manifest" href={sitePath('/manifest.webmanifest')} />
+    <link rel="icon" href={sitePath('/favicon.svg')} type="image/svg+xml" />
+    {!NOINDEX && <link rel="sitemap" href={sitePath('/sitemap-index.xml')} />}
     {jsonLd.map((o) => <script is:inline type="application/ld+json" set:html={JSON.stringify(o)} />)}
     {analytics && <script is:inline defer data-domain={analyticsDomain} src={analytics}></script>}
   </head>
@@ -57,6 +58,7 @@ const nav = [
     <header class="site">
       <div class="wrap">
         <a class="brand" href={withBase('/')}>{SITE_NAME}</a>
+        <a class="kitsmith" href={sitePath('/')} title="Kitsmith home">kitsmith.dev</a>
         <nav class="primary" aria-label="Sections">
           {nav.map(([label, href]) => (
             <a href={withBase(href)} aria-current={section === href ? 'page' : undefined}>{label}</a>

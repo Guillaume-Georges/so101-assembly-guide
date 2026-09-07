@@ -1,0 +1,1965 @@
+{
+  "meta": {
+    "step": "upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step",
+    "upstream_commit": "eecbe3e",
+    "units": "m",
+    "up": "Y",
+    "transform": "row-major 4x4, GLB frame"
+  },
+  "placements": [
+    {
+      "kind": "part",
+      "id": "base-so101",
+      "mesh": "base-so101.glb",
+      "name": "Base_SO101 v12:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, 0.0, 0.0, 0.0, -0.0, -1.0, 0.000394296, -0.0, 1.0, -0.0, -0.037922153, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "rotation-pitch-so101",
+      "mesh": "rotation-pitch-so101.glb",
+      "name": "Rotation_Pitch_SO101 v8:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, 1.0, 0.0, -9.9432e-5, 0.008726535, 0.0, -0.999961923, 0.019487879, -0.999961923, -0.0,
+        -0.008726535, -0.00483198, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "upper-arm-so101",
+      "mesh": "upper-arm-so101.glb",
+      "name": "=>[0:1:1:7]",
+      "path": "SO101 Assembly v4/Upper_arm_SO101 v9:1",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, 0.001475143, -0.008726203, -7.6152e-5, -0.999961923,
+        0.108326966, 0.999923848, 0.008726203, -0.008726535, -0.026461585, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "under-arm-so101",
+      "mesh": "under-arm-so101.glb",
+      "name": "=>[0:1:1:10]",
+      "path": "SO101 Assembly v4/Under_arm_SO101 v12:1",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, 0.004398963, 0.008726203, -0.008802353,
+        0.999923183, 0.1160481, -0.999923848, 0.008649719, 0.008802353, -0.009153487, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "base-motor-holder-so101",
+      "mesh": "base-motor-holder-so101.glb",
+      "name": "Base_08p v18:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, -0.0, -9.9432e-5, -0.0, -0.0, -1.0, 0.000394296, -0.0, 1.0, -0.0, -0.037922153,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "aka",
+      "note": "matched via aka; part stays unverified (D-005)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "motor-holder-so101-base",
+      "mesh": "motor-holder-so101-base.glb",
+      "name": "=>[0:1:1:16]",
+      "path": "SO101 Assembly v4/Motor_holder_SO101_Base v6:1",
+      "transform": [
+        0.0, -1.0, 0.0, -0.000299432, -0.999961923, -0.0, 0.008726535, 0.04934043, -0.008726535,
+        -0.0, -0.999961923, 0.075231578, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "motor-holder-so101-wrist",
+      "mesh": "motor-holder-so101-wrist.glb",
+      "name": "=>[0:1:1:20]",
+      "path": "SO101 Assembly v4/Motor_holder_SO101_Wrist v8:1",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, 0.004198978, 0.008726203, -0.008802353,
+        0.999923183, 0.116046339, -0.999923848, 0.008649719, 0.008802353, -0.009151757, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "wrist-roll-pitch-so101",
+      "mesh": "wrist-roll-pitch-so101.glb",
+      "name": "=>[0:1:1:23]",
+      "path": "SO101 Assembly v4/Wrist_Roll_Pitch_SO100 v15:1",
+      "transform": [
+        0.999847701, -6.65e-7, -0.017452074, 0.005534811, 0.017451404, 0.008802682, 0.999808962,
+        0.152321182, 0.000152961, -0.999961256, 0.008801353, 0.088578414, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "aka",
+      "note": "matched via aka; part stays unverified (D-005)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "wrist-roll-follower-so101",
+      "mesh": "wrist-roll-follower-so101.glb",
+      "name": "=>[0:1:1:28]",
+      "path": "SO101 Assembly v4/Wrist_Roll_Follower_SO101 v10:1",
+      "transform": [
+        -0.017452076, 6.65e-7, 0.999847701, 0.006843626, 0.999808962, -0.008802682, 0.017451406,
+        0.152057056, 0.008801353, 0.999961256, 0.000152961, 0.121177644, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "moving-jaw-so101",
+      "mesh": "moving-jaw-so101.glb",
+      "name": "Moving_Jaw_SO101 v3:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999961926, -0.008726205, 0.006367508, 0.008802682, -0.008725873, 0.999923183,
+        0.171913453, -0.999961256, -7.615e-5, 0.008802353, 0.145703091, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower"],
+      "host": null
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, -0.0, -0.01025, 0.0, -1.0, 0.0, 0.028594296, -0.0, -0.0, -1.0, -0.025522153, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:2",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, -0.0, 0.01025, 0.0, -1.0, 0.0, 0.028594296, -0.0, -0.0, -1.0, -0.025522153, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:3",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, 1.0, -0.0, 0.020250568, -0.0, 0.0, 1.0, 0.048494296, 1.0, -0.0, 0.0, -0.042419912, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:4",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, -1.0, -0.0, -0.020449432, -0.0, 0.0, -1.0, 0.048494296, 1.0, 0.0, -0.0, -0.042419912,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "tapping-0-48",
+      "mesh": "fastener-tapping-0-48.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 0-48 x 0.1875 Type AB Steel Grade 2 Plain v1:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, -0.0, 0.0, -0.0105, 0.0, 1.0, -0.0, 0.064594296, -0.0, 0.0, 1.0, -0.022022153, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "tapping-0-48",
+      "mesh": "fastener-tapping-0-48.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 0-48 x 0.1875 Type AB Steel Grade 2 Plain v1:2",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, -0.0, 0.0, 0.0105, 0.0, 1.0, -0.0, 0.064594296, -0.0, 0.0, 1.0, -0.022022153, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:5",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, 1.0, -0.0, 0.018300568, -0.999961923, 0.0, -0.008726535, 0.087002994, -0.008726535,
+        0.0, 0.999961923, 0.028108447, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-base", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:6",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, 1.0, 0.0, 0.018400568, 0.008726535, 0.0, -0.999961923, 0.0868241, -0.999961923, 0.0,
+        -0.008726535, 0.048607666, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-base", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:7",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, -1.0, -0.0, -0.017799432, 0.008726535, -0.0, 0.999961923, 0.090623955, -0.999961923,
+        -0.0, 0.008726535, 0.048640827, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-base", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:8",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, -1.0, 0.0, -0.017899432, -0.999961923, -0.0, 0.008726535, 0.090802849, -0.008726535,
+        -0.0, -0.999961923, 0.028141608, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-base", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:9",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, -0.016627271, -0.008726203, -7.6152e-5, -0.999961923,
+        0.119828272, 0.999923848, 0.008726203, -0.008726535, -0.083857622, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:10",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, -0.016448377, -0.008726203, -7.6152e-5, -0.999961923,
+        0.119649385, 0.999923848, 0.008726203, -0.008726535, -0.063359183, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:11",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, 0.999961923, -0.0, 0.019570609, -0.008726203, 7.6152e-5, 0.999961923,
+        0.116031916, 0.999923848, -0.008726203, 0.008726535, -0.084291654, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:12",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, 0.999961923, -0.0, 0.019749502, -0.008726203, 7.6152e-5, 0.999961923,
+        0.115853028, 0.999923848, -0.008726203, 0.008726535, -0.063793215, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:13",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, 0.999923848, 0.008726203, 0.023087438, 0.008726203, 0.008802353, -0.999923183,
+        0.142834703, -0.999923848, -0.008649719, -0.008802353, 0.028169922, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-wrist", "under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:14",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, 0.999923848, 0.008726203, 0.022708566, 0.008726203, 0.008802353, -0.999923183,
+        0.163331368, -0.999923848, -0.008649719, -0.008802353, 0.0283521, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-wrist"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:15",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, -0.013076644, 0.008726203, -0.008802353,
+        0.999923183, 0.142482898, -0.999923848, 0.008649719, 0.008802353, 0.032282752, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-wrist", "under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:16",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, -0.013455516, 0.008726203, -0.008802353,
+        0.999923183, 0.162979563, -0.999923848, 0.008649719, 0.008802353, 0.032464931, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["motor-holder-so101-wrist"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:17",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, -0.999847701, 6.65e-7, -0.010915516, 0.999808962, -0.017451406, -0.008802682,
+        0.13902154, 0.008801353, -0.000152961, 0.999961256, 0.135163157, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:18",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, -0.999847701, 6.65e-7, -0.010915502, 0.999808962, -0.017451406, -0.008802682,
+        0.138841085, 0.008801353, -0.000152961, 0.999961256, 0.155662363, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:19",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.999847701, 6.65e-7, 0.017452074, 0.034351533, 0.017451404, -0.008802682, -0.999808962,
+        0.162786587, 0.000152961, 0.999961256, -0.008801353, 0.121471792, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:20",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.999847701, 6.65e-7, 0.017452074, 0.0347093, 0.017451404, -0.008802682, -0.999808962,
+        0.142290503, 0.000152961, 0.999961256, -0.008801353, 0.121291365, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:21",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, 0.999847701, -6.65e-7, 0.025412637, 0.999808962, 0.017451406, 0.008802682,
+        0.14327559, 0.008801353, 0.000152961, -0.999961256, 0.155701375, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "motor-tab-screw",
+      "mesh": "fastener-motor-tab-screw.glb",
+      "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:22",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, 0.999847701, -6.65e-7, 0.025412623, 0.999808962, 0.017451406, 0.008802682,
+        0.143456045, 0.008801353, 0.000152961, -0.999961256, 0.13520217, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)",
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999961926, -0.008726205, -0.014588497, 0.008802682, -0.008725873, 0.999923183,
+        0.166737271, -0.999961256, -7.615e-5, 0.008802353, 0.150607478, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:2",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999961926, -0.008726205, -0.014588504, 0.008802682, -0.008725873, 0.999923183,
+        0.166824413, -0.999961256, -7.615e-5, 0.008802353, 0.140708366, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:3",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999961926, -0.008726205, -0.014674882, 0.008802682, -0.008725873, 0.999923183,
+        0.176636005, -0.999961256, -7.615e-5, 0.008802353, 0.150694617, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:4",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999961926, -0.008726205, -0.014674889, 0.008802682, -0.008725873, 0.999923183,
+        0.176723148, -0.999961256, -7.615e-5, 0.008802353, 0.140795505, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:5",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999847701, -0.017452074, -0.015648374, 0.008802682, -0.017451404, 0.999808962,
+        0.157104663, -0.999961256, -0.000152961, 0.008801353, 0.065569391, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:6",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999847701, -0.017452074, -0.015475614, 0.008802682, -0.017451404, 0.999808962,
+        0.147294202, -0.999961256, -0.000152961, 0.008801353, 0.055583151, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:7",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999847701, -0.017452074, -0.015475607, 0.008802682, -0.017451404, 0.999808962,
+        0.14720706, -0.999961256, -0.000152961, 0.008801353, 0.065482262, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:8",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, -0.999847701, -0.017452074, -0.01564838, 0.008802682, -0.017451404, 0.999808962,
+        0.157191806, -0.999961256, -0.000152961, 0.008801353, 0.05567028, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:9",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999961926, 0.008726205, 0.028809851, 0.008802682, 0.008725873, -0.999923183,
+        0.167115974, -0.999961256, 7.615e-5, -0.008802353, 0.150610783, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "trigger-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:10",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999961926, 0.008726205, 0.028723459, 0.008802682, 0.008725873, -0.999923183,
+        0.17710185, -0.999961256, 7.615e-5, -0.008802353, 0.14079881, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "trigger-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:11",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999961926, 0.008726205, 0.028809844, 0.008802682, 0.008725873, -0.999923183,
+        0.167203116, -0.999961256, 7.615e-5, -0.008802353, 0.140711671, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "trigger-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:12",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999961926, 0.008726205, 0.028723465, 0.008802682, 0.008725873, -0.999923183,
+        0.177014708, -0.999961256, 7.615e-5, -0.008802353, 0.150697922, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["moving-jaw-so101", "trigger-so101", "wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:13",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, 0.999923848, 0.008726203, 0.025252159, 0.008726203, 0.008802353, -0.999923183,
+        0.153708721, -0.999923848, -0.008649719, -0.008802353, -0.06891154, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:14",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, 0.999923848, 0.008726203, 0.02516577, 0.008726203, 0.008802353, -0.999923183,
+        0.153795106, -0.999923848, -0.008649719, -0.008802353, -0.078810281, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:15",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, 0.999923848, 0.008726203, 0.025338544, 0.008726203, 0.008802353, -0.999923183,
+        0.143809987, -0.999923848, -0.008649719, -0.008802353, -0.068998679, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:16",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, 0.999923848, 0.008726203, 0.025252155, 0.008726203, 0.008802353, -0.999923183,
+        0.143896372, -0.999923848, -0.008649719, -0.008802353, -0.07889742, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:17",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, 0.999961923, -0.0, 0.023785478, -0.008726203, 7.6152e-5, 0.999961923,
+        0.114767465, 0.999923848, -0.008726203, 0.008726535, 0.043439984, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:18",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, 0.999961923, -0.0, 0.023699089, -0.008726203, 7.6152e-5, 0.999961923,
+        0.124752968, 0.999923848, -0.008726203, 0.008726535, 0.033627631, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:19",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, 0.999961923, -0.0, 0.023785478, -0.008726203, 7.6152e-5, 0.999961923,
+        0.124666583, 0.999923848, -0.008726203, 0.008726535, 0.043526372, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:20",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, 0.999961923, -0.0, 0.023699089, -0.008726203, 7.6152e-5, 0.999961923,
+        0.11485385, 0.999923848, -0.008726203, 0.008726535, 0.033541243, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:21",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, -0.018144536, 0.008726203, -0.008802353,
+        0.999923183, 0.153326699, -0.999923848, 0.008649719, 0.008802353, -0.068536142, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:22",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, -0.01814454, 0.008726203, -0.008802353,
+        0.999923183, 0.143514349, -0.999923848, 0.008649719, 0.008802353, -0.078522022, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:23",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, -0.018058151, 0.008726203, -0.008802353,
+        0.999923183, 0.143427964, -0.999923848, 0.008649719, 0.008802353, -0.068623281, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:24",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726535, -0.999923848, -0.008726203, -0.018230925, 0.008726203, -0.008802353,
+        0.999923183, 0.153413084, -0.999923848, 0.008649719, 0.008802353, -0.078434883, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["under-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:25",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, -0.019699258, -0.008726203, -7.6152e-5, -0.999961923,
+        0.114850545, 0.999923848, 0.008726203, -0.008726535, 0.03391996, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:26",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, -0.019699258, -0.008726203, -7.6152e-5, -0.999961923,
+        0.124749663, 0.999923848, 0.008726203, -0.008726535, 0.034006348, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:27",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, -0.01961287, -0.008726203, -7.6152e-5, -0.999961923,
+        0.124663278, 0.999923848, 0.008726203, -0.008726535, 0.04390509, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:28",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.008726535, -0.999961923, 0.0, -0.01961287, -0.008726203, -7.6152e-5, -0.999961923,
+        0.11476416, 0.999923848, 0.008726203, -0.008726535, 0.043818701, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["upper-arm-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:29",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999847701, 0.017452074, 0.026545199, 0.008802682, 0.017451404, -0.999808962,
+        0.157841113, -0.999961256, 0.000152961, -0.008801353, 0.065575846, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:30",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999847701, 0.017452074, 0.026717966, 0.008802682, 0.017451404, -0.999808962,
+        0.147943509, -0.999961256, 0.000152961, -0.008801353, 0.065488717, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:31",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999847701, 0.017452074, 0.026545193, 0.008802682, 0.017451404, -0.999808962,
+        0.157928255, -0.999961256, 0.000152961, -0.008801353, 0.055676735, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:32",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -6.65e-7, 0.999847701, 0.017452074, 0.026717959, 0.008802682, 0.017451404, -0.999808962,
+        0.148030651, -0.999961256, 0.000152961, -0.008801353, 0.055589606, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:33",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, 0.0, -1.0, 0.004850315, 0.008726535, -0.999961923, -0.0, 0.025839718, -0.999961923,
+        -0.008726535, 0.0, 0.012173844, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:34",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, 0.0, -1.0, 0.004850315, 0.008726535, -0.999961923, -0.0, 0.025926107, -0.999961923,
+        -0.008726535, 0.0, 0.002274726, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:35",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, 0.0, -1.0, -0.00504918, 0.008726535, -0.999961923, -0.0, 0.025926107, -0.999961923,
+        -0.008726535, 0.0, 0.002274726, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:36",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, 0.0, -1.0, -0.00504918, 0.008726535, -0.999961923, -0.0, 0.025839718, -0.999961923,
+        -0.008726535, 0.0, 0.012173844, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:37",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, -0.0, 1.0, 0.004850315, 0.008726535, 0.999961923, 0.0, 0.069238066, -0.999961923,
+        0.008726535, -0.0, 0.012552576, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:38",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, -0.0, 1.0, -0.00504918, 0.008726535, 0.999961923, 0.0, 0.069324454, -0.999961923,
+        0.008726535, -0.0, 0.002653458, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:39",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, -0.0, 1.0, -0.00504918, 0.008726535, 0.999961923, 0.0, 0.069238066, -0.999961923,
+        0.008726535, -0.0, 0.012552576, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:40",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, -0.0, 1.0, 0.004850315, 0.008726535, 0.999961923, 0.0, 0.069324454, -0.999961923,
+        0.008726535, -0.0, 0.002653458, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["base-motor-holder-so101", "base-so101", "rotation-pitch-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:41",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, 6.65e-7, 0.999847701, 0.012097187, 0.999808962, -0.008802682, 0.017451406,
+        0.147163674, 0.008801353, 0.999961256, 0.000152961, 0.125084424, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": [
+        "handle-so101",
+        "wrist-roll-follower-so101",
+        "wrist-roll-pitch-so101",
+        "wrist-roll-so101"
+      ]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:42",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, 6.65e-7, 0.999847701, 0.002199199, 0.999808962, -0.008802682, 0.017451406,
+        0.146990914, 0.008801353, 0.999961256, 0.000152961, 0.125082909, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": [
+        "handle-so101",
+        "wrist-roll-follower-so101",
+        "wrist-roll-pitch-so101",
+        "wrist-roll-so101"
+      ]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:43",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, 6.65e-7, 0.999847701, 0.002026433, 0.999808962, -0.008802682, 0.017451406,
+        0.156888518, 0.008801353, 0.999961256, 0.000152961, 0.125170038, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": [
+        "handle-so101",
+        "wrist-roll-follower-so101",
+        "wrist-roll-pitch-so101",
+        "wrist-roll-so101"
+      ]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:44",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, 6.65e-7, 0.999847701, 0.01192442, 0.999808962, -0.008802682, 0.017451406,
+        0.157061278, 0.008801353, 0.999961256, 0.000152961, 0.125171553, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": [
+        "handle-so101",
+        "wrist-roll-follower-so101",
+        "wrist-roll-pitch-so101",
+        "wrist-roll-so101"
+      ]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3-nut",
+      "mesh": "fastener-m3-nut.glb",
+      "name": "Hexagon Nut DIN 555 - M3 Steel 6 Plain v1:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, -0.999847701, 6.65e-7, 0.027645962, 0.999808962, -0.017451406, -0.008802682,
+        0.147205229, 0.008801353, -0.000152961, 0.999961256, 0.145485731, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "fastener",
+      "id": "m3-nut",
+      "mesh": "fastener-m3-nut.glb",
+      "name": "Hexagon Nut DIN 934 - M3 x 0.5 Steel 6 Plain v1:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.017452076, -0.999847701, 6.65e-7, 0.0275046, 0.999808962, -0.017451406, -0.008802682,
+        0.155303681, 0.008801353, -0.000152961, 0.999961256, 0.145557022, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": ["wrist-roll-follower-so101", "wrist-roll-so101"]
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--050375033.glb",
+      "name": "050375033 v3:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, -1.75e-7, 0.008757435, -1.75e-7, 4.4e-8, -1.0, 0.06449935, 0.0, 1.0, 4.4e-8,
+        -0.075290153, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--050375033.glb",
+      "name": "050375033 v3:2",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, -1.75e-7, -0.003176556, -1.75e-7, 4.4e-8, -1.0, 0.06449935, 0.0, 1.0, 4.4e-8,
+        -0.075290153, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
+      "transform": [
+        -0.0, 1.0, -0.0, -9.9432e-5, 0.008726535, -0.0, -0.999961923, 0.038695156, -0.999961923,
+        -0.0, -0.008726535, 0.017336477, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
+      "transform": [
+        0.0, 1.0, 0.0, -9.9432e-5, -0.008726535, -0.0, 0.999961923, 0.006820907, 0.999961923, -0.0,
+        0.008726535, -0.002942447, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
+      "transform": [
+        0.0, -0.008726535, 0.999961923, 0.009992807, -0.999961923, 0.008726203, 7.6152e-5,
+        0.129758789, -0.008726535, -0.999923848, -0.008726203, 0.038741058, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
+      "transform": [
+        -0.0, -0.008726535, -0.999961923, 0.042041587, 0.999961923, 0.008726203, -7.6152e-5,
+        0.109761991, 0.008726535, -0.999923848, 0.008726203, 0.038286853, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
+      "transform": [
+        0.008726203, -0.008726535, 0.999923848, 0.011415942, -0.999923183, 0.008726203, 0.008802353,
+        0.158680746, -0.008802353, -0.999923848, -0.008649719, -0.073697523, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
+      "transform": [
+        -0.008726203, -0.008726535, -0.999923848, 0.043638025, 0.999923183, 0.008726203,
+        -0.008802353, 0.138964398, 0.008802353, -0.999923848, 0.008649719, -0.074150793, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
+      "transform": [
+        -6.65e-7, -0.017452074, 0.999847701, 0.013583573, 0.008802682, 0.999808962, 0.017451404,
+        0.152620114, -0.999961256, 0.008801353, 0.000152961, 0.070580342, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
+      "transform": [
+        6.65e-7, -0.017452074, -0.999847701, 0.045628679, -0.008802682, 0.999808962, -0.017451404,
+        0.153355485, 0.999961256, 0.008801353, -0.000152961, 0.05058602, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:5/SCS215 v6_7:1",
+      "transform": [
+        0.999847701, 0.017452076, -6.65e-7, -0.002936687, 0.017451406, -0.999808962, 0.008802682,
+        0.152115662, 0.000152961, -0.008801353, -0.999961256, 0.095126864, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
+      "transform": [
+        0.008726205, 6.65e-7, -0.999961926, -0.000969478, -0.999923183, -0.008802682, -0.008725873,
+        0.181849422, -0.008802353, 0.999961256, -7.615e-5, 0.145790562, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
+      "transform": [
+        -0.008726205, 6.65e-7, 0.999961926, -0.032843734, 0.999923183, -0.008802682, 0.008725873,
+        0.161571294, 0.008802353, 0.999961256, 7.615e-5, 0.145612075, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--component1.glb",
+      "name": "Component1:1",
+      "path": "SO101 Assembly v4",
+      "transform": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--component2.glb",
+      "name": "Component2:1",
+      "path": "SO101 Assembly v4",
+      "transform": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--component3.glb",
+      "name": "Component3:1",
+      "path": "SO101 Assembly v4",
+      "transform": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--component4.glb",
+      "name": "Component4:1",
+      "path": "SO101 Assembly v4",
+      "transform": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--component6.glb",
+      "name": "Component6:1",
+      "path": "SO101 Assembly v4",
+      "transform": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "fastener",
+      "id": "m3x6",
+      "mesh": "fastener-m3x6.glb",
+      "name": "Pan Head Screw DIN EN ISO 7045 - M3 x 6 - H Steel 4.6 Plain v1:45",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.999847701, 6.65e-7, 0.017452076, 0.007061808, 0.017451406, -0.008802682, -0.999808962,
+        0.152052504, 0.000152961, 0.999961256, -0.008801353, 0.122127347, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": [
+        "handle-so101",
+        "wrist-roll-follower-so101",
+        "wrist-roll-pitch-so101",
+        "wrist-roll-so101"
+      ]
+    },
+    {
+      "kind": "part",
+      "id": "waveshare-mounting-plate-so101",
+      "mesh": "waveshare-mounting-plate-so101.glb",
+      "name": "WaveShare_Mounting_Plate_SO101 v4:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        1.0, 0.0, 0.0, 0.000791568, 0.0, -0.0, -1.0, 0.050194296, 0.0, 1.0, -0.0, -0.062540153, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "cable",
+      "id": "servo-cable-3pin",
+      "mesh": "servo-cable-3pin--component7.glb",
+      "name": "Component7:1",
+      "path": "SO101 Assembly v4",
+      "transform": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+      "approximation": false,
+      "via": "geometry_names",
+      "note": null,
+      "feature": null,
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, -1.0, -0.0, -9.9432e-5, -0.008726535, 0.0, -0.999961923, 0.065781393, 0.999961923,
+        -0.0, -0.008726535, 0.007572474, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
+      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:2",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.0, 0.008726535, 0.999961923, -0.017006165, 0.999961923, -0.008726203, 7.6152e-5,
+        0.119757114, 0.008726535, 0.999923848, -0.008726203, 0.0388894, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
+      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:3",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726203, 0.008726535, 0.999923848, -0.01549474, 0.999923183, -0.008726203, 0.008802353,
+        0.14844385, 0.008802353, 0.999923848, -0.008649719, -0.073552004, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
+      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:4",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        6.65e-7, 0.017452074, 0.999847701, -0.013412321, -0.008802682, -0.999808962, 0.017451404,
+        0.152236953, 0.999961256, -0.008801353, 0.000152961, 0.0605766, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
+      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:5",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.999847701, -0.017452076, -6.65e-7, 0.007061808, -0.017451406, 0.999808962, 0.008802682,
+        0.152052504, -0.000152961, 0.008801353, -0.999961256, 0.122127347, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
+      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:6",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        -0.008726205, -6.65e-7, -0.999961926, 0.026116756, 0.999923183, 0.008802682, -0.008725873,
+        0.172085789, 0.008802353, -0.999961256, -7.615e-5, 0.145704595, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
+      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "assembly": ["follower"],
+      "host": null
+    },
+    {
+      "kind": "board",
+      "id": "motor-control-board",
+      "mesh": "motor-control-board.glb",
+      "name": "Bus Servo Adapter (A) v3:1",
+      "path": "SO101 Assembly v4",
+      "transform": [
+        0.0, 0.0, 1.0, -0.0, -1.0, -0.0, 0.0, 0.0, 0.0, -1.0, 0.0, -0.15, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": "bounding box of the vendor PCB model",
+      "feature": "union bbox of all board components in the sub-assembly frame",
+      "assembly": ["follower", "leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "wrist-roll-so101",
+      "mesh": "wrist-roll-so101.glb",
+      "name": "Wrist_Roll_SO101 (hand-placed)",
+      "path": "hand-placed",
+      "transform": [
+        -0.017452076, 6.65e-7, 0.999847701, 0.007063593, 0.999808962, -0.008802682, 0.017451406,
+        0.152052533, 0.008801353, 0.999961256, 0.000152961, 0.122127641, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "hand",
+      "note": "leader holder on the wrist-roll (motor 5) drive horn; D-005",
+      "feature": "stepped horn recess r10/r12/r11.24/r13.24 about +Z at the origin, matched to the same recess on Wrist_Roll_Follower_SO101 (offset y -0.22, z +0.95 mm); in-plane heading from centre of mass (both -X)",
+      "assembly": ["leader"],
+      "host": null
+    },
+    {
+      "kind": "servo",
+      "id": "servo-sts3215-c001-345",
+      "mesh": "servo-sts3215.glb",
+      "name": "ST3215 Servo v2:6 (leader, hand-placed)",
+      "path": "hand-placed",
+      "transform": [
+        -0.008726205, -6.65e-7, -0.999961926, 0.026336723, 0.999923183, 0.008802682, -0.008725873,
+        0.172081265, 0.008802353, -0.999961256, -7.615e-5, 0.146654592, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "hand",
+      "note": "leader gripper servo; the leader holder's servo pocket is assumed to sit where the follower body's does",
+      "feature": "same pocket as the follower gripper body, expressed relative to the shared horn recess",
+      "assembly": ["leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1 (leader, hand-placed)",
+      "path": "hand-placed",
+      "transform": [
+        0.008726205, 6.65e-7, -0.999961926, -0.000749511, -0.999923183, -0.008802682, -0.008725873,
+        0.181844899, -0.008802353, 0.999961256, -7.615e-5, 0.146740559, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "hand",
+      "note": null,
+      "feature": "re-based with the leader gripper servo",
+      "assembly": ["leader"],
+      "host": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1 (leader, hand-placed)",
+      "path": "hand-placed",
+      "transform": [
+        -0.008726205, 6.65e-7, 0.999961926, -0.032623767, 0.999923183, -0.008802682, 0.008725873,
+        0.161566771, 0.008802353, 0.999961256, 7.615e-5, 0.146562071, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "hand",
+      "note": null,
+      "feature": "re-based with the leader gripper servo",
+      "assembly": ["leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "trigger-so101",
+      "mesh": "trigger-so101.glb",
+      "name": "Trigger_SO101 (hand-placed)",
+      "path": "hand-placed",
+      "transform": [
+        -6.65e-7, -0.999961926, -0.008726205, 0.023986812, 0.008802682, -0.008725873, 0.999923183,
+        0.17206076, -0.999961256, -7.615e-5, 0.008802353, 0.146654413, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "hand",
+      "note": "trigger on the leader gripper servo's drive horn; D-005",
+      "feature": "r=10 horn face at the trigger origin (normal -Z) matched to the moving jaw's drive-side r=10 face at z=-17.4; rotation about the horn axis assumed equal to the jaw's",
+      "assembly": ["leader"],
+      "host": null
+    },
+    {
+      "kind": "part",
+      "id": "handle-so101",
+      "mesh": "handle-so101.glb",
+      "name": "Handle_SO101 (hand-placed)",
+      "path": "hand-placed",
+      "transform": [
+        0.0, 0.0, 1.0, 0.005221924, -0.951056114, 0.309018233, 0.0, 0.077628119, -0.309018233,
+        -0.951056114, 0.0, 0.172127113, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "hand",
+      "note": "handle under the leader holder; hole choice not derivable, placement from the LeRobot leader assembly video (Leader_v2.mp4 0:14 and 0:24): grip hangs below the holder, pointing down and toward the base; D-005",
+      "feature": "mount face (normal (-0.951,0,0.309), r=1.1 M2 hole at (-27.26,0,40)) turned to face world up; handle symmetry plane to world x; grip direction to the base side; mount-face centre at the holder's lowest point under its bbox centroid. Pose from LeRobot Leader_v2.mp4 0:14/0:24; which of the holder's eight M2 holes takes the screw is not derivable",
+      "assembly": ["leader"],
+      "host": null
+    }
+  ],
+  "unplaced": []
+}
