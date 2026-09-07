@@ -9,6 +9,7 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
 <aside class="card">
   {s.instructions && <p>{s.instructions}</p>}
   {s.orientation_note && <p><strong>Orientation:</strong> {s.orientation_note}</p>}
+  {s.warnings?.length ? s.warnings.map((w) => <p class="warning"><span aria-hidden="true">⚠</span> {w}</p>) : null}
   {servo && (
     <section>
       <h3>Servo: {jointLabel(servo.joint)} (ID {servo.bus_id})</h3>
@@ -20,37 +21,44 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
       </p>
     </section>
   )}
-  <section>
-    <h3>Parts</h3>
+  <section class="need">
+    <h3>You need</h3>
     <ul class="plain">
       {s.parts.map((id) => {
         const p = parts.get(id);
-        return <li><a href={withBase(`/parts/${id}/`)}>{p?.name ?? id}</a> <Flags unverified={p?.unverified} approximation={p?.approximation} /></li>;
+        return (
+          <li class="row">
+            <span class="what">{p?.name ?? id} <Flags popover unverified={p?.unverified} approximation={p?.approximation} note={p?.notes} /></span>
+            <a class="more" href={withBase(`/parts/${id}/`)} aria-label={`${p?.name ?? id}: part details and sources`}>details</a>
+          </li>
+        );
+      })}
+      {s.fasteners?.map((f) => {
+        const spec = fasteners.get(f.id);
+        return (
+          <li class="row">
+            <span class="what">{spec?.spec ?? f.id} <Flags popover unverified={spec?.unverified} note={spec?.notes} /></span>
+            <span class="qty">×{f.qty}</span>
+            <a class="more" href={withBase(`/parts/#fastener-${f.id}`)} aria-label={`${spec?.spec ?? f.id}: fastener details`}>details</a>
+          </li>
+        );
+      })}
+      {s.tools?.map((t) => {
+        const tool = tools.get(t);
+        return (
+          <li class="row">
+            <span class="what">{tool?.name ?? t}{tool?.size ? <span class="muted"> · {tool.size}</span> : null}</span>
+            <span class="qty muted">tool</span>
+            <a class="more" href={withBase(`/tools/${t}/`)} aria-label={`${tool?.name ?? t}: tool details`}>details</a>
+          </li>
+        );
       })}
     </ul>
   </section>
-  {s.fasteners?.length ? (
-    <section>
-      <h3>Fasteners</h3>
-      <ul class="plain">
-        {s.fasteners.map((f) => {
-          const spec = fasteners.get(f.id);
-          return <li>{f.qty} × <a href={withBase(`/parts/#fastener-${f.id}`)}>{spec?.spec ?? f.id}</a> <Flags unverified={spec?.unverified} /></li>;
-        })}
-      </ul>
-    </section>
-  ) : null}
-  {s.tools?.length ? (
-    <section>
-      <h3>Tools</h3>
-      <ul class="plain">{s.tools.map((t) => <li><a href={withBase(`/tools/${t}/`)}>{tools.get(t)?.name ?? t}</a></li>)}</ul>
-    </section>
-  ) : null}
   {s.cables?.length ? (
     <section>
       <h3>Cables</h3>
-      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li>{cb ? `${jointLabel(cb.from)} → ${jointLabel(cb.to)}` : c} <Flags approximation={cb?.approximation} /></li>; })}</ul>
+      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li class="row"><span class="what">{cb ? `${jointLabel(cb.from)} → ${jointLabel(cb.to)}` : c} <Flags popover approximation={cb?.approximation} note={cb?.notes} /></span></li>; })}</ul>
     </section>
   ) : null}
-  {s.warnings?.length ? s.warnings.map((w) => <p class="warning">⚠ {w}</p>) : null}
 </aside>

@@ -1,6 +1,34 @@
 ---
-interface Props { unverified?: boolean; approximation?: boolean }
-const { unverified, approximation } = Astro.props;
+/**
+ * Flag pills. Inline (default) for headings and tables; `popover` renders each pill as a <details>
+ * whose panel carries the plain-language meaning and the item's own note, so a builder can learn
+ * what the flag means without leaving the step. The flag itself is always visible (CLAUDE.md 1).
+ */
+interface Props { unverified?: boolean; approximation?: boolean; popover?: boolean; note?: string }
+const { unverified, approximation, popover = false, note } = Astro.props;
+const MEANING = {
+  unverified: 'Not checked yet: no public source confirms this. Treat it as a best guess and report what you find.',
+  approximation: 'Stand-in shape: the 3D geometry or placement is not measured from the real part.',
+};
 ---
-{unverified && <span class="flag unverified" title="Contains content no public source confirms yet">unverified</span>}
-{approximation && <span class="flag approximation" title="Geometry or placement is a stand-in, not measured">approximation</span>}
+{popover ? (
+  <>
+    {unverified && (
+      <details class="flagmore">
+        <summary class="flag unverified">unverified</summary>
+        <div class="flagpanel"><p>{MEANING.unverified}</p>{note && <p class="note">{note}</p>}</div>
+      </details>
+    )}
+    {approximation && (
+      <details class="flagmore">
+        <summary class="flag approximation">approximation</summary>
+        <div class="flagpanel"><p>{MEANING.approximation}</p>{note && <p class="note">{note}</p>}</div>
+      </details>
+    )}
+  </>
+) : (
+  <>
+    {unverified && <span class="flag unverified" title={MEANING.unverified}>unverified</span>}
+    {approximation && <span class="flag approximation" title={MEANING.approximation}>approximation</span>}
+  </>
+)}
