@@ -227,7 +227,9 @@
     - Leader joystick L11 (Waveshare)
   notes:
     'LeRobot Gripper/Handle (Leader): "attach the handle". Waveshare calls it "joystick L11". Not found by
-    name in SO101 Assembly.step (D-005). Placed from the LeRobot leader video pose (0:14, 0:24); hole choice unknown.'
+    name in SO101 Assembly.step (D-005). Handle_SO101.step shares the authoring frame of Wrist_Roll_SO101.step:
+    its M2 hole is coaxial with a pilot hole in the holder, so it is placed with the holder''s transform (the
+    video pose at 0:14 and 0:24 agrees: grip hanging below the holder).'
   source:
     - ref: upstream/SO-ARM100/README.md#printing-the-parts
       note: Individual Part Files table
@@ -250,7 +252,8 @@
     - Leader trigger L10 (Waveshare)
   notes:
     'LeRobot Gripper/Handle (Leader): "attach the follower trigger". Not found by name in SO101 Assembly.step
-    (D-005).'
+    (D-005). Placed on the gripper drive horn with its four M3 holes on the STEP''s drive-side screw pattern;
+    the rotation about the horn (four fits) follows the upstream leader photo, loop down and toward the tip.'
   source:
     - ref: upstream/SO-ARM100/README.md#printing-the-parts
       note: Individual Part Files table

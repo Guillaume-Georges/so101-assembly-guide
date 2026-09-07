@@ -22,6 +22,17 @@ listed in `SOURCES.md`.
   (with M2.5 spacers), not motor screws. The motor positions hold 22
   "#1-42 x 3/16 in Type AB" tapping screws (≈ ø1.9 x 4.8 mm), consistent
   with LeRobot's "smallest screws" and Waveshare's "pointed screws".
+- Seating (pipeline hole test, 2026-09-07): the STEP's 24 tapping-screw
+  positions match LeRobot's 24 per arm exactly. Motor 1: two #1-42 up
+  through the base floor and two "#0-48 x 3/16 in" (≈ ø1.5 x 4.8 mm) down
+  from above, all into base holes, so the STEP draws the upper pair one size
+  smaller. The base motor holder's "one on each side" pair are #1-42 too,
+  horizontal, through the holder into the base and 17 mm clear of the servo:
+  they fasten the holder, not the motor. The two holders at motors 2 and 4
+  have no screws of their own; each is clamped by the motor's four side
+  screws (per side one through the arm part, one through the holder). The
+  former `tapping-0-48` id is retired; those two screws are
+  `motor-tab-screw` with the variant noted.
 - Resolution: horn thread settled = M3x6 machine screw (datasheet, LeRobot,
   STEP all agree). Motor-to-bracket fastening stays **open**: the data
   carries `motor-tab-screw` with the upstream default from the STEP (#1-42
@@ -100,6 +111,22 @@ listed in `SOURCES.md`.
   `docs/phases/phase-2.md`) confirmed both roles: the flags are cleared. The three
   leader parts are hand-placed from their per-part STEP files with
   `approximation: true` and the mating feature recorded.
+- Handle (2026-09-07): `Handle_SO101.step` and `Wrist_Roll_SO101.step` are
+  authored in one frame. The handle's single r=1.1 M2 hole (from
+  (-24.86, 0, 39.21) to (-27.26, 0, 40)) and an r=0.6 pilot hole in the
+  holder (from (-25.69, 0, 39.49) toward (-17.75, 0, 36.91)) lie on one axis,
+  (0.951, 0, -0.309). The handle takes the holder's transform unchanged and
+  the M2x6 sits in that hole pair; the earlier "which of the holder's eight
+  M2 holes" question is closed (six of those eight are the gripper servo's
+  tab holes and two are a tilted pair the handle's y-axis through-hole does
+  not use). L-061 is no longer `unverified`; it stays `approximation`
+  because the holder is a recess match.
+- Trigger (2026-09-07): `Trigger_SO101.step` is in its own part frame (horn
+  face at z=0). Its four M3 holes are on the 7 mm horn radius, rotated
+  13.7 deg from the STEP's jaw screws, so it is set on the drive-side jaw
+  screws; of the four 90-degree fits the one matching the upstream leader
+  photo (loop down and toward the tip) is used. The earlier placement had the
+  plate inside the horn and the holes off the screws.
 - Affects: `aka` on the parts above; Phase 2 mapping
 
 ## D-006 — Leader gripper-motor horns

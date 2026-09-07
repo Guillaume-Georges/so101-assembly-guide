@@ -195,14 +195,19 @@
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
-  check: Handle held by 1 M2x6.
+  check: Handle held by 1 M2x6, driven into the tab under the holder.
   instructions:
-    "Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places
-    it in the assembly STEP. Geometry: hand-placed from the video pose (approximation); which of the holder's M2
-    holes takes the screw is not derivable from any source."
+    "The screw's hole is known from the upstream part files: Handle_SO101.step and Wrist_Roll_SO101.step are
+    authored in one frame, and the handle's single M2 clearance hole (r=1.1, on a tilted face under the grip
+    mount) lies on the axis of an r=0.6 pilot hole in the holder. The handle is therefore placed with the holder's
+    own transform; the pose is exact relative to the holder, which is itself a recess match (approximation)."
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Attach the handle to the leader holder using 1 M2x6mm screw."'
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Handle_SO101.step
+      note: 'r=1.1 hole from (-24.86, 0, 39.21) to (-27.26, 0, 40.0), axis (-0.951, 0, 0.309)'
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Wrist_Roll_SO101.step
+      note: 'r=0.6 pilot hole from (-25.69, 0, 39.49) to (-17.75, 0, 36.91): same axis, same frame (D-005)'
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: 'Leader step 19: joystick L11 onto wrist L9'
@@ -214,7 +219,6 @@
     - ref: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/Leader_v2.mp4
       timestamp: 0:24
       note: 'finished leader: handle under the wrist'
-  unverified: true
   approximation: true
 - id: L-062
   slug: leader-gripper-motor
@@ -265,13 +269,23 @@
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
-  check: Trigger on the geared horn with 4 M3x6.
+  check: Trigger on the geared horn with 4 M3x6; the finger loop hangs ahead of the grip.
+  instructions:
+    "The trigger's four M3 holes sit on the same 7 mm radius as the horn's, so it fits in four positions 90
+    degrees apart; the upstream leader photo shows the loop pointing down and toward the gripper tip, and the
+    3D view uses that one (approximation: the loop's rest angle is not fixed by any part)."
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Attach the follower trigger with 4 M3x6mm screws."'
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: 'Leader step 18: onto the gear-equipped steering wheel'
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Trigger_SO101.step
+      note: 'four r=1.6 holes at radius 7.0 mm about the horn face (z=0), plate 3.5 mm'
+    - ref: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/SO101_Leader.webp
+      retrieved: '2026-09-07'
+      note: 'finished leader: trigger loop below and ahead of the gripper servo, in front of the grip'
+  approximation: true
 - id: L-070
   slug: leader-controller-board
   assembly: leader

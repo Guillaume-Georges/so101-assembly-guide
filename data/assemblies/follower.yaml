@@ -118,6 +118,10 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: 'Four motor-tab screws in: two from the top, two from the bottom. Motor 1 cable reaches the base opening.'
+  instructions:
+    'Placement check in the upstream assembly STEP: the lower pair enters from under the base floor and the upper
+    pair from above, all four through holes in the base into the servo tabs; none of them touches the base motor
+    holder, which comes next. The STEP draws the upper pair one size smaller (D-001).'
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note:
@@ -126,6 +130,8 @@
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Follower step 1
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check (pipeline hole test): 2 screws up through the base floor, 2 down from above the servo, all in Base_SO101 holes; the base motor holder has no hole at these positions'
 - id: F-012
   slug: follower-joint1-motor-holder
   title: Slide the first motor holder over motor 1
@@ -144,6 +150,9 @@
   check:
     Holder sits flush on the base; one motor-tab screw on each side; one motor-1 cable routed out of the base
     opening.
+  instructions:
+    'The two side screws are horizontal and thread through the holder into the base, 17 mm clear of the servo:
+    they hold the holder, not the motor.'
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Base_08p (= base motor holder)
     encloses 74% of servo 1 and sits on the base.'
@@ -157,6 +166,8 @@
       note:
         'placement check (viewer/public/geometry/placements.json): Base_08p (= base motor holder) encloses 74%
         of servo 1 and sits on the base'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check (pipeline hole test): both side screws pass through Base_08p holes, horizontal, 16.6 mm from servo 1'
 - id: F-013
   slug: follower-joint1-shoulder
   title: Attach the shoulder to the motor 1 horns
@@ -198,6 +209,9 @@
     - rotation-pitch-so101
   servo_slot: shoulder_lift
   check: Holder seated on the shoulder, ready to receive motor 2 from the top.
+  instructions:
+    "No screws of its own: motor 2's four side screws clamp it in the next step (on each side one enters the
+    shoulder, one the holder)."
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Motor_holder_SO101_Base encloses
     42% of servo 2, above the shoulder: the shoulder motor holder.'
@@ -211,6 +225,8 @@
       note:
         'placement check (viewer/public/geometry/placements.json): Motor_holder_SO101_Base encloses 42% of servo
         2, above the shoulder: the shoulder motor holder'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: "placement check (pipeline hole test): no fastener passes through this part until motor 2 is fitted; two of motor 2's tab screws then go through Motor_holder_SO101_Base holes"
 - id: F-020
   slug: follower-joint2-horns
   title: Fit both horns on motor 2 (shoulder lift)
@@ -248,7 +264,12 @@
     - screwdriver-ph1
   cables:
     - cable-shoulder-pan-to-shoulder-lift
-  check: Motor 2 held by 4 motor-tab screws; its cable connects to motor 1 (either port).
+  check:
+    Motor 2 held by 4 motor-tab screws, two per side, each side one into the shoulder and one into the holder;
+    its cable connects to motor 1 (either port).
+  instructions:
+    'The four screws are horizontal: on each side the lower one passes through the shoulder, the upper one
+    through the shoulder motor holder, so they also lock the holder to the shoulder.'
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: servo 2 sits in Motor_holder_SO101_Base
     (42% enclosed), entered from above.'
@@ -262,6 +283,8 @@
       note:
         'placement check (viewer/public/geometry/placements.json): servo 2 sits in Motor_holder_SO101_Base (42%
         enclosed), entered from above'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check (pipeline hole test): per side one screw through a Rotation_Pitch_SO101 hole and one through a Motor_holder_SO101_Base hole, all horizontal'
 - id: F-022
   slug: follower-joint2-upper-arm
   title: Attach the upper arm to the motor 2 horns
@@ -388,6 +411,9 @@
   servo_slot: wrist_flex
   orientation_note: Wire groove on the harness side (Waveshare).
   check: Holder seated; wire groove on the same side as the cable run.
+  instructions:
+    "Like the shoulder holder it has no screws of its own: motor 4's side screws clamp it to the forearm in the
+    next step."
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Motor_holder_SO101_Wrist sits on
     the forearm and encloses 44% of servo 4: motor holder 4.'
@@ -401,6 +427,8 @@
       note:
         'placement check (viewer/public/geometry/placements.json): Motor_holder_SO101_Wrist sits on the forearm
         and encloses 44% of servo 4: motor holder 4'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check (pipeline hole test): no fastener passes through this part until motor 4 is fitted'
 - id: F-042
   slug: follower-joint4-motor
   title: Slide in motor 4 and fasten
@@ -418,7 +446,12 @@
     - screwdriver-ph1
   cables:
     - cable-elbow-flex-to-wrist-flex
-  check: Motor 4 held by 4 motor-tab screws; its cable connects to motor 3.
+  check:
+    Motor 4 held by 4 motor-tab screws, two per side, each side one into the forearm and one into holder 4; its
+    cable connects to motor 3.
+  instructions:
+    'The four screws are horizontal: on each side one passes through the forearm and one through holder 4, so
+    they also lock the holder to the forearm.'
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: servo 4 sits in Motor_holder_SO101_Wrist
     (44% enclosed).'
@@ -432,6 +465,8 @@
       note:
         'placement check (viewer/public/geometry/placements.json): servo 4 sits in Motor_holder_SO101_Wrist (44%
         enclosed)'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check (pipeline hole test): per side one screw through an Under_arm_SO101 hole and one through a Motor_holder_SO101_Wrist hole'
 - id: F-050
   slug: follower-joint5-motor
   title: Insert motor 5 into the wrist holder

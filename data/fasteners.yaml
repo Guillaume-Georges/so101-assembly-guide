@@ -5,26 +5,39 @@
   assembly:
     - leader
   where_used: 'Handle to leader holder (LeRobot: "1 M2x6mm screw").'
-  notes: Only the handle screw keeps this id. Motor-to-bracket screws are motor-tab-screw (D-001, open).
+  notes:
+    "Only the handle screw keeps this id. Motor-to-bracket screws are motor-tab-screw (D-001, open). Its hole is
+    known: Handle_SO101.step and Wrist_Roll_SO101.step share one authoring frame, and the handle's single r=1.1
+    (M2 clearance) hole lies on the axis of an r=0.6 pilot hole in the holder (D-005)."
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Attach the handle to the leader holder using 1 M2x6mm screw."'
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Handle_SO101.step
+      note: 'r=1.1 hole from (-24.86, 0, 39.21) to (-27.26, 0, 40.0), axis (-0.951, 0, 0.309)'
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Wrist_Roll_SO101.step
+      note: 'r=0.6 pilot hole from (-25.69, 0, 39.49) to (-17.75, 0, 36.91) on the same axis, same frame'
 - id: motor-tab-screw
   spec: Motor-tab screw, M2-class self-tapping (#1-42 x 3/16 in Type AB per the STEP)
   qty: 45
   assembly:
     - follower
     - leader
-  where_used: 'Servo body to printed brackets: 4 per motor, 2 for motor 5 (follower 22, leader 22 + 1 not modelled).'
+  where_used:
+    'Servo body to printed brackets: 4 per motor, 2 for motor 5 (22 per arm), plus the two that hold the base motor
+    holder to the base (LeRobot "one on each side"; they thread into the base, not the servo). 24 per arm.'
   notes:
-    'Sources disagree and no kit has been measured (D-001, open). Upstream default = the assembly STEP: 22
-    x "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB" (≈ ø1.9 x 4.8 mm).
-    Vendor/doc variants: LeRobot "M2x6mm screws (smallest screws)"; Waveshare "pointed screws". The Feetech datasheet
-    gives no tab screw and ships "No Accessories". Qty = count used across the LeRobot steps (24 + 21 motor positions);
-    a kit inventory settles the spec and count.'
+    'Sources disagree and no kit has been measured (D-001, open). Upstream default = the assembly STEP, which
+    models 24 positions per arm: 22 x "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x
+    0.1875 Type AB" (≈ ø1.9 x 4.8 mm) and, for the two screws that enter motor 1 from above, 2 x "0-48 x 0.1875"
+    (≈ ø1.5 x 4.8 mm). Vendor/doc variants: LeRobot "M2x6mm screws (smallest screws)"; Waveshare "pointed screws".
+    The Feetech datasheet gives no tab screw and ships "No Accessories". Qty = count used across the LeRobot steps
+    (24 + 21 positions); a kit inventory settles the spec and count. Seating per screw is read from the STEP by the
+    pipeline (shank through a hole of which printed part) and drives what the 3D view shows at each step.'
   source:
     - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
-      note: 22 x ANSI B18.6.4 1-42 x 0.1875 Type AB tapping screws at the motor tabs
+      note:
+        '22 x ANSI B18.6.4 1-42 x 0.1875 Type AB tapping screws (20 at motor tabs, 2 through the base motor holder
+        into the base) and 2 x 0-48 x 0.1875 Type AB (motor 1, from above)'
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"4 M2x6mm screws (smallest screws)"'
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
@@ -42,9 +55,10 @@
     - leader
   where_used: Horn retaining screw (one per driven horn) and printed part to servo horn.
   notes:
-    Qty = count used across the LeRobot steps (follower 50 + leader 46). Horn screw confirmed by the Feetech
+    'Qty = count used across the LeRobot steps (follower 50 + leader 46). Horn screw confirmed by the Feetech
     datasheet drawing ("M3X6 machine-thread screw" at the 25T output). The assembly STEP models 45 "DIN EN ISO 7045
-    - M3 x 6" pan-head screws.
+    - M3 x 6" pan-head screws: 40 printed-part-to-horn (4 per horn side) and one horn-retaining screw (motor 5);
+    the other five horn screws are not modelled, so the pipeline adds one on each geared horn axis (approximation).'
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"Secure the top horn with a M3x6mm screw"'
@@ -84,20 +98,12 @@
   qty: 2
   assembly:
     - follower
-    - leader
-  where_used: Two nuts modelled in the assembly STEP; location not described by any text.
+  where_used:
+    Two nuts modelled in the assembly STEP, seated in pockets of the follower gripper body on its drive-horn side,
+    8 mm apart below the claw screws; no text describes their use, and no step lists them.
   source:
     - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
-      note: Hexagon Nut DIN 934 - M3 and DIN 555 - M3, one each
-  unverified: true
-- id: tapping-0-48
-  spec: '#0-48 x 3/16 in Type AB tapping screw (≈ ø1.5 x 4.8 mm)'
-  qty: 2
-  assembly:
-    - follower
-    - leader
-  where_used: Two small tapping screws in the assembly STEP; location not described by any text.
-  source:
-    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
-      note: 2 x Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 0-48 x 0.1875 Type AB
+      note:
+        'Hexagon Nut DIN 934 - M3 and DIN 555 - M3, one each; placement check: both inside Wrist_Roll_Follower_SO101
+        pockets (pipeline hole test), absent from the leader holder'
   unverified: true
