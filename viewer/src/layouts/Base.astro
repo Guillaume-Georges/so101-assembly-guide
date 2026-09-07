@@ -55,19 +55,26 @@ const nav = [
     {analytics && <script is:inline defer data-domain={analyticsDomain} src={analytics}></script>}
   </head>
   <body>
+    <a class="skip" href="#main">Skip to content</a>
     <header class="site">
       <div class="wrap">
         <a class="brand" href={withBase('/')}>{SITE_NAME}</a>
         <a class="kitsmith" href={sitePath('/')} title="Kitsmith home">kitsmith.dev</a>
-        <nav class="primary" aria-label="Sections">
-          {nav.map(([label, href]) => (
-            <a href={withBase(href)} aria-current={section === href ? 'page' : undefined}>{label}</a>
-          ))}
-        </nav>
-        <Search />
+        <details class="menu" open>
+          <summary aria-label="Menu and search">
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h14M3 10h14M3 15h14" /></svg>
+            Menu
+          </summary>
+          <nav class="primary" aria-label="Sections">
+            {nav.map(([label, href]) => (
+              <a href={withBase(href)} aria-current={section === href ? 'page' : undefined}>{label}</a>
+            ))}
+          </nav>
+          <Search />
+        </details>
       </div>
     </header>
-    <main class="wrap">
+    <main class="wrap" id="main">
       <slot />
     </main>
     <footer class="site">
@@ -85,6 +92,19 @@ const nav = [
       </div>
     </footer>
     <script>
+      // Narrow screens: start with the menu closed so the sticky header is one row. Without JS it stays
+      // open (today's layout), so the links are always reachable.
+      try {
+        const menu = document.querySelector('details.menu') as HTMLDetailsElement | null;
+        const narrow = window.matchMedia('(max-width: 59.99rem)');
+        if (menu) {
+          const sync = () => {
+            menu.open = !narrow.matches;
+          };
+          sync();
+          narrow.addEventListener('change', sync);
+        }
+      } catch {}
       // Resume where you left off: remember the last step visited per arm (per-device convenience only).
       try {
         const m = location.pathname.match(/\/(follower|leader)\/(\d{3})-/);
