@@ -1,0 +1,4 @@
+- id: L-001
+  slug: leader-bad
+  assembly: leader
+  extends: F-999

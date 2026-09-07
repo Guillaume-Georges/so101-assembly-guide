@@ -24,6 +24,11 @@
       "assembly": {
         "$ref": "common.json#/$defs/assembly"
       },
+      "extends": {
+        "type": "string",
+        "pattern": "^[FL]-\\d{3}$",
+        "description": "Inherit every field from this step (any assembly) and override only what is listed here. Resolved by scripts; both steps keep their own URL (ADR-0002)."
+      },
       "parts": {
         "type": "array",
         "items": {
@@ -100,7 +105,16 @@
         "default": false
       }
     },
-    "required": ["id", "slug", "title", "assembly", "parts", "check", "source"],
-    "additionalProperties": false
+    "required": ["id", "slug", "assembly"],
+    "additionalProperties": false,
+    "if": {
+      "required": ["extends"]
+    },
+    "then": {
+      "required": ["id", "slug", "assembly", "extends"]
+    },
+    "else": {
+      "required": ["id", "slug", "title", "assembly", "parts", "check", "source"]
+    }
   }
 }

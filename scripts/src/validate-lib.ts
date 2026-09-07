@@ -8,6 +8,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { dataFiles, loadDataset, readYaml, type Dataset } from './load.js';
 import { DATA_DIR, PLACEMENTS_JSON, SCHEMA_DIR } from './paths.js';
+import { resolveDataset } from './resolve.js';
 
 export type Problem = { file: string; where: string; message: string };
 
@@ -60,8 +61,10 @@ function uniqueIds(items: { id: string }[], file: string, problems: Problem[]): 
 }
 
 /** Rules that JSON Schema cannot express: references between files, source-or-flag, geometry mapping. */
-export function validateCrossRefs(ds: Dataset, placementsPath = PLACEMENTS_JSON): Problem[] {
-  const p: Problem[] = [];
+export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON): Problem[] {
+  const { dataset: ds, problems: resolveProblems } = resolveDataset(raw);
+  const p: Problem[] = [...resolveProblems];
+  if (resolveProblems.length) return p; // unresolved extends: nothing below is meaningful
   const partIds = uniqueIds(ds.parts, 'parts.yaml', p);
   const fastenerIds = uniqueIds(ds.fasteners, 'fasteners.yaml', p);
   const toolIds = uniqueIds(ds.tools, 'tools.yaml', p);
@@ -103,6 +106,7 @@ export function validateCrossRefs(ds: Dataset, placementsPath = PLACEMENTS_JSON)
     const prefix = name === 'follower' ? 'F-' : name === 'leader' ? 'L-' : null;
     for (const st of steps) {
       if (stepIds.has(st.id)) p.push({ file, where: st.id, message: 'duplicate step id (global)' });
+      if (st.extends === st.id) p.push({ file, where: st.id, message: 'step extends itself' });
       stepIds.add(st.id);
       uniqueSlug(file, st);
       if (st.assembly !== name)
@@ -177,8 +181,9 @@ export function validateAll(
 
 /** Every unverified/approximation flag in the dataset, for phase reports. */
 export function listFlags(
-  ds: Dataset,
+  raw: Dataset,
 ): { file: string; id: string; flag: 'unverified' | 'approximation' }[] {
+  const ds = resolveDataset(raw).dataset;
   const out: { file: string; id: string; flag: 'unverified' | 'approximation' }[] = [];
   const scan = (
     file: string,

@@ -5,7 +5,25 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+    - part: servo-sts3215-12v-345
+      servo_voltage: 12V
+      supply: 12V 5A+
+      default: false
+      note: Optional follower-only variant. SVRC's "12V power supply" applies to this variant only (D-002).
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
+        - ref: https://www.roboticscenter.ai/en/hardware/so-101/setup
+          retrieved: '2026-09-07'
+          note: '"12V power supply (3A minimum)"'
   bus_id: 1
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -21,7 +39,25 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+    - part: servo-sts3215-12v-345
+      servo_voltage: 12V
+      supply: 12V 5A+
+      default: false
+      note: Optional follower-only variant. SVRC's "12V power supply" applies to this variant only (D-002).
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
+        - ref: https://www.roboticscenter.ai/en/hardware/so-101/setup
+          retrieved: '2026-09-07'
+          note: '"12V power supply (3A minimum)"'
   bus_id: 2
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -37,7 +73,25 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+    - part: servo-sts3215-12v-345
+      servo_voltage: 12V
+      supply: 12V 5A+
+      default: false
+      note: Optional follower-only variant. SVRC's "12V power supply" applies to this variant only (D-002).
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
+        - ref: https://www.roboticscenter.ai/en/hardware/so-101/setup
+          retrieved: '2026-09-07'
+          note: '"12V power supply (3A minimum)"'
   bus_id: 3
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -53,7 +107,25 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+    - part: servo-sts3215-12v-345
+      servo_voltage: 12V
+      supply: 12V 5A+
+      default: false
+      note: Optional follower-only variant. SVRC's "12V power supply" applies to this variant only (D-002).
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
+        - ref: https://www.roboticscenter.ai/en/hardware/so-101/setup
+          retrieved: '2026-09-07'
+          note: '"12V power supply (3A minimum)"'
   bus_id: 4
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -69,7 +141,25 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+    - part: servo-sts3215-12v-345
+      servo_voltage: 12V
+      supply: 12V 5A+
+      default: false
+      note: Optional follower-only variant. SVRC's "12V power supply" applies to this variant only (D-002).
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
+        - ref: https://www.roboticscenter.ai/en/hardware/so-101/setup
+          retrieved: '2026-09-07'
+          note: '"12V power supply (3A minimum)"'
   bus_id: 5
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -85,7 +175,25 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+    - part: servo-sts3215-12v-345
+      servo_voltage: 12V
+      supply: 12V 5A+
+      default: false
+      note: Optional follower-only variant. SVRC's "12V power supply" applies to this variant only (D-002).
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
+        - ref: https://www.roboticscenter.ai/en/hardware/so-101/setup
+          retrieved: '2026-09-07'
+          note: '"12V power supply (3A minimum)"'
   bus_id: 6
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -101,7 +209,15 @@
   part: servo-sts3215-c044-191
   model: STS3215
   gear_ratio: 1:191
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c044-191
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+      note: Leader arm is always 7.4V on the 5V supply; no 12V variant exists for it (README).
   bus_id: 1
   notes: Leader arm is always 7.4V (README).
   source:
@@ -118,7 +234,15 @@
   part: servo-sts3215-c001-345
   model: STS3215
   gear_ratio: 1:345
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c001-345
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+      note: Leader arm is always 7.4V on the 5V supply; no 12V variant exists for it (README).
   bus_id: 2
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -134,7 +258,15 @@
   part: servo-sts3215-c044-191
   model: STS3215
   gear_ratio: 1:191
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c044-191
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+      note: Leader arm is always 7.4V on the 5V supply; no 12V variant exists for it (README).
   bus_id: 3
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -150,7 +282,15 @@
   part: servo-sts3215-c046-147
   model: STS3215
   gear_ratio: 1:147
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c046-147
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+      note: Leader arm is always 7.4V on the 5V supply; no 12V variant exists for it (README).
   bus_id: 4
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -166,7 +306,15 @@
   part: servo-sts3215-c046-147
   model: STS3215
   gear_ratio: 1:147
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c046-147
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+      note: Leader arm is always 7.4V on the 5V supply; no 12V variant exists for it (README).
   bus_id: 5
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
@@ -182,7 +330,15 @@
   part: servo-sts3215-c046-147
   model: STS3215
   gear_ratio: 1:147
-  voltage: 7.4V
+  variants:
+    - part: servo-sts3215-c046-147
+      servo_voltage: 7.4V
+      supply: 5V
+      default: true
+      source:
+        - ref: upstream/SO-ARM100/README.md#sourcing-parts
+          note: 7.4V servos; 5V power supply
+      note: Leader arm is always 7.4V on the 5V supply; no 12V variant exists for it (README).
   bus_id: 6
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions

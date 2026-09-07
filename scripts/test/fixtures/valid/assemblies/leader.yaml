@@ -1,0 +1,6 @@
+- id: L-001
+  slug: leader-mount-shoulder-pan-servo
+  assembly: leader
+  extends: F-001
+  parts: [base-plate, servo-sts3215-345]
+  orientation_note: leader override

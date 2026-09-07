@@ -15,7 +15,16 @@ export type Part = Flagged & {
   source_file?: string;
   licence?: string;
   geometry_names?: string[];
+  aka?: string[];
   notes?: string;
+};
+export type ServoVariant = {
+  part: string;
+  servo_voltage: string;
+  supply: string;
+  default?: boolean;
+  note?: string;
+  source: SourceRef[];
 };
 export type Servo = Flagged & {
   id: string;
@@ -24,7 +33,7 @@ export type Servo = Flagged & {
   part: string;
   model: string;
   gear_ratio: string;
-  voltage?: string;
+  variants: ServoVariant[];
   bus_id?: number;
   orientation_note?: string;
   notes?: string;
@@ -55,7 +64,14 @@ export type Vendor = Flagged & {
   name: string;
   url: string;
   region?: string;
-  kits?: { name: string; url: string; includes: string[] }[];
+  kits?: {
+    name: string;
+    url: string;
+    includes: string[];
+    hardware?: string;
+    servos?: string;
+    source?: SourceRef[];
+  }[];
   part_map?: { vendor_ref: string; part: string; note?: string }[];
   notes?: string;
 };
@@ -64,6 +80,7 @@ export type Step = Flagged & {
   slug: string;
   title: string;
   assembly: string;
+  extends?: string;
   parts: string[];
   servo_slot?: string;
   orientation_note?: string;

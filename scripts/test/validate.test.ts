@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { loadDataset } from '../src/load.js';
+import { resolveDataset } from '../src/resolve.js';
 import { listFlags, validateAll, validateCrossRefs, validateSchemas } from '../src/validate-lib.js';
 import { DATA_DIR, SCHEMA_DIR } from '../src/paths.js';
 
@@ -32,6 +33,24 @@ describe('cross-references', () => {
         expect.stringContaining('source is empty'),
       ]),
     );
+  });
+  it('rejects an unknown extends target', () => {
+    const msgs = validateCrossRefs(loadDataset(fx('invalid-extends')), NO_PLACEMENTS).map(
+      (p) => p.message,
+    );
+    expect(msgs).toEqual([expect.stringContaining("extends unknown step 'F-999'")]);
+  });
+  it('resolves extends: child inherits parent fields and keeps its own id/slug/assembly', () => {
+    const { dataset, problems } = resolveDataset(loadDataset(fx('valid')));
+    expect(problems).toEqual([]);
+    const l = dataset.assemblies.leader[0];
+    expect(l.id).toBe('L-001');
+    expect(l.assembly).toBe('leader');
+    expect(l.extends).toBe('F-001');
+    expect(l.title).toBe('Mount shoulder-pan servo to base');
+    expect(l.check).toBeDefined();
+    expect(l.orientation_note).toBe('leader override');
+    expect(l.fasteners).toEqual([{ id: 'm2x6-shcs', qty: 4 }]);
   });
   it('lists flags', () => {
     expect(listFlags(loadDataset(fx('valid')))).toEqual([

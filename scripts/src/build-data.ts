@@ -5,6 +5,7 @@ import { execSync } from 'node:child_process';
 import { loadDataset } from './load.js';
 import { GENERATED_DIR, REPO_ROOT } from './paths.js';
 import { validateAll } from './validate-lib.js';
+import { resolveDataset } from './resolve.js';
 
 const problems = validateAll();
 if (problems.length) {
@@ -22,7 +23,11 @@ try {
 } catch {
   /* not a git checkout */
 }
-const bundle = { generated_at: new Date().toISOString(), commit, ...loadDataset() };
+const bundle = {
+  generated_at: new Date().toISOString(),
+  commit,
+  ...resolveDataset(loadDataset()).dataset,
+};
 fs.mkdirSync(GENERATED_DIR, { recursive: true });
 const out = path.join(GENERATED_DIR, 'data.json');
 fs.writeFileSync(out, JSON.stringify(bundle, null, 2) + '\n');

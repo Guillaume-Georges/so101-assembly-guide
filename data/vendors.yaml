@@ -52,13 +52,51 @@
   url: https://www.seeedstudio.com/SO-ARM100-Low-Cost-AI-Arm-Kit.html
   region: International
   kits:
-    - name: SO-ARM100/101 Low-Cost AI Arm Kit
+    - name: SO-ARM101 Arm Kit, Standard Edition
       url: https://www.seeedstudio.com/SO-ARM100-Low-Cost-AI-Arm-Kit.html
       includes:
         - printed-frame
-  notes: 'Seeed wiki lists a Standard (all 5V) and a Pro edition (12V follower servos, leader stays 5V). Wiki: https://wiki.seeedstudio.com/lerobot_so100m_new/'
+        - electronics
+      servos:
+        'Leader: 1x ST-3215-C001 (7.4V, 1:345) joint 2, 2x C044 (7.4V, 1:191) joints 1 and 3, 3x C046 (7.4V,
+        1:147) joints 4–6. Follower: 6x C001 (7.4V, 1:345). Both power supplies 5V.'
+      hardware: Not itemised on the wiki.
+      source:
+        - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+          retrieved: '2026-09-07'
+          note: Specification table; Calibrate section on kit editions
+    - name: SO-ARM101 Arm Kit, Pro Edition
+      url: https://www.seeedstudio.com/SO-ARM100-Low-Cost-AI-Arm-Kit.html
+      includes:
+        - printed-frame
+        - electronics
+      servos: 'Follower: 6x ST-3215-C018 / C047 (12V, 1:345) on a 12V supply; leader as Standard, on 5V.'
+      hardware: Not itemised on the wiki.
+      source:
+        - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+          retrieved: '2026-09-07'
+          note: Specification table; "Arm Kit Pro version ... 12V power supply for the Follower"
+  notes:
+    'Seeed wiki numbers only the servos (F1–F6, L1–L6); its assembly section is images without part numbers.
+    Wiki: https://wiki.seeedstudio.com/lerobot_so100m_new/'
   source:
     - ref: upstream/SO-ARM100/README.md#kits
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: Specification table, servo/joint table
+  part_map:
+    - vendor_ref: F1–F6
+      part: servo-sts3215-c001-345
+      note: Seeed numbers servos, not printed parts; F = follower joint 1–6
+    - vendor_ref: L2
+      part: servo-sts3215-c001-345
+    - vendor_ref: L1, L3
+      part: servo-sts3215-c044-191
+    - vendor_ref: L4–L6
+      part: servo-sts3215-c046-147
+    - vendor_ref: Seeedstudio_Mounting_Plate_SO101
+      part: seeedstudio-mounting-plate-so101
+      note: Upstream STL/STEP named for this vendor; its use is not described on the wiki
 - id: wowrobo
   name: WowRobo
   url: https://shop.wowrobo.com/products/so-arm101-diy-kit-assembled-version-1
@@ -119,10 +157,30 @@
       includes:
         - printed-frame
         - electronics
+      hardware:
+        'Wiki wording only: "four pointed screws (two on the top and bottom)" for the motor in the base, "flat
+        head screws" for the shoulder onto the horn; sizes not stated. Kit contents not itemised.'
+      servos:
+        'Leader: IDs 1–3 ST3215, IDs 4–6 ST3215-HS; SE editions: ST3215 (SE) encoder-only x6. Follower: ST3215
+        x6.'
+      source:
+        - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+          retrieved: '2026-09-07'
+          note: Servo Preprocessing table; Follower steps 1 and 4
     - name: SO-ARM101 No-3DP Parts Kit (SE)
       url: https://www.waveshare.com/wiki/SO-ARM100/101_Kit_Aassembly
       includes:
         - electronics
+      hardware:
+        'Wiki wording only: "four pointed screws (two on the top and bottom)" for the motor in the base, "flat
+        head screws" for the shoulder onto the horn; sizes not stated. Kit contents not itemised.'
+      servos:
+        'Leader: IDs 1–3 ST3215, IDs 4–6 ST3215-HS; SE editions: ST3215 (SE) encoder-only x6. Follower: ST3215
+        x6.'
+      source:
+        - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+          retrieved: '2026-09-07'
+          note: Servo Preprocessing table; Follower steps 1 and 4
   part_map:
     - vendor_ref: F1
       part: base-so101
@@ -157,6 +215,30 @@
     - vendor_ref: F11
       part: waveshare-mounting-plate-so101
       note: '"driver board bracket F11"'
+    - vendor_ref: L1
+      part: base-so101
+      note: Leader steps 1–15 "are the same as those for the Follower"; L1 taken as the F1 role
+    - vendor_ref: L2
+      part: base-motor-holder-so101
+      note: Leader steps 1–15 "are the same as those for the Follower"; L2 taken as the F2 role
+    - vendor_ref: L3
+      part: rotation-pitch-so101
+      note: Leader steps 1–15 "are the same as those for the Follower"; L3 taken as the F3 role
+    - vendor_ref: L4
+      part: motor-holder-so101-base
+      note: Leader steps 1–15 "are the same as those for the Follower"; L4 taken as the F4 role
+    - vendor_ref: L5
+      part: upper-arm-so101
+      note: Leader steps 1–15 "are the same as those for the Follower"; L5 taken as the F5 role
+    - vendor_ref: L6
+      part: under-arm-so101
+      note: Leader steps 1–15 "are the same as those for the Follower"; L6 taken as the F6 role
+    - vendor_ref: L7
+      part: motor-holder-so101-wrist
+      note: Leader steps 1–15 "are the same as those for the Follower"; L7 taken as the F7 role
+    - vendor_ref: L8
+      part: wrist-roll-pitch-so101
+      note: Leader steps 1–15 "are the same as those for the Follower"; L8 taken as the F8 role
     - vendor_ref: L9
       part: wrist-roll-so101
       note: '"Leader wrist L9"'
@@ -169,10 +251,13 @@
     - vendor_ref: L12
       part: waveshare-mounting-plate-so101
       note: '"driver board bracket L12"'
+    - vendor_ref: WaveShare_Mounting_Plate_SO101
+      part: waveshare-mounting-plate-so101
+      note: Upstream STL/STEP named for this vendor's bus servo adapter
   notes:
-    Waveshare kits fit ST3215-HS servos at leader IDs 4–6 and "SE" encoder-only servos in some editions; see
-    D-004. F1–F11 / L1–L12 numbering is Waveshare's; the map to our ids follows the role names and is confirmed
-    only when Phase 2 places the parts.
+    'Numbering F1–F11 / L1–L12 is Waveshare''s (there is no F12). L1–L8 are not named in the text and are taken
+    from the "same as follower" sentence. The map to our ids follows the role names and is confirmed only when Phase
+    2 places the parts. Servo variants: see D-004.'
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'

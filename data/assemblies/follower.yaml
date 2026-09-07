@@ -36,8 +36,9 @@
     - servo-cable-3pin
   warnings:
     - 'Set IDs now: "it will be troublesome to disassemble and assemble the servo cable after assembly" (Waveshare).'
-    - Leader arm servos are always 7.4V; plug the 5V supply, not 12V (README, Seeed).
     - 'Waveshare board: both jumpers on the B (USB) channel (LeRobot).'
+    - 'Supply voltage follows the servo variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
+      if the optional 12V follower servos are fitted (README, D-002).'
   check:
     Each servo answers on its own ID 1–6, bottom joint = 1, gripper = 6; leader and follower servos are labelled
     and kept apart.
@@ -55,6 +56,8 @@
     - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
       retrieved: '2026-09-07'
       note: '"check your motor model, gear ratio, and power supply voltage again"'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: IMPORTANT note on 7.4V vs 12V servos and supplies
 - id: F-003
   slug: follower-preinstall-cables
   title: Plug one 3-pin cable into each servo before building
@@ -584,3 +587,8 @@
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Follower step 19
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: IMPORTANT note on 7.4V vs 12V servos and supplies
+  warnings:
+    - 'Supply voltage follows the servo variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
+      if the optional 12V follower servos are fitted (README, D-002).'

@@ -4,4 +4,12 @@
   part: servo-sts3215-345
   model: STS3215
   gear_ratio: '1:345'
+  variants:
+    - {
+        part: servo-sts3215-345,
+        servo_voltage: 7.4V,
+        supply: 5V,
+        default: true,
+        source: [{ ref: upstream/SO-ARM100/README.md#sourcing-parts }],
+      }
   source: [{ ref: upstream/SO-ARM100/README.md#servos }]
