@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
-import { Grid, Html, Line, OrbitControls, useGLTF } from '@react-three/drei';
+import { Grid, Html, Line, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { cablesAt, visibility, type Placement, type StepLite, type Visibility } from './state';
@@ -226,6 +226,67 @@ function TouchPolicy() {
   return null;
 }
 
+/**
+ * Keyboard orbit on the focusable canvas wrapper: arrows turn, +/- zoom, Home re-frames. Works on
+ * the camera and the OrbitControls target directly, so it needs no private control internals.
+ */
+function KeyOrbit({ onHome }: { onHome: () => void }) {
+  const { gl, camera, controls, invalidate } = useThree();
+  useEffect(() => {
+    // The focusable element is the Canvas root (role=img), two levels above the canvas.
+    const root =
+      (gl.domElement.closest('[role="img"]') as HTMLElement | null) ?? gl.domElement.parentElement;
+    if (!root) return;
+    const onKey = (e: KeyboardEvent) => {
+      const c = controls as unknown as { target: THREE.Vector3; update: () => void } | null;
+      if (!c) return;
+      let dTheta = 0;
+      let dPhi = 0;
+      let zoom = 1;
+      switch (e.key) {
+        case 'ArrowLeft':
+          dTheta = 0.15;
+          break;
+        case 'ArrowRight':
+          dTheta = -0.15;
+          break;
+        case 'ArrowUp':
+          dPhi = -0.1;
+          break;
+        case 'ArrowDown':
+          dPhi = 0.1;
+          break;
+        case '+':
+        case '=':
+          zoom = 0.85;
+          break;
+        case '-':
+          zoom = 1.18;
+          break;
+        case 'Home':
+          onHome();
+          e.preventDefault();
+          return;
+        default:
+          return;
+      }
+      e.preventDefault();
+      const offset = camera.position.clone().sub(c.target);
+      const sph = new THREE.Spherical().setFromVector3(offset);
+      sph.theta += dTheta;
+      sph.phi = THREE.MathUtils.clamp(sph.phi + dPhi, 0.05, Math.PI - 0.05);
+      sph.radius *= zoom;
+      camera.position.copy(c.target).add(new THREE.Vector3().setFromSpherical(sph));
+      camera.lookAt(c.target);
+      c.update();
+      invalidate();
+    };
+    root.addEventListener('keydown', onKey);
+    return () => root.removeEventListener('keydown', onKey);
+  }, [gl, camera, controls, invalidate, onHome]);
+  return null;
+}
+
 function Scene({
   arm,
   placements,
@@ -378,6 +439,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   const [fit, setFit] = useState(0);
   const [mode, setMode] = useState<FitMode>('step');
   const [dragging, setDragging] = useState(false);
+  const progress = useProgress();
   const [picked, setPicked] = useState<Placement | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -434,7 +496,10 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         onPointerMissed={() => setPicked(null)}
         role="img"
         aria-label={label}
+        tabIndex={0}
+        aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown + - Home"
       >
+        <KeyOrbit onHome={() => setFit((n) => n + 1)} />
         <Suspense fallback={null}>
           <Scene
             arm={arm}
@@ -451,6 +516,11 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
           />
         </Suspense>
       </Canvas>
+      {progress.active && (
+        <div className="loading" role="status" aria-live="polite">
+          Loading parts… {progress.loaded} of {progress.total}
+        </div>
+      )}
       <div className="legend" aria-hidden="true">
         {LEGEND.map(([vis, text]) => (
           <span key={vis} className={`key ${vis}`}>

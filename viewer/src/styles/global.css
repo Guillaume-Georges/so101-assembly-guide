@@ -996,3 +996,18 @@ header.site a.guide .sep {
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* Mesh loading progress, centred in the island while GLBs stream in. */
+.viewer .loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  pointer-events: none;
+}
