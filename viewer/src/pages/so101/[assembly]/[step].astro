@@ -5,7 +5,7 @@ import Flags from '../../../components/Flags.astro';
 import StepPanel from '../../../components/StepPanel.astro';
 import Viewer from '../../../island/Viewer';
 import { ASSEMBLIES, steps, stepPath, stepNumber } from '../../../lib/data';
-import { withBase, breadcrumbs, techArticle, stepDescription } from '../../../lib/seo';
+import { withBase, breadcrumbs, techArticle, stepDescription, sitePath } from '../../../lib/seo';
 export function getStaticPaths() {
   return ASSEMBLIES.flatMap((assembly) =>
     steps(assembly).map((s, i) => ({ params: { assembly, step: `${stepNumber(s.id)}-${s.slug}` }, props: { s, i } })),
@@ -32,7 +32,7 @@ const jsonLd = [
   <div class="grid step">
     <div>
       <div class="viewer">
-        <Viewer client:visible assembly={assembly} stepId={s.id} base={withBase('/')} />
+        <Viewer client:visible assembly={assembly} stepId={s.id} base={sitePath('/')} />
         <noscript><p class="fallback">3D view needs JavaScript; every instruction is in the text.</p></noscript>
       </div>
     </div>
