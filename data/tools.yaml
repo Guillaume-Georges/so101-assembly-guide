@@ -1,2 +1,23 @@
-# tools.yaml — populated in Phase 1. Schema: data/schema/tools.json
-[]
+# tools.yaml — Schema: data/schema/tools.json
+- id: screwdriver-ph0
+  name: 'Phillips screwdriver #0'
+  size: PH0
+  purchase_note: 'README footnote: sizes #0 and #1 recommended; any small precision set works.'
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: Screwdriver Set footnote 1
+- id: screwdriver-ph1
+  name: 'Phillips screwdriver #1'
+  size: PH1
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: Screwdriver Set footnote 1
+- id: small-screwdriver
+  name: Small flat screwdriver (support removal)
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#clean-parts
+      note: '"using a small screwdriver to get underneath the support material"'
+- id: putty-knife
+  name: Putty knife (print removal)
+  source:
+    - ref: upstream/SO-ARM100/README.md#step-5-remove-supports

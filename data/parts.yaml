@@ -1,2 +1,417 @@
-# parts.yaml — populated in Phase 1. Schema: data/schema/parts.json
-[]
+# parts.yaml — BOM. Schema: data/schema/parts.json. Every entry cites its source; roles inferred from file names are said so in notes.
+- id: base-so101
+  name: Base
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Base_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Base_SO101
+  notes: Upstream assembly text calls this "the base" (LeRobot Joint 1).
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Base_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Base_SO101.step
+- id: base-motor-holder-so101
+  name: Base motor holder
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Base_motor_holder_SO101.stl
+  licence: Apache-2.0
+  notes:
+    'Role inferred from file name: the "first motor holder" slid over motor 1 (LeRobot Joint 1) / "base motor
+    bracket F2" (Waveshare). Not found by name in SO101 Assembly.step; confirm in Phase 2.'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Base_motor_holder_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Base_motor_holder_SO101.step
+- id: motor-holder-so101-base
+  name: Motor holder (base side)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Motor_holder_SO101_Base.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Motor_holder_SO101_Base
+  notes:
+    'Role inferred from file name: the "shoulder motor holder" added after the shoulder (LeRobot Joint 1) /
+    "shoulder motor bracket F4" (Waveshare). Confirm in Phase 2.'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Motor_holder_SO101_Base.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Motor_holder_SO101_Base.step
+- id: motor-holder-so101-wrist
+  name: Motor holder (wrist side)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Motor_holder_SO101_Wrist.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Motor_holder_SO101_Wrist
+  notes:
+    'Role inferred from file name: "motor holder 4" (LeRobot Joint 4) / "elbow motor bracket F7" (Waveshare).
+    Confirm in Phase 2.'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Motor_holder_SO101_Wrist.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Motor_holder_SO101_Wrist.step
+- id: under-arm-so101
+  name: Under arm (forearm)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Under_arm_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Under_arm_SO101
+  notes: 'Role inferred: the "forearm" connected to motor 3 (LeRobot Joint 3) / "forearm F6" (Waveshare).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Under_arm_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Under_arm_SO101.step
+- id: upper-arm-so101
+  name: Upper arm
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Upper_arm_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Upper_arm_SO101
+  notes: 'LeRobot Joint 2: "attach the upper arm".'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Upper_arm_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Upper_arm_SO101.step
+- id: rotation-pitch-so101
+  name: Rotation/pitch (shoulder)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Rotation_Pitch_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Rotation_Pitch_SO101
+  notes:
+    'Role inferred: the "shoulder part" tightened onto motor 1 horns (LeRobot Joint 1) / "shoulder F3" (Waveshare).
+    Confirm in Phase 2.'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Rotation_Pitch_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Rotation_Pitch_SO101.step
+- id: wrist-roll-pitch-so101
+  name: Wrist roll/pitch (wrist holder)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_Pitch_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Wrist_Roll_Pitch_SO100
+  notes:
+    'Role inferred: the "wrist holder" that receives motor 5 and is secured to motor 4 (LeRobot Joint 5) /
+    "wrist bracket F8" (Waveshare). The assembly STEP names this solid Wrist_Roll_Pitch_SO100 (see D-005).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_Pitch_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Wrist_Roll_Pitch_SO101.step
+- id: waveshare-mounting-plate-so101
+  name: WaveShare controller mounting plate
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/WaveShare_Mounting_Plate_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - WaveShare_Mounting_Plate_SO101
+  notes: Waveshare step 19 calls it "driver board bracket F11/L12".
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/WaveShare_Mounting_Plate_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/WaveShare_Mounting_Plate_SO101.step
+- id: seeedstudio-mounting-plate-so101
+  name: Seeed Studio controller mounting plate
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Seeedstudio_Mounting_Plate_SO101.stl
+  licence: Apache-2.0
+  notes:
+    Present in STL/ and STEP/ but absent from the README part table and from every assembly text read. Presumably
+    the alternative plate for the Seeed bus board; usage unsourced.
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Seeedstudio_Mounting_Plate_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Seeedstudio_Mounting_Plate_SO101.step
+  unverified: true
+- id: handle-so101
+  name: Leader handle
+  qty: 1
+  category: printed
+  assembly:
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Handle_SO101.stl
+  licence: Apache-2.0
+  notes:
+    'LeRobot Gripper/Handle (Leader): "attach the handle". Waveshare calls it "joystick L11". Not found by
+    name in SO101 Assembly.step (D-005).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Handle_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Handle_SO101.step
+- id: trigger-so101
+  name: Leader trigger
+  qty: 1
+  category: printed
+  assembly:
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Trigger_SO101.stl
+  licence: Apache-2.0
+  notes:
+    'LeRobot Gripper/Handle (Leader): "attach the follower trigger". Not found by name in SO101 Assembly.step
+    (D-005).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Trigger_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Trigger_SO101.step
+- id: wrist-roll-so101
+  name: Leader wrist roll (leader holder)
+  qty: 1
+  category: printed
+  assembly:
+    - leader
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Wrist_Roll_SO101 v6
+  notes:
+    'Role inferred: the "leader holder" mounted on the wrist motor horn (LeRobot Gripper/Handle, Leader) /
+    "Leader wrist L9" (Waveshare).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Wrist_Roll_SO101.step
+- id: moving-jaw-so101
+  name: Moving jaw (gripper claw)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Moving_Jaw_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Moving_Jaw_SO101
+  notes: 'LeRobot Gripper/Handle (Follower): "install the gripper claw". Waveshare: "Follower gripper F10".'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Moving_Jaw_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Follower_Specific/Moving_Jaw_SO101.step
+- id: wrist-roll-follower-so101
+  name: Follower wrist roll (gripper body)
+  qty: 1
+  category: printed
+  assembly:
+    - follower
+  source_file: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_Follower_SO101.stl
+  licence: Apache-2.0
+  geometry_names:
+    - Wrist_Roll_Follower_SO101
+  notes:
+    'Role inferred: "the gripper" attached to the motor 5 horn, which then receives the gripper motor (LeRobot
+    Gripper/Handle, Follower) / "Follower wrist F9" (Waveshare).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#printing-the-parts
+      note: Individual Part Files table
+    - ref: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_Follower_SO101.stl
+    - ref: upstream/SO-ARM100/STEP/SO101/Follower_Specific/Wrist_Roll_Follower_SO101.step
+- id: servo-sts3215-c001-345
+  name: Feetech STS3215 servo, 7.4V, 1:345 gear (C001)
+  qty: 7
+  category: servo
+  assembly:
+    - follower
+    - leader
+  notes:
+    Qty 7 is the two-arm build (6 follower + 1 leader). A 12V variant with 30 kg.cm stall exists for the follower
+    only and needs a 12V 5A+ supply (README). Includes two horns and a 3-pin cable per the assembly texts; kit contents
+    are not itemised upstream.
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: 'Parts For Two Arms table: product codes C001/C044/C046, 7.4V'
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: gear-ratio table
+- id: servo-sts3215-c044-191
+  name: Feetech STS3215 servo, 7.4V, 1:191 gear (C044)
+  qty: 2
+  category: servo
+  assembly:
+    - leader
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: 'Parts For Two Arms table: product codes C001/C044/C046, 7.4V'
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: gear-ratio table
+- id: servo-sts3215-c046-147
+  name: Feetech STS3215 servo, 7.4V, 1:147 gear (C046)
+  qty: 3
+  category: servo
+  assembly:
+    - leader
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: 'Parts For Two Arms table: product codes C001/C044/C046, 7.4V'
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: gear-ratio table
+- id: servo-horn-geared
+  name: Servo horn, geared (drive side)
+  qty: 12
+  category: hardware
+  assembly:
+    - follower
+    - leader
+  geometry_names:
+    - 金属舵盘（驱动）
+  notes:
+    Ships with the servo. "Each servo is equipped with two steering wheels, one with gears and the other without"
+    (Waveshare). Qty = one per servo for two arms.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 2
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"Install both motor horns"'
+- id: servo-horn-plain
+  name: Servo horn, plain (idle side)
+  qty: 10
+  category: hardware
+  assembly:
+    - follower
+    - leader
+  geometry_names:
+    - 金属舵盘（从动）
+  notes: Ships with the servo. Not fitted on motor 5 (one horn only) on either arm, hence 10 for two arms.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower steps 2 and 15
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
+      note: '"Install only one motor horn on the wrist motor"'
+- id: motor-control-board
+  name: Motor control board (Waveshare bus servo adapter)
+  qty: 2
+  category: electronics
+  assembly:
+    - follower
+    - leader
+  notes: One per arm. Set both jumpers to the B (USB) channel before configuring motors (LeRobot troubleshooting).
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: Motor Control Board row
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: Waveshare jumper note
+- id: usb-c-cable
+  name: USB-C cable
+  qty: 2
+  category: cable
+  assembly:
+    - follower
+    - leader
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: USB-C Cable 2 pcs row
+- id: power-supply-5v
+  name: Power supply, 5V (for 7.4V servos)
+  qty: 2
+  category: electronics
+  assembly:
+    - follower
+    - leader
+  notes:
+    'README: 5V supply for the 7.4V servos; 12V 5A+ only if the 12V follower servos are used. Leader is always
+    7.4V. See D-002.'
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: Power Supply row and IMPORTANT note on 7.4V vs 12V
+- id: table-clamp
+  name: Table clamp
+  qty: 4
+  category: hardware
+  assembly:
+    - follower
+    - leader
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: Table Clamp 4pcs row
+- id: servo-cable-3pin
+  name: 3-pin servo bus cable
+  qty: 0
+  category: cable
+  assembly:
+    - follower
+    - leader
+  notes:
+    Used to daisy-chain motors and reach the controller board. Not itemised in the README BOM; the assembly
+    texts assume they come with the servos. Quantity unsourced.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#clean-parts
+      note: '"install one 3-pin cable in the motor"'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 1
+  unverified: true
+- id: wiring-holder
+  name: Wiring holder (cable clip)
+  qty: 0
+  category: printed
+  assembly:
+    - follower
+    - leader
+  geometry_names:
+    - Wiring_holder v1
+  notes:
+    Eleven "Wiring_holder v1" instances sit in SO101 Assembly.step and Seeed cites "cable clips" as an SO-101
+    addition, but no STL, BOM row or assembly step mentions them. See D-003.
+  source:
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'Assembly tip: "the addition of cable clips on SO-ARM101"'
+  unverified: true

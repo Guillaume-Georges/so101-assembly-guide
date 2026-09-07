@@ -1,2 +1,31 @@
-# fasteners.yaml — populated in Phase 1. Schema: data/schema/fasteners.json
-[]
+# fasteners.yaml — Schema: data/schema/fasteners.json. Quantities are counts used across the LeRobot steps, not kit contents.
+- id: m2x6
+  spec: M2x6 screw
+  qty: 49
+  assembly:
+    - follower
+    - leader
+  where_used: Servo body to printed holders ("smallest screws"); handle to leader holder.
+  notes:
+    Qty = count used across the LeRobot steps (follower 24 + leader 25); kit-supplied count not stated upstream.
+    Head type not specified in the text; see D-001 for the STEP model disagreement.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"4 M2x6mm screws (smallest screws)"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+- id: m3x6
+  spec: M3x6 screw
+  qty: 96
+  assembly:
+    - follower
+    - leader
+  where_used: Horn retaining screw (one per driven horn) and printed part to servo horn.
+  notes:
+    Qty = count used across the LeRobot steps (follower 50 + leader 46). The assembly STEP models "DIN EN ISO
+    7045 - M3 x 6" pan-head screws.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"Secure the top horn with a M3x6mm screw"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: PRODUCT DIN EN ISO 7045 - M3 x 6
