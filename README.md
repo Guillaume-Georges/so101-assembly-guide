@@ -12,13 +12,13 @@ checklist is another.
 
 ## Status
 
-| Phase | Scope                                                                                                                                       | State     |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                                              | done      |
-| 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md`                    | done      |
-| 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model                                                                     | in review |
-| 3     | Site: static page per step/part/servo/tool/issue, R3F island (highlight/ghost, explode, cable path), SEO metadata, PWA, embed route, mobile | pending   |
-| 4     | Printable checklist from the same data; call for builders to break it                                                                       | pending   |
+| Phase | Scope                                                                                                                                       | State   |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                                              | done    |
+| 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md`                    | done    |
+| 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model                                                                     | done    |
+| 3     | Site: static page per step/part/servo/tool/issue, R3F island (highlight/ghost, explode, cable path), SEO metadata, PWA, embed route, mobile | pending |
+| 4     | Printable checklist from the same data; call for builders to break it                                                                       | pending |
 
 Phases gate on review. The standing rules live in [CLAUDE.md](CLAUDE.md).
 
@@ -40,7 +40,7 @@ SOURCES.md   every external asset, its licence, where it lives here
 pnpm install                    # JS workspaces (scripts, viewer)
 pnpm validate --flags           # JSON Schema + cross-reference checks, lists unverified/approximation flags
 pnpm build                      # data -> viewer/src/generated/data.json -> viewer/dist
-pnpm dev                        # viewer dev server
+pnpm dev                        # Astro dev server (needs pnpm build-data first)
 uv run --directory pipeline pytest
 uvx pre-commit install          # ruff, prettier, schema validation on commit
 ```
