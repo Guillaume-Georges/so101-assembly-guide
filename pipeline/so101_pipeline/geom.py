@@ -93,6 +93,23 @@ def to_glb_frame(m_mm_zup: np.ndarray) -> np.ndarray:
     return C @ m_mm_zup @ Cinv
 
 
+def to_step_frame(m_glb: np.ndarray) -> np.ndarray:
+    """Inverse of `to_glb_frame`: a GLB-frame transform (m, Y-up) back to the STEP frame (mm, Z-up)."""
+    C = np.eye(4)
+    C[:3, :3] = R_ZUP_TO_YUP * MM_TO_M
+    return np.linalg.inv(C) @ m_glb @ C
+
+
+def points_to_step_frame(pts: np.ndarray) -> np.ndarray:
+    """GLB-frame points (m, Y-up) to STEP-frame points (mm, Z-up)."""
+    return (R_ZUP_TO_YUP.T @ np.asarray(pts).T).T / MM_TO_M
+
+
+def points_to_glb_frame(pts: np.ndarray) -> np.ndarray:
+    """STEP-frame points (mm, Z-up) to GLB-frame points (m, Y-up)."""
+    return (R_ZUP_TO_YUP @ np.asarray(pts).T).T * MM_TO_M
+
+
 def mesh_to_glb_frame(mesh: trimesh.Trimesh) -> trimesh.Trimesh:
     out = mesh.copy()
     out.apply_transform(np.diag([MM_TO_M, MM_TO_M, MM_TO_M, 1.0]))

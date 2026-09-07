@@ -1,8 +1,11 @@
 """Build per-part GLBs and placements.json from the resolved STEP occurrences.
 
 Printed parts and cables: the upstream mesh, in its product frame.
-Servos, horns, controller board, fasteners: datasheet / bounding-box primitives placed at the
-vendor model's transform (approximation: true). No vendor mesh is written (SOURCES.md).
+Servos, horns, controller board: datasheet / bounding-box primitives placed at the vendor model's
+transform (approximation: true). No vendor mesh is written (SOURCES.md).
+Fasteners: one canonical primitive per id (tip at the origin, axis +Z) placed by tip point and
+direction, so STEP screws, synthesized horn screws and the hand-placed handle screw share a mesh.
+Hole hosts, horn-screw synthesis and step allocation happen in fasteners.py.
 """
 
 from __future__ import annotations
@@ -30,7 +33,6 @@ FASTENER_PRIMS = {  # id -> (shank_d, shank_len, head_d, head_h) mm, all approxi
     "m2x6": (2.0, 6.0, 3.8, 1.5),
     "motor-tab-screw": (1.9, 4.8, 3.6, 1.4),
     "m2.5x4": (2.5, 4.0, 4.7, 2.1),
-    "tapping-0-48": (1.5, 4.8, 2.9, 1.2),
     "spacer-m2.5-h6": (5.0, 6.0, 5.0, 0.0),
     "m3-nut": (5.5, 2.4, 5.5, 0.0),
 }
@@ -49,7 +51,9 @@ class Placement:
     note: str | None = None
     feature: str | None = None
     assembly: list[str] = field(default_factory=lambda: ["follower", "leader"])
-    host: list[str] | None = None  # fasteners/horns: part ids whose bbox (+2 mm) contains this placement
+    host: list[str] | None = None  # fasteners: printed parts whose hole the shank passes through (fasteners.py)
+    joint: str | None = None  # servos, horns, horn screws: joint name (shoulder_pan .. gripper)
+    step: dict[str, str] | None = None  # fasteners: step id that installs it, per arm (fasteners.py)
 
 
 @dataclass
@@ -140,18 +144,8 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
                 r.note,
             )
         elif r.kind == "fastener":
-            mesh = _add_mesh(out, f"fastener-{r.id}.glb", _fastener_primitive(r.id, o))
-            _place(
-                out,
-                "fastener",
-                r.id,
-                mesh,
-                o,
-                geom.matrix_from_loc(o.location),
-                True,
-                r.via,
-                r.note,
-            )
+            mesh = _add_mesh(out, f"fastener-{r.id}.glb", fastener_primitive(r.id))
+            _place(out, "fastener", r.id, mesh, o, _fastener_pose(r.id, o), True, r.via, r.note)
         elif r.kind == "horn":
             mesh = _add_mesh(out, f"{r.id}.glb", _horn_primitive(r.id, o))
             _place(
@@ -166,6 +160,7 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
                 r.note,
                 arms=_arms_for_servo(o),
             )
+            out.placements[-1].joint = joint_of(o)
         elif r.kind == "servo":
             servo_groups[_group_key(o, "ST3215 Servo")].append(r)
         elif r.kind == "board":
@@ -191,6 +186,7 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
             feature,
             arms=_arms_for_servo(node),
         )
+        out.placements[-1].joint = joint_of(node)
 
     for key, members in board_groups.items():
         node = asm_nodes[key]
@@ -212,6 +208,18 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
             "union bbox of all board components in the sub-assembly frame",
         )
     return out
+
+
+JOINTS = ["shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper"]
+
+
+def joint_of(o: Occurrence) -> str | None:
+    """Joint of a servo sub-assembly or anything inside one, from the instance name 'ST3215 Servo v2:N'."""
+    for n in [o.raw_name, *reversed(o.raw_path)]:
+        m = re.search(r"ST3215 Servo v2:(\d)", n)
+        if m:
+            return JOINTS[int(m.group(1)) - 1]
+    return None
 
 
 def _arms_for_servo(o: Occurrence) -> list[str]:
@@ -273,52 +281,73 @@ def _horn_primitive(hid: str, o: Occurrence) -> trimesh.Trimesh:
     return geom.cylinder_along(axis, (b[0] + b[1]) / 2, HORN_D / 2, HORN_T[hid])
 
 
-def _fastener_primitive(fid: str, o: Occurrence) -> trimesh.Trimesh:
+def fastener_length(fid: str) -> float:
+    """Tip-to-head-top length of the canonical primitive, mm."""
+    _, shank_len, _, head_h = FASTENER_PRIMS[fid]
+    return shank_len + head_h
+
+
+def fastener_primitive(fid: str) -> trimesh.Trimesh:
+    """One canonical mesh per fastener id (mm): axis +Z, tip at the origin, head at the +Z end.
+    A placement is then fully described by its tip point and its tip->head direction (`screw_matrix`)."""
     shank_d, shank_len, head_d, head_h = FASTENER_PRIMS[fid]
+    z = np.array([0.0, 0.0, 1.0])
+    shank = geom.cylinder_along(z, np.array([0.0, 0.0, shank_len / 2]), shank_d / 2, shank_len)
+    if head_h == 0.0:  # nut / spacer: one cylinder
+        return shank
+    head = geom.cylinder_along(z, np.array([0.0, 0.0, shank_len + head_h / 2]), head_d / 2, head_h)
+    return trimesh.util.concatenate([shank, head])
+
+
+def screw_matrix(tip: np.ndarray, up: np.ndarray) -> np.ndarray:
+    """4x4 placing the canonical fastener with its tip at `tip` and its axis (tip -> head) along `up`.
+    Frame-agnostic: use it in the STEP frame (mm) or in the GLB frame (m)."""
+    up = np.asarray(up, dtype=float)
+    up = up / np.linalg.norm(up)
+    z = np.array([0.0, 0.0, 1.0])
+    if np.allclose(up, z):
+        m = np.eye(4)
+    elif np.allclose(up, -z):
+        m = trimesh.transformations.rotation_matrix(np.pi, [1, 0, 0])
+    else:
+        m = trimesh.transformations.rotation_matrix(np.arccos(np.clip(np.dot(z, up), -1, 1)), np.cross(z, up))
+    m[:3, 3] = tip
+    return m
+
+
+def screw_transform_glb(tip_m: np.ndarray, up_m: np.ndarray) -> list[float]:
+    """GLB-frame placement (flat 4x4) of the canonical fastener from a GLB-frame tip point and direction.
+    The canonical mesh is authored in the STEP frame, so the pose is built there and converted."""
+    return _flat(geom.to_glb_frame(screw_matrix(geom.points_to_step_frame(tip_m), geom.R_ZUP_TO_YUP.T @ up_m)))
+
+
+def screw_tip_up_glb(transform: list[float]) -> tuple[np.ndarray, np.ndarray]:
+    """Inverse of `screw_transform_glb`: GLB-frame tip point and tip->head direction of a placed fastener."""
+    m = geom.to_step_frame(np.array(transform).reshape(4, 4))
+    up = geom.R_ZUP_TO_YUP @ m[:3, 2]
+    return geom.points_to_glb_frame(m[:3, 3]), up / np.linalg.norm(up)
+
+
+def _fastener_pose(fid: str, o: Occurrence) -> np.ndarray:
+    """Tip point and tip->head direction of a STEP fastener product, read off its own bbox: the axis is
+    the longest extent (the thinnest for a nut) and the head is the end the centre of mass leans to."""
+    shank_d, shank_len, _, head_h = FASTENER_PRIMS[fid]
     b = geom.bbox(o.shape)
     ext = b[1] - b[0]
-    ax = int(np.argmax(ext))
-    axis = np.zeros(3)
-    axis[ax] = 1.0
+    ax = int(np.argmin(ext)) if head_h == 0.0 and shank_len < shank_d else int(np.argmax(ext))
     centre = (b[0] + b[1]) / 2
-    if head_h == 0.0:  # nut / spacer: one cylinder
-        return geom.cylinder_along(axis, centre, shank_d / 2, shank_len)
-    # head sits where the centre of mass leans
-    com = geom.centre_of_mass(o.shape)
-    sign = 1.0 if com[ax] > centre[ax] else -1.0
-    head_c = centre.copy()
-    head_c[ax] = b[1][ax] if sign > 0 else b[0][ax]
-    head_c[ax] -= sign * head_h / 2
-    shank_c = head_c.copy()
-    shank_c[ax] -= sign * (head_h / 2 + shank_len / 2)
-    return trimesh.util.concatenate(
-        [
-            geom.cylinder_along(axis, head_c, head_d / 2, head_h),
-            geom.cylinder_along(axis, shank_c, shank_d / 2, shank_len),
-        ]
-    )
-
-
-def attach_hosts(out: Output) -> None:
-    """Give every fastener a `host`: the printed parts whose world bbox (+2 mm) contains its centre.
-    The viewer shows a fastener when its step lists the fastener id and one host is installed."""
-    boxes = []
-    for p in out.placements:
-        if p.kind != "part":
-            continue
-        m = np.array(p.transform).reshape(4, 4)
-        v = out.meshes[p.mesh].vertices
-        w = (m[:3, :3] @ v.T).T + m[:3, 3]
-        boxes.append((p.id, w.min(axis=0) - 0.002, w.max(axis=0) + 0.002))
-    for p in out.placements:
-        if p.kind != "fastener":
-            continue
-        c = np.array(p.transform).reshape(4, 4)[:3, 3]
-        p.host = sorted({pid for pid, lo, hi in boxes if np.all(c >= lo) and np.all(c <= hi)})
+    if head_h == 0.0:
+        sign = 1.0
+    else:
+        sign = 1.0 if geom.centre_of_mass(o.shape)[ax] > centre[ax] else -1.0
+    up = np.zeros(3)
+    up[ax] = sign
+    tip = centre.copy()
+    tip[ax] = b[0][ax] if sign > 0 else b[1][ax]
+    return geom.matrix_from_loc(o.location) @ screw_matrix(tip, up)
 
 
 def write(out: Output, out_dir: Path, meta: dict) -> None:
-    attach_hosts(out)
     out_dir.mkdir(parents=True, exist_ok=True)
     for name, mesh in out.meshes.items():
         mesh.export(out_dir / name)

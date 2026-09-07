@@ -27,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     import numpy as np
 
-    from . import cables, export, hand_place
+    from . import cables, export, fasteners, hand_place
     from .mapping import MappingError, load_parts, resolve
     from .walk import walk_step
 
@@ -65,6 +65,16 @@ def main(argv: list[str] | None = None) -> int:
     derived = cables.derive_cables(out, anchors)
     written = cables.write_cables_yaml(derived, Path(args.data))
     print(f"✓ wrote {len(derived)} derived cable centrelines to {written}")
+    report = fasteners.finalize(out, Path(args.data), parts)
+    print(f"✓ fasteners: {report['horn_screws_added']} horn screws synthesized; per step:")
+    for (arm, sid, fid), n in sorted(report["per_step"].items()):
+        print(f"    {arm:8} {sid}  {n} x {fid}")
+    for name, ids in report["clashes"].items():
+        print(f"  ! {name}: shank inside {', '.join(ids)}")
+    for u, n in report["unallocated"].items():
+        print(f"  - {n} x {u} placed but listed by no step (hidden)")
+    for s in report["shortfalls"]:
+        print(f"  ✗ {s.arm} {s.step}: {s.fastener} declared {s.declared}, geometry provides {s.allocated}")
     export.write(
         out,
         Path(args.out),
