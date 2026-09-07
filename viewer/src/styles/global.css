@@ -399,7 +399,8 @@ a.skip:focus {
 }
 
 /* Header menu: a disclosure below 60rem so the sticky header is one row on a phone; inline above. */
-details.menu {
+details.menu,
+details.menu::details-content {
   display: contents;
 }
 details.menu > summary {
@@ -415,6 +416,9 @@ details.menu > summary {
   details.menu {
     display: block;
     margin-left: auto;
+  }
+  details.menu::details-content {
+    display: block;
   }
   details.menu > summary {
     display: inline-flex;
@@ -458,4 +462,143 @@ details.menu > summary {
   details.menu > form.search input {
     width: 100%;
   }
+}
+
+/* Step page orientation: where am I, what does done look like, what comes next. */
+.stepbar {
+  margin-top: 1rem;
+}
+.stepbar p {
+  margin: 0 0 0.4rem;
+}
+.stepbar .id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+}
+.progress {
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+.goal {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  border: 1px solid color-mix(in srgb, var(--ok) 45%, var(--line));
+  background: color-mix(in srgb, var(--ok) 10%, var(--bg-2));
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  margin: 0.6rem 0 0;
+  font-size: 1.05rem;
+}
+.goal strong {
+  color: var(--ok);
+  white-space: nowrap;
+}
+nav.steps a {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  line-height: 1.25;
+  min-width: 0;
+}
+nav.steps a small {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+nav.steps a span {
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 22rem;
+}
+nav.steps a.next {
+  margin-left: auto;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+nav.steps a.next small {
+  color: inherit;
+  opacity: 0.8;
+}
+nav.steps span.count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  padding: 0 0.5rem;
+}
+@media (max-width: 40rem) {
+  nav.steps a.prev span {
+    display: none;
+  }
+  nav.steps a span {
+    max-width: 12rem;
+  }
+}
+
+/* Island: legend, reset, and a canvas that gives vertical swipes back to the page. */
+.viewer canvas {
+  touch-action: pan-y;
+}
+.viewer .legend {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+}
+.viewer .legend .key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem 0.2rem 0.4rem;
+}
+.viewer .legend .key i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.viewer .legend .key.future i {
+  opacity: 0.5;
+  border: 1px dashed var(--muted);
+}
+.viewer .reset {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.viewer .pick {
+  top: auto;
+  bottom: 3.6rem;
+}
+
+nav.steps a small,
+nav.steps span.count {
+  white-space: nowrap;
 }

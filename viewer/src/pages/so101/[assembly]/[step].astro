@@ -24,11 +24,15 @@ const jsonLd = [
 ];
 ---
 <Base title={`${s.id} ${s.title}`} path={stepPath(s)} section={`/${assembly}/`} description={stepDescription(s)} noindex={!!s.unverified} jsonLd={jsonLd} ogImage={`/og/${assembly}/${stepNumber(s.id)}.png`}>
-  <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · step {i + 1} of {list.length}</p>
-  <h1>{s.id} {s.title} <Flags unverified={s.unverified} approximation={s.approximation} /></h1>
+  <div class="stepbar">
+    <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · <span class="id">{s.id}</span></p>
+    <div class="progress" role="progressbar" aria-label={`Step ${i + 1} of ${list.length}`} aria-valuemin="1" aria-valuemax={list.length} aria-valuenow={i + 1}><span style={`width:${Math.round(((i + 1) / list.length) * 100)}%`}></span></div>
+  </div>
+  <h1>{s.title} <Flags unverified={s.unverified} approximation={s.approximation} /></h1>
   {s.unverified && (
     <div class="banner"><strong>Unverified.</strong> Part of this step is not confirmed by any public source yet (see the sources below). Follow the upstream video for this joint and report what you find.</div>
   )}
+  <p class="goal"><strong>Done when</strong> {s.check}</p>
   <div class="grid step">
     <div>
       <div class="viewer">
@@ -41,9 +45,17 @@ const jsonLd = [
   <Sources sources={s.source} />
   <nav class="steps" aria-label="Step navigation">
     <div class="wrap">
-      {prev ? <a href={withBase(stepPath(prev))} rel="prev">← {prev.id}</a> : <a href={withBase(`/${assembly}/`)}>← All steps</a>}
-      {next ? <a href={withBase(stepPath(next))} rel="next">{next.id} →</a> : <a href={withBase(`/${assembly}/`)}>Done ✓</a>}
-      <span class="progress">{i + 1} / {list.length}</span>
+      {prev ? (
+        <a href={withBase(stepPath(prev))} rel="prev" class="prev"><small>← {prev.id}</small><span>{prev.title}</span></a>
+      ) : (
+        <a href={withBase(`/${assembly}/`)} class="prev"><small>←</small><span>All steps</span></a>
+      )}
+      <span class="count">{i + 1} / {list.length}</span>
+      {next ? (
+        <a href={withBase(stepPath(next))} rel="next" class="next"><small>Next · {next.id}</small><span>{next.title} →</span></a>
+      ) : (
+        <a href={withBase(`/${assembly}/`)} class="next"><small>Done ✓</small><span>Back to all steps</span></a>
+      )}
     </div>
   </nav>
 </Base>

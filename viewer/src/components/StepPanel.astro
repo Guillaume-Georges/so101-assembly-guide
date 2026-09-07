@@ -53,8 +53,4 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
     </section>
   ) : null}
   {s.warnings?.length ? s.warnings.map((w) => <p class="warning">⚠ {w}</p>) : null}
-  <section>
-    <h3>Check before moving on</h3>
-    <p class="check">✓ {s.check}</p>
-  </section>
 </aside>
