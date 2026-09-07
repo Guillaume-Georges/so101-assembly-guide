@@ -1,2 +1,586 @@
-# follower assembly steps — populated in Phase 1. Schema: data/schema/assembly.json
-[]
+# follower assembly steps, in upstream (LeRobot so101.mdx) order. Schema: data/schema/assembly.json
+- id: F-001
+  slug: follower-clean-printed-parts
+  title: Remove support material from all printed parts
+  assembly: follower
+  parts:
+    - base-so101
+    - base-motor-holder-so101
+    - motor-holder-so101-base
+    - motor-holder-so101-wrist
+    - under-arm-so101
+    - upper-arm-so101
+    - rotation-pitch-so101
+    - wrist-roll-pitch-so101
+    - waveshare-mounting-plate-so101
+    - moving-jaw-so101
+    - wrist-roll-follower-so101
+  tools:
+    - small-screwdriver
+    - putty-knife
+  check: No support material remains; every screw hole with a horizontal axis is clear.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#clean-parts
+    - ref: upstream/SO-ARM100/README.md#step-5-remove-supports
+    - ref: upstream/SO-ARM100/README.md#step-2-set-up-the-printer
+      note: '"no supports in the screw holes with horizontal axes"'
+- id: F-002
+  slug: follower-set-servo-ids
+  title: Set servo IDs 1–6 and baud rate before assembly
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - motor-control-board
+    - usb-c-cable
+    - power-supply-5v
+    - servo-cable-3pin
+  warnings:
+    - 'Set IDs now: "it will be troublesome to disassemble and assemble the servo cable after assembly" (Waveshare).'
+    - Leader arm servos are always 7.4V; plug the 5V supply, not 12V (README, Seeed).
+    - 'Waveshare board: both jumpers on the B (USB) channel (LeRobot).'
+  check:
+    Each servo answers on its own ID 1–6, bottom joint = 1, gripper = 6; leader and follower servos are labelled
+    and kept apart.
+  instructions:
+    Connect one motor at a time to the board and run the LeRobot setup-motors command for this arm;
+    the script names the joint and writes the ID. Software setup itself is out of scope here.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Servo Preprocessing: set IDs before assembling'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: '"label them and write on each motor"'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: '"check your motor model, gear ratio, and power supply voltage again"'
+- id: F-003
+  slug: follower-preinstall-cables
+  title: Plug one 3-pin cable into each servo before building
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-cable-3pin
+  check: Every servo has one cable fitted; cables not yet daisy-chained.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#clean-parts
+      note: '"It is advisable to install one 3-pin cable in the motor after placing them before continuing assembly."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 1: "plug the connecting wires into the two ports of servo No. 1"'
+- id: F-010
+  slug: follower-joint1-horns
+  title: Fit both horns on motor 1 (shoulder pan)
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-horn-geared
+    - servo-horn-plain
+  servo_slot: shoulder_pan
+  orientation_note: Output shaft (geared horn) is the upper end of motor 1 (Waveshare).
+  fasteners:
+    - id: m3x6
+      qty: 1
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Geared horn on the output shaft, retained by its M3x6; plain horn on the bottom, no screw.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 2: geared horn on the output shaft (upper end), plain horn at the bottom'
+- id: F-011
+  slug: follower-joint1-motor-into-base
+  title: Seat motor 1 in the base
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - base-so101
+  servo_slot: shoulder_pan
+  orientation_note: Two screws from the top, two from the bottom (LeRobot).
+  fasteners:
+    - id: m2x6
+      qty: 4
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: 'Four M2x6 in: two from the top, two from the bottom. Motor 1 cable reaches the base opening.'
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note:
+        '"Place the first motor into the base. Fasten the motor with 4 M2x6mm screws (smallest screws). Two from
+        the top and two from the bottom."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 1
+- id: F-012
+  slug: follower-joint1-motor-holder
+  title: Slide the first motor holder over motor 1
+  assembly: follower
+  parts:
+    - base-motor-holder-so101
+    - base-so101
+  servo_slot: shoulder_pan
+  fasteners:
+    - id: m2x6
+      qty: 2
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Holder sits flush on the base; one M2x6 on each side; one motor-1 cable routed out of the base opening.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"Slide over the first motor holder and fasten it using two M2x6mm screws (one on each side)."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 3: thread one wire out of the middle port of F1, the other into the wire groove of F2'
+  unverified: true
+- id: F-013
+  slug: follower-joint1-shoulder
+  title: Attach the shoulder to the motor 1 horns
+  assembly: follower
+  parts:
+    - rotation-pitch-so101
+    - servo-sts3215-c001-345
+  servo_slot: shoulder_pan
+  fasteners:
+    - id: m3x6
+      qty: 8
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Shoulder holes line up with the horn holes on both ends; 4 M3x6 top, 4 M3x6 bottom.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note:
+        '"Attach the shoulder part. Tighten the shoulder part with 4 M3x6mm screws on top and 4 M3x6mm screws
+        on the bottom"'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 4: clamp F3 horizontally along the inner slide at both ends of servo 1'
+  unverified: true
+- id: F-014
+  slug: follower-joint1-shoulder-motor-holder
+  title: Add the shoulder motor holder
+  assembly: follower
+  parts:
+    - motor-holder-so101-base
+    - rotation-pitch-so101
+  servo_slot: shoulder_lift
+  check: Holder seated on the shoulder, ready to receive motor 2 from the top.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"Add the shoulder motor holder."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 5: put F4 on F3'
+  unverified: true
+- id: F-020
+  slug: follower-joint2-horns
+  title: Fit both horns on motor 2 (shoulder lift)
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-horn-geared
+    - servo-horn-plain
+  servo_slot: shoulder_lift
+  fasteners:
+    - id: m3x6
+      qty: 1
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
+- id: F-021
+  slug: follower-joint2-motor
+  title: Slide motor 2 in from the top and fasten
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - motor-holder-so101-base
+  servo_slot: shoulder_lift
+  orientation_note: Inserted from the top (LeRobot).
+  fasteners:
+    - id: m2x6
+      qty: 4
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Motor 2 held by 4 M2x6; its cable connects to motor 1 (either port).
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
+      note: '"Slide the second motor in from the top. Fasten the second motor with 4 M2x6mm screws."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 5: connect servo 1 cable to servo 2, either port'
+  unverified: true
+- id: F-022
+  slug: follower-joint2-upper-arm
+  title: Attach the upper arm to the motor 2 horns
+  assembly: follower
+  parts:
+    - upper-arm-so101
+    - servo-sts3215-c001-345
+  servo_slot: shoulder_lift
+  orientation_note: Wire slot of the upper arm on the same side as the wiring harness (Waveshare).
+  fasteners:
+    - id: m3x6
+      qty: 8
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: 4 M3x6 on each side; wire slot on the same side as the cable run.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
+      note: '"Attach the upper arm with 4 M3x6mm screws on each side."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 7: wire slot of F5 on the same side as the wiring harness'
+- id: F-030
+  slug: follower-joint3-horns
+  title: Fit both horns on motor 3 (elbow flex)
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-horn-geared
+    - servo-horn-plain
+  servo_slot: elbow_flex
+  fasteners:
+    - id: m3x6
+      qty: 1
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
+- id: F-031
+  slug: follower-joint3-motor
+  title: Insert motor 3 into the upper arm
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - upper-arm-so101
+  servo_slot: elbow_flex
+  fasteners:
+    - id: m2x6
+      qty: 4
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Motor 3 held by 4 M2x6; its cable connects to motor 2.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
+      note: '"Insert motor 3 and fasten using 4 M2x6mm screws."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 8
+- id: F-032
+  slug: follower-joint3-forearm
+  title: Connect the forearm to the motor 3 horns
+  assembly: follower
+  parts:
+    - under-arm-so101
+    - servo-sts3215-c001-345
+  servo_slot: elbow_flex
+  orientation_note: Wire slot of the forearm on the same side as the wiring harness (Waveshare).
+  fasteners:
+    - id: m3x6
+      qty: 8
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: 4 M3x6 on each side; forearm wire slot on the same side as the cable run.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
+      note: '"Connect the forearm to motor 3 using 4 M3x6mm screws on each side."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 10: wire slot of F6 on the same side as the wiring harness'
+  unverified: true
+- id: F-040
+  slug: follower-joint4-horns
+  title: Fit both horns on motor 4 (wrist flex)
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-horn-geared
+    - servo-horn-plain
+  servo_slot: wrist_flex
+  fasteners:
+    - id: m3x6
+      qty: 1
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-4
+- id: F-041
+  slug: follower-joint4-motor-holder
+  title: Slide motor holder 4 onto the forearm
+  assembly: follower
+  parts:
+    - motor-holder-so101-wrist
+    - under-arm-so101
+  servo_slot: wrist_flex
+  orientation_note: Wire groove on the harness side (Waveshare).
+  check: Holder seated; wire groove on the same side as the cable run.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-4
+      note: '"Slide over motor holder 4."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 11: attach F7 to F6 with the wire groove and harness on the same side'
+  unverified: true
+- id: F-042
+  slug: follower-joint4-motor
+  title: Slide in motor 4 and fasten
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - motor-holder-so101-wrist
+  servo_slot: wrist_flex
+  fasteners:
+    - id: m2x6
+      qty: 4
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Motor 4 held by 4 M2x6; its cable connects to motor 3.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-4
+      note: '"Slide in motor 4. Fasten motor 4 with 4 M2x6mm screws."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 11
+  unverified: true
+- id: F-050
+  slug: follower-joint5-motor
+  title: Insert motor 5 into the wrist holder
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - wrist-roll-pitch-so101
+  servo_slot: wrist_roll
+  orientation_note: Gear side goes in first, gear facing up (Waveshare).
+  fasteners:
+    - id: m2x6
+      qty: 2
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  warnings:
+    - 'Route the cables before inserting motor 5: "otherwise it is easy to tear the wire" (Waveshare).'
+  check: Motor 5 held by 2 M2x6 at the front; both cables routed through the holder before the motor went in.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
+      note: '"Insert motor 5 into the wrist holder and secure it with 2 M2x6mm front screws."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 14: wire first, then insert the servo gear side first, gear facing up'
+  unverified: true
+- id: F-051
+  slug: follower-joint5-horn
+  title: Fit one horn only on motor 5 (wrist roll)
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-horn-geared
+  servo_slot: wrist_roll
+  fasteners:
+    - id: m3x6
+      qty: 1
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Geared horn on the output side retained by its M3x6; no horn on the other side.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
+      note: '"Install only one motor horn on the wrist motor and secure it with a M3x6mm horn screw."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 15
+- id: F-052
+  slug: follower-joint5-wrist-to-motor4
+  title: Secure the wrist to the motor 4 horns
+  assembly: follower
+  parts:
+    - wrist-roll-pitch-so101
+    - servo-sts3215-c001-345
+  servo_slot: wrist_flex
+  orientation_note: Rectangular opening of the wrist bracket on the servo-4 wiring-port side (Waveshare).
+  fasteners:
+    - id: m3x6
+      qty: 8
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: 4 M3x6 on both sides; the holder opening faces the motor 4 wiring port.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
+      note: '"Secure the wrist to motor 4 using 4 M3x6mm screws on both sides."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 13: rectangular opening of F8 on the same side as the wiring port of servo 4'
+  unverified: true
+- id: F-060
+  slug: follower-gripper-body
+  title: Attach the gripper body to the motor 5 horn
+  assembly: follower
+  parts:
+    - wrist-roll-follower-so101
+    - servo-sts3215-c001-345
+  servo_slot: wrist_roll
+  fasteners:
+    - id: m3x6
+      qty: 4
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Gripper body seated on the horn with 4 M3x6.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: 'Follower: "Attach the gripper to motor 5, attach it to the motor horn on the wrist using 4 M3x6mm screws."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 16
+  unverified: true
+- id: F-061
+  slug: follower-gripper-motor
+  title: Insert the gripper motor
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - wrist-roll-follower-so101
+  servo_slot: gripper
+  fasteners:
+    - id: m2x6
+      qty: 4
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: 2 M2x6 on each side; cable connects to motor 5.
+  instructions:
+    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
+    in the assembly STEP.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: 'Follower: "Insert the gripper motor and secure it with 2 M2x6mm screws on each side."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 17
+  unverified: true
+- id: F-062
+  slug: follower-gripper-horns
+  title: Fit both horns on the gripper motor
+  assembly: follower
+  parts:
+    - servo-sts3215-c001-345
+    - servo-horn-geared
+    - servo-horn-plain
+  servo_slot: gripper
+  fasteners:
+    - id: m3x6
+      qty: 1
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: 'Follower: "Install both motor horns on the gripper motor. Secure the top horn with a M3x6mm screw"'
+- id: F-063
+  slug: follower-gripper-claw
+  title: Install the gripper claw
+  assembly: follower
+  parts:
+    - moving-jaw-so101
+    - servo-sts3215-c001-345
+  servo_slot: gripper
+  orientation_note: Perpendicular to the gripper body, slid in from the top (Waveshare).
+  fasteners:
+    - id: m3x6
+      qty: 8
+  tools:
+    - screwdriver-ph0
+    - screwdriver-ph1
+  check: 4 M3x6 on both sides; claw slid into the slot from the top.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: 'Follower: "Install the gripper claw and secure it with 4 M3x6mm screws on both sides."'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 18: slide F10 from top to bottom into the F9 slot'
+- id: F-070
+  slug: follower-controller-board
+  title: Mount the controller board on its plate and fit it to the base
+  assembly: follower
+  parts:
+    - motor-control-board
+    - waveshare-mounting-plate-so101
+    - base-motor-holder-so101
+  check: Board on the plate; plate clipped to the base motor holder; a cable from motor 1 reaches the board.
+  instructions:
+    Fastener count for the board is not given by any source. Part identity inferred from STL file name
+    (see part notes); confirmed only when Phase 2 places it in the assembly STEP.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note:
+        'Follower step 19 / Leader step 20: driver board on bracket, attached to the base motor bracket by the
+        square component on its back'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: '"the controller board, which can now be attached to the base of the arm"'
+  unverified: true
+- id: F-071
+  slug: follower-daisy-chain
+  title: Daisy-chain the servo cables and connect motor 1 to the board
+  assembly: follower
+  parts:
+    - servo-cable-3pin
+    - motor-control-board
+  servo_slot: shoulder_pan
+  check: Chain runs 6→5→4→3→2→1; motor 1 (shoulder pan, ID 1) to the controller board; power and USB connected.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note:
+        '"plug the 3-pin cable from each motor to the next one, and the cable from the first motor (the ''shoulder
+        pan'' with id=1) to the controller board"'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 19
