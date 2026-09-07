@@ -1,2 +1,194 @@
-# servos.yaml — populated in Phase 1. Schema: data/schema/servos.json
-[]
+# servos.yaml — joint -> servo. Schema: data/schema/servos.json
+- id: follower-shoulder-pan
+  assembly: follower
+  joint: shoulder_pan
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 1
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns id 1 bottom-up
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: F1–F6 = ST-3215-C001 1:345'
+- id: follower-shoulder-lift
+  assembly: follower
+  joint: shoulder_lift
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 2
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns id 2 bottom-up
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: F1–F6 = ST-3215-C001 1:345'
+- id: follower-elbow-flex
+  assembly: follower
+  joint: elbow_flex
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 3
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns id 3 bottom-up
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: F1–F6 = ST-3215-C001 1:345'
+- id: follower-wrist-flex
+  assembly: follower
+  joint: wrist_flex
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 4
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns id 4 bottom-up
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: F1–F6 = ST-3215-C001 1:345'
+- id: follower-wrist-roll
+  assembly: follower
+  joint: wrist_roll
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 5
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns id 5 bottom-up
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: F1–F6 = ST-3215-C001 1:345'
+- id: follower-gripper
+  assembly: follower
+  joint: gripper
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 6
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns id 6 bottom-up
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: F1–F6 = ST-3215-C001 1:345'
+- id: leader-shoulder-pan
+  assembly: leader
+  joint: shoulder_pan
+  part: servo-sts3215-c044-191
+  model: STS3215
+  gear_ratio: 1:191
+  voltage: 7.4V
+  bus_id: 1
+  notes: Leader arm is always 7.4V (README).
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: 'leader table row "Base / Shoulder Pan": motor 1, 1 / 191'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: L1 = 1:191'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: leader bundle footnote
+- id: leader-shoulder-lift
+  assembly: leader
+  joint: shoulder_lift
+  part: servo-sts3215-c001-345
+  model: STS3215
+  gear_ratio: 1:345
+  voltage: 7.4V
+  bus_id: 2
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: 'leader table row "Shoulder Lift": motor 2, 1 / 345'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: L2 = 1:345'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: leader bundle footnote
+- id: leader-elbow-flex
+  assembly: leader
+  joint: elbow_flex
+  part: servo-sts3215-c044-191
+  model: STS3215
+  gear_ratio: 1:191
+  voltage: 7.4V
+  bus_id: 3
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: 'leader table row "Elbow Flex": motor 3, 1 / 191'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: L3 = 1:191'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: leader bundle footnote
+- id: leader-wrist-flex
+  assembly: leader
+  joint: wrist_flex
+  part: servo-sts3215-c046-147
+  model: STS3215
+  gear_ratio: 1:147
+  voltage: 7.4V
+  bus_id: 4
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: 'leader table row "Wrist Flex": motor 4, 1 / 147'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: L4 = 1:147'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: leader bundle footnote
+- id: leader-wrist-roll
+  assembly: leader
+  joint: wrist_roll
+  part: servo-sts3215-c046-147
+  model: STS3215
+  gear_ratio: 1:147
+  voltage: 7.4V
+  bus_id: 5
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: 'leader table row "Wrist Roll": motor 5, 1 / 147'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: L5 = 1:147'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: leader bundle footnote
+- id: leader-gripper
+  assembly: leader
+  joint: gripper
+  part: servo-sts3215-c046-147
+  model: STS3215
+  gear_ratio: 1:147
+  voltage: 7.4V
+  bus_id: 6
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: 'leader table row "Gripper": motor 6, 1 / 147'
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: 'servo table: L6 = 1:147'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: leader bundle footnote
