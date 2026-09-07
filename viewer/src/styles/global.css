@@ -896,3 +896,17 @@ details.menu > summary {
 .viewer .lbl3d {
   border-color: var(--accent);
 }
+
+/* Headings in Archivo (two weights, latin subset, ~28 KB); body stays on the system stack. */
+h1,
+h2,
+h3,
+.hero h1,
+section.group h3 {
+  font-family: 'Archivo', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+h3 {
+  font-weight: 600;
+}
