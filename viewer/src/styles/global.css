@@ -1170,3 +1170,53 @@ ol.milestones li.here a {
     order: 2;
   }
 }
+
+/* Numbered callouts on the picture; the names sit in a key under it so nothing covers the parts. */
+.viewer .mark3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+  transform: translateY(-1.2rem);
+}
+.viewer ol.callouts {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  border-top: 1px solid var(--line);
+  background: var(--bg-2);
+  font-size: 0.9rem;
+}
+.viewer ol.callouts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.viewer ol.callouts .mark3d {
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Controls and key sit under the picture, not over it (one Reset/View pair stays on the canvas). */
+.viewer .hud {
+  position: static;
+  padding: 0.4rem 0.5rem;
+  border-top: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.viewer .pick {
+  bottom: auto;
+  top: 3.6rem;
+}
