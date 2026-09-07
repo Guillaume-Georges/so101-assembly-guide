@@ -1,0 +1,60 @@
+---
+import { parts, fasteners, tools, cables, servoBySlot, jointLabel, type Step } from '../lib/data';
+import { withBase } from '../lib/seo';
+import Flags from './Flags.astro';
+interface Props { s: Step }
+const { s } = Astro.props;
+const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
+---
+<aside class="card">
+  {s.instructions && <p>{s.instructions}</p>}
+  {s.orientation_note && <p><strong>Orientation:</strong> {s.orientation_note}</p>}
+  {servo && (
+    <section>
+      <h3>Servo: {jointLabel(servo.joint)} (ID {servo.bus_id})</h3>
+      <p>
+        <a href={withBase(`/servos/${servo.assembly}/${servo.joint}/`)}>{servo.model} {servo.gear_ratio}</a> ·
+        {servo.variants.map((v) => (
+          <span> {v.servo_voltage} servo on a {v.supply} supply{v.default ? '' : ' (optional variant)'};</span>
+        ))}
+      </p>
+    </section>
+  )}
+  <section>
+    <h3>Parts</h3>
+    <ul class="plain">
+      {s.parts.map((id) => {
+        const p = parts.get(id);
+        return <li><a href={withBase(`/parts/${id}/`)}>{p?.name ?? id}</a> <Flags unverified={p?.unverified} approximation={p?.approximation} /></li>;
+      })}
+    </ul>
+  </section>
+  {s.fasteners?.length ? (
+    <section>
+      <h3>Fasteners</h3>
+      <ul class="plain">
+        {s.fasteners.map((f) => {
+          const spec = fasteners.get(f.id);
+          return <li>{f.qty} × <a href={withBase(`/parts/#fastener-${f.id}`)}>{spec?.spec ?? f.id}</a> <Flags unverified={spec?.unverified} /></li>;
+        })}
+      </ul>
+    </section>
+  ) : null}
+  {s.tools?.length ? (
+    <section>
+      <h3>Tools</h3>
+      <ul class="plain">{s.tools.map((t) => <li><a href={withBase(`/tools/${t}/`)}>{tools.get(t)?.name ?? t}</a></li>)}</ul>
+    </section>
+  ) : null}
+  {s.cables?.length ? (
+    <section>
+      <h3>Cables</h3>
+      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li>{cb ? `${jointLabel(cb.from)} → ${jointLabel(cb.to)}` : c} <Flags approximation={cb?.approximation} /></li>; })}</ul>
+    </section>
+  ) : null}
+  {s.warnings?.length ? s.warnings.map((w) => <p class="warning">⚠ {w}</p>) : null}
+  <section>
+    <h3>Check before moving on</h3>
+    <p class="check">✓ {s.check}</p>
+  </section>
+</aside>

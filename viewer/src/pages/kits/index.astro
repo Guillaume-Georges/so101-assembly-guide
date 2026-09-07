@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sources from '../../components/Sources.astro';
+import Flags from '../../components/Flags.astro';
+import { data, parts } from '../../lib/data';
+import { withBase, breadcrumbs } from '../../lib/seo';
+const site = Astro.site ?? new URL('https://guillaume-georges.github.io');
+---
+<Base title="Kits and vendor part numbers" path="/kits/" section="/kits/" description="SO-101 kit vendors listed upstream, what each kit includes, the servos it ships, and a cross-reference from vendor part numbers (Waveshare F1–F11, L1–L12; Seeed F1–F6, L1–L6) to upstream part names." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Kits', path: '/kits/' }], site.toString())]}>
+  <h1>Kits and vendor part numbers</h1>
+  <p>Vendors as listed in the upstream README plus Waveshare. Links only; no prices without a retrieved date. Not affiliated with any vendor.</p>
+  {data.vendors.map((v) => (
+    <section class="card" id={v.id}>
+      <h2><a href={v.url} rel="noopener">{v.name}</a> <span class="muted">{v.region}</span> <Flags unverified={v.unverified} /></h2>
+      {v.kits?.length ? <ul>{v.kits.map((k) => <li><a href={k.url} rel="noopener">{k.name}</a>: {k.includes.join(', ')}{k.servos ? <div class="muted">Servos: {k.servos}</div> : null}{k.hardware ? <div class="muted">Hardware: {k.hardware}</div> : null}</li>)}</ul> : null}
+      {v.part_map?.length ? (
+        <div class="tblwrap"><table><thead><tr><th>{v.name} ref</th><th>Upstream part</th><th></th></tr></thead>
+        <tbody>{v.part_map.map((m) => <tr><td><strong>{m.vendor_ref}</strong></td><td><a href={withBase(`/parts/${m.part}/`)}>{parts.get(m.part)?.name ?? m.part}</a></td><td class="muted">{m.note}</td></tr>)}</tbody></table></div>
+      ) : null}
+      {v.notes && <p class="muted">{v.notes}</p>}
+      <Sources sources={v.source} />
+    </section>
+  ))}
+</Base>

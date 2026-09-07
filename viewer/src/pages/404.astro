@@ -1,0 +1,8 @@
+---
+import Base from '../layouts/Base.astro';
+import { withBase } from '../lib/seo';
+---
+<Base title="Not found" path="/404/" noindex>
+  <h1>Not found</h1>
+  <p>Step and part URLs never change once published, so this link was probably mistyped. <a href={withBase('/')}>Start page</a>.</p>
+</Base>

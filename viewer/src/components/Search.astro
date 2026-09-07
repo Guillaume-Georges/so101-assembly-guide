@@ -1,0 +1,57 @@
+---
+import { data } from '../lib/data';
+import { withBase } from '../lib/seo';
+// Error-string search: fuzzy match over troubleshooting titles + aliases + symptoms, and step titles.
+const index = [
+  ...data.troubleshooting.map((t) => ({
+    href: withBase(`/troubleshooting/${t.slug}/`),
+    label: t.title,
+    text: [t.title, ...(t.aliases ?? []), ...t.symptoms].join(' | '),
+  })),
+  ...Object.values(data.assemblies)
+    .flat()
+    .map((s) => ({ href: withBase(`/${s.assembly}/${s.id.slice(2)}-${s.slug}/`), label: `${s.id} ${s.title}`, text: `${s.id} ${s.title} ${s.assembly}` })),
+];
+---
+
+<form class="search" role="search" action={withBase('/troubleshooting/')} method="get" data-index={JSON.stringify(index)}>
+  <label class="sr-only" for="q" style="position:absolute;left:-9999px">Paste an error message or search steps</label>
+  <input id="q" name="q" type="search" placeholder="Paste an error or search steps" autocomplete="off" />
+  <ul hidden aria-live="polite"></ul>
+</form>
+<script>
+  const form = document.querySelector('form.search') as HTMLFormElement;
+  const input = form.querySelector('input') as HTMLInputElement;
+  const list = form.querySelector('ul') as HTMLUListElement;
+  const index = JSON.parse(form.dataset.index ?? '[]') as { href: string; label: string; text: string }[];
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const score = (q: string, t: string) => {
+    if (!q) return 0;
+    if (t.includes(q)) return 100 + q.length;
+    const words = q.split(' ').filter(Boolean);
+    const hit = words.filter((w) => t.includes(w)).length;
+    return hit ? (hit / words.length) * 60 : 0;
+  };
+  const render = () => {
+    const q = norm(input.value);
+    const hits = index
+      .map((e) => ({ e, s: score(q, norm(e.text)) }))
+      .filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 8);
+    list.innerHTML = hits.map((h) => `<li><a href="${h.e.href}">${h.e.label}</a></li>`).join('');
+    list.hidden = hits.length === 0;
+  };
+  input.addEventListener('input', render);
+  input.addEventListener('focus', render);
+  document.addEventListener('click', (ev) => {
+    if (!form.contains(ev.target as Node)) list.hidden = true;
+  });
+  form.addEventListener('submit', (ev) => {
+    const first = list.querySelector('a') as HTMLAnchorElement | null;
+    if (first) {
+      ev.preventDefault();
+      location.href = first.href;
+    }
+  });
+</script>

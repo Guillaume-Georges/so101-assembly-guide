@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import Flags from '../../components/Flags.astro';
+import { data } from '../../lib/data';
+import { withBase, breadcrumbs } from '../../lib/seo';
+const site = Astro.site ?? new URL('https://guillaume-georges.github.io');
+---
+<Base title="Troubleshooting" path="/troubleshooting/" section="/troubleshooting/" description="SO-101 assembly troubleshooting: setup-motors errors, wrong gear ratio at a leader joint, torn wrist-roll cable. Paste your error string in the search box." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }], site.toString())]}>
+  <h1>Troubleshooting</h1>
+  <p>Assembly issues only in this version; calibration and LeRobot software errors are a later phase. Paste an exact error message in the search box above.</p>
+  <ul class="plain">{data.troubleshooting.map((t) => <li><a href={withBase(`/troubleshooting/${t.slug}/`)}>{t.title}</a> <Flags unverified={t.unverified} />{t.aliases?.length ? <span class="muted"> — also: {t.aliases.join(', ')}</span> : null}</li>)}</ul>
+</Base>

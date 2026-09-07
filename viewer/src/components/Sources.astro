@@ -1,0 +1,20 @@
+---
+import { sourceLink, type Source } from '../lib/data';
+interface Props { sources: Source[]; title?: string }
+const { sources, title = 'Sources' } = Astro.props;
+---
+<details class="sources" open>
+  <summary>{title} ({sources.length})</summary>
+  <ul>
+    {sources.map((s) => {
+      const l = sourceLink(s);
+      return (
+        <li>
+          <a href={l.href} rel="noopener">{l.label}</a>
+          {s.retrieved && <span> (retrieved {s.retrieved})</span>}
+          {s.note && <span> — {s.note}</span>}
+        </li>
+      );
+    })}
+  </ul>
+</details>

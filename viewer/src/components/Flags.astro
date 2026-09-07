@@ -1,0 +1,6 @@
+---
+interface Props { unverified?: boolean; approximation?: boolean }
+const { unverified, approximation } = Astro.props;
+---
+{unverified && <span class="flag unverified" title="Contains content no public source confirms yet">unverified</span>}
+{approximation && <span class="flag approximation" title="Geometry or placement is a stand-in, not measured">approximation</span>}

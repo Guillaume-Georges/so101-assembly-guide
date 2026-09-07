@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import { SITE_NAME, DESCRIPTION, withBase } from '../lib/seo';
+import Search from '../components/Search.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  path: string; // site-relative, starts with /, ends with /
+  noindex?: boolean;
+  jsonLd?: unknown[];
+  ogImage?: string; // site-relative path to a PNG
+  section?: string;
+}
+const { title, description = DESCRIPTION, path, noindex = false, jsonLd = [], ogImage, section } = Astro.props;
+const site = Astro.site ?? new URL('https://guillaume-georges.github.io');
+const canonical = new URL(withBase(path), site).toString();
+const og = new URL(withBase(ogImage ?? '/og/site.png'), site).toString();
+const analytics = import.meta.env.PUBLIC_ANALYTICS_SCRIPT as string | undefined;
+const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | undefined;
+const fullTitle = path === '/' ? SITE_NAME : `${title} · ${SITE_NAME}`;
+const nav = [
+  ['Follower', '/follower/'],
+  ['Leader', '/leader/'],
+  ['Servos', '/servos/'],
+  ['Parts', '/parts/'],
+  ['Troubleshooting', '/troubleshooting/'],
+  ['Kits', '/kits/'],
+  ['FAQ', '/faq/'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#111318" />
+    <link rel="manifest" href={withBase('/manifest.webmanifest')} />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+    {jsonLd.map((o) => <script is:inline type="application/ld+json" set:html={JSON.stringify(o)} />)}
+    {analytics && <script is:inline defer data-domain={analyticsDomain} src={analytics}></script>}
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href={withBase('/')}>{SITE_NAME}</a>
+        <nav class="primary" aria-label="Sections">
+          {nav.map(([label, href]) => (
+            <a href={withBase(href)} aria-current={section === href ? 'page' : undefined}>{label}</a>
+          ))}
+        </nav>
+        <Search />
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <p>
+          Every fact on this site cites a public source; upstream design by
+          <a href="https://github.com/TheRobotStudio/SO-ARM100">TheRobotStudio / Hugging Face LeRobot</a> (Apache-2.0).
+          Steps marked <span class="flag unverified">unverified</span> contain content no source confirms yet; geometry marked
+          <span class="flag approximation">approximation</span> is a stand-in. Not affiliated with any kit vendor.
+        </p>
+        <p>
+          <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">Source, data and corrections on GitHub</a> ·
+          <a href={withBase('/print-settings/')}>Print settings</a> · <a href={withBase('/compare/so-100-vs-so-101/')}>SO-100 vs SO-101</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Resume where you left off: remember the last step visited per arm (per-device convenience only).
+      try {
+        const m = location.pathname.match(/\/(follower|leader)\/(\d{3})-/);
+        if (m) localStorage.setItem(`so101:last:${m[1]}`, location.pathname);
+      } catch {}
+    </script>
+  </body>
+</html>

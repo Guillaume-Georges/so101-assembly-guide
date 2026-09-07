@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import Flags from '../../components/Flags.astro';
+import Sources from '../../components/Sources.astro';
+import { data } from '../../lib/data';
+import { withBase, breadcrumbs } from '../../lib/seo';
+const site = Astro.site ?? new URL('https://guillaume-georges.github.io');
+const cats = ['printed', 'servo', 'electronics', 'hardware', 'cable', 'other'];
+---
+<Base title="Bill of materials" path="/parts/" section="/parts/" description="SO-101 bill of materials: every printed part, servo, board and cable with quantity, upstream file, licence and vendor names." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Parts', path: '/parts/' }], site.toString())]}>
+  <h1>Bill of materials</h1>
+  <p>Quantities are for the two-arm build unless a part says otherwise. Names match the upstream STL/STEP files; vendor numbers are on the <a href={withBase('/kits/')}>kits page</a>.</p>
+  {cats.map((c) => {
+    const rows = data.parts.filter((p) => p.category === c);
+    return rows.length ? (
+      <section>
+        <h2>{c[0].toUpperCase()}{c.slice(1)} parts</h2>
+        <div class="tblwrap"><table>
+          <thead><tr><th>Part</th><th>Qty</th><th>Arms</th><th>Also known as</th></tr></thead>
+          <tbody>{rows.map((p) => (
+            <tr><td><a href={withBase(`/parts/${p.id}/`)}>{p.name}</a> <Flags unverified={p.unverified} approximation={p.approximation} /></td><td>{p.qty}</td><td>{p.assembly.join(', ')}</td><td class="muted">{(p.aka ?? []).slice(0, 3).join('; ')}</td></tr>
+          ))}</tbody>
+        </table></div>
+      </section>
+    ) : null;
+  })}
+  <h2>Fasteners</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Id</th><th>Spec</th><th>Qty</th><th>Where used</th></tr></thead>
+    <tbody>{data.fasteners.map((f) => (
+      <tr id={`fastener-${f.id}`}><td><code>{f.id}</code> <Flags unverified={f.unverified} /></td><td>{f.spec}</td><td>{f.qty}</td><td>{f.where_used}{f.notes ? <details><summary>notes</summary>{f.notes}</details> : null}<Sources sources={f.source} /></td></tr>
+    ))}</tbody>
+  </table></div>
+</Base>
