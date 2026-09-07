@@ -910,3 +910,23 @@ section.group h3 {
 h3 {
   font-weight: 600;
 }
+
+/* Header lockup: mark + Kitsmith, then "/ SO-101" inside the guide. */
+header.site a.brand {
+  gap: 0.5rem;
+}
+header.site a.brand .mark {
+  color: var(--accent);
+}
+header.site a.guide {
+  color: var(--muted);
+  text-decoration: none;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: -0.5rem;
+}
+header.site a.guide .sep {
+  color: var(--line-strong);
+}

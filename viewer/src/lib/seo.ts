@@ -1,6 +1,9 @@
 import { data, stepPath, type Step } from './data';
 
 export const SITE_NAME = 'SO-101 Assembly Guide';
+/** Brand and product names for chrome and titles: "{page} · SO-101 guide · Kitsmith". */
+export const BRAND = 'Kitsmith';
+export const GUIDE_NAME = 'SO-101 guide';
 /**
  * Site-wide noindex until the custom domain is live: the canonicals still point at the
  * GitHub Pages URL and nothing may be indexed there. Flip with SITE_INDEXABLE=true at build.

@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, DESCRIPTION, withBase, sitePath, NOINDEX } from '../lib/seo';
+import { SITE_NAME, BRAND, GUIDE_NAME, DESCRIPTION, withBase, sitePath, NOINDEX } from '../lib/seo';
 import Search from '../components/Search.astro';
 
 interface Props {
@@ -19,7 +19,9 @@ const canonical = new URL(canonicalPath, site).toString();
 const og = new URL(withBase(ogImage ?? '/og/site.png'), site).toString();
 const analytics = import.meta.env.PUBLIC_ANALYTICS_SCRIPT as string | undefined;
 const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | undefined;
-const fullTitle = path === '/' ? title : title === SITE_NAME ? `${SITE_NAME} · Kitsmith` : `${title} · ${SITE_NAME}`;
+// "{page} · SO-101 guide · Kitsmith": kit first (what people search), brand last (what accumulates).
+const landing = path === '/';
+const fullTitle = landing ? title : title === SITE_NAME ? `${GUIDE_NAME} · ${BRAND}` : `${title} · ${GUIDE_NAME} · ${BRAND}`;
 const nav = [
   ['Follower', '/follower/'],
   ['Leader', '/leader/'],
@@ -61,8 +63,13 @@ const nav = [
     <a class="skip" href="#main">Skip to content</a>
     <header class="site">
       <div class="wrap">
-        <a class="brand" href={withBase('/')}>{SITE_NAME}</a>
-        <a class="kitsmith" href={sitePath('/')} title="Kitsmith home">kitsmith.dev</a>
+        <a class="brand" href={sitePath('/')}>
+          <svg class="mark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z" /><circle cx="12" cy="12" r="3" /></svg>
+          {BRAND}
+        </a>
+        {!landing && (
+          <a class="guide" href={withBase('/')} title={SITE_NAME}><span class="sep" aria-hidden="true">/</span>SO-101</a>
+        )}
         <details class="menu" open>
           <summary aria-label="Menu and search">
             <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h14M3 10h14M3 15h14" /></svg>
