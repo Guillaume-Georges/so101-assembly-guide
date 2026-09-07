@@ -17,7 +17,8 @@
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "publish-geometry": "pnpm --filter @so101/scripts publish-geometry"
   },
   "devDependencies": {
     "prettier": "^3.6.2"

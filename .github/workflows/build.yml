@@ -6,15 +6,18 @@ on:
 
 jobs:
   pipeline:
-    name: pipeline (uv)
+    name: 'pipeline (uv): tests + STEP walk/map dry run'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true # upstream/SO-ARM100 (STEP files) is needed for the dry run
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
       - run: uv sync --directory pipeline
       - run: uv run --directory pipeline pytest
+      - run: uv run --directory pipeline so101-pipeline --dry-run
 
   viewer:
     name: data -> JSON -> viewer
