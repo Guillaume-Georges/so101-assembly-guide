@@ -4,3 +4,4 @@ dist/
 pnpm-lock.yaml
 viewer/public/geometry/
 viewer/src/generated/
+CLAUDE.md

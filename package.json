@@ -1,0 +1,30 @@
+{
+  "name": "so101-assembly-guide",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Source-traceable interactive 3D assembly guide for the SO-101 robot arm",
+  "license": "MIT",
+  "packageManager": "pnpm@10.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "pnpm --filter @so101/scripts validate",
+    "build-data": "pnpm --filter @so101/scripts build-data",
+    "export-checklist": "pnpm --filter @so101/scripts export-checklist",
+    "build": "pnpm build-data && pnpm --filter @so101/viewer build",
+    "dev": "pnpm --filter @so101/viewer dev",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
