@@ -20,5 +20,7 @@ pipeline/out/
 .env
 .DS_Store
 
-# Local-only notes, never published
+# Local-only notes and local agent state, never published
 docs/private/
+.claude/settings.local.json
+.claude/investigations/

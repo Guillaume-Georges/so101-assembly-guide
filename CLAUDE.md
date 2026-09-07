@@ -103,6 +103,12 @@ SOURCES.md
 - When a source and reality disagree (e.g. a kit vendor ships a different
   bracket), record it in discrepancies.md and prefer the upstream
   TheRobotStudio spec, noting the variant.
+- `docs/private/` is gitignored and local-only. Anything about the project
+  as a venture rather than as an engineering artefact goes there and nowhere
+  else in the tree: positioning, audience and search reasoning, naming and
+  domain, commercial terms, outreach and partner notes. Public files record
+  the resulting decision, never the reasoning kept there. Claude's memory
+  store lives outside the repo and is never committed either.
 
 ## Out of scope for v1
 Firmware, calibration, LeRobot software setup, leader-follower teleop, kit
