@@ -75,6 +75,16 @@ export type Vendor = Flagged & {
   part_map?: { vendor_ref: string; part: string; note?: string }[];
   notes?: string;
 };
+export type Cable = Flagged & {
+  id: string;
+  from: string;
+  to: string;
+  assembly: string[];
+  diameter_m?: number;
+  path: [number, number, number][];
+  derived: boolean;
+  notes?: string;
+};
 export type Step = Flagged & {
   id: string;
   slug: string;
@@ -87,6 +97,7 @@ export type Step = Flagged & {
   fasteners?: { id: string; qty: number }[];
   tools?: string[];
   cable_path?: [number, number, number][];
+  cables?: string[];
   warnings?: string[];
   check: string;
   instructions?: string;
@@ -99,6 +110,7 @@ export type Dataset = {
   tools: Tool[];
   troubleshooting: Issue[];
   vendors: Vendor[];
+  cables: Cable[];
   assemblies: Record<string, Step[]>;
 };
 
@@ -122,6 +134,7 @@ export function dataFiles(dataDir = DATA_DIR): { file: string; schema: string }[
     { file: path.join(dataDir, 'tools.yaml'), schema: 'tools' },
     { file: path.join(dataDir, 'troubleshooting.yaml'), schema: 'troubleshooting' },
     { file: path.join(dataDir, 'vendors.yaml'), schema: 'vendors' },
+    { file: path.join(dataDir, 'cables.yaml'), schema: 'cables' },
     ...assemblies,
   ];
 }
@@ -139,6 +152,7 @@ export function loadDataset(dataDir = DATA_DIR): Dataset {
     tools: readYaml(path.join(dataDir, 'tools.yaml')) as Tool[],
     troubleshooting: readYaml(path.join(dataDir, 'troubleshooting.yaml')) as Issue[],
     vendors: readYaml(path.join(dataDir, 'vendors.yaml')) as Vendor[],
+    cables: readYaml(path.join(dataDir, 'cables.yaml')) as Cable[],
     assemblies,
   };
 }

@@ -95,6 +95,15 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
     servoSlots.add(key);
   }
 
+  const cableIds = uniqueIds(ds.cables, 'cables.yaml', p);
+  const joints = new Set(ds.servos.map((s) => s.joint));
+  for (const c of ds.cables) {
+    requireSource('cables.yaml', c);
+    for (const end of [c.from, c.to])
+      if (end !== 'board' && !joints.has(end))
+        p.push({ file: 'cables.yaml', where: c.id, message: `unknown end '${end}'` });
+  }
+
   const stepIds = new Set<string>();
   const slugs = new Set<string>();
   const uniqueSlug = (file: string, it: { id: string; slug: string }) => {
@@ -213,6 +222,7 @@ export function listFlags(
   scan('tools.yaml', ds.tools);
   scan('troubleshooting.yaml', ds.troubleshooting);
   scan('vendors.yaml', ds.vendors);
+  scan('cables.yaml', ds.cables);
   for (const [n, s] of Object.entries(ds.assemblies)) scan(`assemblies/${n}.yaml`, s);
   return out;
 }

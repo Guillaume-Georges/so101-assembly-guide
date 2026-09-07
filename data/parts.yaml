@@ -227,12 +227,16 @@
     - Leader joystick L11 (Waveshare)
   notes:
     'LeRobot Gripper/Handle (Leader): "attach the handle". Waveshare calls it "joystick L11". Not found by
-    name in SO101 Assembly.step (D-005).'
+    name in SO101 Assembly.step (D-005). Placed from the LeRobot leader video pose (0:14, 0:24); hole choice unknown.'
   source:
     - ref: upstream/SO-ARM100/README.md#printing-the-parts
       note: Individual Part Files table
     - ref: upstream/SO-ARM100/STL/SO101/Individual/Handle_SO101.stl
     - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Handle_SO101.step
+    - ref: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/Leader_v2.mp4
+      timestamp: 0:24
+      note: handle under the leader holder, grip toward the base
+  approximation: true
 - id: trigger-so101
   name: Leader trigger
   qty: 1
@@ -416,14 +420,17 @@
     - 金属舵盘（驱动）
   notes:
     'Ships with the servo. "Each servo is equipped with two steering wheels, one with gears and the other without"
-    (Waveshare). Qty = one per servo for two arms. Geometry: disc primitive sized from the vendor model extents
-    (ø19.2, 4.6 / 3.5 mm thick); not redistributed.'
+    (Waveshare). Qty = one per servo for two arms. Geometry: disc primitive ø19.2 mm, 4.6 / 3.5 mm thick, measured
+    from the embedded vendor model''s extents in the assembly STEP (not from the datasheet, which gives no horn
+    diameter); the vendor mesh itself is not redistributed.'
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Follower step 2
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"Install both motor horns"'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: horn diameter 19.2 mm measured from the embedded vendor model 金属舵盘 extents (approximation)
   approximation: true
 - id: servo-horn-plain
   name: Servo horn, plain (idle side)
@@ -435,14 +442,17 @@
   geometry_names:
     - 金属舵盘（从动）
   notes:
-    'Ships with the servo. Not fitted on motor 5 (one horn only) on either arm, hence 10 for two arms. Geometry:
-    disc primitive sized from the vendor model extents (ø19.2, 4.6 / 3.5 mm thick); not redistributed.'
+    "Ships with the servo. Not fitted on motor 5 (one horn only) on either arm, hence 10 for two arms. Geometry:
+    disc primitive ø19.2 mm, 4.6 / 3.5 mm thick, measured from the embedded vendor model's extents in the assembly
+    STEP (not from the datasheet, which gives no horn diameter); the vendor mesh itself is not redistributed."
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Follower steps 2 and 15
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
       note: '"Install only one motor horn on the wrist motor"'
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: horn diameter 19.2 mm measured from the embedded vendor model 金属舵盘 extents (approximation)
   approximation: true
 - id: motor-control-board
   name: Motor control board (Waveshare bus servo adapter)

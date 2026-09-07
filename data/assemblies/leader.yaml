@@ -197,15 +197,25 @@
     - screwdriver-ph1
   check: Handle held by 1 M2x6.
   instructions:
-    Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
-    in the assembly STEP.
+    "Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places
+    it in the assembly STEP. Geometry: hand-placed from the video pose (approximation); which of the holder's M2
+    holes takes the screw is not derivable from any source."
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Attach the handle to the leader holder using 1 M2x6mm screw."'
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: 'Leader step 19: joystick L11 onto wrist L9'
+    - ref: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/Leader_v2.mp4
+      timestamp: 0:14
+      note:
+        'leader assembly animation: handle already on the holder before the gripper servo goes in; grip hangs
+        below, pointing toward the base'
+    - ref: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/Leader_v2.mp4
+      timestamp: 0:24
+      note: 'finished leader: handle under the wrist'
   unverified: true
+  approximation: true
 - id: L-062
   slug: leader-gripper-motor
   title: Insert the gripper motor and fit its horn
@@ -217,7 +227,7 @@
     - servo-horn-plain
   servo_slot: gripper
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 4
     - id: m3x6
       qty: 1
@@ -238,6 +248,8 @@
       retrieved: '2026-09-07'
       note: 'Leader step 17: "the steering wheel is installed at both ends of the servo"'
   unverified: true
+  cables:
+    - cable-wrist-roll-to-gripper
 - id: L-063
   slug: leader-trigger
   title: Attach the trigger

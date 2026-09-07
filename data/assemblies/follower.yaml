@@ -104,7 +104,7 @@
   servo_slot: shoulder_pan
   orientation_note: Two screws from the top, two from the bottom (LeRobot).
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 4
   tools:
     - screwdriver-ph0
@@ -127,7 +127,7 @@
     - base-so101
   servo_slot: shoulder_pan
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 2
   tools:
     - screwdriver-ph0
@@ -226,11 +226,13 @@
   servo_slot: shoulder_lift
   orientation_note: Inserted from the top (LeRobot).
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 4
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
+  cables:
+    - cable-shoulder-pan-to-shoulder-lift
   check: Motor 2 held by 4 M2x6; its cable connects to motor 1 (either port).
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: servo 2 sits in Motor_holder_SO101_Base
@@ -294,11 +296,13 @@
     - upper-arm-so101
   servo_slot: elbow_flex
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 4
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
+  cables:
+    - cable-shoulder-lift-to-elbow-flex
   check: Motor 3 held by 4 M2x6; its cable connects to motor 2.
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
@@ -385,11 +389,13 @@
     - motor-holder-so101-wrist
   servo_slot: wrist_flex
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 4
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
+  cables:
+    - cable-elbow-flex-to-wrist-flex
   check: Motor 4 held by 4 M2x6; its cable connects to motor 3.
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: servo 4 sits in Motor_holder_SO101_Wrist
@@ -414,11 +420,13 @@
   servo_slot: wrist_roll
   orientation_note: Gear side goes in first, gear facing up (Waveshare).
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 2
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
+  cables:
+    - cable-wrist-flex-to-wrist-roll
   warnings:
     - 'Route the cables before inserting motor 5: "otherwise it is easy to tear the wire" (Waveshare).'
   check: Motor 5 held by 2 M2x6 at the front; both cables routed through the holder before the motor went in.
@@ -522,11 +530,13 @@
     - wrist-roll-follower-so101
   servo_slot: gripper
   fasteners:
-    - id: m2x6
+    - id: motor-tab-screw
       qty: 4
   tools:
     - screwdriver-ph0
     - screwdriver-ph1
+  cables:
+    - cable-wrist-roll-to-gripper
   check: 2 M2x6 on each side; cable connects to motor 5.
   instructions:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Follower_SO101 encloses
@@ -629,3 +639,10 @@
   warnings:
     - 'Supply voltage follows the servo variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
       if the optional 12V follower servos are fitted (README, D-002).'
+  cables:
+    - cable-board-to-shoulder-pan
+    - cable-shoulder-pan-to-shoulder-lift
+    - cable-shoulder-lift-to-elbow-flex
+    - cable-elbow-flex-to-wrist-flex
+    - cable-wrist-flex-to-wrist-roll
+    - cable-wrist-roll-to-gripper

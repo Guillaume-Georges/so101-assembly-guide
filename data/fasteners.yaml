@@ -1,25 +1,39 @@
 # fasteners.yaml — Schema: data/schema/fasteners.json. Quantities are counts used across the LeRobot steps, not kit contents.
 - id: m2x6
   spec: M2x6 screw
-  qty: 49
+  qty: 1
+  assembly:
+    - leader
+  where_used: 'Handle to leader holder (LeRobot: "1 M2x6mm screw").'
+  notes: Only the handle screw keeps this id. Motor-to-bracket screws are motor-tab-screw (D-001, open).
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: 'Leader: "Attach the handle to the leader holder using 1 M2x6mm screw."'
+- id: motor-tab-screw
+  spec: Motor-tab screw, M2-class self-tapping (#1-42 x 3/16 in Type AB per the STEP)
+  qty: 45
   assembly:
     - follower
     - leader
-  where_used: Servo body to printed holders ("smallest screws"); handle to leader holder.
+  where_used: 'Servo body to printed brackets: 4 per motor, 2 for motor 5 (follower 22, leader 22 + 1 not modelled).'
   notes:
-    Qty = count used across the LeRobot steps (follower 24 + leader 25); kit-supplied count not stated upstream.
-    Datasheet gives no tab-mounting screw; the assembly STEP models 22 "#1-42 x 3/16 in Type AB tapping screws"
-    (≈ ø1.9 x 4.8 mm self-tapping) in these positions and Waveshare calls them "pointed screws". Treat as an M2-class
-    self-tapping screw of 5–6 mm; exact kit part per vendor (D-001).
+    'Sources disagree and no kit has been measured (D-001, open). Upstream default = the assembly STEP: 22
+    x "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB" (≈ ø1.9 x 4.8 mm).
+    Vendor/doc variants: LeRobot "M2x6mm screws (smallest screws)"; Waveshare "pointed screws". The Feetech datasheet
+    gives no tab screw and ships "No Accessories". Qty = count used across the LeRobot steps (24 + 21 motor positions);
+    a kit inventory settles the spec and count.'
   source:
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 22 x ANSI B18.6.4 1-42 x 0.1875 Type AB tapping screws at the motor tabs
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"4 M2x6mm screws (smallest screws)"'
-    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
-    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
-      note: 22 x Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: '"four pointed screws"'
     - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
       retrieved: '2026-09-07'
-      note: 'section 9: no mounting screw specified; 10 Accessories: "No Accessories"'
+      note: 'section 9: no tab screw specified; section 10: "No Accessories"'
+  unverified: true
 - id: m3x6
   spec: M3x6 screw
   qty: 96

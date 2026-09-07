@@ -77,6 +77,14 @@
         },
         "minItems": 2
       },
+      "cables": {
+        "type": "array",
+        "items": {
+          "$ref": "common.json#/$defs/id"
+        },
+        "uniqueItems": true,
+        "description": "cables.yaml ids routed or connected in this step (drawn by the viewer); cable_path stays as an inline override"
+      },
       "warnings": {
         "type": "array",
         "items": {

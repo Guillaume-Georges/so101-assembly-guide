@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/cables.json",
+  "title": "cables.yaml — servo bus cable routes (metres, GLB frame, Y-up)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "from": {
+        "type": "string",
+        "pattern": "^(board|[a-z][a-z0-9_]*)$",
+        "description": "'board' or a servo joint name"
+      },
+      "to": { "type": "string", "pattern": "^(board|[a-z][a-z0-9_]*)$" },
+      "assembly": {
+        "type": "array",
+        "items": { "$ref": "common.json#/$defs/assembly" },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "diameter_m": { "type": "number", "exclusiveMinimum": 0 },
+      "path": { "type": "array", "items": { "$ref": "common.json#/$defs/point3" }, "minItems": 2 },
+      "derived": {
+        "type": "boolean",
+        "description": "true = written by the pipeline from the STEP cable body and overwritten on regeneration; false = hand-authored, wins over derived"
+      },
+      "notes": { "type": "string" },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false },
+      "approximation": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "from", "to", "assembly", "path", "derived", "source"],
+    "additionalProperties": false
+  }
+}

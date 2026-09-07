@@ -22,10 +22,12 @@ listed in `SOURCES.md`.
   (with M2.5 spacers), not motor screws. The motor positions hold 22
   "#1-42 x 3/16 in Type AB" tapping screws (≈ ø1.9 x 4.8 mm), consistent
   with LeRobot's "smallest screws" and Waveshare's "pointed screws".
-- Resolution: horn screw = M3x6 machine screw (datasheet, LeRobot, STEP all
-  agree). Motor tab screw = M2-class self-tapping, 5–6 mm; the data keeps
-  LeRobot's M2x6 label. Kit-shipped hardware is recorded per vendor in
-  `vendors.yaml` as vendors describe it; none itemises sizes yet.
+- Resolution: horn thread settled = M3x6 machine screw (datasheet, LeRobot,
+  STEP all agree). Motor-to-bracket fastening stays **open**: the data
+  carries `motor-tab-screw` with the upstream default from the STEP (#1-42
+  tapping) and the vendor variants (LeRobot M2x6, Waveshare "pointed"),
+  flagged `unverified` until a kit is measured. Kit-shipped hardware is
+  recorded per vendor in `vendors.yaml` as vendors describe it.
 - Affects: F/L-011, 012, 021, 031, 042, 050, 061/062, L-061
 
 ## D-002 — Follower power supply voltage
