@@ -12,13 +12,13 @@ checklist is another.
 
 ## Status
 
-| Phase | Scope                                                                                                                    | State     |
-| ----- | ------------------------------------------------------------------------------------------------------------------------ | --------- |
-| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                           | in review |
-| 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md` | pending   |
-| 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model                                                  | pending   |
-| 3     | Viewer: step navigation, highlight/ghost, explode, side panel, cable path, part inspector, mobile                        | pending   |
-| 4     | Printable checklist from the same data; call for builders to break it                                                    | pending   |
+| Phase | Scope                                                                                                                                       | State     |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                                              | in review |
+| 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md`                    | pending   |
+| 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model                                                                     | pending   |
+| 3     | Site: static page per step/part/servo/tool/issue, R3F island (highlight/ghost, explode, cable path), SEO metadata, PWA, embed route, mobile | pending   |
+| 4     | Printable checklist from the same data; call for builders to break it                                                                       | pending   |
 
 Phases gate on review. The standing rules live in [CLAUDE.md](CLAUDE.md).
 
@@ -28,7 +28,7 @@ Phases gate on review. The standing rules live in [CLAUDE.md](CLAUDE.md).
 data/        YAML source of truth (parts, servos, fasteners, tools, assemblies/*, discrepancies.md) + JSON Schemas
 upstream/    pinned upstream repos (Phase 1)
 pipeline/    Python (uv): STEP/STL -> GLB + placements.json (Phase 2)
-viewer/      Vite + React + TypeScript + React Three Fiber (Phase 3)
+viewer/      Astro static pages + React Three Fiber client island (Phase 3, ADR-0002)
 scripts/     validate, build-data, export-checklist (pnpm)
 docs/        thesis, ADRs, phase reports
 SOURCES.md   every external asset, its licence, where it lives here

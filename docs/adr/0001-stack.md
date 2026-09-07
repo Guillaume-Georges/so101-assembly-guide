@@ -9,8 +9,10 @@ with a superseding ADR.
 - **Geometry:** cadquery/OCP reads the assembled STEP; Blender headless (bpy)
   only for parts missing from the STEP. Output: GLB, Y-up, metres, one file
   per part, file name = part id.
-- **Viewer:** Vite + React + TypeScript + React Three Fiber + drei. Static,
-  GitHub Pages, no backend/auth/analytics in v1.
+- **Viewer:** ~~Vite + React + TypeScript + React Three Fiber + drei. Static,
+  GitHub Pages, no backend/auth/analytics in v1.~~ Superseded by
+  [ADR-0002](0002-astro-react-islands.md): Astro static pages with an R3F
+  client island; cookieless analytics permitted.
 - **Tooling:** pnpm (JS), uv (Python), prettier + eslint + ruff, vitest + pytest.
 
 Why JSON Schema + a script rather than schema only: references between files
