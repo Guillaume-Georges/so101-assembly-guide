@@ -21,7 +21,7 @@
   --tap: 44px;
 }
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme='dark']) {
     --bg: #f6f7fa;
     --bg-2: #ffffff;
     --fg: #101827;
@@ -1010,4 +1010,59 @@ header.site a.guide .sep {
   font-size: 0.9rem;
   color: var(--muted);
   pointer-events: none;
+}
+
+/* Explicit theme choice wins over the system setting in both directions. */
+:root[data-theme='light'] {
+  --bg: #f6f7fa;
+  --bg-2: #ffffff;
+  --fg: #101827;
+  --muted: #4b5a72;
+  --accent: #0b57d0;
+  --warn: #a8281c;
+  --caution: #6f4600;
+  --ok: #1a7f37;
+  --line: #d9dee7;
+  --line-strong: #767d89;
+  --link: #0b57d0;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --bg: #101827;
+  --bg-2: #182337;
+  --fg: #eef2f7;
+  --muted: #9fabbe;
+  --accent: #4da3ff;
+  --warn: #ff8a80;
+  --caution: #ffc857;
+  --ok: #8fd14f;
+  --line: #22314a;
+  --line-strong: #6f7f9c;
+  --link: #8ec4ff;
+  color-scheme: dark;
+}
+/* Theme toggle button: last item in the header row on every width. */
+header.site button.theme {
+  flex: none;
+  min-width: var(--tap);
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--bg-2);
+  color: var(--fg);
+  cursor: pointer;
+}
+header.site button.theme[data-state='light'] {
+  color: var(--caution);
+}
+header.site button.theme[data-state='dark'] {
+  color: var(--accent);
+}
+@media (max-width: 59.99rem) {
+  details.menu {
+    margin-left: auto;
+  }
 }
