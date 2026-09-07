@@ -1,0 +1,12 @@
+- id: base-plate
+  name: Base plate
+  qty: 1
+  category: printed
+  assembly: [follower]
+  source: [{ ref: upstream/SO-ARM100/README.md#bom }]
+- id: servo-sts3215-345
+  name: Feetech STS3215 (1:345)
+  qty: 1
+  category: servo
+  assembly: [follower]
+  source: [{ ref: upstream/SO-ARM100/README.md#bom }]

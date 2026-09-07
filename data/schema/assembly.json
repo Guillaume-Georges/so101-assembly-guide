@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://so101-assembly-guide/schema/assembly.json",
-  "title": "assemblies/<name>.yaml \u2014 ordered build steps",
+  "title": "assemblies/<name>.yaml — ordered build steps",
   "type": "array",
   "items": {
     "type": "object",
@@ -126,6 +126,26 @@
       "approximation": {
         "type": "boolean",
         "default": false
+      },
+      "plain": {
+        "type": "object",
+        "description": "Builder-facing rewording of this step (the Plain register). Every sentence rewords fields of this step, of an earlier step, or of a record it lists; it never adds a fact. scripts/validate checks each `from` pointer resolves and that every number in the text exists in what it points at.",
+        "properties": {
+          "do": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/plainSentence"
+            },
+            "description": "What to do, in order, in the builder's words."
+          },
+          "done": {
+            "$ref": "#/$defs/plainSentence",
+            "description": "Rewording of check."
+          }
+        },
+        "required": ["do", "done"],
+        "additionalProperties": false
       }
     },
     "required": ["id", "slug", "assembly"],
@@ -138,6 +158,29 @@
     },
     "else": {
       "required": ["id", "slug", "title", "assembly", "parts", "check", "source"]
+    }
+  },
+  "$defs": {
+    "plainSentence": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?:[FL]-\\d{3}\\.)?(?:title|title_short|check|orientation_note|instructions|warnings|servo_slot|servo|parts|fasteners|tools|cables|prep|source\\[\\d+\\])$|^(?:part|fastener|tool|cable):[a-z0-9][a-z0-9.-]*$"
+          },
+          "description": "What this sentence rewords: a field of this step (check, orientation_note, instructions, warnings, title, servo_slot, servo = the resolved servo record, parts, fasteners, tools, cables, prep, source[N]), the same prefixed with another step id (F-014.check), or a record (part:<id>, fastener:<id>, tool:<id>, cable:<id>)."
+        }
+      },
+      "required": ["text", "from"],
+      "additionalProperties": false
     }
   }
 }

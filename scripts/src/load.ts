@@ -17,6 +17,7 @@ export type Part = Flagged & {
   geometry_names?: string[];
   aka?: string[];
   notes?: string;
+  name_plain?: string;
 };
 export type ServoVariant = {
   part: string;
@@ -46,6 +47,7 @@ export type Fastener = Flagged & {
   where_used?: string;
   drive?: string;
   notes?: string;
+  name_plain?: string;
 };
 export type Tool = Flagged & { id: string; name: string; size?: string; purchase_note?: string };
 export type Issue = Flagged & {
@@ -118,6 +120,19 @@ export type Step = Flagged & {
   instructions?: string;
   provenance?: string;
   title_short?: string;
+  plain?: Plain;
+};
+/** The Plain register: sentences that reword sourced fields. `from` names what each one rewords (scripts/plain.ts). */
+export type PlainSentence = { text: string; from: string[] };
+export type Plain = { do: PlainSentence[]; done: PlainSentence };
+export type GlossaryEntry = {
+  id: string;
+  term: string;
+  match: string[];
+  kind: 'definition' | 'fact';
+  meaning: string;
+  source?: SourceRef[];
+  unverified?: boolean;
 };
 
 export type Dataset = {
@@ -131,6 +146,7 @@ export type Dataset = {
   compare: PageRow[];
   faq: PageRow[];
   printing: PageRow[];
+  glossary: GlossaryEntry[];
   assemblies: Record<string, Step[]>;
 };
 
@@ -158,6 +174,10 @@ export function dataFiles(dataDir = DATA_DIR): { file: string; schema: string }[
     { file: path.join(dataDir, 'compare.yaml'), schema: 'pages' },
     { file: path.join(dataDir, 'faq.yaml'), schema: 'pages' },
     { file: path.join(dataDir, 'printing.yaml'), schema: 'pages' },
+    // Optional until every dataset (fixtures included) carries one.
+    ...(fs.existsSync(path.join(dataDir, 'glossary.yaml'))
+      ? [{ file: path.join(dataDir, 'glossary.yaml'), schema: 'glossary' }]
+      : []),
     ...assemblies,
   ];
 }
@@ -179,6 +199,9 @@ export function loadDataset(dataDir = DATA_DIR): Dataset {
     compare: readYaml(path.join(dataDir, 'compare.yaml')) as PageRow[],
     faq: readYaml(path.join(dataDir, 'faq.yaml')) as PageRow[],
     printing: readYaml(path.join(dataDir, 'printing.yaml')) as PageRow[],
+    glossary: fs.existsSync(path.join(dataDir, 'glossary.yaml'))
+      ? (readYaml(path.join(dataDir, 'glossary.yaml')) as GlossaryEntry[])
+      : [],
     assemblies,
   };
 }

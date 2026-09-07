@@ -1,0 +1,10 @@
+- id: horn
+  term: horn
+  match: [horn, horns]
+  kind: fact
+  meaning: The disc on the motor shaft.
+- id: horn2
+  term: horn again
+  match: [Horn]
+  kind: definition
+  meaning: duplicate match word.

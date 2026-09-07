@@ -1,0 +1,6 @@
+- id: m2x6-shcs
+  spec: M2x6 SHCS
+  name_plain: Small screw, 8 mm long
+  qty: 20
+  assembly: [follower]
+  source: [{ ref: upstream/SO-ARM100/README.md#bom }]

@@ -32,6 +32,7 @@ Accuracy beats polish. A wrong step is worse than a missing step.
   fasteners.yaml        # id, spec (e.g. M2x6 SHCS), qty, where used
   tools.yaml            # id, name, size, optional purchase note
   troubleshooting.yaml  # id, title = exact error string, aliases, symptoms, cause, fix, related_steps, source
+  glossary.yaml         # terms the Plain register links on first use; kind: definition (no source) | fact (sourced)
   vendors.yaml          # vendor, kit name, part-numbering map to our ids, notes
   assemblies/
     follower.yaml       # ordered steps

@@ -9,6 +9,7 @@ import addFormats from 'ajv-formats';
 import { dataFiles, loadDataset, readYaml, type Dataset } from './load.js';
 import { DATA_DIR, PLACEMENTS_JSON, SCHEMA_DIR } from './paths.js';
 import { resolveDataset } from './resolve.js';
+import { validateGlossary, validatePlain } from './plain.js';
 
 export type Problem = { file: string; where: string; message: string };
 
@@ -170,6 +171,9 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
           message: `unknown part '${m.part}' in part_map`,
         });
   }
+
+  // The Plain register and the glossary it links (scripts/plain.ts).
+  p.push(...validatePlain(ds), ...validateGlossary(ds));
 
   // Geometry ↔ BOM mapping (Phase 2 output). Every placement must resolve to a BOM id of the right kind,
   // and every screw a step declares must be one the geometry can show at that step (pipeline allocation).

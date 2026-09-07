@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://so101-assembly-guide/schema/parts.json",
-  "title": "parts.yaml \u2014 bill of materials",
+  "title": "parts.yaml — bill of materials",
   "type": "array",
   "items": {
     "type": "object",
@@ -12,6 +12,11 @@
       "name": {
         "type": "string",
         "minLength": 1
+      },
+      "name_plain": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Builder-facing rewording of name: the same object in plainer words (e.g. 'Motor holder for the shoulder'). Adds no fact; renderers show it in the Plain register and keep name for the Exact register."
       },
       "qty": {
         "type": "integer",

@@ -52,6 +52,29 @@ describe('cross-references', () => {
     expect(l.orientation_note).toBe('leader override');
     expect(l.fasteners).toEqual([{ id: 'm2x6-shcs', qty: 4 }]);
   });
+  it('plain register: every rule fires once on the invalid-plain fixture', () => {
+    const msgs = validateCrossRefs(loadDataset(fx('invalid-plain')), NO_PLACEMENTS).map(
+      (p) => `${p.where}: ${p.message}`,
+    );
+    expect(msgs).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining("'F-999.check' names nothing"),
+        expect.stringContaining("number '6'"),
+        expect.stringContaining('"step 3" but no step'),
+        expect.stringContaining("'nonsense' names nothing"),
+        expect.stringContaining("name_plain has number '8'"),
+        expect.stringContaining("match 'Horn' already used by 'horn'"),
+        expect.stringContaining('kind is fact but source is empty'),
+      ]),
+    );
+    // The leader step inherits the same plain block through extends and fails the same way.
+    expect(msgs.filter((m) => m.startsWith('L-001 plain'))).toHaveLength(
+      msgs.filter((m) => m.startsWith('F-001 plain')).length,
+    );
+  });
+  it('plain register: a correct block passes and "step N" resolves through extends', () => {
+    expect(validateCrossRefs(loadDataset(fx('valid')), NO_PLACEMENTS)).toEqual([]);
+  });
   it('lists flags', () => {
     expect(listFlags(loadDataset(fx('valid')))).toEqual([
       { file: 'tools.yaml', id: 'hex-1.5', flag: 'unverified' },

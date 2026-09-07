@@ -1,0 +1,11 @@
+- id: horn
+  term: horn
+  match: [horn, horns]
+  kind: fact
+  meaning: The disc on the motor shaft that printed parts screw onto.
+  source: [{ ref: upstream/SO-ARM100/README.md#bom }]
+- id: m2x6
+  term: M2x6
+  match: [M2x6]
+  kind: definition
+  meaning: 2 mm thread, 6 mm long.

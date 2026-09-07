@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/glossary.json",
+  "title": "glossary.yaml — terms the Plain register links on first use",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "$ref": "common.json#/$defs/id"
+      },
+      "term": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Display form of the term"
+      },
+      "match": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1,
+        "uniqueItems": true,
+        "description": "Words that trigger the popover (case-insensitive, whole words). Unique across the file."
+      },
+      "kind": {
+        "type": "string",
+        "enum": ["definition", "fact"],
+        "description": "definition = what a word means in general (screw naming, what a gear ratio is); needs no hardware source. fact = something true of this kit (which motor is where, what ships with the servo); needs a source like any row."
+      },
+      "meaning": {
+        "type": "string",
+        "minLength": 1
+      },
+      "source": {
+        "$ref": "common.json#/$defs/sources"
+      },
+      "unverified": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "required": ["id", "term", "match", "kind", "meaning"],
+    "additionalProperties": false
+  }
+}

@@ -6,20 +6,49 @@
   "items": {
     "type": "object",
     "properties": {
-      "id": { "$ref": "common.json#/$defs/id" },
-      "spec": { "type": "string", "minLength": 1, "description": "e.g. M2x6 SHCS" },
-      "qty": { "type": "integer", "minimum": 0, "description": "Total in kit / BOM" },
+      "id": {
+        "$ref": "common.json#/$defs/id"
+      },
+      "spec": {
+        "type": "string",
+        "minLength": 1,
+        "description": "e.g. M2x6 SHCS"
+      },
+      "name_plain": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Builder-facing rewording of spec (e.g. 'Small self-tapping screw'). Adds no fact; evidence about the spec belongs in notes, never here."
+      },
+      "qty": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Total in kit / BOM"
+      },
       "assembly": {
         "type": "array",
-        "items": { "$ref": "common.json#/$defs/assembly" },
+        "items": {
+          "$ref": "common.json#/$defs/assembly"
+        },
         "minItems": 1,
         "uniqueItems": true
       },
-      "where_used": { "type": "string" },
-      "drive": { "type": "string", "description": "e.g. hex 1.5, PH1" },
-      "notes": { "type": "string" },
-      "source": { "$ref": "common.json#/$defs/sources" },
-      "unverified": { "type": "boolean", "default": false }
+      "where_used": {
+        "type": "string"
+      },
+      "drive": {
+        "type": "string",
+        "description": "e.g. hex 1.5, PH1"
+      },
+      "notes": {
+        "type": "string"
+      },
+      "source": {
+        "$ref": "common.json#/$defs/sources"
+      },
+      "unverified": {
+        "type": "boolean",
+        "default": false
+      }
     },
     "required": ["id", "spec", "qty", "assembly", "source"],
     "additionalProperties": false

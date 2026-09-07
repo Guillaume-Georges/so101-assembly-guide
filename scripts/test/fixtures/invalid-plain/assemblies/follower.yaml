@@ -9,9 +9,10 @@
   check: Servo sits flush; horn free to rotate
   plain:
     do:
-      - { text: 'Take the motor you labelled 1.', from: [servo] }
-      - { text: 'Screw it to the base plate with 4 screws.', from: [fasteners, check] }
-      - { text: 'Same holes as in step 1.', from: [F-001.check] }
-    done: { text: 'The motor sits flat and the horn turns freely.', from: [check] }
+      - { text: 'Look at the other step.', from: [F-999.check] }
+      - { text: 'Use 6 screws.', from: [check] }
+      - { text: 'As in step 3.', from: [F-001.check] }
+      - { text: 'Tighten the horn.', from: [nonsense] }
+    done: { text: 'The motor sits flat.', from: [check] }
   source:
     - { ref: 'https://example.org/guide', retrieved: 2026-09-07 }

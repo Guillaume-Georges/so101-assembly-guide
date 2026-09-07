@@ -1,0 +1,10 @@
+- id: horn-binds
+  slug: horn-binds-on-base
+  title: Servo horn binds against the base
+  symptoms: [Horn will not rotate by hand after mounting]
+  cause: Motor seated on top of a support remnant
+  fix: Remove the motor, clean the pocket, reseat
+  related_steps: [F-001]
+  related_parts: [base-plate]
+  source: []
+  unverified: true
