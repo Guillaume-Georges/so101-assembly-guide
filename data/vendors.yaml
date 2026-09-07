@@ -1,2 +1,180 @@
-# vendors.yaml — kit vendors + part-numbering map. Schema: data/schema/vendors.json
-[]
+# vendors.yaml — kit vendors from SO-ARM100 README#kits plus Waveshare (own wiki). Schema: data/schema/vendors.json
+- id: roboted
+  name: RobotEd
+  url: https://roboted.ch/en/shop/so-101-robot-arm-kit
+  region: Switzerland
+  kits:
+    - name: SO-101 robot arm kit
+      url: https://roboted.ch/en/shop/so-101-robot-arm-kit
+      includes:
+        - printed-frame
+        - electronics
+        - complete-arm
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+- id: robonine
+  name: Robonine
+  url: https://robonine.com/
+  region: International
+  kits:
+    - name: Parts kits
+      url: https://robonine.com/
+      includes:
+        - parts
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+- id: partabot
+  name: PartaBot
+  url: https://partabot.com
+  region: US
+  kits:
+    - name: Assembled arms
+      url: https://partabot.com
+      includes:
+        - assembled
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+- id: forgemotion-labs
+  name: ForgeMotion Labs
+  url: https://forgemotionlabs.com/products
+  region: US
+  kits:
+    - name: SO-101 kits
+      url: https://forgemotionlabs.com/products
+      includes:
+        - printed-frame
+        - electronics
+        - complete-arm
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+- id: seeed-studio
+  name: Seeed Studio
+  url: https://www.seeedstudio.com/SO-ARM100-Low-Cost-AI-Arm-Kit.html
+  region: International
+  kits:
+    - name: SO-ARM100/101 Low-Cost AI Arm Kit
+      url: https://www.seeedstudio.com/SO-ARM100-Low-Cost-AI-Arm-Kit.html
+      includes:
+        - printed-frame
+  notes: 'Seeed wiki lists a Standard (all 5V) and a Pro edition (12V follower servos, leader stays 5V). Wiki: https://wiki.seeedstudio.com/lerobot_so100m_new/'
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+- id: wowrobo
+  name: WowRobo
+  url: https://shop.wowrobo.com/products/so-arm101-diy-kit-assembled-version-1
+  region: International
+  kits:
+    - name: SO-ARM101 DIY kit, assembled
+      url: https://shop.wowrobo.com/products/so-arm101-diy-kit-assembled-version-1
+      includes:
+        - assembled
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+- id: roboseasy
+  name: RoboSEasy
+  url: https://smartstore.naver.com/roboseasy
+  region: South Korea
+  kits:
+    - name: SO-101 kit
+      url: https://smartstore.naver.com/roboseasy
+      includes:
+        - parts
+  notes: README lists the vendor without stating what the kit includes.
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+  unverified: true
+- id: neobot
+  name: NeoBot
+  url: https://item.taobao.com/item.htm?ft=t&id=957685951340
+  region: China
+  kits:
+    - name: SO-101 kit
+      url: https://item.taobao.com/item.htm?ft=t&id=957685951340
+      includes:
+        - parts
+  notes: README lists the vendor without stating what the kit includes.
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+  unverified: true
+- id: autodiscovery
+  name: Autodiscovery
+  url: https://autodiscovery.eu/en/products/so-101-kit
+  region: EU
+  kits:
+    - name: SO-101 kit
+      url: https://autodiscovery.eu/en/products/so-101-kit
+      includes:
+        - parts
+  notes: README lists the vendor without stating what the kit includes.
+  source:
+    - ref: upstream/SO-ARM100/README.md#kits
+  unverified: true
+- id: waveshare
+  name: Waveshare
+  url: https://www.waveshare.com/wiki/SO-ARM100/101_Kit_Aassembly
+  region: International
+  kits:
+    - name: SO-ARM101 3DP Parts Kit
+      url: https://www.waveshare.com/wiki/SO-ARM100/101_Kit_Aassembly
+      includes:
+        - printed-frame
+        - electronics
+    - name: SO-ARM101 No-3DP Parts Kit (SE)
+      url: https://www.waveshare.com/wiki/SO-ARM100/101_Kit_Aassembly
+      includes:
+        - electronics
+  part_map:
+    - vendor_ref: F1
+      part: base-so101
+      note: '"base F1"'
+    - vendor_ref: F2
+      part: base-motor-holder-so101
+      note: '"base motor bracket F2"'
+    - vendor_ref: F3
+      part: rotation-pitch-so101
+      note: '"shoulder F3"'
+    - vendor_ref: F4
+      part: motor-holder-so101-base
+      note: '"shoulder motor bracket F4"'
+    - vendor_ref: F5
+      part: upper-arm-so101
+      note: '"upper arm F5"'
+    - vendor_ref: F6
+      part: under-arm-so101
+      note: '"forearm F6"'
+    - vendor_ref: F7
+      part: motor-holder-so101-wrist
+      note: '"elbow motor bracket F7"'
+    - vendor_ref: F8
+      part: wrist-roll-pitch-so101
+      note: '"wrist bracket F8"'
+    - vendor_ref: F9
+      part: wrist-roll-follower-so101
+      note: '"Follower wrist F9"'
+    - vendor_ref: F10
+      part: moving-jaw-so101
+      note: '"Follower gripper F10"'
+    - vendor_ref: F11
+      part: waveshare-mounting-plate-so101
+      note: '"driver board bracket F11"'
+    - vendor_ref: L9
+      part: wrist-roll-so101
+      note: '"Leader wrist L9"'
+    - vendor_ref: L10
+      part: trigger-so101
+      note: '"Leader trigger L10"'
+    - vendor_ref: L11
+      part: handle-so101
+      note: '"Leader joystick L11"'
+    - vendor_ref: L12
+      part: waveshare-mounting-plate-so101
+      note: '"driver board bracket L12"'
+  notes:
+    Waveshare kits fit ST3215-HS servos at leader IDs 4–6 and "SE" encoder-only servos in some editions; see
+    D-004. F1–F11 / L1–L12 numbering is Waveshare's; the map to our ids follows the role names and is confirmed
+    only when Phase 2 places the parts.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Servo Preprocessing table and Follower/Leader assembly steps
+  unverified: true

@@ -1,2 +1,79 @@
 # troubleshooting.yaml — assembly issues only in v1 (ADR-0002). Schema: data/schema/troubleshooting.json
-[]
+- id: setup-motors-no-response
+  slug: setup-motors-error-check-cables
+  title: Error while setting a motor ID (setup-motors)
+  aliases:
+    - motor not found
+    - lerobot-setup-motors fails
+  symptoms:
+    - The setup script errors at "Connect the controller board to the ... motor only and press enter"
+  cause:
+    'A cable is not seated: power supply, USB to the board, or the 3-pin cable board-to-motor; or, on a Waveshare
+    board, the jumpers are not on the B (USB) channel.'
+  fix:
+    Check power, USB and the 3-pin cable; set both Waveshare jumpers to B; connect only the one motor being configured,
+    not yet daisy-chained.
+  related_steps:
+    - F-002
+    - L-002
+  related_parts:
+    - motor-control-board
+    - servo-cable-3pin
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: Troubleshooting details block
+- id: servo5-cable-torn
+  slug: wrist-roll-servo-cable-torn
+  title: Wrist roll (motor 5) cable damaged during insertion
+  symptoms:
+    - 3-pin cable pinched or torn at motor 5
+    - Motor 5 not answering after the wrist is assembled
+  cause:
+    Motor 5 was pushed into the wrist holder before its cables were routed through the holder; there is little
+    room to wire it afterwards.
+  fix:
+    Remove motor 5, route both cables through the holder first, then insert the servo gear side first with the
+    gear facing up.
+  related_steps:
+    - F-050
+    - L-050
+  related_parts:
+    - wrist-roll-pitch-so101
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: Follower step 14 note
+- id: wrong-leader-gear-ratio
+  slug: leader-servo-wrong-gear-ratio-at-joint
+  title: Leader arm servo with the wrong gear ratio at a joint
+  aliases:
+    - leader arm too stiff
+    - leader arm collapses
+  symptoms:
+    - Leader joint is hard to move by hand or does not hold its own weight
+  cause:
+    The SO-101 leader uses three ratios (1:191 at joints 1 and 3, 1:345 at joint 2, 1:147 at joints 4–6); a
+    1:345 follower servo or a swapped leader servo was fitted at the wrong joint.
+  fix:
+    Compare each leader servo's product code (C044 = 1:191, C001 = 1:345, C046 = 1:147) against the joint table
+    before assembly; swap the servo, then re-run motor setup.
+  related_steps:
+    - L-002
+    - L-011
+    - L-021
+    - L-031
+    - L-042
+    - L-050
+    - L-062
+  related_parts:
+    - servo-sts3215-c044-191
+    - servo-sts3215-c001-345
+    - servo-sts3215-c046-147
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: leader gear-ratio table and rationale
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-07'
+      note: '"make sure that the servo joint IDs and gear ratios strictly correspond to those of the SO-ARM101"'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: product codes
