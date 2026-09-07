@@ -521,25 +521,16 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
           Loading parts… {progress.loaded} of {progress.total}
         </div>
       )}
-      <div className="legend" aria-hidden="true">
-        {LEGEND.map(([vis, text]) => (
-          <span key={vis} className={`key ${vis}`}>
-            <i style={{ background: COLORS[vis] }} />
-            {text}
-          </span>
-        ))}
-      </div>
-      <div className="views" role="group" aria-label="Camera">
+      {/* One primary control (Reset) and a small View menu for the two secondary toggles. */}
+      <div className="views">
         <button
           type="button"
           className="reset"
-          aria-pressed={mode === 'step'}
           onClick={() => {
             setExplode(0);
-            setMode('step');
             setFit((n) => n + 1);
           }}
-          title="Frame this step's parts"
+          title="Reset the view to this step's parts"
         >
           <svg
             width="16"
@@ -552,23 +543,46 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
           >
             <path d="M2 7a5 5 0 1 0 1.5-3.5M2 2v3h3" />
           </svg>
-          <span>Frame step</span>
+          <span>Reset view</span>
         </button>
-        <button
-          type="button"
-          className="reset"
-          aria-pressed={mode === 'arm'}
-          onClick={() => {
-            setExplode(0);
-            setMode('arm');
-            setFit((n) => n + 1);
-          }}
-          title="Show everything built so far"
-        >
-          <span>Whole arm</span>
-        </button>
+        <details className="viewmenu">
+          <summary className="reset" aria-label="View options">
+            View
+          </summary>
+          <div className="menu">
+            <label htmlFor="so101-ghost">
+              <input
+                id="so101-ghost"
+                type="checkbox"
+                checked={ghost}
+                onChange={(e) => setGhost(e.target.checked)}
+              />{' '}
+              Show later parts
+            </label>
+            <label htmlFor="so101-arm">
+              <input
+                id="so101-arm"
+                type="checkbox"
+                checked={mode === 'arm'}
+                onChange={(e) => {
+                  setMode(e.target.checked ? 'arm' : 'step');
+                  setFit((n) => n + 1);
+                }}
+              />{' '}
+              Show the whole arm
+            </label>
+          </div>
+        </details>
       </div>
       <div className="hud">
+        <span className="legend" aria-hidden="true">
+          {LEGEND.map(([vis, text]) => (
+            <span key={vis} className={`key ${vis}`}>
+              <i style={{ background: COLORS[vis] }} />
+              {text}
+            </span>
+          ))}
+        </span>
         <label htmlFor="so101-explode">
           Pull apart{' '}
           <input
@@ -581,15 +595,6 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
             onChange={(e) => setExplode(Number(e.target.value))}
             aria-valuetext={explodeText}
           />
-        </label>
-        <label htmlFor="so101-ghost">
-          <input
-            id="so101-ghost"
-            type="checkbox"
-            checked={ghost}
-            onChange={(e) => setGhost(e.target.checked)}
-          />{' '}
-          Show later parts
         </label>
       </div>
       {picked && (
