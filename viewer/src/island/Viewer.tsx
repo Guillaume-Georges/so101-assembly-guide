@@ -35,6 +35,8 @@ const EDGE = '#0b0d12';
 /** Name chip for a current-step part; fasteners stay unlabelled (eight screws would bury the picture). */
 const labelFor = (arm: ArmData, p: Placement, vis: Visibility): string | undefined =>
   vis === 'current' && p.kind !== 'fastener' ? (arm.parts[p.id]?.name ?? p.name) : undefined;
+/** Camera framing: this step's parts with context, or everything built so far. */
+type FitMode = 'step' | 'arm';
 const LEGEND: [Visibility, string][] = [
   ['current', 'This step'],
   ['installed', 'Built'],
@@ -153,10 +155,12 @@ function FitCamera({
   target,
   k,
   fit,
+  mode,
 }: {
   target: React.RefObject<THREE.Group | null>;
   k: number;
   fit: number;
+  mode: FitMode;
 }) {
   const { camera, controls, invalidate, scene } = useThree();
   useEffect(() => {
@@ -169,13 +173,20 @@ function FitCamera({
     const g = target.current;
     if (!g) return;
     g.updateMatrixWorld(true);
-    const box = new THREE.Box3();
-    g.traverse((o) => {
-      const mesh = o as THREE.Mesh & { isLine2?: boolean };
-      // Line2 (cables) extends Mesh with a unit quad geometry: never let it into the fit
-      if (mesh.isMesh && !mesh.isLine2 && mesh.userData.vis && mesh.userData.vis !== 'future')
-        box.expandByObject(mesh, true);
-    });
+    // "step" frames this step's parts (with a wider margin for context); "arm" frames everything built.
+    const collect = (want: (vis: string) => boolean) => {
+      const box = new THREE.Box3();
+      g.traverse((o) => {
+        const mesh = o as THREE.Mesh & { isLine2?: boolean };
+        // Line2 (cables) extends Mesh with a unit quad geometry: never let it into the fit
+        if (mesh.isMesh && !mesh.isLine2 && mesh.userData.vis && want(mesh.userData.vis))
+          box.expandByObject(mesh, true);
+      });
+      return box;
+    };
+    let box = mode === 'step' ? collect((v) => v === 'current') : new THREE.Box3();
+    if (box.isEmpty()) box = collect((v) => v !== 'future');
+    const margin = mode === 'step' ? 2.1 : 1.15;
     console.log('so101 fit', {
       meshes: g.children.length,
       empty: box.isEmpty(),
@@ -186,7 +197,7 @@ function FitCamera({
     const centre = box.getCenter(new THREE.Vector3());
     const radius = Math.max(box.getSize(new THREE.Vector3()).length() / 2, 0.03);
     const cam = camera as THREE.PerspectiveCamera;
-    const dist = (radius / Math.sin(THREE.MathUtils.degToRad(cam.fov) / 2)) * 1.15;
+    const dist = (radius / Math.sin(THREE.MathUtils.degToRad(cam.fov) / 2)) * margin;
     const dir = new THREE.Vector3(0.7, 0.55, 0.9).normalize();
     cam.position.copy(centre.clone().add(dir.multiplyScalar(dist)));
     cam.near = dist / 100;
@@ -198,7 +209,7 @@ function FitCamera({
       c.update();
     } else cam.lookAt(centre);
     invalidate();
-  }, [target, k, fit, camera, controls, invalidate]);
+  }, [target, k, fit, mode, camera, controls, invalidate]);
   return null;
 }
 
@@ -226,6 +237,7 @@ function Scene({
   base,
   dragging,
   onDrag,
+  mode,
 }: {
   arm: ArmData;
   placements: Placement[];
@@ -237,21 +249,43 @@ function Scene({
   base: string;
   dragging: boolean;
   onDrag: (d: boolean) => void;
+  mode: FitMode;
 }) {
-  const centre = useMemo(() => {
+  const posOf = (p: Placement) =>
+    new THREE.Vector3().setFromMatrixPosition(
+      new THREE.Matrix4().fromArray(p.transform).transpose(),
+    );
+  // Assembly centroid (fallback) and the centres of everything already built at this step.
+  const { centre, installed } = useMemo(() => {
     const c = new THREE.Vector3();
     let n = 0;
-    for (const p of placements)
+    const installed: THREE.Vector3[] = [];
+    for (const p of placements) {
+      if (p.kind === 'cable') continue;
+      const pos = posOf(p);
       if (p.kind === 'part') {
-        c.add(
-          new THREE.Vector3().setFromMatrixPosition(
-            new THREE.Matrix4().fromArray(p.transform).transpose(),
-          ),
-        );
+        c.add(pos);
         n++;
       }
-    return n ? c.divideScalar(n) : c;
-  }, [placements]);
+      if (visibility(p, arm.steps, k, arm.assembly) === 'installed') installed.push(pos);
+    }
+    return { centre: n ? c.divideScalar(n) : c, installed };
+  }, [placements, arm, k]);
+  /** Explode away from the nearest built part (the host), not the whole assembly's centroid. */
+  const hostFor = (p: Placement, vis: Visibility): THREE.Vector3 => {
+    if (vis !== 'current' || installed.length === 0) return centre;
+    const pos = posOf(p);
+    let best = installed[0];
+    let d = Infinity;
+    for (const c of installed) {
+      const dd = c.distanceToSquared(pos);
+      if (dd > 1e-9 && dd < d) {
+        d = dd;
+        best = c;
+      }
+    }
+    return best;
+  };
   const cableIds = cablesAt(arm.steps, k);
   console.log('so101 scene', {
     k,
@@ -268,7 +302,7 @@ function Scene({
       <directionalLight position={[1, 2, 1]} intensity={1.2} />
       <directionalLight position={[-1, 1, -1]} intensity={0.4} />
       {/* Camera frames only what is built so far; ghosted future parts sit in a sibling group. */}
-      <FitCamera target={built} k={k} fit={fit} />
+      <FitCamera target={built} k={k} fit={fit} mode={mode} />
       <group ref={built}>
         {placements.map((p, i) => {
           if (p.kind === 'cable') return null;
@@ -280,7 +314,7 @@ function Scene({
               p={p}
               vis={vis}
               explode={explode}
-              centre={centre}
+              centre={hostFor(p, vis)}
               ghost={ghost}
               onPick={onPick}
               url={`${base}so101/geometry/${p.mesh}`}
@@ -306,7 +340,7 @@ function Scene({
               p={p}
               vis={vis}
               explode={explode}
-              centre={centre}
+              centre={hostFor(p, vis)}
               ghost={ghost}
               onPick={onPick}
               url={`${base}so101/geometry/${p.mesh}`}
@@ -342,6 +376,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   const [explode, setExplode] = useState(0);
   const [ghost, setGhost] = useState(true);
   const [fit, setFit] = useState(0);
+  const [mode, setMode] = useState<FitMode>('step');
   const [dragging, setDragging] = useState(false);
   const [picked, setPicked] = useState<Placement | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -412,6 +447,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
             base={base}
             dragging={dragging}
             onDrag={setDragging}
+            mode={mode}
           />
         </Suspense>
       </Canvas>
@@ -423,29 +459,45 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
           </span>
         ))}
       </div>
-      <button
-        type="button"
-        className="reset"
-        onClick={() => {
-          setExplode(0);
-          setFit((n) => n + 1);
-        }}
-        aria-label="Reset the 3D view"
-        title="Reset view"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 14 14"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          aria-hidden="true"
+      <div className="views" role="group" aria-label="Camera">
+        <button
+          type="button"
+          className="reset"
+          aria-pressed={mode === 'step'}
+          onClick={() => {
+            setExplode(0);
+            setMode('step');
+            setFit((n) => n + 1);
+          }}
+          title="Frame this step's parts"
         >
-          <path d="M2 7a5 5 0 1 0 1.5-3.5M2 2v3h3" />
-        </svg>
-        <span>Reset view</span>
-      </button>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            aria-hidden="true"
+          >
+            <path d="M2 7a5 5 0 1 0 1.5-3.5M2 2v3h3" />
+          </svg>
+          <span>Frame step</span>
+        </button>
+        <button
+          type="button"
+          className="reset"
+          aria-pressed={mode === 'arm'}
+          onClick={() => {
+            setExplode(0);
+            setMode('arm');
+            setFit((n) => n + 1);
+          }}
+          title="Show everything built so far"
+        >
+          <span>Whole arm</span>
+        </button>
+      </div>
       <div className="hud">
         <label htmlFor="so101-explode">
           Pull apart{' '}
