@@ -32,7 +32,7 @@
       },
       "required": ["ref"],
       "additionalProperties": false,
-      "if": { "properties": { "ref": { "pattern": "^https?://" } } },
+      "if": { "properties": { "ref": { "type": "string", "pattern": "^https?://" } } },
       "then": {
         "anyOf": [{ "required": ["retrieved"] }, { "required": ["timestamp"] }]
       }
