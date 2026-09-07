@@ -1,0 +1,33 @@
+[project]
+name = "so101-pipeline"
+version = "0.0.0"
+description = "STEP/STL -> per-part GLB + placements.json for the SO-101 assembly guide"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = "MIT"
+# cadquery/OCP (STEP) and trimesh (GLB) are added in Phase 2 when the exporter lands,
+# so the Phase 0 lockfile stays small. Stack decision is recorded in docs/adr/0001-stack.md.
+dependencies = []
+
+[project.scripts]
+so101-pipeline = "so101_pipeline.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.4", "ruff>=0.12"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["so101_pipeline"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
