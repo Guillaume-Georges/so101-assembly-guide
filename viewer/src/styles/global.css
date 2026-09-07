@@ -793,3 +793,58 @@ details.reference > summary h2 {
 .hero {
   margin-top: 1.5rem;
 }
+
+/* Milestone bar: one segment per motor group, filled to the current step; labels on wide screens. */
+ol.milestones {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 4px;
+}
+ol.milestones li a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  min-height: 32px;
+}
+ol.milestones .bar {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--line);
+  overflow: hidden;
+}
+ol.milestones .bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+ol.milestones li.done .bar span {
+  background: var(--ok);
+}
+ol.milestones li.done a {
+  color: var(--ok);
+}
+ol.milestones li.here a {
+  color: var(--fg);
+  font-weight: 600;
+}
+ol.milestones .lbl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 48rem) {
+  ol.milestones .lbl {
+    display: none;
+  }
+  ol.milestones li a {
+    min-height: 16px;
+  }
+}
