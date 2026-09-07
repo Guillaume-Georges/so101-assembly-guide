@@ -38,7 +38,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -71,7 +72,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -104,7 +106,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -137,7 +140,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -170,7 +174,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -203,7 +208,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -236,7 +242,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -269,7 +276,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -301,7 +309,8 @@
    "feature": null,
    "assembly": [
     "follower"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -333,7 +342,8 @@
    "feature": null,
    "assembly": [
     "follower"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "fastener",
@@ -366,6 +376,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-so101"
    ]
   },
   {
@@ -399,6 +412,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-so101"
    ]
   },
   {
@@ -432,6 +448,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101"
    ]
   },
   {
@@ -465,6 +485,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101"
    ]
   },
   {
@@ -498,6 +522,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101"
    ]
   },
   {
@@ -531,6 +559,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101"
    ]
   },
   {
@@ -564,6 +596,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-base",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -597,6 +633,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-base",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -630,6 +670,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-base",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -663,6 +707,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-base",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -696,6 +744,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -729,6 +780,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -762,6 +816,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -795,6 +852,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -828,6 +888,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-wrist",
+    "under-arm-so101"
    ]
   },
   {
@@ -861,6 +925,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-wrist"
    ]
   },
   {
@@ -894,6 +961,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-wrist",
+    "under-arm-so101"
    ]
   },
   {
@@ -927,6 +998,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "motor-holder-so101-wrist"
    ]
   },
   {
@@ -960,6 +1034,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -993,6 +1071,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1026,6 +1108,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -1059,6 +1144,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -1092,6 +1180,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1125,6 +1217,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1158,6 +1254,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1191,6 +1292,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1224,6 +1330,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1257,6 +1368,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1290,6 +1406,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -1323,6 +1442,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -1356,6 +1478,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -1389,6 +1514,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -1422,6 +1550,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "trigger-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1455,6 +1589,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "trigger-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1488,6 +1628,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "trigger-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1521,6 +1667,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "moving-jaw-so101",
+    "trigger-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -1554,6 +1706,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1587,6 +1742,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1620,6 +1778,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1653,6 +1814,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1686,6 +1850,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -1719,6 +1886,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -1752,6 +1922,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -1785,6 +1958,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -1818,6 +1994,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1851,6 +2030,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1884,6 +2066,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1917,6 +2102,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "under-arm-so101"
    ]
   },
   {
@@ -1950,6 +2138,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -1983,6 +2174,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -2016,6 +2210,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -2049,6 +2246,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "upper-arm-so101"
    ]
   },
   {
@@ -2082,6 +2282,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -2115,6 +2318,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -2148,6 +2354,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -2181,6 +2390,9 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-pitch-so101"
    ]
   },
   {
@@ -2214,6 +2426,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2247,6 +2463,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2280,6 +2500,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2313,6 +2537,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2346,6 +2574,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2379,6 +2612,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2412,6 +2650,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2445,6 +2688,11 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "base-motor-holder-so101",
+    "base-so101",
+    "rotation-pitch-so101"
    ]
   },
   {
@@ -2478,6 +2726,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "handle-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-pitch-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -2511,6 +2765,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "handle-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-pitch-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -2544,6 +2804,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "handle-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-pitch-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -2577,6 +2843,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "handle-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-pitch-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -2610,6 +2882,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -2643,6 +2919,10 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "wrist-roll-follower-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -2676,7 +2956,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -2709,7 +2990,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2742,7 +3024,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2775,7 +3058,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2808,7 +3092,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2841,7 +3126,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2874,7 +3160,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2907,7 +3194,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2940,7 +3228,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -2973,7 +3262,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -3006,7 +3296,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -3038,7 +3329,8 @@
    "feature": null,
    "assembly": [
     "follower"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -3070,7 +3362,8 @@
    "feature": null,
    "assembly": [
     "follower"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -3103,7 +3396,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -3136,7 +3430,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -3169,7 +3464,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -3202,7 +3498,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -3235,7 +3532,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "fastener",
@@ -3268,6 +3566,12 @@
    "assembly": [
     "follower",
     "leader"
+   ],
+   "host": [
+    "handle-so101",
+    "wrist-roll-follower-so101",
+    "wrist-roll-pitch-so101",
+    "wrist-roll-so101"
    ]
   },
   {
@@ -3301,7 +3605,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "cable",
@@ -3334,7 +3639,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3367,7 +3673,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3400,7 +3707,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3433,7 +3741,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3466,7 +3775,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3499,7 +3809,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3531,7 +3842,8 @@
    "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
    "assembly": [
     "follower"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "board",
@@ -3564,7 +3876,8 @@
    "assembly": [
     "follower",
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -3596,7 +3909,8 @@
    "feature": "stepped horn recess r10/r12/r11.24/r13.24 about +Z at the origin, matched to the same recess on Wrist_Roll_Follower_SO101 (offset y -0.22, z +0.95 mm); in-plane heading from centre of mass (both -X)",
    "assembly": [
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "servo",
@@ -3628,7 +3942,8 @@
    "feature": "same pocket as the follower gripper body, expressed relative to the shared horn recess",
    "assembly": [
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -3660,7 +3975,8 @@
    "feature": "re-based with the leader gripper servo",
    "assembly": [
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "horn",
@@ -3692,7 +4008,8 @@
    "feature": "re-based with the leader gripper servo",
    "assembly": [
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -3724,7 +4041,8 @@
    "feature": "r=10 horn face at the trigger origin (normal -Z) matched to the moving jaw's drive-side r=10 face at z=-17.4; rotation about the horn axis assumed equal to the jaw's",
    "assembly": [
     "leader"
-   ]
+   ],
+   "host": null
   },
   {
    "kind": "part",
@@ -3756,7 +4074,8 @@
    "feature": "mount face (normal (-0.951,0,0.309), r=1.1 M2 hole at (-27.26,0,40)) turned to face world up; handle symmetry plane to world x; grip direction to the base side; mount-face centre at the holder's lowest point under its bbox centroid. Pose from LeRobot Leader_v2.mp4 0:14/0:24; which of the holder's eight M2 holes takes the screw is not derivable",
    "assembly": [
     "leader"
-   ]
+   ],
+   "host": null
   }
  ],
  "unplaced": []

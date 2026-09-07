@@ -49,6 +49,7 @@ class Placement:
     note: str | None = None
     feature: str | None = None
     assembly: list[str] = field(default_factory=lambda: ["follower", "leader"])
+    host: list[str] | None = None  # fasteners/horns: part ids whose bbox (+2 mm) contains this placement
 
 
 @dataclass
@@ -298,7 +299,26 @@ def _fastener_primitive(fid: str, o: Occurrence) -> trimesh.Trimesh:
     )
 
 
+def attach_hosts(out: Output) -> None:
+    """Give every fastener a `host`: the printed parts whose world bbox (+2 mm) contains its centre.
+    The viewer shows a fastener when its step lists the fastener id and one host is installed."""
+    boxes = []
+    for p in out.placements:
+        if p.kind != "part":
+            continue
+        m = np.array(p.transform).reshape(4, 4)
+        v = out.meshes[p.mesh].vertices
+        w = (m[:3, :3] @ v.T).T + m[:3, 3]
+        boxes.append((p.id, w.min(axis=0) - 0.002, w.max(axis=0) + 0.002))
+    for p in out.placements:
+        if p.kind != "fastener":
+            continue
+        c = np.array(p.transform).reshape(4, 4)[:3, 3]
+        p.host = sorted({pid for pid, lo, hi in boxes if np.all(c >= lo) and np.all(c <= hi)})
+
+
 def write(out: Output, out_dir: Path, meta: dict) -> None:
+    attach_hosts(out)
     out_dir.mkdir(parents=True, exist_ok=True)
     for name, mesh in out.meshes.items():
         mesh.export(out_dir / name)
