@@ -1,0 +1,5 @@
+- id: m2x6-shcs
+  spec: M2x6 SHCS
+  qty: 20
+  assembly: [follower]
+  source: [{ ref: upstream/SO-ARM100/README.md#bom }]

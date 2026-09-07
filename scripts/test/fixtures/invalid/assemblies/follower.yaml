@@ -1,0 +1,9 @@
+- id: F-001
+  title: Bad step
+  assembly: follower
+  parts: [does-not-exist]
+  servo_slot: elbow_flex
+  fasteners: [{ id: m3x8, qty: 2 }]
+  tools: [nope]
+  check: n/a
+  source: []

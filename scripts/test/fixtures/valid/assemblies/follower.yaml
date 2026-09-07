@@ -1,0 +1,10 @@
+- id: F-001
+  title: Mount shoulder-pan servo to base
+  assembly: follower
+  parts: [base-plate, servo-sts3215-345]
+  servo_slot: shoulder_pan
+  fasteners: [{ id: m2x6-shcs, qty: 4 }]
+  tools: [hex-1.5]
+  check: Servo sits flush; horn free to rotate
+  source:
+    - { ref: 'https://example.org/guide', retrieved: 2026-09-07 }

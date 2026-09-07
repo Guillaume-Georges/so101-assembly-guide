@@ -1,0 +1,7 @@
+- id: follower-shoulder-pan
+  assembly: follower
+  joint: shoulder_pan
+  part: servo-sts3215-345
+  model: STS3215
+  gear_ratio: '1:345'
+  source: [{ ref: upstream/SO-ARM100/README.md#servos }]
