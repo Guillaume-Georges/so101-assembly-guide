@@ -16,8 +16,8 @@ const index = [
 
 <form class="search" role="search" action={withBase('/troubleshooting/')} method="get" data-index={JSON.stringify(index)}>
   <label class="sr-only" for="q" style="position:absolute;left:-9999px">Paste an error message or search steps</label>
-  <input id="q" name="q" type="search" placeholder="Paste an error or search steps" autocomplete="off" />
-  <ul hidden aria-live="polite"></ul>
+  <input id="q" name="q" type="search" placeholder="Paste an error or search steps" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="q-results" aria-autocomplete="list" aria-haspopup="listbox" />
+  <ul id="q-results" role="listbox" aria-label="Results" hidden></ul>
 </form>
 <script>
   const form = document.querySelector('form.search') as HTMLFormElement;
@@ -32,6 +32,20 @@ const index = [
     const hit = words.filter((w) => t.includes(w)).length;
     return hit ? (hit / words.length) * 60 : 0;
   };
+  let active = -1;
+  const options = () => [...list.querySelectorAll('a')] as HTMLAnchorElement[];
+  const setActive = (n: number) => {
+    const opts = options();
+    active = opts.length ? Math.max(-1, Math.min(n, opts.length - 1)) : -1;
+    opts.forEach((a, i) => a.setAttribute('aria-selected', String(i === active)));
+    input.setAttribute('aria-activedescendant', active >= 0 ? `q-opt-${active}` : '');
+    opts[active]?.scrollIntoView({ block: 'nearest' });
+  };
+  const open = (yes: boolean) => {
+    list.hidden = !yes;
+    input.setAttribute('aria-expanded', String(yes));
+    if (!yes) setActive(-1);
+  };
   const render = () => {
     const q = norm(input.value);
     const hits = index
@@ -39,19 +53,57 @@ const index = [
       .filter((x) => x.s > 0)
       .sort((a, b) => b.s - a.s)
       .slice(0, 8);
-    list.innerHTML = hits.map((h) => `<li><a href="${h.e.href}">${h.e.label}</a></li>`).join('');
-    list.hidden = hits.length === 0;
+    list.innerHTML = hits
+      .map((h, i) => `<li role="none"><a id="q-opt-${i}" role="option" aria-selected="false" href="${h.e.href}">${h.e.label}</a></li>`)
+      .join('');
+    open(hits.length > 0);
   };
   input.addEventListener('input', render);
   input.addEventListener('focus', render);
+  input.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') {
+      open(false);
+      return;
+    }
+    if (list.hidden) return;
+    if (ev.key === 'ArrowDown') {
+      ev.preventDefault();
+      setActive(active + 1);
+    } else if (ev.key === 'ArrowUp') {
+      ev.preventDefault();
+      setActive(active - 1);
+    }
+  });
   document.addEventListener('click', (ev) => {
-    if (!form.contains(ev.target as Node)) list.hidden = true;
+    if (!form.contains(ev.target as Node)) open(false);
   });
   form.addEventListener('submit', (ev) => {
-    const first = list.querySelector('a') as HTMLAnchorElement | null;
-    if (first) {
+    const pick = (active >= 0 ? options()[active] : list.querySelector('a')) as HTMLAnchorElement | null;
+    if (pick) {
       ev.preventDefault();
-      location.href = first.href;
+      location.href = pick.href;
     }
   });
 </script>
+<style>
+  /* Results: a dropdown on wide screens, a full-width sheet under the header on phones. */
+  form.search li a[aria-selected='true'] {
+    background: color-mix(in srgb, var(--accent) 18%, var(--bg-2));
+    outline: 0;
+  }
+  @media (max-width: 59.99rem) {
+    form.search ul {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: calc(var(--tap) + 1rem);
+      margin: 0;
+      border-radius: 0 0 12px 12px;
+      max-height: 60vh;
+      box-shadow: 0 12px 32px color-mix(in srgb, #000 40%, transparent);
+    }
+    form.search li a {
+      padding: 0.75rem 1rem;
+    }
+  }
+</style>
