@@ -2,6 +2,7 @@
 - id: F-001
   slug: follower-clean-printed-parts
   title: Remove support material from all printed parts
+  title_short: Clean the printed parts
   assembly: follower
   prep: true
   parts:
@@ -28,6 +29,7 @@
 - id: F-002
   slug: follower-set-servo-ids
   title: Set servo IDs 1–6 and baud rate before assembly
+  title_short: Set servo IDs and baud rate
   assembly: follower
   prep: true
   parts:
@@ -63,6 +65,7 @@
 - id: F-003
   slug: follower-preinstall-cables
   title: Plug one 3-pin cable into each servo before building
+  title_short: Plug a cable into each servo
   assembly: follower
   prep: true
   parts:
@@ -78,6 +81,7 @@
 - id: F-010
   slug: follower-joint1-horns
   title: Fit both horns on motor 1 (shoulder pan)
+  title_short: Fit both horns on motor 1
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -100,6 +104,7 @@
 - id: F-011
   slug: follower-joint1-motor-into-base
   title: Seat motor 1 in the base
+  title_short: Seat motor 1 in the base
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -124,6 +129,7 @@
 - id: F-012
   slug: follower-joint1-motor-holder
   title: Slide the first motor holder over motor 1
+  title_short: Slide the motor holder over motor 1
   assembly: follower
   parts:
     - base-motor-holder-so101
@@ -138,7 +144,7 @@
   check:
     Holder sits flush on the base; one motor-tab screw on each side; one motor-1 cable routed out of the base
     opening.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Base_08p (= base motor holder)
     encloses 74% of servo 1 and sits on the base.'
   source:
@@ -154,6 +160,7 @@
 - id: F-013
   slug: follower-joint1-shoulder
   title: Attach the shoulder to the motor 1 horns
+  title_short: Attach the shoulder to motor 1
   assembly: follower
   parts:
     - rotation-pitch-so101
@@ -166,7 +173,7 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Shoulder holes line up with the horn holes on both ends; 4 M3x6 top, 4 M3x6 bottom.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Rotation_Pitch_SO101 spans servo
     1 (49%) and the servo 2 pocket (42%): the shoulder on the motor-1 horns.'
   source:
@@ -184,13 +191,14 @@
 - id: F-014
   slug: follower-joint1-shoulder-motor-holder
   title: Add the shoulder motor holder
+  title_short: Add the shoulder motor holder
   assembly: follower
   parts:
     - motor-holder-so101-base
     - rotation-pitch-so101
   servo_slot: shoulder_lift
   check: Holder seated on the shoulder, ready to receive motor 2 from the top.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Motor_holder_SO101_Base encloses
     42% of servo 2, above the shoulder: the shoulder motor holder.'
   source:
@@ -206,6 +214,7 @@
 - id: F-020
   slug: follower-joint2-horns
   title: Fit both horns on motor 2 (shoulder lift)
+  title_short: Fit both horns on motor 2
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -224,6 +233,7 @@
 - id: F-021
   slug: follower-joint2-motor
   title: Slide motor 2 in from the top and fasten
+  title_short: Slide in motor 2 and fasten
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -239,7 +249,7 @@
   cables:
     - cable-shoulder-pan-to-shoulder-lift
   check: Motor 2 held by 4 motor-tab screws; its cable connects to motor 1 (either port).
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: servo 2 sits in Motor_holder_SO101_Base
     (42% enclosed), entered from above.'
   source:
@@ -255,6 +265,7 @@
 - id: F-022
   slug: follower-joint2-upper-arm
   title: Attach the upper arm to the motor 2 horns
+  title_short: Attach the upper arm to motor 2
   assembly: follower
   parts:
     - upper-arm-so101
@@ -277,6 +288,7 @@
 - id: F-030
   slug: follower-joint3-horns
   title: Fit both horns on motor 3 (elbow flex)
+  title_short: Fit both horns on motor 3
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -295,6 +307,7 @@
 - id: F-031
   slug: follower-joint3-motor
   title: Insert motor 3 into the upper arm
+  title_short: Insert motor 3 into the upper arm
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -318,6 +331,7 @@
 - id: F-032
   slug: follower-joint3-forearm
   title: Connect the forearm to the motor 3 horns
+  title_short: Connect the forearm to motor 3
   assembly: follower
   parts:
     - under-arm-so101
@@ -331,7 +345,7 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: 4 M3x6 on each side; forearm wire slot on the same side as the cable run.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Under_arm_SO101 encloses 50% of
     servo 3: the forearm on the motor-3 horns.'
   source:
@@ -347,6 +361,7 @@
 - id: F-040
   slug: follower-joint4-horns
   title: Fit both horns on motor 4 (wrist flex)
+  title_short: Fit both horns on motor 4
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -365,6 +380,7 @@
 - id: F-041
   slug: follower-joint4-motor-holder
   title: Slide motor holder 4 onto the forearm
+  title_short: Slide motor holder 4 onto the forearm
   assembly: follower
   parts:
     - motor-holder-so101-wrist
@@ -372,7 +388,7 @@
   servo_slot: wrist_flex
   orientation_note: Wire groove on the harness side (Waveshare).
   check: Holder seated; wire groove on the same side as the cable run.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Motor_holder_SO101_Wrist sits on
     the forearm and encloses 44% of servo 4: motor holder 4.'
   source:
@@ -388,6 +404,7 @@
 - id: F-042
   slug: follower-joint4-motor
   title: Slide in motor 4 and fasten
+  title_short: Slide in motor 4 and fasten
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -402,7 +419,7 @@
   cables:
     - cable-elbow-flex-to-wrist-flex
   check: Motor 4 held by 4 motor-tab screws; its cable connects to motor 3.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: servo 4 sits in Motor_holder_SO101_Wrist
     (44% enclosed).'
   source:
@@ -418,6 +435,7 @@
 - id: F-050
   slug: follower-joint5-motor
   title: Insert motor 5 into the wrist holder
+  title_short: Insert motor 5 into the wrist holder
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -437,7 +455,7 @@
   check:
     Motor 5 held by 2 motor-tab screws at the front; both cables routed through the holder before the motor
     went in.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Pitch (SO100-named solid)
     encloses 97% of servo 5: the wrist holder.'
   source:
@@ -453,6 +471,7 @@
 - id: F-051
   slug: follower-joint5-horn
   title: Fit one horn only on motor 5 (wrist roll)
+  title_short: Fit one horn on motor 5
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -474,6 +493,7 @@
 - id: F-052
   slug: follower-joint5-wrist-to-motor4
   title: Secure the wrist to the motor 4 horns
+  title_short: Secure the wrist to motor 4
   assembly: follower
   parts:
     - wrist-roll-pitch-so101
@@ -487,7 +507,7 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: 4 M3x6 on both sides; the holder opening faces the motor 4 wiring port.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: the same wrist holder spans 49%
     of servo 4: secured to the motor-4 horns.'
   source:
@@ -503,6 +523,7 @@
 - id: F-060
   slug: follower-gripper-body
   title: Attach the gripper body to the motor 5 horn
+  title_short: Attach the gripper body to motor 5
   assembly: follower
   parts:
     - wrist-roll-follower-so101
@@ -515,7 +536,7 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Gripper body seated on the horn with 4 M3x6.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Follower_SO101 carries
     the stepped r10/r12/r13.24 recess at its origin and the servo-5 drive horn sits in it.'
   source:
@@ -531,6 +552,7 @@
 - id: F-061
   slug: follower-gripper-motor
   title: Insert the gripper motor
+  title_short: Insert the gripper motor
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -545,7 +567,7 @@
   cables:
     - cable-wrist-roll-to-gripper
   check: 2 motor-tab screws on each side; cable connects to motor 5.
-  instructions:
+  provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Follower_SO101 encloses
     100% of servo 6: the gripper body.'
   source:
@@ -561,6 +583,7 @@
 - id: F-062
   slug: follower-gripper-horns
   title: Fit both horns on the gripper motor
+  title_short: Fit both horns on the gripper motor
   assembly: follower
   parts:
     - servo-sts3215-c001-345
@@ -580,6 +603,7 @@
 - id: F-063
   slug: follower-gripper-claw
   title: Install the gripper claw
+  title_short: Install the gripper claw
   assembly: follower
   parts:
     - moving-jaw-so101
@@ -602,16 +626,17 @@
 - id: F-070
   slug: follower-controller-board
   title: Mount the controller board on its plate and fit it to the base
+  title_short: Mount the board on the base
   assembly: follower
   parts:
     - motor-control-board
     - waveshare-mounting-plate-so101
     - base-motor-holder-so101
   check: Board on the plate; plate clipped to the base motor holder; a cable from motor 1 reaches the board.
-  instructions:
-    'Fastener count for the board is not given by any source. Part role confirmed by placement in the
-    upstream assembly STEP: WaveShare_Mounting_Plate touches both the base motor holder and the controller-board
-    model (0 mm gap).'
+  instructions: Fastener count for the board is not given by any source.
+  provenance:
+    'Part role confirmed by placement in the upstream assembly STEP: WaveShare_Mounting_Plate touches both
+    the base motor holder and the controller-board model (0 mm gap).'
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
@@ -627,6 +652,7 @@
 - id: F-071
   slug: follower-daisy-chain
   title: Daisy-chain the servo cables and connect motor 1 to the board
+  title_short: Daisy-chain the cables to the board
   assembly: follower
   parts:
     - servo-cable-3pin

@@ -116,6 +116,8 @@ export type Step = Flagged & {
   warnings?: string[];
   check: string;
   instructions?: string;
+  provenance?: string;
+  title_short?: string;
 };
 
 export type Dataset = {
