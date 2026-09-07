@@ -59,6 +59,7 @@ const jsonLd = [
     <StepPanel s={s} />
   </div>
   <Sources sources={s.source} />
+  {s.provenance && <p class="provenance muted"><strong>How we placed it:</strong> {s.provenance}</p>}
   {!next && (
     <section class="finished">
       <h2>{arm} built.</h2>
@@ -73,13 +74,13 @@ const jsonLd = [
   <nav class="steps" aria-label="Step navigation">
     <div class="wrap">
       {prev ? (
-        <a href={withBase(stepPath(prev))} rel="prev" class="prev"><small>← {prev.id}</small><span>{prev.title}</span></a>
+        <a href={withBase(stepPath(prev))} rel="prev" class="prev"><small>← {prev.id}</small><span>{prev.title_short ?? prev.title}</span></a>
       ) : (
         <a href={withBase(`/${assembly}/`)} class="prev"><small>←</small><span>All steps</span></a>
       )}
       <span class="count">{i + 1} / {list.length}</span>
       {next ? (
-        <a href={withBase(stepPath(next))} rel="next" class="next"><small>Next · {next.id}</small><span>{next.title} →</span></a>
+        <a href={withBase(stepPath(next))} rel="next" class="next"><small>Next · {next.id}</small><span>{next.title_short ?? next.title} →</span></a>
       ) : (
         <a href={withBase(`/${assembly}/`)} class="next"><small>Done ✓</small><span>Back to all steps</span></a>
       )}

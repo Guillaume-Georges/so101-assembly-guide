@@ -21,6 +21,12 @@
         "type": "string",
         "minLength": 1
       },
+      "title_short": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 48,
+        "description": "Builder-facing rewording of title for tight chrome (step nav, lists). Must name the same parts and action as title; the h1 keeps title."
+      },
       "assembly": {
         "$ref": "common.json#/$defs/assembly"
       },
@@ -104,7 +110,11 @@
       },
       "instructions": {
         "type": "string",
-        "description": "Free-text detail; must not introduce facts absent from source"
+        "description": "Free-text detail for the builder; must not introduce facts absent from source"
+      },
+      "provenance": {
+        "type": "string",
+        "description": "How the part role or placement was established (e.g. a placement check in the upstream STEP). Rendered with the sources, never as an instruction."
       },
       "source": {
         "$ref": "common.json#/$defs/sources"

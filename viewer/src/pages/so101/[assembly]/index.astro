@@ -28,7 +28,7 @@ const site = Astro.site ?? new URL('https://kitsmith.dev');
       <ol class="steps">
         {g.steps.map((s) => (
           <li>
-            <a href={withBase(stepPath(s))}><span class="id">{s.id}</span> <span class="t">{s.title}</span></a>
+            <a href={withBase(stepPath(s))} title={s.title}><span class="id">{s.id}</span> <span class="t">{s.title_short ?? s.title}</span></a>
             {s.prep && <span class="flag prep" title="Preparation: do this before assembling">do first</span>}
             <Flags unverified={s.unverified} approximation={s.approximation} />
           </li>

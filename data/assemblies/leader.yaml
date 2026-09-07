@@ -219,6 +219,7 @@
 - id: L-062
   slug: leader-gripper-motor
   title: Insert the gripper motor and fit its horn
+  title_short: Insert the gripper motor and horn
   assembly: leader
   parts:
     - servo-sts3215-c046-147
