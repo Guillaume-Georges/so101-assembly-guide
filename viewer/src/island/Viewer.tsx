@@ -3,7 +3,14 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { Grid, Html, Line, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
-import { cablesAt, visibility, type Placement, type StepLite, type Visibility } from './state';
+import {
+  cablesAt,
+  screwAxis,
+  visibility,
+  type Placement,
+  type StepLite,
+  type Visibility,
+} from './state';
 
 type ArmData = {
   assembly: string;
@@ -85,18 +92,18 @@ function Part({
     m.decompose(pos, quat, scale);
     return { pos, quat, scale };
   }, [m]);
-  // explode: current-step things move away from the assembly centre along their own offset
-  const offset = useMemo(
-    () =>
-      vis === 'current'
-        ? pos
-            .clone()
-            .sub(centre)
-            .normalize()
-            .multiplyScalar(explode * 0.08)
-        : new THREE.Vector3(),
-    [vis, pos, centre, explode],
-  );
+  // explode: a current-step screw backs out of its hole along its own axis, head first; anything else
+  // moves away from its host part (`centre`) along its own offset
+  const offset = useMemo(() => {
+    if (vis !== 'current') return new THREE.Vector3();
+    if (p.kind === 'fastener')
+      return new THREE.Vector3(...screwAxis(p.transform)).multiplyScalar(explode * 0.03);
+    return pos
+      .clone()
+      .sub(centre)
+      .normalize()
+      .multiplyScalar(explode * 0.08);
+  }, [vis, p.kind, p.transform, pos, centre, explode]);
   // Edge lines at a 25° crease threshold: flat-shaded printed parts read as blobs without them.
   const edges = useMemo(() => (geom ? new THREE.EdgesGeometry(geom, 25) : undefined), [geom]);
   // label anchor: top-centre of the part's bounding box, in the placed frame
@@ -109,43 +116,60 @@ function Part({
   }, [geom, pos, quat, scale]);
   if (!geom) return null;
   if (vis === 'future' && !ghost) return null;
+  // guide from the hole to the backed-out screw
+  const guide =
+    p.kind === 'fastener' && vis === 'current' && explode > 0.02
+      ? [pos.toArray(), pos.clone().add(offset).toArray()]
+      : null;
   return (
-    <group position={offset}>
-      <mesh
-        geometry={geom}
-        position={pos}
-        quaternion={quat}
-        scale={scale}
-        userData={{ vis }}
-        onClick={(e) => {
-          e.stopPropagation();
-          onPick(p);
-        }}
-      >
-        <meshStandardMaterial
-          color={COLORS[vis]}
-          transparent={vis === 'future'}
-          opacity={vis === 'future' ? 0.12 : 1}
-          roughness={0.7}
-          metalness={p.kind === 'fastener' || p.kind === 'horn' ? 0.6 : 0.05}
+    <group>
+      {guide && (
+        <Line
+          points={guide}
+          color={COLORS.current}
+          lineWidth={1}
+          dashed
+          dashSize={0.002}
+          gapSize={0.0015}
         />
-      </mesh>
-      {edges && vis !== 'future' && (
-        <lineSegments
-          geometry={edges}
+      )}
+      <group position={offset}>
+        <mesh
+          geometry={geom}
           position={pos}
           quaternion={quat}
           scale={scale}
-          raycast={() => null}
+          userData={{ vis }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onPick(p);
+          }}
         >
-          <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
-        </lineSegments>
-      )}
-      {label && anchor && !dragging && (
-        <Html position={anchor} center zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
-          <span className="lbl3d">{label}</span>
-        </Html>
-      )}
+          <meshStandardMaterial
+            color={COLORS[vis]}
+            transparent={vis === 'future'}
+            opacity={vis === 'future' ? 0.12 : 1}
+            roughness={0.7}
+            metalness={p.kind === 'fastener' || p.kind === 'horn' ? 0.6 : 0.05}
+          />
+        </mesh>
+        {edges && vis !== 'future' && (
+          <lineSegments
+            geometry={edges}
+            position={pos}
+            quaternion={quat}
+            scale={scale}
+            raycast={() => null}
+          >
+            <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
+          </lineSegments>
+        )}
+        {label && anchor && !dragging && (
+          <Html position={anchor} center zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
+            <span className="lbl3d">{label}</span>
+          </Html>
+        )}
+      </group>
     </group>
   );
 }

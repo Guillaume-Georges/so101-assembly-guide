@@ -171,14 +171,24 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
         });
   }
 
-  // Geometry ↔ BOM mapping (Phase 2 output). Every placement must resolve to a BOM id of the right kind.
+  // Geometry ↔ BOM mapping (Phase 2 output). Every placement must resolve to a BOM id of the right kind,
+  // and every screw a step declares must be one the geometry can show at that step (pipeline allocation).
   if (fs.existsSync(placementsPath)) {
     const doc = JSON.parse(fs.readFileSync(placementsPath, 'utf8')) as {
-      placements?: { kind?: string; id?: string; name?: string; mesh?: string }[];
+      placements?: {
+        kind?: string;
+        id?: string;
+        name?: string;
+        mesh?: string;
+        host?: string[] | null;
+        joint?: string | null;
+        step?: Record<string, string> | null;
+      }[];
     };
     const placements = Array.isArray(doc.placements) ? doc.placements : [];
     if (placements.length === 0)
       p.push({ file: 'pipeline/out/placements.json', where: '/', message: 'no placements' });
+    const allocated = new Map<string, number>(); // `${arm}/${step}/${fastener}` -> count
     for (const pl of placements) {
       const where = pl.name ?? '?';
       if (pl.kind === 'fastener') {
@@ -188,6 +198,16 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
             where,
             message: `no fastener id for solid (id='${pl.id ?? ''}')`,
           });
+        if (!pl.host?.length && !pl.joint)
+          p.push({
+            file: 'pipeline/out/placements.json',
+            where,
+            message: 'fastener passes through no hole and sits on no horn (host and joint empty)',
+          });
+        for (const [arm, step] of Object.entries(pl.step ?? {})) {
+          const key = `${arm}/${step}/${pl.id}`;
+          allocated.set(key, (allocated.get(key) ?? 0) + 1);
+        }
       } else if (!pl.id || !partIds.has(pl.id)) {
         p.push({
           file: 'pipeline/out/placements.json',
@@ -198,6 +218,17 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
       if (!pl.mesh)
         p.push({ file: 'pipeline/out/placements.json', where, message: 'placement without mesh' });
     }
+    for (const [name, steps] of Object.entries(ds.assemblies))
+      for (const st of steps)
+        for (const f of st.fasteners ?? []) {
+          const n = allocated.get(`${name}/${st.id}/${f.id}`) ?? 0;
+          if (n !== f.qty)
+            p.push({
+              file: `assemblies/${name}.yaml`,
+              where: st.id,
+              message: `declares ${f.qty} x ${f.id} but the geometry places ${n} at this step`,
+            });
+        }
   }
   return p;
 }
