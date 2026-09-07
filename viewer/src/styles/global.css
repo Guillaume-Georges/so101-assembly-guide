@@ -930,3 +930,53 @@ header.site a.guide {
 header.site a.guide .sep {
   color: var(--line-strong);
 }
+
+/* Step number tile beside the title; icons in the "You need" rows. */
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.titlebar h1 {
+  margin: 0;
+}
+.titlebar .num {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 40rem) {
+  .titlebar .num {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    font-size: 1.4rem;
+  }
+}
+.card .row .ico {
+  flex: none;
+  color: var(--muted);
+}
+.card .row .ico:first-child + .what {
+  margin-left: 0;
+}
+.warning {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+.warning .ico {
+  flex: none;
+  color: var(--caution);
+  margin-top: 0.15rem;
+}

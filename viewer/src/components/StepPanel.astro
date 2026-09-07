@@ -2,6 +2,7 @@
 import { parts, fasteners, tools, cables, servoBySlot, jointLabel, type Step } from '../lib/data';
 import { withBase } from '../lib/seo';
 import Flags from './Flags.astro';
+import Icon, { iconForCategory } from './Icon.astro';
 interface Props { s: Step }
 const { s } = Astro.props;
 const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
@@ -9,7 +10,7 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
 <aside class="card">
   {s.instructions && <p>{s.instructions}</p>}
   {s.orientation_note && <p><strong>Orientation:</strong> {s.orientation_note}</p>}
-  {s.warnings?.length ? s.warnings.map((w) => <p class="warning"><span aria-hidden="true">⚠</span> {w}</p>) : null}
+  {s.warnings?.length ? s.warnings.map((w) => <p class="warning"><Icon name="warn" size={20} /> <span>{w}</span></p>) : null}
   {servo && (
     <section>
       <h3>Servo: {jointLabel(servo.joint)} (ID {servo.bus_id})</h3>
@@ -28,6 +29,7 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
         const p = parts.get(id);
         return (
           <li class="row">
+            <Icon name={iconForCategory(p?.category)} />
             <span class="what">{p?.name ?? id} <Flags popover unverified={p?.unverified} approximation={p?.approximation} note={p?.notes} /></span>
             <a class="more" href={withBase(`/parts/${id}/`)} aria-label={`${p?.name ?? id}: part details and sources`}>details</a>
           </li>
@@ -37,6 +39,7 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
         const spec = fasteners.get(f.id);
         return (
           <li class="row">
+            <Icon name="screw" />
             <span class="what">{spec?.spec ?? f.id} <Flags popover unverified={spec?.unverified} note={spec?.notes} /></span>
             <span class="qty">×{f.qty}</span>
             <a class="more" href={withBase(`/parts/#fastener-${f.id}`)} aria-label={`${spec?.spec ?? f.id}: fastener details`}>details</a>
@@ -47,6 +50,7 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
         const tool = tools.get(t);
         return (
           <li class="row">
+            <Icon name="tool" />
             <span class="what">{tool?.name ?? t}{tool?.size ? <span class="muted"> · {tool.size}</span> : null}</span>
             <span class="qty muted">tool</span>
             <a class="more" href={withBase(`/tools/${t}/`)} aria-label={`${tool?.name ?? t}: tool details`}>details</a>
@@ -58,7 +62,7 @@ const servo = s.servo_slot ? servoBySlot(s.assembly, s.servo_slot) : undefined;
   {s.cables?.length ? (
     <section>
       <h3>Cables</h3>
-      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li class="row"><span class="what">{cb ? `${jointLabel(cb.from)} → ${jointLabel(cb.to)}` : c} <Flags popover approximation={cb?.approximation} note={cb?.notes} /></span></li>; })}</ul>
+      <ul class="plain">{s.cables.map((c) => { const cb = cables.get(c); return <li class="row"><Icon name="cable" /><span class="what">{cb ? `${jointLabel(cb.from)} → ${jointLabel(cb.to)}` : c} <Flags popover approximation={cb?.approximation} note={cb?.notes} /></span></li>; })}</ul>
     </section>
   ) : null}
 </aside>
