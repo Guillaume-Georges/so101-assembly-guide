@@ -256,10 +256,11 @@
       note: Upstream STL/STEP named for this vendor's bus servo adapter
   notes:
     'Numbering F1–F11 / L1–L12 is Waveshare''s (there is no F12). L1–L8 are not named in the text and are taken
-    from the "same as follower" sentence. The map to our ids follows the role names and is confirmed only when Phase
-    2 places the parts. Servo variants: see D-004.'
+    from the "same as follower" sentence. The F-numbered roles map to the parts that the assembly STEP places in
+    those roles (Phase 2 placement check). Servo variants: see D-004.'
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Servo Preprocessing table and Follower/Leader assembly steps
-  unverified: true
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: placement check confirms the F2/F3/F4/F7/F8/F9 roles

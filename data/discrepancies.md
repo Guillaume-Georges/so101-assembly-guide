@@ -93,8 +93,9 @@ listed in `SOURCES.md`.
   (32273 vs 32299 mm³). `Handle`, `Trigger` and the leader
   `Wrist_Roll_SO101` have no solid in the assembly STEP (the model is a
   follower arm; `Wrist_Roll_SO101 v6` is present as an empty assembly).
-- Resolution: both SO-100 names recorded as `aka:`; the pipeline matches by
-  alias and keeps `unverified` until placement confirms the role. The three
+- Resolution: both SO-100 names recorded as `aka:`; the pipeline matched by
+  alias, and the placement check (part bbox vs servo bbox, see
+  `docs/phases/phase-2.md`) confirmed both roles: the flags are cleared. The three
   leader parts are hand-placed from their per-part STEP files with
   `approximation: true` and the mating feature recorded.
 - Affects: `aka` on the parts above; Phase 2 mapping

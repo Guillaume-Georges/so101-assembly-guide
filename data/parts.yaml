@@ -35,8 +35,8 @@
   notes:
     'Role inferred from file name: the "first motor holder" slid over motor 1 (LeRobot Joint 1) / "base motor
     bracket F2" (Waveshare). In SO101 Assembly.step this solid carries the SO-100-era name Base_08p: volume 23717
-    mm³ vs 23709 mm³ for Base_motor_holder_SO101.stl, same extents (D-005). Matched via aka; flag stays until placement
-    confirms the role.'
+    mm³ vs 23709 mm³ for Base_motor_holder_SO101.stl, same extents (D-005). Role confirmed by placement: placed
+    as Base_08p; encloses 74% of servo 1 and touches the controller plate (viewer/public/geometry/placements.json).'
   source:
     - ref: upstream/SO-ARM100/README.md#printing-the-parts
       note: Individual Part Files table
@@ -44,7 +44,8 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Base_motor_holder_SO101.step
     - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
       note: solid Base_08p v18, volume and extents match the STL
-  unverified: true
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check: placed as Base_08p; encloses 74% of servo 1 and touches the controller plate'
 - id: motor-holder-so101-base
   name: Motor holder (base side)
   qty: 1
@@ -167,13 +168,15 @@
   notes:
     'Role inferred: the "wrist holder" that receives motor 5 and is secured to motor 4 (LeRobot Joint 5) /
     "wrist bracket F8" (Waveshare). The assembly STEP carries this solid under the SO-100 name Wrist_Roll_Pitch_SO100
-    (aka, D-005); an aka match keeps the flag until placement confirms it.'
+    (aka, D-005); Role confirmed by placement: placed as Wrist_Roll_Pitch_SO100; encloses 97% of servo 5 and 49%
+    of servo 4 (viewer/public/geometry/placements.json).'
   source:
     - ref: upstream/SO-ARM100/README.md#printing-the-parts
       note: Individual Part Files table
     - ref: upstream/SO-ARM100/STL/SO101/Individual/Wrist_Roll_Pitch_SO101.stl
     - ref: upstream/SO-ARM100/STEP/SO101/Wrist_Roll_Pitch_SO101.step
-  unverified: true
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 'placement check: placed as Wrist_Roll_Pitch_SO100; encloses 97% of servo 5 and 49% of servo 4'
 - id: waveshare-mounting-plate-so101
   name: WaveShare controller mounting plate
   qty: 1
