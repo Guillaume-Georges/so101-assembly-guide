@@ -32,7 +32,7 @@ rules:
     id: m3x6
   - kind: fastener
     match: { name: 'Tapping Screw ANSI B18.6.4 1-42 x 0.1875' }
-    id: m2x6
+    id: motor-tab-screw
     note: 'STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)'
   - kind: fastener
     match: { name: 'Tapping Screw ANSI B18.6.4 0-48 x 0.1875' }

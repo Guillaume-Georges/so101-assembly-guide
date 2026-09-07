@@ -28,6 +28,7 @@ HORN_T = {"servo-horn-geared": 4.6, "servo-horn-plain": 3.5}
 FASTENER_PRIMS = {  # id -> (shank_d, shank_len, head_d, head_h) mm, all approximations
     "m3x6": (3.0, 6.0, 5.5, 2.4),
     "m2x6": (2.0, 6.0, 3.8, 1.5),
+    "motor-tab-screw": (1.9, 4.8, 3.6, 1.4),
     "m2.5x4": (2.5, 4.0, 4.7, 2.1),
     "tapping-0-48": (1.5, 4.8, 2.9, 1.2),
     "spacer-m2.5-h6": (5.0, 6.0, 5.0, 0.0),

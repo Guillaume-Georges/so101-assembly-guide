@@ -133,14 +133,68 @@ def add_leader_parts(out: Output, occs: list[Occurrence], step_dir: Path, data_d
     )
 
     handle_shape = _read(step_dir / "Leader_Specific" / "Handle_SO101.step")
-    _add_mesh(out, "handle-so101.glb", geom.tessellate(handle_shape))
-    out.unplaced.append(
-        {
-            "id": "handle-so101",
-            "mesh": "handle-so101.glb",
-            "assembly": ["leader"],
-            "reason": "no unambiguous mating feature pair: the handle's only fastener feature is one r=1.1 hole on a "
-            "tilted face and an r=23.81 arc; the holder offers eight r=1.0 holes and no matching cylinder. "
-            "Needs a photo/measurement of the handle seated on the holder (LeRobot: 1 M2x6 screw).",
-        }
+    mesh = _add_mesh(out, "handle-so101.glb", geom.tessellate(handle_shape))
+    m_handle, feature = _place_handle(handle_shape, holder_shape, m_holder)
+    out.placements.append(
+        _placement(
+            "part",
+            "handle-so101",
+            mesh,
+            "Handle_SO101 (hand-placed)",
+            m_handle,
+            feature,
+            "handle under the leader holder; hole choice not derivable, placement from the LeRobot leader "
+            "assembly video (Leader_v2.mp4 0:14 and 0:24): grip hangs below the holder, pointing down and "
+            "toward the base; D-005",
+            ["leader"],
+        )
     )
+
+
+HANDLE_MOUNT_NORMAL = np.array([-0.951, 0.0, 0.309])  # planar face carrying the single r=1.1 (M2) hole
+HANDLE_MOUNT_CENTRE = np.array([-27.26, 0.0, 40.0])
+
+
+def _place_handle(handle: TopoDS_Shape, holder: TopoDS_Shape, m_holder: np.ndarray) -> tuple[np.ndarray, str]:
+    """No unique feature pair exists (one M2 hole on a tilted face vs eight M2 holes on the holder). The
+    LeRobot leader video shows the grip hanging from the holder's underside, pointing down and toward the
+    base. Build that pose: mount-face normal -> world up, symmetry plane (local y) -> world x, grip
+    pointing to world -z (base side); mount-face centre placed under the holder's centroid at its lowest point."""
+    n = HANDLE_MOUNT_NORMAL / np.linalg.norm(HANDLE_MOUNT_NORMAL)
+    com = geom.centre_of_mass(handle)
+    grip = com - HANDLE_MOUNT_CENTRE
+    grip -= n * np.dot(grip, n)  # component along the mount plane
+    grip /= np.linalg.norm(grip)
+    # handle local basis: e_up = n (toward the holder), e_side = local +y, e_back = grip direction
+    e_side = np.array([0.0, 1.0, 0.0])
+    e_side -= n * np.dot(e_side, n)
+    e_side /= np.linalg.norm(e_side)
+    e_back = np.cross(n, e_side)
+    if np.dot(e_back, grip) < 0:
+        e_side, e_back = -e_side, -e_back
+    local = np.column_stack([e_side, e_back, n])  # columns: side, back, up (handle frame)
+    # world targets in the STEP frame (mm, Z-up): up = +Z, base side = +Y (arm extends to -Y), side = X
+    hb = geom.bbox(holder)
+    holder_world = trimesh_bbox_world(hb, m_holder)
+    centre = holder_world.mean(axis=0)
+    world = np.column_stack([np.array([1.0, 0, 0]), np.array([0, 1.0, 0]), np.array([0, 0, 1.0])])
+    r = world @ local.T  # maps handle local -> world
+    # the grip hangs down: its mount face (normal up) sits at the holder's lowest z, under its centroid
+    target = np.array([centre[0], centre[1], holder_world[:, 2].min()])
+    m = np.eye(4)
+    m[:3, :3] = r
+    m[:3, 3] = target - r @ HANDLE_MOUNT_CENTRE
+    feature = (
+        "mount face (normal (-0.951,0,0.309), r=1.1 M2 hole at (-27.26,0,40)) turned to face world up; handle "
+        "symmetry plane to world x; grip direction to the base side; mount-face centre at the holder's lowest "
+        "point under its bbox centroid. Pose from LeRobot Leader_v2.mp4 0:14/0:24; which of the holder's eight "
+        "M2 holes takes the screw is not derivable"
+    )
+    return m, feature
+
+
+def trimesh_bbox_world(bb: np.ndarray, m: np.ndarray) -> np.ndarray:
+    corners = np.array(
+        [[x, y, z] for x in (bb[0][0], bb[1][0]) for y in (bb[0][1], bb[1][1]) for z in (bb[0][2], bb[1][2])]
+    )
+    return (m[:3, :3] @ corners.T).T + m[:3, 3]

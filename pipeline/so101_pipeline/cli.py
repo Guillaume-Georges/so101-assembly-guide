@@ -25,7 +25,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.version:
         print("so101-pipeline 0.1.0")
         return 0
-    from . import export, hand_place
+    import numpy as np
+
+    from . import cables, export, hand_place
     from .mapping import MappingError, load_parts, resolve
     from .walk import walk_step
 
@@ -52,6 +54,17 @@ def main(argv: list[str] | None = None) -> int:
         ).strip()
     except Exception:
         pass
+    anchors = {}
+    for p in out.placements:
+        if p.kind in ("servo", "board") and "hand" not in p.name:
+            m = np.array(p.transform).reshape(4, 4)
+            key = "board" if p.kind == "board" else cables.JOINTS[int(p.name.rsplit(":", 1)[1]) - 1]
+            v = out.meshes[p.mesh].vertices
+            w = (m[:3, :3] @ v.T).T + m[:3, 3]
+            anchors[key] = np.array([w.min(axis=0), w.max(axis=0)])
+    derived = cables.derive_cables(out, anchors)
+    written = cables.write_cables_yaml(derived, Path(args.data))
+    print(f"✓ wrote {len(derived)} derived cable centrelines to {written}")
     export.write(
         out,
         Path(args.out),
