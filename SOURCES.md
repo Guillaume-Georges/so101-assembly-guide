@@ -29,9 +29,19 @@ Discord and other login-gated pages are not citable (contract).
 
 ## Servo geometry (Phase 2)
 
-Feetech STS3215 CAD: no licence-clean public model confirmed yet. If none is
-found, the pipeline emits a datasheet-driven primitive flagged
-`approximation: true`, and the datasheet reference goes here.
+| Source                                                                                                                                                                                                  | Licence                                                                    | Retrieved  | Used for                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| [Feetech STS3215 product specification A/0, 2020-03-28](https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf) (distributor-hosted copy of the Feetech document; original at feetechrc.com) | Manufacturer datasheet, no licence stated; facts cited, drawing not copied | 2026-09-07 | Outside dimensions 45.23 x 24.73 x 35 mm, ø6 output boss, 25T horn, M3x6 horn screw, "No Accessories"; drives the servo primitive |
+
+The assembly STEP embeds six `ST3215 Servo v2` sub-assemblies (internal
+names `SCS215`, `ZK_122`, `MOTOR-1723`, Chinese horn names) and a
+`Bus Servo Adapter (A)` PCB with full component models. Their provenance is
+not stated in the upstream repo and they do not match the repo's own
+`STEP/SO100/STS3215_03a.step` (single body, Autodesk export). The pipeline
+uses them **only to extract transforms** and exports datasheet/bounding-box
+primitives (`approximation: true`) in their place; no vendor mesh is
+redistributed. Upstream issue drafted in
+`docs/upstream-issues/embedded-vendor-models.md`.
 
 ## Derived assets
 

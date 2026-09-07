@@ -8,11 +8,18 @@
   where_used: Servo body to printed holders ("smallest screws"); handle to leader holder.
   notes:
     Qty = count used across the LeRobot steps (follower 24 + leader 25); kit-supplied count not stated upstream.
-    Head type not specified in the text; see D-001 for the STEP model disagreement.
+    Datasheet gives no tab-mounting screw; the assembly STEP models 22 "#1-42 x 3/16 in Type AB tapping screws"
+    (≈ ø1.9 x 4.8 mm self-tapping) in these positions and Waveshare calls them "pointed screws". Treat as an M2-class
+    self-tapping screw of 5–6 mm; exact kit part per vendor (D-001).
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"4 M2x6mm screws (smallest screws)"'
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 22 x Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB
+    - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
+      retrieved: '2026-09-07'
+      note: 'section 9: no mounting screw specified; 10 Accessories: "No Accessories"'
 - id: m3x6
   spec: M3x6 screw
   qty: 96
@@ -21,11 +28,62 @@
     - leader
   where_used: Horn retaining screw (one per driven horn) and printed part to servo horn.
   notes:
-    Qty = count used across the LeRobot steps (follower 50 + leader 46). The assembly STEP models "DIN EN ISO
-    7045 - M3 x 6" pan-head screws.
+    Qty = count used across the LeRobot steps (follower 50 + leader 46). Horn screw confirmed by the Feetech
+    datasheet drawing ("M3X6 machine-thread screw" at the 25T output). The assembly STEP models 45 "DIN EN ISO 7045
+    - M3 x 6" pan-head screws.
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"Secure the top horn with a M3x6mm screw"'
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
     - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
       note: PRODUCT DIN EN ISO 7045 - M3 x 6
+    - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
+      retrieved: '2026-09-07'
+      note: 'section 9 drawing: M3X6 机牙螺丝 at the output shaft'
+- id: m2.5x4
+  spec: M2.5x4 pan-head screw (ISO 7045)
+  qty: 4
+  assembly:
+    - follower
+    - leader
+  where_used: Controller board to its mounting plate, with the M2.5 spacers (STEP only).
+  notes:
+    Only source is the assembly STEP; no assembly text mentions them. The M2.5x4 screws earlier logged under
+    D-001 are these, not motor screws.
+  source:
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 4 x Pan Head Screw DIN EN ISO 7045 - M2.5 x 4, under Bus Servo Adapter (A)
+  unverified: true
+- id: spacer-m2.5-h6
+  spec: Hex spacer M2.5 female-female, 6 mm, pass-through
+  qty: 4
+  assembly:
+    - follower
+    - leader
+  where_used: Between controller board and mounting plate (STEP only).
+  source:
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 4 x hexagonal_spacer_FF_M2.5_H06_HEX5_pass_through
+  unverified: true
+- id: m3-nut
+  spec: M3 hex nut
+  qty: 2
+  assembly:
+    - follower
+    - leader
+  where_used: Two nuts modelled in the assembly STEP; location not described by any text.
+  source:
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: Hexagon Nut DIN 934 - M3 and DIN 555 - M3, one each
+  unverified: true
+- id: tapping-0-48
+  spec: '#0-48 x 3/16 in Type AB tapping screw (≈ ø1.5 x 4.8 mm)'
+  qty: 2
+  assembly:
+    - follower
+    - leader
+  where_used: Two small tapping screws in the assembly STEP; location not described by any text.
+  source:
+    - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
+      note: 2 x Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 0-48 x 0.1875 Type AB
+  unverified: true

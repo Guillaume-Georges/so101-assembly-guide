@@ -151,19 +151,32 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
         });
   }
 
-  // Geometry ↔ BOM mapping (Phase 2 output). Every placed solid must map to a part id.
+  // Geometry ↔ BOM mapping (Phase 2 output). Every placement must resolve to a BOM id of the right kind.
   if (fs.existsSync(placementsPath)) {
-    const placements = JSON.parse(fs.readFileSync(placementsPath, 'utf8')) as {
-      part_id?: string;
-      name?: string;
-    }[];
+    const doc = JSON.parse(fs.readFileSync(placementsPath, 'utf8')) as {
+      placements?: { kind?: string; id?: string; name?: string; mesh?: string }[];
+    };
+    const placements = Array.isArray(doc.placements) ? doc.placements : [];
+    if (placements.length === 0)
+      p.push({ file: 'pipeline/out/placements.json', where: '/', message: 'no placements' });
     for (const pl of placements) {
-      if (!pl.part_id || !partIds.has(pl.part_id))
+      const where = pl.name ?? '?';
+      if (pl.kind === 'fastener') {
+        if (!pl.id || !fastenerIds.has(pl.id))
+          p.push({
+            file: 'pipeline/out/placements.json',
+            where,
+            message: `no fastener id for solid (id='${pl.id ?? ''}')`,
+          });
+      } else if (!pl.id || !partIds.has(pl.id)) {
         p.push({
           file: 'pipeline/out/placements.json',
-          where: pl.name ?? '?',
-          message: `no BOM id for solid (part_id='${pl.part_id ?? ''}')`,
+          where,
+          message: `no BOM id for solid (id='${pl.id ?? ''}', kind='${pl.kind ?? ''}')`,
         });
+      }
+      if (!pl.mesh)
+        p.push({ file: 'pipeline/out/placements.json', where, message: 'placement without mesh' });
     }
   }
   return p;

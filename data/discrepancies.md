@@ -14,7 +14,18 @@ listed in `SOURCES.md`.
   `DIN 555`); no M2 screw is modelled.
 - Source C: Waveshare wiki says "four pointed screws" (self-tapping) for the
   motor and "flat head screws" for the shoulder-to-horn joint; no sizes.
-- Resolution: follow LeRobot (M2x6). Open: which one a kit actually ships.
+- Source D (tie-breaker, 2026-09-07): Feetech STS3215 product specification
+  A/0 (2020-03-28), section 9 drawing: the horn screw is "M3X6 机牙螺丝"
+  (M3x6 machine thread); the case screws are "PA3.0X5 自攻螺丝" (self-tapping);
+  no screw is given for the mounting tabs; section 10 says "No Accessories".
+- Correction: the M2.5x4 screws in the STEP are the controller-board screws
+  (with M2.5 spacers), not motor screws. The motor positions hold 22
+  "#1-42 x 3/16 in Type AB" tapping screws (≈ ø1.9 x 4.8 mm), consistent
+  with LeRobot's "smallest screws" and Waveshare's "pointed screws".
+- Resolution: horn screw = M3x6 machine screw (datasheet, LeRobot, STEP all
+  agree). Motor tab screw = M2-class self-tapping, 5–6 mm; the data keeps
+  LeRobot's M2x6 label. Kit-shipped hardware is recorded per vendor in
+  `vendors.yaml` as vendors describe it; none itemises sizes yet.
 - Affects: F/L-011, 012, 021, 031, 042, 050, 061/062, L-061
 
 ## D-002 — Follower power supply voltage
@@ -38,9 +49,20 @@ listed in `SOURCES.md`.
   a difference from SO-100.
 - Source B: SO-ARM100 README part table and `STL/SO101/Individual/` list no
   such part; LeRobot and Waveshare assembly steps never mention one.
-- Resolution: open. Part kept with qty 0 and `unverified: true`; no step
-  installs it until a source says where.
-- Affects: none yet
+- Sweep 2026-09-07 (all 237 tracked files, `Optional/`, `Mini/`,
+  `Simulation/`, the single v0.1.1 release): no clip, wire, cable or holder
+  STL exists. Walking the assembly STEP with XCAF shows every
+  `Wiring_holder v1` occurrence has **zero solids**: they are empty
+  components nested inside the printed-part sub-assemblies (Upper_arm x2,
+  Motor_holder_Base x3, ...). The printed bodies' volumes equal their STLs
+  (Base 122707 vs 122690 mm³, Motor_holder_Base 13314 vs 13307, Upper_arm
+  117417 vs 117328), so the holders add no geometry anywhere.
+- Resolution: there is no separate part. Seeed's "cable clips" and
+  Waveshare's "wire grooves" describe features of the SO-101 brackets. The
+  `wiring-holder` id is retired (never reuse it). Upstream issue drafted in
+  `docs/upstream-issues/wiring-holder-components.md` asking whether the
+  empty components are a dropped feature.
+- Affects: none
 
 ## D-004 — Leader servo models in vendor kits
 
@@ -64,9 +86,18 @@ listed in `SOURCES.md`.
   solid is named `Wrist_Roll_Pitch_SO100`; a solid `Base_08p` (SO-100
   naming) is present; `Base_motor_holder_SO101`, `Handle_SO101` and
   `Trigger_SO101` do not appear by name.
-- Resolution: open until Phase 2 walks the assembly tree. Possibly the STEP
-  predates the final STL set or nests these parts under other names.
-- Affects: `geometry_names` on the parts above; Phase 2 mapping
+- XCAF walk 2026-09-07: `Base_08p v18` has the same volume and extents as
+  `Base_motor_holder_SO101.stl` (23717 vs 23709 mm³, 80.6 x 49.1 x 31.4 vs
+  80.2 x 47.6 x 31.4) — it is the base motor holder under its SO-100 name.
+  `Wrist_Roll_Pitch_SO100 v15` matches `Wrist_Roll_Pitch_SO101.stl`
+  (32273 vs 32299 mm³). `Handle`, `Trigger` and the leader
+  `Wrist_Roll_SO101` have no solid in the assembly STEP (the model is a
+  follower arm; `Wrist_Roll_SO101 v6` is present as an empty assembly).
+- Resolution: both SO-100 names recorded as `aka:`; the pipeline matches by
+  alias and keeps `unverified` until placement confirms the role. The three
+  leader parts are hand-placed from their per-part STEP files with
+  `approximation: true` and the mating feature recorded.
+- Affects: `aka` on the parts above; Phase 2 mapping
 
 ## D-006 — Leader gripper-motor horns
 
