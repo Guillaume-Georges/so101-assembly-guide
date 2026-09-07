@@ -1,0 +1,224 @@
+# glossary.yaml — words the Plain register links on first use per page. Schema: data/schema/glossary.json
+# kind: definition = what a word means in general; fact = something true of this kit, sourced like any row.
+- id: motor
+  term: Motor (servo)
+  match: [servo, servos, servo motor]
+  kind: definition
+  meaning: >-
+    A servo motor: a motor with its own position controller inside, so the control board can tell it exactly
+    where to turn to. The LeRobot guide says motor, the Waveshare guide says servo; this site says motor.
+- id: horn
+  term: Horn
+  match: [horn, horns, motor horn, motor horns]
+  kind: fact
+  meaning: >-
+    The metal disc that fits on the end of a motor; printed parts screw onto it. Each motor ships with two, one
+    with gear teeth around its edge for the driven end and one plain disc for the other end.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 2: "Each servo is equipped with two steering wheels, one with gears and the other without"'
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"Install both motor horns"'
+- id: output-shaft
+  term: Output shaft
+  match: [output shaft, output side, output end]
+  kind: fact
+  meaning: >-
+    The end of the motor that turns. It has a short grooved stub; the geared horn pushes onto it and is held
+    by one M3x6 screw.
+  source:
+    - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
+      retrieved: '2026-09-07'
+      note: 'section 9 drawing: M3X6 screw at the 25T output'
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"Secure the top horn with a M3x6mm screw"'
+- id: self-tapping
+  term: Self-tapping screw
+  match: [self-tapping, self-tapping screw, self-tapping screws, motor-tab screw, motor-tab screws]
+  kind: fact
+  meaning: >-
+    A screw that cuts its own thread into the plastic as you drive it. These are the smallest screws in the
+    kit and hold each motor in its printed bracket. No public source confirms the exact size yet (D-001).
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"4 M2x6mm screws (smallest screws)"'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: '"four pointed screws"'
+- id: m3x6
+  term: M3x6
+  match: [M3x6, M3x6 screw, M3x6 screws]
+  kind: fact
+  meaning: >-
+    A screw size. M3 means a 3 mm thread, 6 means 6 mm long. It has a machine thread and goes into the
+    threaded holes of a horn; the same size holds each printed part to its horn.
+  source:
+    - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
+      retrieved: '2026-09-07'
+      note: 'section 9 drawing: M3X6 machine-thread screw at the output shaft'
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
+      note: '"4 M3x6mm screws on top and 4 M3x6mm screws on the bottom"'
+- id: m2x6
+  term: M2x6
+  match: [M2x6, M2x6 screw]
+  kind: definition
+  meaning: A screw size. 2 mm thread, 6 mm long.
+- id: gear-ratio
+  term: Gear ratio
+  match: [gear ratio, gear ratios, '1:345', '1:191', '1:147']
+  kind: fact
+  meaning: >-
+    The number on the motor's label, such as 1:345. The motor inside turns 345 times for one turn of the
+    output. The follower arm uses 1:345 at all six joints. The leader arm mixes 1:191, 1:345 and 1:147, so
+    check the label before fitting a motor.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The follower arm uses 6x STS3215 motors with 1/345 gearing"; leader table below it'
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: 'Parts For Two Arms table: product codes C001/C044/C046'
+- id: motor-id
+  term: Motor ID
+  match: [ID, IDs, motor ID, motor IDs, servo ID, servo IDs, bus ID]
+  kind: fact
+  meaning: >-
+    The number 1 to 6 written into each motor before building, so the control board can tell the motors
+    apart on one cable chain. 1 is the motor in the base, 6 is the gripper.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joint and assigns ids bottom-up
+- id: baud-rate
+  term: Baud rate
+  match: [baud rate, baudrate]
+  kind: fact
+  meaning: The speed at which the board and the motors talk. The setup command that writes the ID sets it too.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+- id: socket
+  term: Socket
+  match: [socket, sockets, port, ports]
+  kind: fact
+  meaning: >-
+    Each motor has two identical 3-pin sockets. Cables run from motor to motor in a chain, so a cable can use
+    either socket.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 1: "plug the connecting wires into the two ports of servo No. 1"; step 5: either port'
+- id: daisy-chain
+  term: Daisy chain
+  match: [daisy-chain, daisy chain, daisy-chained, daisy-chaining]
+  kind: fact
+  meaning: >-
+    The cables run from one motor to the next in a line, 6 to 5, 5 to 4, down to motor 1, and only motor 1
+    plugs into the control board.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: '"plug the 3-pin cable from each motor to the next one, and the cable from the first motor (the ''shoulder pan'' with id=1) to the controller board"'
+- id: control-board
+  term: Control board
+  match: [control board, controller board, motor control board]
+  kind: fact
+  meaning: >-
+    The small circuit board (a Waveshare bus servo adapter) that connects to your computer by USB and to
+    motor 1 by a 3-pin cable. It powers and talks to all six motors through the chain and sits on a printed
+    plate on the base.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: '"the controller board, which can now be attached to the base of the arm"'
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 19: driver board on its bracket, attached to the base motor bracket'
+- id: shoulder-pan
+  term: Shoulder pan
+  match: [shoulder pan]
+  kind: fact
+  meaning: >-
+    Motor 1's joint, in the base. "Pan" means turning sideways, the way a camera pans; it swings the whole arm
+    left and right.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: '"the first motor (the ''shoulder pan'' with id=1)"'
+- id: shoulder-lift
+  term: Shoulder lift
+  match: [shoulder lift]
+  kind: fact
+  meaning: Motor 2's joint. It raises and lowers the upper arm.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joints in order from the base
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
+      note: '"Attach the upper arm"'
+- id: elbow-flex
+  term: Elbow flex
+  match: [elbow flex]
+  kind: fact
+  meaning: Motor 3's joint, between the upper arm and the forearm. "Flex" means bending.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joints in order from the base
+    - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
+      note: '"Connect the forearm to motor 3"'
+- id: wrist-flex
+  term: Wrist flex
+  match: [wrist flex]
+  kind: fact
+  meaning: Motor 4's joint. It bends the wrist.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joints in order from the base
+- id: wrist-roll
+  term: Wrist roll
+  match: [wrist roll]
+  kind: fact
+  meaning: Motor 5's joint. "Roll" means turning about its own axis; it rotates the gripper.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joints in order from the base
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: '"Attach the gripper to motor 5"'
+- id: gripper-motor
+  term: Gripper motor
+  match: [gripper motor, gripper joint]
+  kind: fact
+  meaning: Motor 6, the last in the chain. It opens and closes the claw.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
+      note: setup script names the joints in order from the base; the gripper is id 6
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: '"Insert the gripper motor"'
+- id: support-material
+  term: Support material
+  match: [support material, supports]
+  kind: definition
+  meaning: >-
+    Extra plastic the 3D printer adds under overhanging parts of a print so they do not sag. It is meant to be
+    snapped off before use.
+- id: wire-slot
+  term: Wire slot
+  match: [wire slot, wire slots, wire groove]
+  kind: fact
+  meaning: >-
+    A channel printed into a part for the motor cable to lie in. Turn the part so the channel is on the side
+    the cables run down.
+  source:
+    - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
+      retrieved: '2026-09-07'
+      note: 'Follower step 7: wire slot on the same side as the wiring harness; step 11: wire groove and harness on the same side'
+- id: harness
+  term: Wiring harness
+  match: [wiring harness, harness, cable run]
+  kind: definition
+  meaning: The bundle of motor cables running down the arm.
+- id: leader-follower
+  term: Leader and follower
+  match: [leader arm, follower arm]
+  kind: fact
+  meaning: >-
+    You build two arms. The follower is the robot; the leader is the one you move by hand. They share most
+    printed parts, but the leader uses lighter-geared motors and has a handle and trigger instead of a gripper.
+  source:
+    - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
+      note: '"The leader, however, uses three differently geared motors to make sure it can both sustain its own weight and it can be moved without requiring much force."'
+    - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
+      note: leader handle and trigger steps

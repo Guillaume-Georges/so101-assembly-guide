@@ -17,7 +17,8 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Wrist_Roll_SO101.step
       note: 'r=0.6 pilot hole from (-25.69, 0, 39.49) to (-17.75, 0, 36.91) on the same axis, same frame'
 - id: motor-tab-screw
-  spec: Motor-tab screw, M2-class self-tapping (#1-42 x 3/16 in Type AB per the STEP)
+  spec: Motor-tab screw, M2-class self-tapping
+  name_plain: Small self-tapping screw (motor screw)
   qty: 45
   assembly:
     - follower
@@ -70,6 +71,7 @@
       note: 'section 9 drawing: M3X6 机牙螺丝 at the output shaft'
 - id: m2.5x4
   spec: M2.5x4 pan-head screw (ISO 7045)
+  name_plain: M2.5x4 screw (board to plate)
   qty: 4
   assembly:
     - follower
@@ -84,6 +86,7 @@
   unverified: true
 - id: spacer-m2.5-h6
   spec: Hex spacer M2.5 female-female, 6 mm, pass-through
+  name_plain: 6 mm hex spacer (board to plate)
   qty: 4
   assembly:
     - follower

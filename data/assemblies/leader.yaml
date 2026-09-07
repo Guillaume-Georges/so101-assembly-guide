@@ -1,5 +1,5 @@
 # leader assembly steps, in upstream (LeRobot so101.mdx) order. Schema: data/schema/assembly.json
-# Steps shared with the follower use `extends:` and list only what differs (servo part, warnings).
+# Steps shared with the follower use `extends:` and list only what differs (motor part, warnings).
 - id: L-001
   slug: leader-clean-printed-parts
   assembly: leader
@@ -32,7 +32,7 @@
   warnings:
     - 'Set IDs now: "it will be troublesome to disassemble and assemble the servo cable after assembly" (Waveshare).'
     - 'Waveshare board: both jumpers on the B (USB) channel (LeRobot).'
-    - 'Leader servos are always 7.4V: use the 5V supply, never 12V (README, Seeed).'
+    - 'Leader motors are always 7.4V: use the 5V supply, never 12V (README, Seeed).'
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
@@ -175,6 +175,13 @@
   instructions:
     Part identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it
     in the assembly STEP.
+  plain:
+    do:
+      - text: "Set the leader holder onto motor 5's horn and screw it on with 4 M3x6."
+        from: ['source[0]', 'check', 'part:wrist-roll-so101']
+    done:
+      text: 'The leader holder sits on the motor 5 horn with 4 screws.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Mount the leader holder onto the wrist and secure it with 4 M3x6mm screws."'
@@ -201,6 +208,15 @@
     authored in one frame, and the handle's single M2 clearance hole (r=1.1, on a tilted face under the grip
     mount) lies on the axis of an r=0.6 pilot hole in the holder. The handle is therefore placed with the holder's
     own transform; the pose is exact relative to the holder, which is itself a recess match (approximation)."
+  plain:
+    do:
+      - text: 'Hold the handle under the leader holder and drive one M2x6 screw through the handle into the small tab under the holder.'
+        from: ['source[0]', 'check', 'instructions']
+      - text: 'The grip should hang below the wrist and point back toward the base.'
+        from: ['source[4]']
+    done:
+      text: 'The handle is held by its one screw and the grip hangs below the holder.'
+      from: ['check', 'source[4]']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Attach the handle to the leader holder using 1 M2x6mm screw."'
@@ -244,6 +260,19 @@
     LeRobot says "attach a motor horn"; Waveshare fits horns at both ends. Both listed; see D-006. Part
     identity inferred from STL file name (see part notes); confirmed only when Phase 2 places it in the assembly
     STEP.
+  plain:
+    do:
+      - text: 'Take the motor you labelled 6.'
+        from: ['servo', 'F-002.check']
+      - text: 'Slide it into the leader holder and fix it with 2 small self-tapping screws on each side.'
+        from: ['source[0]', 'check', 'part:wrist-roll-so101']
+      - text: 'Fit the geared horn with one M3x6 screw. LeRobot fits one horn; Waveshare fits one at each end, so both horns are listed (D-006).'
+        from: ['source[0]', 'source[1]', 'instructions', 'check']
+      - text: 'Connect motor 6 to motor 5 with its cable.'
+        from: ['check', 'servo']
+    done:
+      text: '2 screws on each side, the horn held by its screw, and the cable goes to motor 5.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note:
@@ -274,6 +303,15 @@
     "The trigger's four M3 holes sit on the same 7 mm radius as the horn's, so it fits in four positions 90
     degrees apart; the upstream leader photo shows the loop pointing down and toward the gripper tip, and the
     3D view uses that one (approximation: the loop's rest angle is not fixed by any part)."
+  plain:
+    do:
+      - text: 'Set the trigger onto the geared horn and screw it on with 4 M3x6.'
+        from: ['source[0]', 'source[1]', 'check']
+      - text: 'Turn it so the finger loop hangs down and ahead of the grip. The holes let it sit in four positions; only the upstream photo fixes which one.'
+        from: ['check', 'instructions', 'source[3]']
+    done:
+      text: 'The trigger is on the geared horn with 4 screws and the loop hangs ahead of the grip.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Leader: "Attach the follower trigger with 4 M3x6mm screws."'
@@ -303,4 +341,4 @@
       retrieved: '2026-09-07'
       note: Follower step 19
   warnings:
-    - 'Leader servos are always 7.4V: use the 5V supply, never 12V (README, Seeed).'
+    - 'Leader motors are always 7.4V: use the 5V supply, never 12V (README, Seeed).'

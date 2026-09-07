@@ -21,6 +21,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Base_SO101.step
 - id: base-motor-holder-so101
   name: Base motor holder
+  name_plain: 'Base motor holder'
   qty: 1
   category: printed
   assembly:
@@ -48,6 +49,7 @@
       note: 'placement check: placed as Base_08p; encloses 74% of servo 1 and touches the controller plate'
 - id: motor-holder-so101-base
   name: Motor holder (base side)
+  name_plain: 'Shoulder motor holder'
   qty: 1
   category: printed
   assembly:
@@ -70,6 +72,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Motor_holder_SO101_Base.step
 - id: motor-holder-so101-wrist
   name: Motor holder (wrist side)
+  name_plain: 'Wrist motor holder'
   qty: 1
   category: printed
   assembly:
@@ -92,6 +95,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Motor_holder_SO101_Wrist.step
 - id: under-arm-so101
   name: Under arm (forearm)
+  name_plain: 'Forearm'
   qty: 1
   category: printed
   assembly:
@@ -132,6 +136,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Upper_arm_SO101.step
 - id: rotation-pitch-so101
   name: Rotation/pitch (shoulder)
+  name_plain: 'Shoulder'
   qty: 1
   category: printed
   assembly:
@@ -154,6 +159,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Rotation_Pitch_SO101.step
 - id: wrist-roll-pitch-so101
   name: Wrist roll/pitch (wrist holder)
+  name_plain: 'Wrist holder'
   qty: 1
   category: printed
   assembly:
@@ -179,6 +185,7 @@
       note: 'placement check: placed as Wrist_Roll_Pitch_SO100; encloses 97% of servo 5 and 49% of servo 4'
 - id: waveshare-mounting-plate-so101
   name: WaveShare controller mounting plate
+  name_plain: 'Control board plate (Waveshare)'
   qty: 1
   category: printed
   assembly:
@@ -198,6 +205,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/WaveShare_Mounting_Plate_SO101.step
 - id: seeedstudio-mounting-plate-so101
   name: Seeed Studio controller mounting plate
+  name_plain: 'Control board plate (Seeed Studio)'
   qty: 1
   category: printed
   assembly:
@@ -261,6 +269,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Trigger_SO101.step
 - id: wrist-roll-so101
   name: Leader wrist roll (leader holder)
+  name_plain: 'Leader holder'
   qty: 1
   category: printed
   assembly:
@@ -282,6 +291,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Leader_Specific/Wrist_Roll_SO101.step
 - id: moving-jaw-so101
   name: Moving jaw (gripper claw)
+  name_plain: 'Gripper claw (the moving jaw)'
   qty: 1
   category: printed
   assembly:
@@ -301,6 +311,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Follower_Specific/Moving_Jaw_SO101.step
 - id: wrist-roll-follower-so101
   name: Follower wrist roll (gripper body)
+  name_plain: 'Gripper body'
   qty: 1
   category: printed
   assembly:
@@ -322,6 +333,7 @@
     - ref: upstream/SO-ARM100/STEP/SO101/Follower_Specific/Wrist_Roll_Follower_SO101.step
 - id: servo-sts3215-c001-345
   name: Feetech STS3215 servo, 7.4V, 1:345 gear (C001)
+  name_plain: 'STS3215 motor, 1:345 gear, code C001'
   qty: 7
   category: servo
   assembly:
@@ -347,6 +359,7 @@
   approximation: true
 - id: servo-sts3215-c044-191
   name: Feetech STS3215 servo, 7.4V, 1:191 gear (C044)
+  name_plain: 'STS3215 motor, 1:191 gear, code C044'
   qty: 2
   category: servo
   assembly:
@@ -368,6 +381,7 @@
     STS3215 spec A/0, 2020-03-28); the embedded vendor model is used for its transform only and is not redistributed.'
 - id: servo-sts3215-c046-147
   name: Feetech STS3215 servo, 7.4V, 1:147 gear (C046)
+  name_plain: 'STS3215 motor, 1:147 gear, code C046'
   qty: 3
   category: servo
   assembly:
@@ -389,6 +403,7 @@
     STS3215 spec A/0, 2020-03-28); the embedded vendor model is used for its transform only and is not redistributed.'
 - id: servo-sts3215-12v-345
   name: Feetech STS3215 servo, 12V, 1:345 gear (optional follower variant)
+  name_plain: 'STS3215 motor, 12V, 1:345 gear (optional follower variant)'
   qty: 0
   category: servo
   assembly:
@@ -414,6 +429,7 @@
   approximation: true
 - id: servo-horn-geared
   name: Servo horn, geared (drive side)
+  name_plain: 'Horn with gear teeth (drive end)'
   qty: 12
   category: hardware
   assembly:
@@ -437,6 +453,7 @@
   approximation: true
 - id: servo-horn-plain
   name: Servo horn, plain (idle side)
+  name_plain: 'Horn without teeth (idle end)'
   qty: 10
   category: hardware
   assembly:
@@ -459,6 +476,7 @@
   approximation: true
 - id: motor-control-board
   name: Motor control board (Waveshare bus servo adapter)
+  name_plain: 'Control board'
   qty: 2
   category: electronics
   assembly:
@@ -488,6 +506,7 @@
       note: USB-C Cable 2 pcs row
 - id: power-supply-5v
   name: Power supply, 5V (for 7.4V servos)
+  name_plain: '5V power supply (for the standard 7.4V motors)'
   qty: 2
   category: electronics
   assembly:
@@ -511,6 +530,7 @@
       note: Table Clamp 4pcs row
 - id: servo-cable-3pin
   name: 3-pin servo bus cable
+  name_plain: '3-pin motor cable'
   qty: 6
   category: cable
   assembly:

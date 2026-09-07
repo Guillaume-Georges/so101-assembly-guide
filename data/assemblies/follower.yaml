@@ -21,6 +21,15 @@
     - small-screwdriver
     - putty-knife
   check: No support material remains; every screw hole with a horizontal axis is clear.
+  plain:
+    do:
+      - text: 'Remove the support material from every printed part; a small screwdriver helps to get underneath it.'
+        from: ['title', 'source[0]', 'tool:small-screwdriver']
+      - text: 'Check that every screw hole running sideways (horizontal) is clear of supports.'
+        from: ['check', 'source[2]']
+    done:
+      text: 'No support material is left and every sideways screw hole is open.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#clean-parts
     - ref: upstream/SO-ARM100/README.md#step-5-remove-supports
@@ -28,8 +37,8 @@
       note: '"no supports in the screw holes with horizontal axes"'
 - id: F-002
   slug: follower-set-servo-ids
-  title: Set servo IDs 1–6 and baud rate before assembly
-  title_short: Set servo IDs and baud rate
+  title: Set motor IDs 1–6 and baud rate before assembly
+  title_short: Set motor IDs and baud rate
   assembly: follower
   prep: true
   parts:
@@ -41,14 +50,27 @@
   warnings:
     - 'Set IDs now: "it will be troublesome to disassemble and assemble the servo cable after assembly" (Waveshare).'
     - 'Waveshare board: both jumpers on the B (USB) channel (LeRobot).'
-    - 'Supply voltage follows the servo variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
-      if the optional 12V follower servos are fitted (README, D-002).'
+    - 'Supply voltage follows the motor variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
+      if the optional 12V follower motors are fitted (README, D-002).'
   check:
-    Each servo answers on its own ID 1–6, bottom joint = 1, gripper = 6; leader and follower servos are labelled
+    Each motor answers on its own ID 1–6, bottom joint = 1, gripper = 6; leader and follower motors are labelled
     and kept apart.
   instructions:
     Connect one motor at a time to the board and run the LeRobot setup-motors command for this arm;
     the script names the joint and writes the ID. Software setup itself is out of scope here.
+  plain:
+    do:
+      - text: 'Connect one motor at a time to the control board and run the LeRobot setup-motors command for this arm.'
+        from: ['instructions']
+      - text: 'The script names the joint and writes the ID into the motor: 1 is the motor in the base, 6 is the gripper.'
+        from: ['instructions', 'check']
+      - text: 'Write the number on each motor, and keep the leader and follower motors apart.'
+        from: ['check', 'source[2]']
+      - text: 'Do this before building: the cable is hard to reach once the arm is assembled.'
+        from: ['warnings']
+    done:
+      text: 'Each motor answers on its own number, 1 to 6, and every motor is labelled.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
@@ -64,14 +86,23 @@
       note: IMPORTANT note on 7.4V vs 12V servos and supplies
 - id: F-003
   slug: follower-preinstall-cables
-  title: Plug one 3-pin cable into each servo before building
-  title_short: Plug a cable into each servo
+  title: Plug one 3-pin cable into each motor before building
+  title_short: Plug a cable into each motor
   assembly: follower
   prep: true
   parts:
     - servo-sts3215-c001-345
     - servo-cable-3pin
-  check: Every servo has one cable fitted; cables not yet daisy-chained.
+  check: Every motor has one cable fitted; cables not yet daisy-chained.
+  plain:
+    do:
+      - text: 'Plug one 3-pin cable into each motor now; the cable is hard to reach once the arm is built.'
+        from: ['title', 'source[0]', 'F-002.warnings']
+      - text: 'Leave the other end loose. The motors are chained together at the very end of the build.'
+        from: ['check', 'F-071.title']
+    done:
+      text: 'Every motor has one cable hanging from it.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#clean-parts
       note: '"It is advisable to install one 3-pin cable in the motor after placing them before continuing assembly."'
@@ -96,6 +127,17 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Geared horn on the output shaft, retained by its M3x6; plain horn on the bottom, no screw.
+  plain:
+    do:
+      - text: 'Take the motor you labelled 1.'
+        from: ['servo', 'F-002.check']
+      - text: 'Push the geared horn onto the output shaft, the upper end of motor 1, and hold it with one M3x6 screw.'
+        from: ['orientation_note', 'check', 'source[1]']
+      - text: 'Push the plain horn onto the bottom end. It gets no screw.'
+        from: ['check', 'source[1]']
+    done:
+      text: 'Geared horn on the upper end with its screw; plain horn on the bottom without one.'
+      from: ['check', 'orientation_note']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
@@ -122,6 +164,17 @@
     'Placement check in the upstream assembly STEP: the lower pair enters from under the base floor and the upper
     pair from above, all four through holes in the base into the servo tabs; none of them touches the base motor
     holder, which comes next. The STEP draws the upper pair one size smaller (D-001).'
+  plain:
+    do:
+      - text: 'Lower motor 1 into the base.'
+        from: ['source[0]', 'servo']
+      - text: 'Fix it with 4 small self-tapping screws: two from the top and two from underneath.'
+        from: ['source[0]', 'check', 'orientation_note']
+      - text: "Let the motor's cable come out through the opening in the base."
+        from: ['check']
+    done:
+      text: '4 screws in, two from above and two from below, and the cable reaches the base opening.'
+      from: ['check', 'fasteners']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note:
@@ -156,6 +209,17 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Base_08p (= base motor holder)
     encloses 74% of servo 1 and sits on the base.'
+  plain:
+    do:
+      - text: 'Slide the base motor holder down over motor 1 so it sits flat on the base.'
+        from: ['source[0]', 'check', 'part:base-motor-holder-so101']
+      - text: 'Fix it with 2 small self-tapping screws, one on each side. They go into the base, not into the motor.'
+        from: ['source[0]', 'instructions', 'check', 'fasteners']
+      - text: 'Bring one cable from motor 1 out through the opening in the base.'
+        from: ['check', 'source[1]']
+    done:
+      text: 'The holder sits flat, one screw on each side, and a cable from motor 1 comes out of the base.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"Slide over the first motor holder and fasten it using two M2x6mm screws (one on each side)."'
@@ -187,6 +251,15 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Rotation_Pitch_SO101 spans servo
     1 (49%) and the servo 2 pocket (42%): the shoulder on the motor-1 horns.'
+  plain:
+    do:
+      - text: 'Set the shoulder over motor 1 so its holes line up with the horn holes at both ends.'
+        from: ['check', 'source[0]', 'part:rotation-pitch-so101', 'servo']
+      - text: 'Screw it to the horns with 4 M3x6 on top and 4 M3x6 underneath.'
+        from: ['source[0]', 'check']
+    done:
+      text: '8 screws in, 4 on top and 4 underneath, holes lined up at both ends.'
+      from: ['check', 'fasteners']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note:
@@ -215,6 +288,13 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Motor_holder_SO101_Base encloses
     42% of servo 2, above the shoulder: the shoulder motor holder.'
+  plain:
+    do:
+      - text: "Put the shoulder motor holder on top of the shoulder. It has no screws of its own: motor 2's screws will clamp it in the next step."
+        from: ['source[0]', 'instructions', 'check']
+    done:
+      text: 'The holder sits on the shoulder, open at the top for motor 2.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"Add the shoulder motor holder."'
@@ -244,6 +324,17 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  plain:
+    do:
+      - text: 'Take the motor you labelled 2.'
+        from: ['servo', 'F-002.check']
+      - text: 'Push the geared horn onto the output shaft and hold it with one M3x6 screw.'
+        from: ['check', 'source[0]']
+      - text: 'Push the plain horn onto the other end. It gets no screw.'
+        from: ['check']
+    done:
+      text: 'Geared horn held by its screw; plain horn on the other end without one.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
 - id: F-021
@@ -273,6 +364,19 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: servo 2 sits in Motor_holder_SO101_Base
     (42% enclosed), entered from above.'
+  plain:
+    do:
+      - text: 'Take the motor you labelled 2.'
+        from: ['servo', 'F-002.check']
+      - text: 'Lower it into the shoulder motor holder you added in step 8, going in from the top.'
+        from: ['source[0]', 'F-014.check', 'orientation_note']
+      - text: 'Fix it with 4 small self-tapping screws, two on each side. On each side the lower screw goes into the shoulder and the upper one into the holder, so they also lock the holder down.'
+        from: ['source[0]', 'check', 'instructions']
+      - text: "Connect motor 2 to motor 1 with the 3-pin cable already on motor 2. Either of motor 1's two sockets works."
+        from: ['check', 'source[1]', 'F-003.title']
+    done:
+      text: 'Motor 2 is held by 4 screws and a cable runs from motor 2 to motor 1.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
       note: '"Slide the second motor in from the top. Fasten the second motor with 4 M2x6mm screws."'
@@ -302,6 +406,15 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: 4 M3x6 on each side; wire slot on the same side as the cable run.
+  plain:
+    do:
+      - text: "Fit the upper arm over motor 2's horns with its wire slot on the same side as the cables."
+        from: ['source[0]', 'orientation_note', 'part:upper-arm-so101', 'servo']
+      - text: 'Screw it to the horns with 4 M3x6 on each side.'
+        from: ['source[0]', 'check']
+    done:
+      text: '4 screws on each side; the wire slot is on the cable side.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-2
       note: '"Attach the upper arm with 4 M3x6mm screws on each side."'
@@ -325,6 +438,17 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  plain:
+    do:
+      - text: 'Take the motor you labelled 3.'
+        from: ['servo', 'F-002.check']
+      - text: 'Push the geared horn onto the output shaft and hold it with one M3x6 screw.'
+        from: ['check', 'source[0]']
+      - text: 'Push the plain horn onto the other end. It gets no screw.'
+        from: ['check']
+    done:
+      text: 'Geared horn held by its screw; plain horn on the other end without one.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
 - id: F-031
@@ -345,6 +469,19 @@
   cables:
     - cable-shoulder-lift-to-elbow-flex
   check: Motor 3 held by 4 motor-tab screws; its cable connects to motor 2.
+  plain:
+    do:
+      - text: 'Take the motor you labelled 3.'
+        from: ['servo', 'F-002.check']
+      - text: 'Slide it into the upper arm.'
+        from: ['source[0]', 'title']
+      - text: 'Fix it with 4 small self-tapping screws.'
+        from: ['source[0]', 'check']
+      - text: 'Connect motor 3 to motor 2 with its cable.'
+        from: ['check']
+    done:
+      text: 'Motor 3 is held by 4 screws and its cable goes to motor 2.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
       note: '"Insert motor 3 and fasten using 4 M2x6mm screws."'
@@ -371,6 +508,15 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Under_arm_SO101 encloses 50% of
     servo 3: the forearm on the motor-3 horns.'
+  plain:
+    do:
+      - text: "Fit the forearm over motor 3's horns with its wire slot on the same side as the cables."
+        from: ['source[0]', 'orientation_note', 'part:under-arm-so101', 'servo']
+      - text: 'Screw it to the horns with 4 M3x6 on each side.'
+        from: ['source[0]', 'check']
+    done:
+      text: "4 screws on each side; the forearm's wire slot is on the cable side."
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-3
       note: '"Connect the forearm to motor 3 using 4 M3x6mm screws on each side."'
@@ -398,6 +544,17 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  plain:
+    do:
+      - text: 'Take the motor you labelled 4.'
+        from: ['servo', 'F-002.check']
+      - text: 'Push the geared horn onto the output shaft and hold it with one M3x6 screw.'
+        from: ['check', 'source[0]']
+      - text: 'Push the plain horn onto the other end. It gets no screw.'
+        from: ['check']
+    done:
+      text: 'Geared horn held by its screw; plain horn on the other end without one.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-4
 - id: F-041
@@ -417,6 +574,15 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Motor_holder_SO101_Wrist sits on
     the forearm and encloses 44% of servo 4: motor holder 4.'
+  plain:
+    do:
+      - text: 'Slide the wrist motor holder onto the end of the forearm, with its wire groove on the cable side.'
+        from: ['source[0]', 'orientation_note', 'part:motor-holder-so101-wrist']
+      - text: "It has no screws of its own: motor 4's screws will clamp it in the next step."
+        from: ['instructions']
+    done:
+      text: 'The holder is on, with its groove on the cable side.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-4
       note: '"Slide over motor holder 4."'
@@ -455,6 +621,19 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: servo 4 sits in Motor_holder_SO101_Wrist
     (44% enclosed).'
+  plain:
+    do:
+      - text: 'Take the motor you labelled 4.'
+        from: ['servo', 'F-002.check']
+      - text: 'Slide it into the wrist motor holder.'
+        from: ['source[0]', 'title', 'part:motor-holder-so101-wrist']
+      - text: 'Fix it with 4 small self-tapping screws, two on each side: one into the forearm and one into the holder.'
+        from: ['source[0]', 'check', 'instructions']
+      - text: 'Connect motor 4 to motor 3 with its cable.'
+        from: ['check']
+    done:
+      text: 'Motor 4 is held by 4 screws and its cable goes to motor 3.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-4
       note: '"Slide in motor 4. Fasten motor 4 with 4 M2x6mm screws."'
@@ -493,6 +672,19 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Pitch (SO100-named solid)
     encloses 97% of servo 5: the wrist holder.'
+  plain:
+    do:
+      - text: 'Take the motor you labelled 5.'
+        from: ['servo', 'F-002.check']
+      - text: 'Before the motor goes in, feed both cables through the wrist holder. The wire tears easily if you do this afterwards.'
+        from: ['warnings', 'check', 'source[1]']
+      - text: 'Slide motor 5 in gear end first, with the gear facing up.'
+        from: ['orientation_note', 'source[1]', 'servo']
+      - text: 'Fix it with 2 small self-tapping screws at the front.'
+        from: ['source[0]', 'check']
+    done:
+      text: '2 screws in at the front, and both cables went through the holder before the motor did.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
       note: '"Insert motor 5 into the wrist holder and secure it with 2 M2x6mm front screws."'
@@ -519,6 +711,15 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Geared horn on the output side retained by its M3x6; no horn on the other side.
+  plain:
+    do:
+      - text: "Push the geared horn onto motor 5's output end and hold it with one M3x6 screw."
+        from: ['source[0]', 'check', 'servo']
+      - text: 'Do not fit a horn on the other end.'
+        from: ['check', 'source[0]']
+    done:
+      text: 'One geared horn with its screw; the other end stays bare.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
       note: '"Install only one motor horn on the wrist motor and secure it with a M3x6mm horn screw."'
@@ -545,6 +746,15 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: the same wrist holder spans 49%
     of servo 4: secured to the motor-4 horns.'
+  plain:
+    do:
+      - text: 'Turn the wrist holder so its rectangular opening faces the side of motor 4 where the cable plugs in.'
+        from: ['orientation_note', 'check', 'source[1]']
+      - text: "Screw it to motor 4's horns with 4 M3x6 on each side."
+        from: ['source[0]', 'check']
+    done:
+      text: "4 screws on each side; the opening faces motor 4's cable side."
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
       note: '"Secure the wrist to motor 4 using 4 M3x6mm screws on both sides."'
@@ -574,6 +784,13 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Follower_SO101 carries
     the stepped r10/r12/r13.24 recess at its origin and the servo-5 drive horn sits in it.'
+  plain:
+    do:
+      - text: "Set the gripper body onto motor 5's horn and screw it on with 4 M3x6."
+        from: ['source[0]', 'check', 'part:wrist-roll-follower-so101', 'servo']
+    done:
+      text: 'The gripper body sits on the horn with its 4 screws.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Follower: "Attach the gripper to motor 5, attach it to the motor horn on the wrist using 4 M3x6mm screws."'
@@ -605,6 +822,17 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: Wrist_Roll_Follower_SO101 encloses
     100% of servo 6: the gripper body.'
+  plain:
+    do:
+      - text: 'Take the motor you labelled 6.'
+        from: ['servo', 'F-002.check']
+      - text: 'Slide it into the gripper body and fix it with 2 small self-tapping screws on each side.'
+        from: ['source[0]', 'check']
+      - text: 'Connect motor 6 to motor 5 with its cable.'
+        from: ['check', 'servo']
+    done:
+      text: '2 screws on each side; the cable goes to motor 5.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Follower: "Insert the gripper motor and secure it with 2 M2x6mm screws on each side."'
@@ -632,6 +860,15 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: Geared horn retained by its M3x6; plain horn on the other side without a screw.
+  plain:
+    do:
+      - text: "Push the geared horn onto the gripper motor's output shaft and hold it with one M3x6 screw."
+        from: ['check', 'source[0]']
+      - text: 'Push the plain horn onto the other end. It gets no screw.'
+        from: ['check']
+    done:
+      text: 'Geared horn held by its screw; plain horn on the other end without one.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Follower: "Install both motor horns on the gripper motor. Secure the top horn with a M3x6mm screw"'
@@ -652,6 +889,15 @@
     - screwdriver-ph0
     - screwdriver-ph1
   check: 4 M3x6 on both sides; claw slid into the slot from the top.
+  plain:
+    do:
+      - text: 'Slide the gripper claw down into the slot in the gripper body from the top, so it stands at a right angle to the body.'
+        from: ['orientation_note', 'source[1]', 'part:moving-jaw-so101']
+      - text: 'Screw it on with 4 M3x6 on each side.'
+        from: ['source[0]', 'check']
+    done:
+      text: 'The claw is in its slot from the top, with 4 screws on each side.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#gripper--handle
       note: 'Follower: "Install the gripper claw and secure it with 4 M3x6mm screws on both sides."'
@@ -672,6 +918,23 @@
   provenance:
     'Part role confirmed by placement in the upstream assembly STEP: WaveShare_Mounting_Plate touches both
     the base motor holder and the controller-board model (0 mm gap).'
+  plain:
+    do:
+      - text: 'Put the control board on its printed plate. No source says which screws hold it there.'
+        from:
+          [
+            'instructions',
+            'check',
+            'part:motor-control-board',
+            'part:waveshare-mounting-plate-so101',
+          ]
+      - text: 'Clip the plate onto the base motor holder using the square block on the back of the plate.'
+        from: ['source[0]', 'check']
+      - text: 'Make sure a cable from motor 1 can reach the board.'
+        from: ['check']
+    done:
+      text: "Board on its plate, plate clipped to the base motor holder, and motor 1's cable reaches it."
+      from: ['check']
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
@@ -686,7 +949,7 @@
         motor holder and the controller-board model (0 mm gap)'
 - id: F-071
   slug: follower-daisy-chain
-  title: Daisy-chain the servo cables and connect motor 1 to the board
+  title: Daisy-chain the motor cables and connect motor 1 to the board
   title_short: Daisy-chain the cables to the board
   assembly: follower
   parts:
@@ -694,6 +957,17 @@
     - motor-control-board
   servo_slot: shoulder_pan
   check: Chain runs 6→5→4→3→2→1; motor 1 (shoulder pan, ID 1) to the controller board; power and USB connected.
+  plain:
+    do:
+      - text: 'Run a cable from each motor to the next one down: 6 to 5, 5 to 4, 4 to 3, 3 to 2, 2 to 1.'
+        from: ['check', 'source[0]']
+      - text: 'Plug the cable from motor 1 (the shoulder pan motor, ID 1) into the control board.'
+        from: ['check', 'source[0]']
+      - text: 'Connect the power supply and the USB cable to the board. Use the supply that matches your motors: 5V for the standard 7.4V motors.'
+        from: ['check', 'warnings']
+    done:
+      text: 'The chain runs 6, 5, 4, 3, 2, 1; motor 1 plugs into the board; power and USB are connected.'
+      from: ['check']
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
       note:
@@ -705,8 +979,8 @@
     - ref: upstream/SO-ARM100/README.md#sourcing-parts
       note: IMPORTANT note on 7.4V vs 12V servos and supplies
   warnings:
-    - 'Supply voltage follows the servo variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
-      if the optional 12V follower servos are fitted (README, D-002).'
+    - 'Supply voltage follows the motor variant, never a single value: 5V for the standard 7.4V STS3215; 12V 5A+ only
+      if the optional 12V follower motors are fitted (README, D-002).'
   cables:
     - cable-board-to-shoulder-pan
     - cable-shoulder-pan-to-shoulder-lift
