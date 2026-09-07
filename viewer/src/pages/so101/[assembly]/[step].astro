@@ -41,7 +41,10 @@ const jsonLd = [
       })}
     </ol>
   </div>
-  <h1>{s.title} <Flags unverified={s.unverified} approximation={s.approximation} /></h1>
+  <div class="titlebar">
+    <span class="num" aria-hidden="true">{i + 1}</span>
+    <h1>{s.title} <Flags unverified={s.unverified} approximation={s.approximation} /></h1>
+  </div>
   {s.unverified && (
     <div class="banner"><strong>Unverified.</strong> Part of this step is not confirmed by any public source yet (see the sources below). Follow the upstream video for this joint and report what you find.</div>
   )}
