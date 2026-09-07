@@ -848,3 +848,8 @@ ol.milestones .lbl {
     min-height: 16px;
   }
 }
+
+/* Lighter island ground so dark edge lines and grey parts separate from the page. */
+.viewer {
+  background: color-mix(in srgb, var(--bg-2) 88%, var(--fg));
+}

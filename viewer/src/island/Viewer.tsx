@@ -18,6 +18,8 @@ const COLORS: Record<Visibility, string> = {
   installed: '#8a94a6',
   future: '#3a4050',
 };
+/** Crease lines: near-black reads on the lit grey and orange meshes in both themes. */
+const EDGE = '#0b0d12';
 const LEGEND: [Visibility, string][] = [
   ['current', 'This step'],
   ['installed', 'Built'],
@@ -74,6 +76,8 @@ function Part({
         : new THREE.Vector3(),
     [vis, pos, centre, explode],
   );
+  // Edge lines at a 25° crease threshold: flat-shaded printed parts read as blobs without them.
+  const edges = useMemo(() => (geom ? new THREE.EdgesGeometry(geom, 25) : undefined), [geom]);
   if (!geom) return null;
   if (vis === 'future' && !ghost) return null;
   return (
@@ -97,6 +101,17 @@ function Part({
           metalness={p.kind === 'fastener' || p.kind === 'horn' ? 0.6 : 0.05}
         />
       </mesh>
+      {edges && vis !== 'future' && (
+        <lineSegments
+          geometry={edges}
+          position={pos}
+          quaternion={quat}
+          scale={scale}
+          raycast={() => null}
+        >
+          <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
+        </lineSegments>
+      )}
     </group>
   );
 }
