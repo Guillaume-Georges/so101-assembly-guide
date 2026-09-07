@@ -7,13 +7,23 @@ requires-python = ">=3.11,<3.13"
 license = "MIT"
 # cadquery/OCP (STEP) and trimesh (GLB) are added in Phase 2 when the exporter lands,
 # so the Phase 0 lockfile stays small. Stack decision is recorded in docs/adr/0001-stack.md.
-dependencies = []
+dependencies = [
+    "cadquery>=2.8.0",
+    "networkx>=3.6.1",
+    "numpy>=2.4.6",
+    "pyyaml>=6.0.3",
+    "trimesh>=5.1.0",
+]
 
 [project.scripts]
 so101-pipeline = "so101_pipeline.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8.4", "ruff>=0.12"]
+dev = [
+    "matplotlib>=3.11.1",
+    "pytest>=8.4",
+    "ruff>=0.12",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -23,7 +33,7 @@ build-backend = "hatchling.build"
 packages = ["so101_pipeline"]
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 target-version = "py311"
 
 [tool.ruff.lint]

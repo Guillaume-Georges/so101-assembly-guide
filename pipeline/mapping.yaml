@@ -1,0 +1,60 @@
+# Occurrence -> part mapping rules for SO101 Assembly.step (SO-ARM100 @ eecbe3e).
+# Every leaf solid in the STEP must match exactly one rule or the build fails.
+# `kind`: part | servo | horn | board | fastener | cable | skip
+# `match` regexes run against the occurrence's normalised names (" vN", ":N", " (N)" stripped)
+# and its ancestor path. Order matters: first match wins.
+# Parts referenced by `id` must exist in data/parts.yaml (or fasteners.yaml for kind: fastener);
+# geometry_names / aka in parts.yaml are also consulted before these rules.
+rules:
+  # --- horns inside the servo vendor model: disc primitives placed at the vendor horn's transform
+  - kind: horn
+    match: { name: '驱动' }
+    id: servo-horn-geared
+    approximation: true
+  - kind: horn
+    match: { name: '从动' }
+    id: servo-horn-plain
+    approximation: true
+  # --- servo vendor model: transform only, mesh replaced by the datasheet primitive (SOURCES.md)
+  - kind: servo
+    match: { path: '^SO101 Assembly/ST3215 Servo/' }
+    id: servo-sts3215-c001-345
+    approximation: true
+    note: 'follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer'
+  # --- controller board vendor model: bounding-box primitive
+  - kind: board
+    match: { path: '^SO101 Assembly/Bus Servo Adapter \(A\)' }
+    id: motor-control-board
+    approximation: true
+  # --- fasteners (placements only, primitive meshes)
+  - kind: fastener
+    match: { name: '^Pan Head Screw DIN EN ISO 7045 - M3 x 6' }
+    id: m3x6
+  - kind: fastener
+    match: { name: 'Tapping Screw ANSI B18.6.4 1-42 x 0.1875' }
+    id: m2x6
+    note: 'STEP models the motor-tab screws as #1-42 x 3/16 in tapping screws; data keeps the LeRobot M2x6 label (D-001)'
+  - kind: fastener
+    match: { name: 'Tapping Screw ANSI B18.6.4 0-48 x 0.1875' }
+    id: tapping-0-48
+  - kind: fastener
+    match: { name: '^Pan Head Screw DIN EN ISO 7045 - M2.5 x 4' }
+    id: m2.5x4
+  - kind: fastener
+    match: { name: '^hexagonal_spacer_FF_M2.5_H06' }
+    id: spacer-m2.5-h6
+  - kind: fastener
+    match: { name: '^Hexagon Nut DIN (934|555) - M3' }
+    id: m3-nut
+  # --- cables: upstream-drawn bodies, exported as-is under the cable part
+  - kind: cable
+    match: { name: '^Component[0-9]+$' }
+    id: servo-cable-3pin
+  - kind: cable
+    match: { name: '^050375033$' }
+    id: servo-cable-3pin
+    note: 'Molex 050375033-style 3-pin housing at the board end'
+  # --- printed parts whose leaf is an unnamed SOLID: resolve by the parent sub-assembly name
+  - kind: part
+    match: { name: '^SOLID', parent: '.*' }
+    id: '@parent'
