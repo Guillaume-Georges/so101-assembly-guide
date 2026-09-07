@@ -602,3 +602,75 @@ nav.steps a small,
 nav.steps span.count {
   white-space: nowrap;
 }
+
+/* Warnings read before the parts, in caution amber; red stays reserved for unverified. */
+.warning {
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-2));
+}
+
+/* "You need" rows: name, quantity, one small details link, 44 px tall. */
+.card .row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: var(--tap);
+}
+.card .row .what {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+}
+.card .row .qty {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.card .row a.more {
+  font-size: 0.85rem;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.4rem;
+}
+
+/* Flag popovers: the pill is the summary; the panel explains the flag and carries the item's note. */
+details.flagmore {
+  display: inline-block;
+  position: relative;
+}
+details.flagmore > summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+details.flagmore > summary::-webkit-details-marker {
+  display: none;
+}
+details.flagmore .flagpanel {
+  position: absolute;
+  z-index: 15;
+  left: 0;
+  top: 100%;
+  width: min(22rem, 80vw);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 24px color-mix(in srgb, #000 35%, transparent);
+}
+details.flagmore .flagpanel p {
+  margin: 0;
+}
+details.flagmore .flagpanel p + p {
+  margin-top: 0.4rem;
+}
+details.flagmore .flagpanel .note {
+  color: var(--muted);
+}
