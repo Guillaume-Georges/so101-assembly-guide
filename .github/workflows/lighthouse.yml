@@ -19,12 +19,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
         env:
-          VITE_BASE: /${{ github.event.repository.name }}/
           SITE_INDEXABLE: 'true' # audit the indexable variant; the deployed site stays noindex until the domain is live
-      - name: Serve dist under the Pages base path
-        run: |
-          mkdir -p site/${{ github.event.repository.name }}
-          cp -r viewer/dist/* site/${{ github.event.repository.name }}/
-          sed -i 's|"./viewer/dist"|"./site"|' lighthouserc.json
       - run: npm i -g @lhci/cli@0.15.x
       - run: lhci autorun

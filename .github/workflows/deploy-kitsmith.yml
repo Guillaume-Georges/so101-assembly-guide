@@ -1,0 +1,68 @@
+name: deploy kitsmith.dev
+
+# Push to main: validate data -> build the site in CI (never on the 1 vCPU box) -> rsync the
+# release to releases/<sha>/ via an rrsync-jailed key -> atomic `current` swap -> smoke check
+# -> purge Cloudflare. Rollback = `activate <previous sha>` (last 5 kept on the server).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-kitsmith
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm validate
+      - name: Build (site https://kitsmith.dev, base /)
+        run: pnpm build
+        env:
+          SITE: https://kitsmith.dev
+          VITE_BASE: /
+          SITE_INDEXABLE: ${{ vars.SITE_INDEXABLE || 'false' }}
+          PUBLIC_ANALYTICS_SCRIPT: ${{ vars.PUBLIC_ANALYTICS_SCRIPT }}
+          PUBLIC_ANALYTICS_DOMAIN: ${{ vars.PUBLIC_ANALYTICS_DOMAIN }}
+      - name: Release must be complete before it leaves CI
+        run: test -f viewer/dist/index.html && test -f viewer/dist/so101/index.html && test -f viewer/dist/robots.txt
+      - name: SSH key + pinned host key (no ssh-keyscan at deploy time)
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: rsync release
+        run: |
+          rsync -az --delete --chmod=D755,F644 -e "ssh -i ~/.ssh/deploy -o StrictHostKeyChecking=yes -o BatchMode=yes" \
+            viewer/dist/ "$DEPLOY_USER@$DEPLOY_HOST:${GITHUB_SHA}/"  # rrsync jail root is releases/
+      - name: activate
+        run: ssh -i ~/.ssh/deploy -o StrictHostKeyChecking=yes -o BatchMode=yes "$DEPLOY_USER@$DEPLOY_HOST" "activate ${GITHUB_SHA}"
+      - name: smoke check through Cloudflare
+        run: |
+          for i in $(seq 1 10); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "https://kitsmith.dev/so101/?nocache=$GITHUB_SHA")
+            [ "$code" = "200" ] && { echo "ok $code"; exit 0; }
+            sleep 3
+          done
+          echo "::error::https://kitsmith.dev/so101/ returned $code"; exit 1
+      - name: purge Cloudflare cache
+        run: |
+          curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_PURGE_TOKEN }}" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' | tee /tmp/purge.json
+          grep -q '"success":true' /tmp/purge.json

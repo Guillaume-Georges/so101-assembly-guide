@@ -1,0 +1,38 @@
+#!/bin/bash
+# /usr/local/bin/kitsmith-deploy — the ONLY thing the deploy key may run (authorized_keys command=).
+# Two verbs, dispatched on SSH_ORIGINAL_COMMAND:
+#   rsync --server ...            -> rrsync jailed to /var/www/kitsmith.dev/releases (write-only)
+#   activate <40-hex sha>         -> atomic `current` symlink swap + keep the 5 newest releases
+# Runs as the unprivileged user `kitsmith`; owns /var/www/kitsmith.dev; no sudo, no nginx access.
+set -euo pipefail
+ROOT=/var/www/kitsmith.dev
+RELEASES=$ROOT/releases
+KEEP=5
+cmd=${SSH_ORIGINAL_COMMAND:-}
+log() { logger -t kitsmith-deploy -- "$*"; echo "$*" >&2; }
+
+case "$cmd" in
+  "rsync --server "*)
+    # rrsync ships with rsync (Ubuntu: /usr/bin/rrsync on 3.2.5+, else /usr/share/doc/rsync/scripts/rrsync)
+    RR=$(command -v rrsync || echo /usr/share/doc/rsync/scripts/rrsync)
+    exec "$RR" -wo "$RELEASES"
+    ;;
+  activate\ *)
+    sha=${cmd#activate }
+    [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || { log "refused: bad sha '$sha'"; exit 2; }
+    [[ -f "$RELEASES/$sha/index.html" && -f "$RELEASES/$sha/so101/index.html" ]] || { log "refused: release $sha incomplete"; exit 3; }
+    ln -sfn "$RELEASES/$sha" "$ROOT/current.tmp" && mv -Tf "$ROOT/current.tmp" "$ROOT/current"
+    log "activated $sha"
+    # prune: newest KEEP by mtime, never the active one
+    active=$(readlink -f "$ROOT/current")
+    ls -1dt "$RELEASES"/*/ | tail -n +$((KEEP + 1)) | while read -r d; do
+      [[ "$(readlink -f "$d")" == "$active" ]] && continue
+      rm -rf -- "$d" && log "pruned $d"
+    done
+    echo "OK $sha"
+    ;;
+  *)
+    log "refused: '$cmd'"
+    exit 1
+    ;;
+esac
