@@ -13,11 +13,23 @@ type ArmData = {
 };
 type Props = { assembly: string; stepId: string; base: string; embed?: boolean };
 
+/**
+ * Mesh colours follow the page tokens (--accent for "this step", --muted for built, --line for
+ * ghosts) so the highlight survives the light theme. These defaults match the dark palette and are
+ * replaced from computed styles once the island mounts; Part only renders after that.
+ */
 const COLORS: Record<Visibility, string> = {
-  current: '#ffb454',
-  installed: '#8a94a6',
-  future: '#3a4050',
+  current: '#4da3ff',
+  installed: '#9fabbe',
+  future: '#22314a',
 };
+function readColors(): void {
+  const cs = getComputedStyle(document.documentElement);
+  const v = (name: string, fallback: string) => cs.getPropertyValue(name).trim() || fallback;
+  COLORS.current = v('--accent', COLORS.current);
+  COLORS.installed = v('--muted', COLORS.installed);
+  COLORS.future = v('--line', COLORS.future);
+}
 /** Crease lines: near-black reads on the lit grey and orange meshes in both themes. */
 const EDGE = '#0b0d12';
 /** Name chip for a current-step part; fasteners stay unlabelled (eight screws would bury the picture). */
@@ -308,6 +320,8 @@ function Scene({
         args={[0.6, 0.6]}
         cellSize={0.02}
         sectionSize={0.1}
+        cellColor={COLORS.future}
+        sectionColor={COLORS.installed}
         fadeDistance={1.5}
         position={[0, -0.001, 0]}
       />
@@ -332,6 +346,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   const [picked, setPicked] = useState<Placement | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
+    readColors();
     Promise.all([
       fetch(`${base}so101/data/${assembly}.json`).then((r) => r.json()),
       fetch(`${base}so101/geometry/placements.json`).then((r) => r.json()),
