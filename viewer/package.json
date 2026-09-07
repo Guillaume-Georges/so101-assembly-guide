@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
+    "postbuild": "node scripts/check-island.mjs",
     "preview": "astro preview",
     "lint": "eslint src",
     "test": "vitest run"
