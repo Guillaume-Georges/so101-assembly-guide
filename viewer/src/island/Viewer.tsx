@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
-import { Grid, Line, OrbitControls, useGLTF } from '@react-three/drei';
+import { Grid, Html, Line, OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { cablesAt, visibility, type Placement, type StepLite, type Visibility } from './state';
@@ -20,6 +20,9 @@ const COLORS: Record<Visibility, string> = {
 };
 /** Crease lines: near-black reads on the lit grey and orange meshes in both themes. */
 const EDGE = '#0b0d12';
+/** Name chip for a current-step part; fasteners stay unlabelled (eight screws would bury the picture). */
+const labelFor = (arm: ArmData, p: Placement, vis: Visibility): string | undefined =>
+  vis === 'current' && p.kind !== 'fastener' ? (arm.parts[p.id]?.name ?? p.name) : undefined;
 const LEGEND: [Visibility, string][] = [
   ['current', 'This step'],
   ['installed', 'Built'],
@@ -34,6 +37,8 @@ function Part({
   ghost,
   onPick,
   url,
+  label,
+  dragging,
 }: {
   p: Placement;
   vis: Visibility;
@@ -42,6 +47,8 @@ function Part({
   ghost: boolean;
   onPick: (p: Placement) => void;
   url: string;
+  label?: string;
+  dragging: boolean;
 }) {
   const gltf = useGLTF(url, undefined, undefined, (loader) =>
     loader.setMeshoptDecoder(MeshoptDecoder),
@@ -78,6 +85,14 @@ function Part({
   );
   // Edge lines at a 25° crease threshold: flat-shaded printed parts read as blobs without them.
   const edges = useMemo(() => (geom ? new THREE.EdgesGeometry(geom, 25) : undefined), [geom]);
+  // label anchor: top-centre of the part's bounding box, in the placed frame
+  const anchor = useMemo(() => {
+    if (!geom) return null;
+    geom.computeBoundingBox();
+    const b = geom.boundingBox!;
+    const top = new THREE.Vector3((b.min.x + b.max.x) / 2, b.max.y, (b.min.z + b.max.z) / 2);
+    return top.multiply(scale).applyQuaternion(quat).add(pos);
+  }, [geom, pos, quat, scale]);
   if (!geom) return null;
   if (vis === 'future' && !ghost) return null;
   return (
@@ -111,6 +126,11 @@ function Part({
         >
           <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
         </lineSegments>
+      )}
+      {label && anchor && !dragging && (
+        <Html position={anchor} center zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
+          <span className="lbl3d">{label}</span>
+        </Html>
       )}
     </group>
   );
@@ -192,6 +212,8 @@ function Scene({
   ghost,
   onPick,
   base,
+  dragging,
+  onDrag,
 }: {
   arm: ArmData;
   placements: Placement[];
@@ -201,6 +223,8 @@ function Scene({
   ghost: boolean;
   onPick: (p: Placement) => void;
   base: string;
+  dragging: boolean;
+  onDrag: (d: boolean) => void;
 }) {
   const centre = useMemo(() => {
     const c = new THREE.Vector3();
@@ -248,6 +272,8 @@ function Scene({
               ghost={ghost}
               onPick={onPick}
               url={`${base}so101/geometry/${p.mesh}`}
+              label={labelFor(arm, p, vis)}
+              dragging={dragging}
             />
           );
         })}
@@ -272,6 +298,8 @@ function Scene({
               ghost={ghost}
               onPick={onPick}
               url={`${base}so101/geometry/${p.mesh}`}
+              label={labelFor(arm, p, vis)}
+              dragging={dragging}
             />
           );
         })}
@@ -283,7 +311,12 @@ function Scene({
         fadeDistance={1.5}
         position={[0, -0.001, 0]}
       />
-      <OrbitControls makeDefault enableDamping={false} />
+      <OrbitControls
+        makeDefault
+        enableDamping={false}
+        onStart={() => onDrag(true)}
+        onEnd={() => onDrag(false)}
+      />
       <TouchPolicy />
     </>
   );
@@ -295,6 +328,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
   const [explode, setExplode] = useState(0);
   const [ghost, setGhost] = useState(true);
   const [fit, setFit] = useState(0);
+  const [dragging, setDragging] = useState(false);
   const [picked, setPicked] = useState<Placement | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -361,6 +395,8 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
             ghost={ghost}
             onPick={setPicked}
             base={base}
+            dragging={dragging}
+            onDrag={setDragging}
           />
         </Suspense>
       </Canvas>
