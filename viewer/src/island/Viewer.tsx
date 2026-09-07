@@ -58,7 +58,7 @@ function Part({
   ghost,
   onPick,
   url,
-  label,
+  mark,
   dragging,
 }: {
   p: Placement;
@@ -68,7 +68,7 @@ function Part({
   ghost: boolean;
   onPick: (p: Placement) => void;
   url: string;
-  label?: string;
+  mark?: number;
   dragging: boolean;
 }) {
   const gltf = useGLTF(url, undefined, undefined, (loader) =>
@@ -164,9 +164,11 @@ function Part({
             <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
           </lineSegments>
         )}
-        {label && anchor && !dragging && (
+        {mark && anchor && !dragging && (
           <Html position={anchor} center zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
-            <span className="lbl3d">{label}</span>
+            <span className="mark3d" aria-hidden="true">
+              {mark}
+            </span>
           </Html>
         )}
       </group>
@@ -323,6 +325,7 @@ function Scene({
   dragging,
   onDrag,
   mode,
+  marks,
 }: {
   arm: ArmData;
   placements: Placement[];
@@ -335,6 +338,7 @@ function Scene({
   dragging: boolean;
   onDrag: (d: boolean) => void;
   mode: FitMode;
+  marks: Map<number, number>;
 }) {
   const posOf = (p: Placement) =>
     new THREE.Vector3().setFromMatrixPosition(
@@ -403,7 +407,7 @@ function Scene({
               ghost={ghost}
               onPick={onPick}
               url={`${base}so101/geometry/${p.mesh}`}
-              label={labelFor(arm, p, vis)}
+              mark={marks.get(i)}
               dragging={dragging}
             />
           );
@@ -429,7 +433,7 @@ function Scene({
               ghost={ghost}
               onPick={onPick}
               url={`${base}so101/geometry/${p.mesh}`}
-              label={labelFor(arm, p, vis)}
+              mark={marks.get(i)}
               dragging={dragging}
             />
           );
@@ -500,6 +504,20 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
     for (const p of placements)
       if (visibility(p, arm.steps, k + 1, assembly) === 'current')
         useGLTF.preload(`${base}so101/geometry/${p.mesh}`);
+  // Numbered callouts: one number per distinct current part name (two horns share a number),
+  // drawn on the picture; the names live in the key under it, never over the geometry.
+  const key: { n: number; name: string }[] = [];
+  const marks = new Map<number, number>();
+  placements.forEach((p, i) => {
+    const name = labelFor(arm, p, visibility(p, arm.steps, k, assembly));
+    if (!name) return;
+    let entry = key.find((e) => e.name === name);
+    if (!entry) {
+      entry = { n: key.length + 1, name };
+      key.push(entry);
+    }
+    marks.set(i, entry.n);
+  });
   const currentNames = placements
     .filter((p) => p.kind !== 'cable' && visibility(p, arm.steps, k, assembly) === 'current')
     .map((p) => arm.parts[p.id]?.name ?? p.name);
@@ -516,7 +534,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         frameloop="demand"
         dpr={[1, 1.5]}
         camera={{ position: [0.35, 0.3, 0.45], near: 0.005, far: 10, fov: 40 }}
-        style={{ height: embed ? '100vh' : '55vh', minHeight: 320 }}
+        style={{ height: embed ? 'calc(100vh - 6.5rem)' : '55vh', minHeight: 320 }}
         onPointerMissed={() => setPicked(null)}
         role="img"
         aria-label={label}
@@ -537,6 +555,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
             dragging={dragging}
             onDrag={setDragging}
             mode={mode}
+            marks={marks}
           />
         </Suspense>
       </Canvas>
@@ -629,6 +648,15 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
             <a href={`${base}so101/parts/${picked.id}/`}>BOM entry and sources →</a>
           </div>
         </div>
+      )}
+      {key.length > 0 && (
+        <ol className="callouts" aria-label="Numbered parts in the picture">
+          {key.map((e) => (
+            <li key={e.n}>
+              <span className="mark3d">{e.n}</span> {e.name}
+            </li>
+          ))}
+        </ol>
       )}
     </>
   );
