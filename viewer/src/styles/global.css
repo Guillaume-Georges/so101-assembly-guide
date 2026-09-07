@@ -674,3 +674,122 @@ details.flagmore .flagpanel p + p {
 details.flagmore .flagpanel .note {
   color: var(--muted);
 }
+
+/* Primary actions: one accent button per page, secondary outlined. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 1rem 0 1.5rem;
+}
+a.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--line-strong, var(--line));
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--fg);
+  font-weight: 600;
+}
+a.button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+.eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+}
+.hero h1 {
+  font-size: 2rem;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.hero > p {
+  max-width: 62ch;
+}
+.card h3:first-child,
+.card .eyebrow + h3 {
+  margin-top: 0;
+}
+
+/* Step list grouped by motor. */
+section.group {
+  margin: 1.2rem 0;
+}
+section.group h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.3rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--line);
+}
+section.group h3 .key {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+}
+section.group ol.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+section.group ol.steps li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  margin: 0;
+  border-bottom: 1px solid var(--line);
+}
+section.group ol.steps li:last-child {
+  border-bottom: 0;
+}
+section.group ol.steps li a {
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  min-height: var(--tap);
+  padding: 0.5rem 0;
+  flex: 1;
+  min-width: 0;
+}
+section.group ol.steps li a .id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.flag.prep {
+  color: var(--ok);
+  border-color: var(--ok);
+}
+
+/* Reference tables fold away below the steps. */
+details.reference {
+  margin-top: 2rem;
+}
+details.reference > summary {
+  cursor: pointer;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+}
+details.reference > summary h2 {
+  margin: 0;
+  display: inline;
+}
+.hero {
+  margin-top: 1.5rem;
+}

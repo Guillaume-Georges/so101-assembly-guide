@@ -1,31 +1,42 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { data, steps } from '../../lib/data';
+import { data, steps, stepPath } from '../../lib/data';
 import { withBase, SITE_NAME, DESCRIPTION } from '../../lib/seo';
 const counts = { follower: steps('follower').length, leader: steps('leader').length };
+const firstFollower = steps('follower')[0];
+const servoIdStep = steps('follower').find((s) => s.prep && /servo id/i.test(s.title));
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: new URL(withBase('/'), site).toString(), description: DESCRIPTION }];
 ---
 <Base title={SITE_NAME} path="" jsonLd={jsonLd}>
-  <h1>SO-101 Assembly Guide</h1>
-  <p>
-    A build companion for the <a href="https://github.com/TheRobotStudio/SO-ARM100">SO-101</a> open-source robot arm. Every step
-    says which parts, which servo and gear ratio, which screws and tool, how the cable runs, and what to check before moving on.
-    Every fact links to its public source. What no source confirms is flagged, never invented.
-  </p>
-  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
-    <a class="card" href={withBase('/follower/')}><h2>Follower arm</h2><p>{counts.follower} steps · six STS3215 1:345 servos</p></a>
-    <a class="card" href={withBase('/leader/')}><h2>Leader arm</h2><p>{counts.leader} steps · three gear ratios, handle and trigger</p></a>
-    <a class="card" href={withBase('/servos/')}><h2>Servos by joint</h2><p>IDs, gear ratios, voltages and supply per joint</p></a>
-    <a class="card" href={withBase('/parts/')}><h2>Bill of materials</h2><p>{data.parts.length} parts with upstream file, licence and vendor names</p></a>
-    <a class="card" href={withBase('/troubleshooting/')}><h2>Troubleshooting</h2><p>{data.troubleshooting.length} assembly issues, searchable by error string</p></a>
-    <a class="card" href={withBase('/kits/')}><h2>Kits and vendor part numbers</h2><p>{data.vendors.length} vendors, cross-referenced to upstream part names</p></a>
+  <div class="hero">
+    <p class="eyebrow">SO-101 robot arm · build guide</p>
+    <h1>Build the SO-101, one checked step at a time.</h1>
+    <p>
+      A build companion for the <a href="https://github.com/TheRobotStudio/SO-ARM100">SO-101</a> open-source robot arm. Every step
+      says which parts, which servo and gear ratio, which screws and tool, how the cable runs, and what to check before moving on.
+      Every fact links to its public source. What no source confirms is flagged, never invented.
+    </p>
+    <div class="actions">
+      <a class="button primary" href={withBase(stepPath(firstFollower))}>Start the follower arm →</a>
+      <a class="button" href={withBase('/leader/')}>Build the leader arm</a>
+      <span class="muted">{counts.follower} steps each · 3D view per step</span>
+    </div>
   </div>
   <h2>Before you start</h2>
-  <ul>
-    <li><a href={withBase('/print-settings/')}>Print settings</a> from the upstream README.</li>
-    <li><a href={withBase('/follower/002-follower-set-servo-ids/')}>Set servo IDs before assembling</a>: every source agrees.</li>
-    <li><a href={withBase('/compare/so-100-vs-so-101/')}>SO-100 vs SO-101</a> if you are not sure which arm you have.</li>
-  </ul>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+    {servoIdStep && (
+      <a class="card" href={withBase(stepPath(servoIdStep))}><p class="eyebrow">1 · do this first</p><h3>{servoIdStep.title}</h3><p>Every source agrees. Step {servoIdStep.id}.</p></a>
+    )}
+    <a class="card" href={withBase('/print-settings/')}><p class="eyebrow">2</p><h3>Print settings</h3><p>From the upstream README.</p></a>
+    <a class="card" href={withBase('/compare/so-100-vs-so-101/')}><p class="eyebrow">3</p><h3>SO-100 or SO-101?</h3><p>Tell them apart if you are not sure which arm you have.</p></a>
+  </div>
+  <h2>Reference</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));">
+    <a class="card" href={withBase('/servos/')}><h3>Servos by joint</h3><p>IDs, gear ratios, voltages and supply per joint</p></a>
+    <a class="card" href={withBase('/parts/')}><h3>Bill of materials</h3><p>{data.parts.length} parts with upstream file, licence and vendor names</p></a>
+    <a class="card" href={withBase('/troubleshooting/')}><h3>Troubleshooting</h3><p>{data.troubleshooting.length} assembly issues, searchable by error string</p></a>
+    <a class="card" href={withBase('/kits/')}><h3>Kits and vendor part numbers</h3><p>{data.vendors.length} vendors, cross-referenced to upstream part names</p></a>
+  </div>
   <p class="muted">Data compiled {data.generated_at.slice(0, 10)} from SO-ARM100 and LeRobot at pinned commits; build {data.commit}.</p>
 </Base>

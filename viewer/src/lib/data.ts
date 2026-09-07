@@ -187,3 +187,33 @@ export function sourceLink(s: Source): { href: string; label: string } {
   }
   return { href: '#', label: s.ref };
 }
+
+/**
+ * Step groups from the id decade: F-00x are preparation, F-01x…F-06x install motor 1…6 (the
+ * decade digit is the servo bus id, so the joint label comes from servos.yaml), F-07x are the
+ * board and cables. Labels are UI chrome; the joint names are data.
+ */
+export type StepGroup = { key: string; label: string; steps: Step[] };
+export function stepDecade(s: Step): number {
+  return Number(s.id.slice(3, 4)); // F-013 -> 1
+}
+export function groupLabel(assembly: string, decade: number): string {
+  if (decade === 0) return 'Before you build';
+  if (decade === 7) return 'Board and cables';
+  const servo = data.servos.find((v) => v.assembly === assembly && v.bus_id === decade);
+  return servo ? `Motor ${decade} · ${jointLabel(servo.joint)}` : `Motor ${decade}`;
+}
+export function stepGroups(assembly: string): StepGroup[] {
+  const out: StepGroup[] = [];
+  for (const s of steps(assembly)) {
+    const d = stepDecade(s);
+    const key = String(d);
+    let g = out.find((x) => x.key === key);
+    if (!g) {
+      g = { key, label: groupLabel(assembly, d), steps: [] };
+      out.push(g);
+    }
+    g.steps.push(s);
+  }
+  return out;
+}
