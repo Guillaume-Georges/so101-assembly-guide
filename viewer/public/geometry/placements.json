@@ -337,8 +337,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:1",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -370,8 +370,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:2",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -403,8 +403,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:3",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -436,8 +436,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:4",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -535,8 +535,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:5",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -568,8 +568,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:6",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -601,8 +601,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:7",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -634,8 +634,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:8",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -667,8 +667,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:9",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -700,8 +700,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:10",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -733,8 +733,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:11",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -766,8 +766,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:12",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -799,8 +799,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:13",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -832,8 +832,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:14",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -865,8 +865,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:15",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -898,8 +898,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:16",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -931,8 +931,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:17",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -964,8 +964,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:18",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -997,8 +997,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:19",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -1030,8 +1030,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:20",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -1063,8 +1063,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:21",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -1096,8 +1096,8 @@
   },
   {
    "kind": "fastener",
-   "id": "m2x6",
-   "mesh": "fastener-m2x6.glb",
+   "id": "motor-tab-screw",
+   "mesh": "fastener-motor-tab-screw.glb",
    "name": "Type I Cross Recessed Fillister Head Tapping Screw ANSI B18.6.4 1-42 x 0.1875 Type AB Steel Grade 2 Plain v1:22",
    "path": "SO101 Assembly v4",
    "transform": [
@@ -3725,16 +3725,39 @@
    "assembly": [
     "leader"
    ]
-  }
- ],
- "unplaced": [
+  },
   {
+   "kind": "part",
    "id": "handle-so101",
    "mesh": "handle-so101.glb",
+   "name": "Handle_SO101 (hand-placed)",
+   "path": "hand-placed",
+   "transform": [
+    0.0,
+    0.0,
+    1.0,
+    0.005221924,
+    -0.951056114,
+    0.309018233,
+    0.0,
+    0.077628119,
+    -0.309018233,
+    -0.951056114,
+    0.0,
+    0.172127113,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "approximation": true,
+   "via": "hand",
+   "note": "handle under the leader holder; hole choice not derivable, placement from the LeRobot leader assembly video (Leader_v2.mp4 0:14 and 0:24): grip hangs below the holder, pointing down and toward the base; D-005",
+   "feature": "mount face (normal (-0.951,0,0.309), r=1.1 M2 hole at (-27.26,0,40)) turned to face world up; handle symmetry plane to world x; grip direction to the base side; mount-face centre at the holder's lowest point under its bbox centroid. Pose from LeRobot Leader_v2.mp4 0:14/0:24; which of the holder's eight M2 holes takes the screw is not derivable",
    "assembly": [
     "leader"
-   ],
-   "reason": "no unambiguous mating feature pair: the handle's only fastener feature is one r=1.1 hole on a tilted face and an r=23.81 arc; the holder offers eight r=1.0 holes and no matching cylinder. Needs a photo/measurement of the handle seated on the holder (LeRobot: 1 M2x6 screw)."
+   ]
   }
- ]
+ ],
+ "unplaced": []
 }
