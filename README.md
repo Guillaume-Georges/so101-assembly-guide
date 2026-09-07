@@ -14,7 +14,7 @@ checklist is another.
 
 | Phase | Scope                                                                                                                                       | State     |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                                              | in review |
+| 0     | Repo, monorepo layout, schemas, CI, pre-commit, licence ledger                                                                              | done      |
 | 1     | Ingest upstream (SO-ARM100, LeRobot docs), BOM, servo table, steps, cross-check vs. secondary guides, `discrepancies.md`                    | in review |
 | 2     | Geometry pipeline: STEP → per-part GLB + `placements.json`, servo model                                                                     | pending   |
 | 3     | Site: static page per step/part/servo/tool/issue, R3F island (highlight/ghost, explode, cable path), SEO metadata, PWA, embed route, mobile | pending   |
