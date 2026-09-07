@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/pages.json",
+  "title": "compare.yaml / faq.yaml / printing.yaml — small authored page datasets; every row cites its source",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+      "title": { "type": "string", "minLength": 1 },
+      "question": { "type": "string", "minLength": 1 },
+      "answer": { "type": "string", "minLength": 1 },
+      "topic": { "type": "string", "minLength": 1 },
+      "so100": { "type": "string", "minLength": 1 },
+      "so101": { "type": "string", "minLength": 1 },
+      "setting": { "type": "string", "minLength": 1 },
+      "value": { "type": "string", "minLength": 1 },
+      "notes": { "type": "string" },
+      "related": { "type": "array", "items": { "type": "string" } },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "source"],
+    "additionalProperties": false
+  }
+}

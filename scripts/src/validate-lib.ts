@@ -104,6 +104,15 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
         p.push({ file: 'cables.yaml', where: c.id, message: `unknown end '${end}'` });
   }
 
+  for (const [f, rows] of [
+    ['compare.yaml', ds.compare],
+    ['faq.yaml', ds.faq],
+    ['printing.yaml', ds.printing],
+  ] as const) {
+    uniqueIds(rows, f, p);
+    rows.forEach((r) => requireSource(f, r));
+  }
+
   const stepIds = new Set<string>();
   const slugs = new Set<string>();
   const uniqueSlug = (file: string, it: { id: string; slug: string }) => {
@@ -223,6 +232,9 @@ export function listFlags(
   scan('troubleshooting.yaml', ds.troubleshooting);
   scan('vendors.yaml', ds.vendors);
   scan('cables.yaml', ds.cables);
+  scan('compare.yaml', ds.compare);
+  scan('faq.yaml', ds.faq);
+  scan('printing.yaml', ds.printing);
   for (const [n, s] of Object.entries(ds.assemblies)) scan(`assemblies/${n}.yaml`, s);
   return out;
 }

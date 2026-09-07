@@ -1,0 +1,37 @@
+# printing.yaml — upstream print settings for the SO-101 parts. Schema: data/schema/pages.json
+- id: print-material
+  setting: Material
+  value: PLA+
+  source: [{ ref: upstream/SO-ARM100/README.md#step-1-choose-a-printer }]
+- id: print-nozzle
+  setting: Nozzle and layer height
+  value: 0.4 mm nozzle at 0.2 mm layers, or 0.6 mm nozzle at 0.4 mm layers
+  source: [{ ref: upstream/SO-ARM100/README.md#step-1-choose-a-printer }]
+- id: print-infill
+  setting: Infill density
+  value: 15%
+  source: [{ ref: upstream/SO-ARM100/README.md#step-1-choose-a-printer }]
+- id: print-supports
+  setting: Supports
+  value: Everywhere, ignoring slopes over 45° to the horizontal; none in screw holes with horizontal axes
+  source: [{ ref: upstream/SO-ARM100/README.md#step-2-set-up-the-printer, note: items 6 and 7 }]
+- id: print-gauges
+  setting: Accuracy check
+  value: Print Gauge_0 and Gauge_tight_1 (STS3215) or the Lego gauges before the parts
+  source: [{ ref: upstream/SO-ARM100/README.md#step-3-check-printer-accuracy }]
+- id: print-trays
+  setting: Print files
+  value: One tray per arm; Ender (220x220), Prusa/UP (205x250) and Bambu Lab A1 mini variants under STL/SO101/
+  source:
+    [
+      { ref: upstream/SO-ARM100/README.md#step-4-print-the-parts },
+      { ref: upstream/SO-ARM100/STL/SO101/Follower/BambuLabA1mini_Follower_SO101.stl },
+    ]
+- id: print-removal
+  setting: After printing
+  value: Scrape parts off with a putty knife; remove supports with a small screwdriver
+  source:
+    [
+      { ref: upstream/SO-ARM100/README.md#step-5-remove-supports },
+      { ref: upstream/lerobot/docs/source/so101.mdx#clean-parts },
+    ]

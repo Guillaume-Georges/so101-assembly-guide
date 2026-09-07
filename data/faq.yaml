@@ -1,0 +1,60 @@
+# faq.yaml — questions answered only from facts already in data/, each with the same sources. Schema: data/schema/pages.json
+- id: faq-which-servo
+  question: Which servo goes at which joint?
+  answer: 'Follower: STS3215 1:345 at all six joints. Leader: 1:191 at shoulder pan and elbow flex, 1:345 at shoulder lift, 1:147 at wrist flex, wrist roll and gripper. Servo IDs run 1 to 6 from the base up.'
+  related: [/servos/]
+  source:
+    - { ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions }
+    - { ref: upstream/SO-ARM100/README.md#sourcing-parts }
+- id: faq-power
+  question: Which power supply?
+  answer: 5V for the standard 7.4V servos on both arms. 12V (5A or more) only if you bought the optional 12V follower servos. The leader is always 7.4V on 5V.
+  related: [/servos/]
+  source:
+    - { ref: upstream/SO-ARM100/README.md#sourcing-parts, note: IMPORTANT note on 7.4V vs 12V }
+- id: faq-screws
+  question: Which screws are which?
+  answer: 'M3x6 machine screws hold horns and attach printed parts to horns (datasheet-confirmed thread). The small screws that hold each servo in its bracket are M2-class self-tapping; sources disagree on the exact part (see D-001), so check what your kit shipped.'
+  related: [/parts/, /faq/]
+  source:
+    - { ref: upstream/lerobot/docs/source/so101.mdx#joint-1 }
+    - {
+        ref: 'https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf',
+        retrieved: 2026-09-07,
+        note: section 9 drawing,
+      }
+- id: faq-ids-first
+  question: Should I set servo IDs before assembling?
+  answer: Yes. Every source configures IDs first; Waveshare warns it is troublesome to reach the cable after assembly.
+  related: [/follower/002-follower-set-servo-ids/]
+  source:
+    - { ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates }
+    - {
+        ref: 'https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741',
+        retrieved: 2026-09-07,
+      }
+- id: faq-cable-clips
+  question: Where do the cable clips go?
+  answer: There is no separate clip part. The wire grooves are cut into the SO-101 brackets; the eleven "Wiring_holder" components in the upstream CAD are empty placeholders (D-003).
+  related: [/parts/]
+  source:
+    - {
+        ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step,
+        note: zero-solid Wiring_holder components,
+      }
+    - {
+        ref: 'https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741',
+        retrieved: 2026-09-07,
+        note: SO-ARM100 Installation Instructions item 3,
+      }
+- id: faq-one-horn
+  question: Why does motor 5 get only one horn?
+  answer: The wrist-roll motor is fitted with one horn only; LeRobot and Waveshare agree.
+  related: [/follower/051-follower-joint5-horn/]
+  source:
+    - { ref: upstream/lerobot/docs/source/so101.mdx#joint-5 }
+    - {
+        ref: 'https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741',
+        retrieved: 2026-09-07,
+        note: Follower step 15,
+      }

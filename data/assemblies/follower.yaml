@@ -3,6 +3,7 @@
   slug: follower-clean-printed-parts
   title: Remove support material from all printed parts
   assembly: follower
+  prep: true
   parts:
     - base-so101
     - base-motor-holder-so101
@@ -28,6 +29,7 @@
   slug: follower-set-servo-ids
   title: Set servo IDs 1–6 and baud rate before assembly
   assembly: follower
+  prep: true
   parts:
     - servo-sts3215-c001-345
     - motor-control-board
@@ -62,6 +64,7 @@
   slug: follower-preinstall-cables
   title: Plug one 3-pin cable into each servo before building
   assembly: follower
+  prep: true
   parts:
     - servo-sts3215-c001-345
     - servo-cable-3pin

@@ -29,6 +29,11 @@
         "pattern": "^[FL]-\\d{3}$",
         "description": "Inherit every field from this step (any assembly) and override only what is listed here. Resolved by scripts; both steps keep their own URL (ADR-0002)."
       },
+      "prep": {
+        "type": "boolean",
+        "default": false,
+        "description": "Preparation step: the listed parts are handled (cleaned, configured, pre-wired) but not installed. Renderers highlight them without treating them as built."
+      },
       "parts": {
         "type": "array",
         "items": {

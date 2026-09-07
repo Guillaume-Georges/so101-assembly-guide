@@ -75,6 +75,20 @@ export type Vendor = Flagged & {
   part_map?: { vendor_ref: string; part: string; note?: string }[];
   notes?: string;
 };
+export type PageRow = Flagged & {
+  id: string;
+  slug?: string;
+  title?: string;
+  question?: string;
+  answer?: string;
+  topic?: string;
+  so100?: string;
+  so101?: string;
+  setting?: string;
+  value?: string;
+  notes?: string;
+  related?: string[];
+};
 export type Cable = Flagged & {
   id: string;
   from: string;
@@ -91,6 +105,7 @@ export type Step = Flagged & {
   title: string;
   assembly: string;
   extends?: string;
+  prep?: boolean;
   parts: string[];
   servo_slot?: string;
   orientation_note?: string;
@@ -111,6 +126,9 @@ export type Dataset = {
   troubleshooting: Issue[];
   vendors: Vendor[];
   cables: Cable[];
+  compare: PageRow[];
+  faq: PageRow[];
+  printing: PageRow[];
   assemblies: Record<string, Step[]>;
 };
 
@@ -135,6 +153,9 @@ export function dataFiles(dataDir = DATA_DIR): { file: string; schema: string }[
     { file: path.join(dataDir, 'troubleshooting.yaml'), schema: 'troubleshooting' },
     { file: path.join(dataDir, 'vendors.yaml'), schema: 'vendors' },
     { file: path.join(dataDir, 'cables.yaml'), schema: 'cables' },
+    { file: path.join(dataDir, 'compare.yaml'), schema: 'pages' },
+    { file: path.join(dataDir, 'faq.yaml'), schema: 'pages' },
+    { file: path.join(dataDir, 'printing.yaml'), schema: 'pages' },
     ...assemblies,
   ];
 }
@@ -153,6 +174,9 @@ export function loadDataset(dataDir = DATA_DIR): Dataset {
     troubleshooting: readYaml(path.join(dataDir, 'troubleshooting.yaml')) as Issue[],
     vendors: readYaml(path.join(dataDir, 'vendors.yaml')) as Vendor[],
     cables: readYaml(path.join(dataDir, 'cables.yaml')) as Cable[],
+    compare: readYaml(path.join(dataDir, 'compare.yaml')) as PageRow[],
+    faq: readYaml(path.join(dataDir, 'faq.yaml')) as PageRow[],
+    printing: readYaml(path.join(dataDir, 'printing.yaml')) as PageRow[],
     assemblies,
   };
 }

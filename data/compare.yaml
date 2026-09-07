@@ -1,0 +1,72 @@
+# compare.yaml — SO-100 vs SO-101, from the shared upstream repo only (ADR-0002 v1 scope). Schema: data/schema/pages.json
+- id: cmp-generation
+  topic: Generation
+  so100: Original arm by TheRobotStudio with Hugging Face; documented in SO100.md, marked deprecated.
+  so101: Next-generation version of the SO-100.
+  source:
+    - {
+        ref: upstream/SO-ARM100/README.md#documentation,
+        note: '"SO-100 docs ... which is deprecated"',
+      }
+    - { ref: upstream/SO-ARM100/SO100.md, note: '"the original robot arm"' }
+- id: cmp-assembly
+  topic: Assembly
+  so100: Leader servos needed gear removal.
+  so101: '"easier to assemble (no gear removal)"; leader uses differently geared motors instead.'
+  source:
+    - {
+        ref: upstream/SO-ARM100/README.md,
+        note: 'intro paragraph: "easier to assemble (no gear removal) and uses updated motors for the leader arm"',
+      }
+    - {
+        ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions,
+        note: leader gear-ratio table,
+      }
+- id: cmp-wiring
+  topic: Wiring
+  so100: Brackets without wire grooves.
+  so101: '"improved wiring": shoulder and elbow motor brackets carry wire grooves (Waveshare notes the grooves differ; Seeed calls them cable clips).'
+  source:
+    - { ref: upstream/SO-ARM100/README.md, note: 'intro paragraph: "improved wiring"' }
+    - {
+        ref: 'https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741',
+        retrieved: 2026-09-07,
+        note: SO-ARM100 Installation Instructions item 3,
+      }
+- id: cmp-leader-servos
+  topic: Leader servos
+  so100: Same servo model at every joint (7.4V STS3215); vendors report modified gearing.
+  so101: 'Three gear ratios: 1:191 at joints 1 and 3, 1:345 at joint 2, 1:147 at joints 4–6, all 7.4V.'
+  source:
+    - {
+        ref: upstream/SO-ARM100/README.md#sourcing-parts,
+        note: leader bundle footnote with C001/C044/C046,
+      }
+    - {
+        ref: 'https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741',
+        retrieved: 2026-09-07,
+        note: '"All joint servos of SO-ARM100 are ST3215-7.4V servos"',
+      }
+- id: cmp-base
+  topic: Base attachment
+  so100: One more base attachment part, fixed to the base with screws.
+  so101: Base motor holder only.
+  source:
+    - {
+        ref: 'https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741',
+        retrieved: 2026-09-07,
+        note: SO-ARM100 Installation Instructions item 2,
+      }
+- id: cmp-print
+  topic: Print settings
+  so100: PLA, 13% infill.
+  so101: PLA+, 15% infill; same nozzle/layer options.
+  source:
+    - {
+        ref: upstream/SO-ARM100/SO100.md,
+        note: 'Printing the Parts: "Material: PLA", "Infill Density: 13%"',
+      }
+    - {
+        ref: upstream/SO-ARM100/README.md#step-1-choose-a-printer,
+        note: '"Material: PLA+", "Infill Density: 15%"',
+      }
