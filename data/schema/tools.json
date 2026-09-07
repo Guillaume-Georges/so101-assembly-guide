@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/tools.json",
+  "title": "tools.yaml",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "name": { "type": "string", "minLength": 1 },
+      "size": { "type": "string" },
+      "purchase_note": { "type": "string" },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "name", "source"],
+    "additionalProperties": false
+  }
+}

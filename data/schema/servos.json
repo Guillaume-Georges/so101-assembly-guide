@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/servos.json",
+  "title": "servos.yaml — joint to servo assignment",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "assembly": { "$ref": "common.json#/$defs/assembly" },
+      "joint": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$",
+        "description": "Slot name referenced by steps' servo_slot, e.g. shoulder_lift"
+      },
+      "part": {
+        "$ref": "common.json#/$defs/id",
+        "description": "parts.yaml id of the physical servo (e.g. servo-sts3215-345)"
+      },
+      "model": { "type": "string", "minLength": 1, "description": "e.g. STS3215" },
+      "gear_ratio": {
+        "type": "string",
+        "pattern": "^1:\\d+$",
+        "description": "Reduction as 1:N, e.g. 1:345"
+      },
+      "voltage": { "type": "string", "description": "e.g. 7.4V or 12V" },
+      "bus_id": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 253,
+        "description": "Servo bus ID the upstream guide assigns to this joint"
+      },
+      "orientation_note": { "type": "string" },
+      "notes": { "type": "string" },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false },
+      "approximation": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "assembly", "joint", "part", "model", "gear_ratio", "source"],
+    "additionalProperties": false
+  }
+}

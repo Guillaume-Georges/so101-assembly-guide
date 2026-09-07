@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/common.json",
+  "title": "Shared definitions",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]*$",
+      "description": "Stable slug id. Never reused once published."
+    },
+    "assembly": { "type": "string", "enum": ["follower", "leader"] },
+    "sourceRef": {
+      "type": "object",
+      "description": "Where a fact comes from. Exactly one of: upstream path (+#section), URL (+retrieved), or video URL (+timestamp).",
+      "properties": {
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "upstream/<repo>/<path>#<section>, or https URL, or video URL"
+        },
+        "retrieved": {
+          "type": "string",
+          "format": "date",
+          "description": "Required for URLs that are not pinned upstream files"
+        },
+        "timestamp": {
+          "type": "string",
+          "pattern": "^\\d{1,2}:\\d{2}(:\\d{2})?$",
+          "description": "Video timestamp mm:ss or h:mm:ss"
+        },
+        "note": { "type": "string" }
+      },
+      "required": ["ref"],
+      "additionalProperties": false,
+      "if": { "properties": { "ref": { "pattern": "^https?://" } } },
+      "then": {
+        "anyOf": [{ "required": ["retrieved"] }, { "required": ["timestamp"] }]
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceRef" },
+      "description": "May be empty ONLY when unverified is true (enforced by scripts/validate)."
+    },
+    "point3": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "[x, y, z] in metres, assembly frame, Y-up"
+    },
+    "licence": {
+      "type": "string",
+      "description": "SPDX identifier of the upstream asset, e.g. Apache-2.0",
+      "minLength": 1
+    }
+  }
+}

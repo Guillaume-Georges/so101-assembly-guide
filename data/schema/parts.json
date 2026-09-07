@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/parts.json",
+  "title": "parts.yaml — bill of materials",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "name": { "type": "string", "minLength": 1 },
+      "qty": { "type": "integer", "minimum": 0 },
+      "category": {
+        "type": "string",
+        "enum": ["printed", "servo", "electronics", "hardware", "cable", "other"]
+      },
+      "assembly": {
+        "type": "array",
+        "items": { "$ref": "common.json#/$defs/assembly" },
+        "minItems": 1,
+        "uniqueItems": true,
+        "description": "Which assemblies use this part"
+      },
+      "source_file": {
+        "type": "string",
+        "description": "Path under upstream/ to the STEP/STL this part's geometry comes from"
+      },
+      "licence": { "$ref": "common.json#/$defs/licence" },
+      "geometry_names": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Solid names as they appear in the STEP assembly tree; mapped by the pipeline"
+      },
+      "notes": { "type": "string" },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false },
+      "approximation": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "name", "qty", "category", "assembly", "source"],
+    "additionalProperties": false
+  }
+}

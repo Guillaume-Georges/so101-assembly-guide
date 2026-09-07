@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/fasteners.json",
+  "title": "fasteners.yaml",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "$ref": "common.json#/$defs/id" },
+      "spec": { "type": "string", "minLength": 1, "description": "e.g. M2x6 SHCS" },
+      "qty": { "type": "integer", "minimum": 0, "description": "Total in kit / BOM" },
+      "assembly": {
+        "type": "array",
+        "items": { "$ref": "common.json#/$defs/assembly" },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "where_used": { "type": "string" },
+      "drive": { "type": "string", "description": "e.g. hex 1.5, PH1" },
+      "notes": { "type": "string" },
+      "source": { "$ref": "common.json#/$defs/sources" },
+      "unverified": { "type": "boolean", "default": false }
+    },
+    "required": ["id", "spec", "qty", "assembly", "source"],
+    "additionalProperties": false
+  }
+}
