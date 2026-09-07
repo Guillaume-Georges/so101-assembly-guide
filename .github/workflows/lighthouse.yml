@@ -1,0 +1,29 @@
+name: lighthouse
+
+# ADR-0002: SEO 100 is a hard gate on the step page template; performance is budgeted per metric and warns.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+      - name: Serve dist under the Pages base path
+        run: |
+          mkdir -p site/${{ github.event.repository.name }}
+          cp -r viewer/dist/* site/${{ github.event.repository.name }}/
+          sed -i 's|"./viewer/dist"|"./site"|' lighthouserc.json
+      - run: npm i -g @lhci/cli@0.15.x
+      - run: lhci autorun
