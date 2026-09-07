@@ -980,3 +980,19 @@ header.site a.guide .sep {
   color: var(--caution);
   margin-top: 0.15rem;
 }
+
+/* Camera buttons: Frame step / Whole arm, top right of the island. */
+.viewer .views {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.35rem;
+}
+.viewer .views .reset {
+  position: static;
+}
+.viewer .views .reset[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
