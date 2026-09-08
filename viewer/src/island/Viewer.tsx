@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { Grid, Html, Line, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
@@ -61,6 +61,7 @@ function Part({
   url,
   mark,
   dragging,
+  onReady,
 }: {
   p: Placement;
   vis: Visibility;
@@ -71,6 +72,7 @@ function Part({
   url: string;
   mark?: number;
   dragging: boolean;
+  onReady: (url: string) => void;
 }) {
   const gltf = useGLTF(url, undefined, undefined, (loader) =>
     loader.setMeshoptDecoder(MeshoptDecoder),
@@ -115,6 +117,9 @@ function Part({
     const top = new THREE.Vector3((b.min.x + b.max.x) / 2, b.max.y, (b.min.z + b.max.z) / 2);
     return top.multiply(scale).applyQuaternion(quat).add(pos);
   }, [geom, pos, quat, scale]);
+  useEffect(() => {
+    if (geom) onReady(url);
+  }, [geom, url, onReady]);
   if (!geom) return null;
   if (vis === 'future' && !ghost) return null;
   // guide from the hole to the backed-out screw
@@ -177,17 +182,23 @@ function Part({
   );
 }
 
-/** Frame the built-so-far group once its meshes exist (Bounds would fit before world matrices update). */
+/**
+ * Frame the built-so-far group once its meshes exist (Bounds would fit before world matrices update).
+ * Parts stream in one Suspense boundary each, so `ready` (every built mesh decoded) gates the fit:
+ * one frame when the last built part lands, not a jump per part.
+ */
 function FitCamera({
   target,
   k,
   fit,
   mode,
+  ready,
 }: {
   target: React.RefObject<THREE.Group | null>;
   k: number;
   fit: number;
   mode: FitMode;
+  ready: boolean;
 }) {
   const { camera, controls, invalidate, scene } = useThree();
   useEffect(() => {
@@ -198,7 +209,7 @@ function FitCamera({
       group: target.current,
     };
     const g = target.current;
-    if (!g) return;
+    if (!g || !ready) return;
     g.updateMatrixWorld(true);
     // "step" frames this step's parts (with a wider margin for context); "arm" frames everything built.
     const collect = (want: (vis: string) => boolean) => {
@@ -236,7 +247,7 @@ function FitCamera({
       c.update();
     } else cam.lookAt(centre);
     invalidate();
-  }, [target, k, fit, mode, camera, controls, invalidate]);
+  }, [target, k, fit, mode, ready, camera, controls, invalidate]);
   return null;
 }
 
@@ -384,33 +395,47 @@ function Scene({
       .reduce((a, v) => ({ ...a, [v]: (a[v] ?? 0) + 1 }), {} as Record<string, number>),
   });
   const built = useRef<THREE.Group>(null);
+  // Mesh files decoded so far (useGLTF caches per URL, so every placement of a file lands together).
+  const [loaded, setLoaded] = useState<ReadonlySet<string>>(() => new Set());
+  const onReady = useCallback(
+    (url: string) => setLoaded((s) => (s.has(url) ? s : new Set(s).add(url))),
+    [],
+  );
+  const ready = placements.every(
+    (p) =>
+      p.kind === 'cable' ||
+      visibility(p, arm.steps, k, arm.assembly) === 'future' ||
+      loaded.has(`${base}so101/geometry/${p.mesh}`),
+  );
   const { invalidate } = useThree();
-  useEffect(() => invalidate(), [k, explode, ghost, invalidate]);
+  useEffect(() => invalidate(), [k, explode, ghost, loaded, invalidate]);
   return (
     <>
       <ambientLight intensity={0.7} />
       <directionalLight position={[1, 2, 1]} intensity={1.2} />
       <directionalLight position={[-1, 1, -1]} intensity={0.4} />
       {/* Camera frames only what is built so far; ghosted future parts sit in a sibling group. */}
-      <FitCamera target={built} k={k} fit={fit} mode={mode} />
+      <FitCamera target={built} k={k} fit={fit} mode={mode} ready={ready} />
       <group ref={built}>
         {placements.map((p, i) => {
           if (p.kind === 'cable') return null;
           const vis = visibility(p, arm.steps, k, arm.assembly);
           if (vis === 'future') return null;
           return (
-            <Part
-              key={i}
-              p={p}
-              vis={vis}
-              explode={explode}
-              centre={hostFor(p, vis)}
-              ghost={ghost}
-              onPick={onPick}
-              url={`${base}so101/geometry/${p.mesh}`}
-              mark={marks.get(i)}
-              dragging={dragging}
-            />
+            <Suspense key={i} fallback={null}>
+              <Part
+                p={p}
+                vis={vis}
+                explode={explode}
+                centre={hostFor(p, vis)}
+                ghost={ghost}
+                onPick={onPick}
+                url={`${base}so101/geometry/${p.mesh}`}
+                mark={marks.get(i)}
+                dragging={dragging}
+                onReady={onReady}
+              />
+            </Suspense>
           );
         })}
         {arm.cables
@@ -425,18 +450,20 @@ function Scene({
           const vis = visibility(p, arm.steps, k, arm.assembly);
           if (vis !== 'future') return null;
           return (
-            <Part
-              key={i}
-              p={p}
-              vis={vis}
-              explode={explode}
-              centre={hostFor(p, vis)}
-              ghost={ghost}
-              onPick={onPick}
-              url={`${base}so101/geometry/${p.mesh}`}
-              mark={marks.get(i)}
-              dragging={dragging}
-            />
+            <Suspense key={i} fallback={null}>
+              <Part
+                p={p}
+                vis={vis}
+                explode={explode}
+                centre={hostFor(p, vis)}
+                ghost={ghost}
+                onPick={onPick}
+                url={`${base}so101/geometry/${p.mesh}`}
+                mark={marks.get(i)}
+                dragging={dragging}
+                onReady={onReady}
+              />
+            </Suspense>
           );
         })}
       </group>
@@ -499,11 +526,12 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         Loading 3D view…
       </p>
     );
-  // preload the meshes of the next step
+  // Preload the meshes of the next step. Cables are drawn from data paths, never from their meshes
+  // (the seven cable GLBs outweigh every printed part together), so they are skipped here as in Scene.
   const next = arm.steps[k + 1];
   if (next)
     for (const p of placements)
-      if (visibility(p, arm.steps, k + 1, assembly) === 'current')
+      if (p.kind !== 'cable' && visibility(p, arm.steps, k + 1, assembly) === 'current')
         useGLTF.preload(`${base}so101/geometry/${p.mesh}`);
   // Numbered callouts: one number per distinct current part name (two horns share a number),
   // drawn on the picture; the names live in the key under it, never over the geometry.
