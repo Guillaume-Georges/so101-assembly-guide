@@ -30,7 +30,7 @@ HORN_D = 19.2  # vendor-model extent; the datasheet page read gives no horn diam
 HORN_T = {"servo-horn-geared": 4.6, "servo-horn-plain": 3.5}
 FASTENER_PRIMS = {  # id -> (shank_d, shank_len, head_d, head_h) mm, all approximations
     "m3x6": (3.0, 6.0, 5.5, 2.4),
-    "m2x6": (2.0, 6.0, 3.8, 1.5),
+    "m2x6": (2.0, 6.0, 4.0, 1.6),  # head per ISO 7045 M2 (dk 4.0, k 1.6), type unsourced
     "motor-tab-screw": (1.9, 4.8, 3.6, 1.4),
     "m2.5x4": (2.5, 4.0, 4.7, 2.1),
     "spacer-m2.5-h6": (5.0, 6.0, 5.0, 0.0),
@@ -144,7 +144,7 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
                 r.note,
             )
         elif r.kind == "fastener":
-            mesh = _add_mesh(out, f"fastener-{r.id}.glb", fastener_primitive(r.id))
+            mesh = _add_mesh(out, f"fastener-{r.id}.glb", fastener_from_step(r.id, o))
             _place(out, "fastener", r.id, mesh, o, _fastener_pose(r.id, o), True, r.via, r.note)
         elif r.kind == "horn":
             mesh = _add_mesh(out, f"{r.id}.glb", _horn_primitive(r.id, o))
@@ -288,15 +288,28 @@ def fastener_length(fid: str) -> float:
 
 
 def fastener_primitive(fid: str) -> trimesh.Trimesh:
-    """One canonical mesh per fastener id (mm): axis +Z, tip at the origin, head at the +Z end.
-    A placement is then fully described by its tip point and its tip->head direction (`screw_matrix`)."""
+    """One canonical mesh per fastener id (mm) for ids the STEP does not model (the hand-placed M2x6):
+    axis +Z, tip at the origin, head at +Z. A placement is then fully described by its tip point and
+    its tip->head direction (`screw_matrix`).
+    Screws get a pan head in the style of the STEP's ISO 7045 siblings (rounded top edge, cross recess),
+    nuts and spacers a hexagonal prism; head and recess proportions are decoration, not a spec (the
+    placement stays `approximation: true`)."""
+    import cadquery as cq
+
     shank_d, shank_len, head_d, head_h = FASTENER_PRIMS[fid]
-    z = np.array([0.0, 0.0, 1.0])
-    shank = geom.cylinder_along(z, np.array([0.0, 0.0, shank_len / 2]), shank_d / 2, shank_len)
-    if head_h == 0.0:  # nut / spacer: one cylinder
-        return shank
-    head = geom.cylinder_along(z, np.array([0.0, 0.0, shank_len + head_h / 2]), head_d / 2, head_h)
-    return trimesh.util.concatenate([shank, head])
+    if head_h == 0.0:  # nut / spacer: hex prism (across flats = head_d) with the thread bore
+        solid = cq.Workplane("XY").polygon(6, head_d / np.cos(np.pi / 6)).extrude(shank_len)
+        bore = 3.0 if fid == "m3-nut" else 2.5
+        solid = solid.faces(">Z").workplane().hole(bore)
+        return geom.tessellate(solid.val().wrapped, FASTENER_DEFLECTION_MM, 0.4)
+    shank = cq.Workplane("XY").circle(shank_d / 2).extrude(shank_len)
+    head = cq.Workplane("XY").workplane(offset=shank_len).circle(head_d / 2).extrude(head_h)
+    head = head.faces(">Z").edges().fillet(head_h * 0.35)
+    slot_w, slot_l, slot_d = 0.22 * head_d, 0.62 * head_d, 0.5 * head_h
+    top = cq.Workplane("XY").workplane(offset=shank_len + head_h - slot_d)
+    recess = top.rect(slot_l, slot_w).extrude(slot_d + 0.1).union(top.rect(slot_w, slot_l).extrude(slot_d + 0.1))
+    solid = shank.union(head).cut(recess)
+    return geom.tessellate(solid.val().wrapped, FASTENER_DEFLECTION_MM, 0.4)
 
 
 def screw_matrix(tip: np.ndarray, up: np.ndarray) -> np.ndarray:
@@ -328,28 +341,50 @@ def screw_tip_up_glb(transform: list[float]) -> tuple[np.ndarray, np.ndarray]:
     return geom.points_to_glb_frame(m[:3, 3]), up / np.linalg.norm(up)
 
 
-def _fastener_pose(fid: str, o: Occurrence) -> np.ndarray:
-    """Tip point and tip->head direction of a STEP fastener product, read off its own bbox: the axis is
-    the longest extent (the thinnest for a nut) and the head is the end the centre of mass leans to."""
+def _fastener_tip_up(fid: str, shape) -> tuple[np.ndarray, np.ndarray]:
+    """Tip point and tip->head direction of a STEP fastener product in its own frame, read off its bbox:
+    the axis is the longest extent (the thinnest for a nut) and the head is the end the centre of mass
+    leans to."""
     shank_d, shank_len, _, head_h = FASTENER_PRIMS[fid]
-    b = geom.bbox(o.shape)
+    b = geom.bbox(shape)
     ext = b[1] - b[0]
     ax = int(np.argmin(ext)) if head_h == 0.0 and shank_len < shank_d else int(np.argmax(ext))
     centre = (b[0] + b[1]) / 2
     if head_h == 0.0:
         sign = 1.0
     else:
-        sign = 1.0 if geom.centre_of_mass(o.shape)[ax] > centre[ax] else -1.0
+        sign = 1.0 if geom.centre_of_mass(shape)[ax] > centre[ax] else -1.0
     up = np.zeros(3)
     up[ax] = sign
     tip = centre.copy()
     tip[ax] = b[0][ax] if sign > 0 else b[1][ax]
+    return tip, up
+
+
+def _fastener_pose(fid: str, o: Occurrence) -> np.ndarray:
+    tip, up = _fastener_tip_up(fid, o.shape)
     return geom.matrix_from_loc(o.location) @ screw_matrix(tip, up)
+
+
+FASTENER_DEFLECTION_MM = 0.03  # screws are 2-6 mm; the part-level 0.08 turns a cross recess into a smudge
+
+
+def fastener_from_step(fid: str, o: Occurrence) -> trimesh.Trimesh:
+    """The STEP's own library part (ISO 7045 pan head with its cross recess, ANSI B18.6.4 fillister head,
+    DIN 934 hex nut) tessellated finely and moved into the canonical fastener frame: axis +Z, tip at the
+    origin, head at +Z. Same convention as `fastener_primitive`, so STEP-placed, synthesized and
+    hand-placed screws of one id keep sharing a mesh; the first STEP occurrence of an id is the one kept."""
+    tip, up = _fastener_tip_up(fid, o.shape)
+    mesh = geom.tessellate(o.shape, FASTENER_DEFLECTION_MM, 0.4)
+    mesh.apply_transform(np.linalg.inv(screw_matrix(tip, up)))
+    return mesh
 
 
 def write(out: Output, out_dir: Path, meta: dict) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     for name, mesh in out.meshes.items():
+        # merged vertices, no NORMAL: the viewer derives creased normals itself (toCreasedNormals). Splitting
+        # here or shipping normals costs 2.5-3x in the meshopt-compressed file for the same picture.
         mesh.export(out_dir / name)
     doc = {
         "meta": meta,
