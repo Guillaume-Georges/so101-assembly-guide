@@ -5,7 +5,7 @@ import { data } from '../../../lib/data';
 import { breadcrumbs } from '../../../lib/seo';
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 ---
-<Base title="Print settings" path="/print-settings/" description="Upstream 3D print settings for the SO-101 parts: PLA+, 0.4 mm nozzle at 0.2 mm layers, 15% infill, supports everywhere except horizontal screw holes, gauge prints first." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Print settings', path: '/print-settings/' }], site.toString())]}>
+<Base title="Print settings" path="/print-settings/" description="SO-101 3D print settings from upstream: PLA+, 0.4 mm nozzle, 0.2 mm layers, 15% infill, supports everywhere except horizontal screw holes, gauge prints first." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Print settings', path: '/print-settings/' }], site.toString())]}>
   <h1>Print settings</h1>
   <div class="tblwrap"><table>
     <thead><tr><th>Setting</th><th>Upstream value</th><th>Source</th></tr></thead>

@@ -24,12 +24,14 @@ const seen = new Set<string>();
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const arm = `${assembly[0].toUpperCase()}${assembly.slice(1)} arm`;
 const preloads = islandPreloads(assembly, s.id, sitePath('/'));
+const ogImage = `/og/${assembly}/${stepNumber(s.id)}.png`;
 const jsonLd = [
   breadcrumbs([{ name: 'Home', path: '/' }, { name: arm, path: `/${assembly}/` }, { name: `${s.id} ${s.title}`, path: stepPath(s) }], site.toString()),
-  techArticle(s, site.toString()),
+  techArticle(s, site.toString(), ogImage),
 ];
 ---
-<Base title={`${s.id} ${s.title}`} path={stepPath(s)} section={`/${assembly}/`} description={stepDescription(s)} noindex={!!s.unverified} jsonLd={jsonLd} ogImage={`/og/${assembly}/${stepNumber(s.id)}.png`}>
+<!-- Title tag carries the instruction, not the id: the id is in the breadcrumb, the step bar and the h1 area; a SERP shows ~60 characters and the words that earn the click come first. -->
+<Base title={s.title} path={stepPath(s)} section={`/${assembly}/`} description={stepDescription(s)} noindex={!!s.unverified} jsonLd={jsonLd} ogImage={ogImage} ogType="article">
   <Fragment slot="head">{preloads.map((href) => <link rel="preload" href={href} as="fetch" crossorigin />)}</Fragment>
   <div class="stepbar">
     <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · <span class="id">{s.id}</span></p>

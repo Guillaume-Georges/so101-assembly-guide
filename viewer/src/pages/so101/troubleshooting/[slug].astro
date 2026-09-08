@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import Sources from '../../../components/Sources.astro';
 import Flags from '../../../components/Flags.astro';
 import { data, stepById, stepPath, parts } from '../../../lib/data';
-import { withBase, breadcrumbs } from '../../../lib/seo';
+import { withBase, breadcrumbs, clip } from '../../../lib/seo';
 export function getStaticPaths() {
   return data.troubleshooting.map((t) => ({ params: { slug: t.slug }, props: { t } }));
 }
@@ -11,7 +11,7 @@ const { t } = Astro.props;
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: t.title, acceptedAnswer: { '@type': 'Answer', text: `${t.cause} Fix: ${t.fix}` } }] };
 ---
-<Base title={t.title} path={`/troubleshooting/${t.slug}/`} section="/troubleshooting/" description={`${t.title}. Cause: ${t.cause}`.slice(0, 158)} noindex={!!t.unverified} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }, { name: t.title, path: `/troubleshooting/${t.slug}/` }], site.toString()), faq]}>
+<Base title={t.title} path={`/troubleshooting/${t.slug}/`} section="/troubleshooting/" description={clip(`SO-101 troubleshooting: ${t.title}. Cause: ${t.cause} Fix: ${t.fix}`)} noindex={!!t.unverified} ogType="article" jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }, { name: t.title, path: `/troubleshooting/${t.slug}/` }], site.toString()), faq]}>
   <p class="muted"><a href={withBase('/troubleshooting/')}>Troubleshooting</a></p>
   <h1>{t.title} <Flags unverified={t.unverified} /></h1>
   {t.aliases?.length ? <p class="muted">Also reported as: {t.aliases.join(' · ')}</p> : null}

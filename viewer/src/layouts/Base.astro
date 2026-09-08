@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, BRAND, GUIDE_NAME, DESCRIPTION, withBase, sitePath, NOINDEX } from '../lib/seo';
+import { SITE_NAME, BRAND, GUIDE_NAME, DESCRIPTION, GITHUB, withBase, sitePath, NOINDEX } from '../lib/seo';
 import Search from '../components/Search.astro';
 
 interface Props {
@@ -10,9 +10,10 @@ interface Props {
   noindex?: boolean;
   jsonLd?: unknown[];
   ogImage?: string; // site-relative path to a PNG
+  ogType?: 'website' | 'article'; // article for one step or one issue; website for hubs and lists
   section?: string;
 }
-const { title, description = DESCRIPTION, path, noindex = false, jsonLd = [], ogImage, section } = Astro.props;
+const { title, description = DESCRIPTION, path, noindex = false, jsonLd = [], ogImage, ogType = 'website', section } = Astro.props;
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const canonicalPath = path === '/' ? sitePath('/') : withBase(path);
 const canonical = new URL(canonicalPath, site).toString();
@@ -67,12 +68,16 @@ const navGroups: [string, [string, string][]][] = [
     {(noindex || NOINDEX) && <meta name="robots" content="noindex" />}
     {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
     {bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={BRAND} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#101827" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -106,7 +111,7 @@ const navGroups: [string, [string, string][]][] = [
           {landing ? (
             <nav class="primary" aria-label="Kitsmith">
               <a href={withBase('/')}>SO-101 guide</a>
-              <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">GitHub</a>
+              <a href={GITHUB}>GitHub</a>
             </nav>
           ) : (
             <nav class="primary grouped" aria-label="Guide sections">
@@ -139,7 +144,7 @@ const navGroups: [string, [string, string][]][] = [
           <span class="flag approximation">approximation</span> is a stand-in. Not affiliated with any kit vendor.
         </p>
         <p>
-          <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">Source, data and corrections on GitHub</a> ·
+          <a href={GITHUB}>Source, data and corrections on GitHub</a> ·
           <a href={withBase('/print-settings/')}>Print settings</a> · <a href={withBase('/compare/so-100-vs-so-101/')}>SO-100 vs SO-101</a>
         </p>
       </div>
