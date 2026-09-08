@@ -6,6 +6,7 @@ import StepPanel from '../../../components/StepPanel.astro';
 import Viewer from '../../../island/Viewer';
 import { ASSEMBLIES, steps, stepPath, stepNumber, stepGroups } from '../../../lib/data';
 import { withBase, sitePath, breadcrumbs, techArticle, stepDescription } from '../../../lib/seo';
+import { islandPreloads } from '../../../lib/preload';
 export function getStaticPaths() {
   return ASSEMBLIES.flatMap((assembly) =>
     steps(assembly).map((s, i) => ({ params: { assembly, step: `${stepNumber(s.id)}-${s.slug}` }, props: { s, i } })),
@@ -22,12 +23,14 @@ const gi = groups.findIndex((g) => g.steps.includes(s));
 const seen = new Set<string>();
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const arm = `${assembly[0].toUpperCase()}${assembly.slice(1)} arm`;
+const preloads = islandPreloads(assembly, s.id, sitePath('/'));
 const jsonLd = [
   breadcrumbs([{ name: 'Home', path: '/' }, { name: arm, path: `/${assembly}/` }, { name: `${s.id} ${s.title}`, path: stepPath(s) }], site.toString()),
   techArticle(s, site.toString()),
 ];
 ---
 <Base title={`${s.id} ${s.title}`} path={stepPath(s)} section={`/${assembly}/`} description={stepDescription(s)} noindex={!!s.unverified} jsonLd={jsonLd} ogImage={`/og/${assembly}/${stepNumber(s.id)}.png`}>
+  <Fragment slot="head">{preloads.map((href) => <link rel="preload" href={href} as="fetch" crossorigin />)}</Fragment>
   <div class="stepbar">
     <p class="muted"><a href={withBase(`/${assembly}/`)}>{arm}</a> · <strong>Step {i + 1} of {list.length}</strong> · <span class="id">{s.id}</span></p>
     <ol class="milestones" role="progressbar" aria-label={`Step ${i + 1} of ${list.length}, ${groups[gi].label}`} aria-valuemin="1" aria-valuemax={list.length} aria-valuenow={i + 1}>

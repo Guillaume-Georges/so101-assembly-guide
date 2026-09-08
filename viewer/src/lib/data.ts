@@ -172,6 +172,15 @@ export const servoBySlot = (assembly: string, joint: string) =>
 export const steps = (assembly: string) => data.assemblies[assembly] ?? [];
 export const stepNumber = (id: string) => id.slice(2); // F-012 -> 012
 export const stepPath = (s: Step) => `/${s.assembly}/${stepNumber(s.id)}-${s.slug}/`;
+/** The slim step the 3D island reasons over (per-arm JSON endpoint and build-time mesh preloads). */
+export const stepLite = (s: Step) => ({
+  id: s.id,
+  prep: !!s.prep,
+  parts: s.parts,
+  servo_slot: s.servo_slot,
+  cables: s.cables ?? [],
+  fasteners: (s.fasteners ?? []).map((f) => f.id),
+});
 export const stepById = (id: string) =>
   Object.values(data.assemblies)
     .flat()

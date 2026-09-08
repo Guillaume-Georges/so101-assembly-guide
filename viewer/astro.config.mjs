@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import { readFileSync } from 'node:fs';
+import islandModulepreload from './scripts/island-modulepreload.mjs';
 
 // kitsmith.dev at base /. Any other host/base is passed in by CI (SITE / VITE_BASE).
 const site = process.env.SITE ?? 'https://kitsmith.dev';
@@ -24,6 +25,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     react(),
+    islandModulepreload(),
     sitemap({
       // site-relative paths; `page` is the absolute URL. Embeds are noindex too.
       filter: (page) =>

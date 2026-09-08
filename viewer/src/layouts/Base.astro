@@ -78,6 +78,7 @@ const navGroups: [string, [string, string][]][] = [
     {!NOINDEX && <link rel="sitemap" href={sitePath('/sitemap-index.xml')} />}
     {jsonLd.map((o) => <script is:inline type="application/ld+json" set:html={JSON.stringify(o)} />)}
     {analytics && <script is:inline defer data-domain={analyticsDomain} src={analytics}></script>}
+    <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
