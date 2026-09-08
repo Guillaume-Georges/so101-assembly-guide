@@ -340,11 +340,12 @@
     - follower
     - leader
   notes:
-    'Qty 7 is the two-arm build (6 follower + 1 leader). A 12V variant with 30 kg.cm stall exists for the follower
+    "Qty 7 is the two-arm build (6 follower + 1 leader). A 12V variant with 30 kg.cm stall exists for the follower
     only and needs a 12V 5A+ supply (README). Includes two horns and a 3-pin cable per the assembly texts; kit contents
-    are not itemised upstream. Geometry: datasheet primitive 45.23 x 24.73 x 35 mm, output shaft 12.5 mm from one
-    end, ø6 boss (Feetech STS3215 spec A/0, 2020-03-28); the embedded vendor model is used for its transform only
-    and is not redistributed.'
+    are not itemised upstream. Geometry: the upstream repo's own simplified body `STEP/SO100/STS3215_03a.step`
+    (Apache-2.0, single solid drawn to the datasheet, D-007 for where they differ) with its fused horn plates cut off
+    and the datasheet ø6 x 3.4 output boss added, posed on the embedded vendor model's transform; the vendor mesh is
+    not redistributed."
   source:
     - ref: upstream/SO-ARM100/README.md#sourcing-parts
       note: 'Parts For Two Arms table: product codes C001/C044/C046, 7.4V'
@@ -353,6 +354,8 @@
     - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
       retrieved: '2026-09-07'
       note: section 9 Outside Dimension
+    - ref: upstream/SO-ARM100/STEP/SO100/STS3215_03a.step
+      note: 'body geometry (Apache-2.0); shaft at 10.2 mm from the end vs datasheet 12.5, see D-007'
   aka:
     - ST3215 Servo
     - SCS215
@@ -372,13 +375,16 @@
     - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
       retrieved: '2026-09-07'
       note: section 9 Outside Dimension
+    - ref: upstream/SO-ARM100/STEP/SO100/STS3215_03a.step
+      note: 'body geometry (Apache-2.0); shaft at 10.2 mm from the end vs datasheet 12.5, see D-007'
   aka:
     - ST3215 Servo
     - SCS215
   approximation: true
   notes:
-    'Geometry: datasheet primitive 45.23 x 24.73 x 35 mm, output shaft 12.5 mm from one end, ø6 boss (Feetech
-    STS3215 spec A/0, 2020-03-28); the embedded vendor model is used for its transform only and is not redistributed.'
+    "Geometry: the upstream repo's own simplified body STEP/SO100/STS3215_03a.step (Apache-2.0, D-007) with its
+    fused horn plates cut off and the datasheet ø6 x 3.4 boss added, posed on the embedded vendor model's transform;
+    the vendor mesh is not redistributed."
 - id: servo-sts3215-c046-147
   name: Feetech STS3215 servo, 7.4V, 1:147 gear (C046)
   name_plain: 'STS3215 motor, 1:147 gear, code C046'
@@ -394,13 +400,16 @@
     - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
       retrieved: '2026-09-07'
       note: section 9 Outside Dimension
+    - ref: upstream/SO-ARM100/STEP/SO100/STS3215_03a.step
+      note: 'body geometry (Apache-2.0); shaft at 10.2 mm from the end vs datasheet 12.5, see D-007'
   aka:
     - ST3215 Servo
     - SCS215
   approximation: true
   notes:
-    'Geometry: datasheet primitive 45.23 x 24.73 x 35 mm, output shaft 12.5 mm from one end, ø6 boss (Feetech
-    STS3215 spec A/0, 2020-03-28); the embedded vendor model is used for its transform only and is not redistributed.'
+    "Geometry: the upstream repo's own simplified body STEP/SO100/STS3215_03a.step (Apache-2.0, D-007) with its
+    fused horn plates cut off and the datasheet ø6 x 3.4 boss added, posed on the embedded vendor model's transform;
+    the vendor mesh is not redistributed."
 - id: servo-sts3215-12v-345
   name: Feetech STS3215 servo, 12V, 1:345 gear (optional follower variant)
   name_plain: 'STS3215 motor, 12V, 1:345 gear (optional follower variant)'
@@ -411,9 +420,8 @@
   notes:
     'Optional replacement for the six follower servos: 30 kg.cm stall vs 16.5 kg.cm at 6V for the 7.4V part;
     needs a 12V 5A+ supply instead of 5V. Seeed lists the codes ST-3215-C018 / C047 for its Pro kit. Never for the
-    leader. Qty 0 because it is not part of the standard build (D-002). Geometry: datasheet primitive 45.23 x 24.73
-    x 35 mm, output shaft 12.5 mm from one end, ø6 boss (Feetech STS3215 spec A/0, 2020-03-28); the embedded vendor
-    model is used for its transform only and is not redistributed.'
+    leader. Qty 0 because it is not part of the standard build (D-002). Geometry: as servo-sts3215-c001-345 (upstream
+    STS3215_03a body on the vendor transform, D-007).'
   source:
     - ref: upstream/SO-ARM100/README.md#sourcing-parts
       note: 'IMPORTANT note: 12V version, 30kg.cm, 12V 5A+ power supply'
@@ -423,6 +431,8 @@
     - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
       retrieved: '2026-09-07'
       note: section 9 Outside Dimension
+    - ref: upstream/SO-ARM100/STEP/SO100/STS3215_03a.step
+      note: 'body geometry (Apache-2.0); shaft at 10.2 mm from the end vs datasheet 12.5, see D-007'
   aka:
     - ST3215 Servo
     - SCS215
@@ -439,17 +449,21 @@
     - 金属舵盘（驱动）
   notes:
     'Ships with the servo. "Each servo is equipped with two steering wheels, one with gears and the other without"
-    (Waveshare). Qty = one per servo for two arms. Geometry: disc primitive ø19.2 mm, 4.6 / 3.5 mm thick, measured
-    from the embedded vendor model''s extents in the assembly STEP (not from the datasheet, which gives no horn
-    diameter); the vendor mesh itself is not redistributed.'
+    (Waveshare). Qty = one per servo for two arms. Geometry: drawn from the datasheet
+    Accessories drawing: ø19.95 plate 2.5 thick, ø9 hub to 4.5 overall, ø3.2 centre bore, 4-M3 on ø14; the plate
+    outline is drawn as the circle (the drawing shows a polygon whose side count is not dimensioned) and the 25T
+    spline is not modelled. Placed on the embedded vendor horn''s transform; the vendor mesh is not redistributed.'
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Follower step 2
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-1
       note: '"Install both motor horns"'
+    - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
+      retrieved: '2026-09-08'
+      note: 'section 10 Accessories drawing: ø19.95, ø14 bolt circle 4-M3, ø9 hub, thicknesses'
     - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
-      note: horn diameter 19.2 mm measured from the embedded vendor model 金属舵盘 extents (approximation)
+      note: placement transform from the embedded vendor horn 金属舵盘 (vendor extent ø19.2, not used)
   approximation: true
 - id: servo-horn-plain
   name: Servo horn, plain (idle side)
@@ -463,16 +477,20 @@
     - 金属舵盘（从动）
   notes:
     "Ships with the servo. Not fitted on motor 5 (one horn only) on either arm, hence 10 for two arms. Geometry:
-    disc primitive ø19.2 mm, 4.6 / 3.5 mm thick, measured from the embedded vendor model's extents in the assembly
-    STEP (not from the datasheet, which gives no horn diameter); the vendor mesh itself is not redistributed."
+    drawn from the datasheet Accessories drawing: ø19.95 plate 2.1 thick, ø9 hub to 3.1 overall, ø6.05 centre bore,
+    4-M3 on ø14; outline drawn as the circle. Placed on the embedded vendor horn's transform; the vendor mesh is not
+    redistributed."
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
       retrieved: '2026-09-07'
       note: Follower steps 2 and 15
     - ref: upstream/lerobot/docs/source/so101.mdx#joint-5
       note: '"Install only one motor horn on the wrist motor"'
+    - ref: https://www.mantech.co.za/Datasheets/Products/STS3215-200620A.pdf
+      retrieved: '2026-09-08'
+      note: 'section 10 Accessories drawing: ø19.95, ø14 bolt circle 4-M3, ø9 hub, thicknesses'
     - ref: upstream/SO-ARM100/STEP/SO101/SO101 Assembly.step
-      note: horn diameter 19.2 mm measured from the embedded vendor model 金属舵盘 extents (approximation)
+      note: placement transform from the embedded vendor horn 金属舵盘 (vendor extent ø19.2, not used)
   approximation: true
 - id: motor-control-board
   name: Motor control board (Waveshare bus servo adapter)

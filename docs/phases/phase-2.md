@@ -104,7 +104,8 @@ Twelve follower steps, two parts and the Waveshare map lost their
    saddle gives a unique frame.
 2. Servo primitive: the datasheet page read gives no horn diameter; the
    19.2 mm disc is the vendor model's extent. Acceptable as approximation,
-   or measure a horn?
+   or measure a horn? _Closed 2026-09-08: wrong reading; datasheet section 10
+   dimensions both horns (ø19.95), and the horns are now drawn from it._
 3. Phase 3 plan is Astro + R3F island per ADR-0002. The placements carry
    `assembly` tags and raw STEP paths; cable bodies are meshes, not
    polylines. Do you want `cable_path` derived (centreline skeleton) in

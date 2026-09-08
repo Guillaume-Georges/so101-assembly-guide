@@ -1774,216 +1774,6 @@
       "step": null
     },
     {
-      "kind": "horn",
-      "id": "servo-horn-geared",
-      "mesh": "servo-horn-geared.glb",
-      "name": "金属舵盘（驱动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
-      "transform": [
-        -0.0, 1.0, -0.0, -9.9432e-5, 0.008726535, -0.0, -0.999961923, 0.038695156, -0.999961923,
-        -0.0, -0.008726535, 0.017336477, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "shoulder_pan",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-plain",
-      "mesh": "servo-horn-plain.glb",
-      "name": "金属舵盘（从动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
-      "transform": [
-        0.0, 1.0, 0.0, -9.9432e-5, -0.008726535, -0.0, 0.999961923, 0.006820907, 0.999961923, -0.0,
-        0.008726535, -0.002942447, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "shoulder_pan",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-geared",
-      "mesh": "servo-horn-geared.glb",
-      "name": "金属舵盘（驱动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
-      "transform": [
-        0.0, -0.008726535, 0.999961923, 0.009992807, -0.999961923, 0.008726203, 7.6152e-5,
-        0.129758789, -0.008726535, -0.999923848, -0.008726203, 0.038741058, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "shoulder_lift",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-plain",
-      "mesh": "servo-horn-plain.glb",
-      "name": "金属舵盘（从动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
-      "transform": [
-        -0.0, -0.008726535, -0.999961923, 0.042041587, 0.999961923, 0.008726203, -7.6152e-5,
-        0.109761991, 0.008726535, -0.999923848, 0.008726203, 0.038286853, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "shoulder_lift",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-geared",
-      "mesh": "servo-horn-geared.glb",
-      "name": "金属舵盘（驱动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
-      "transform": [
-        0.008726203, -0.008726535, 0.999923848, 0.011415942, -0.999923183, 0.008726203, 0.008802353,
-        0.158680746, -0.008802353, -0.999923848, -0.008649719, -0.073697523, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "elbow_flex",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-plain",
-      "mesh": "servo-horn-plain.glb",
-      "name": "金属舵盘（从动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
-      "transform": [
-        -0.008726203, -0.008726535, -0.999923848, 0.043638025, 0.999923183, 0.008726203,
-        -0.008802353, 0.138964398, 0.008802353, -0.999923848, 0.008649719, -0.074150793, 0.0, 0.0,
-        0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "elbow_flex",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-geared",
-      "mesh": "servo-horn-geared.glb",
-      "name": "金属舵盘（驱动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
-      "transform": [
-        -6.65e-7, -0.017452074, 0.999847701, 0.013583573, 0.008802682, 0.999808962, 0.017451404,
-        0.152620114, -0.999961256, 0.008801353, 0.000152961, 0.070580342, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "wrist_flex",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-plain",
-      "mesh": "servo-horn-plain.glb",
-      "name": "金属舵盘（从动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
-      "transform": [
-        6.65e-7, -0.017452074, -0.999847701, 0.045628679, -0.008802682, 0.999808962, -0.017451404,
-        0.153355485, 0.999961256, 0.008801353, -0.000152961, 0.05058602, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "wrist_flex",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-geared",
-      "mesh": "servo-horn-geared.glb",
-      "name": "金属舵盘（驱动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:5/SCS215 v6_7:1",
-      "transform": [
-        0.999847701, 0.017452076, -6.65e-7, -0.002936687, 0.017451406, -0.999808962, 0.008802682,
-        0.152115662, 0.000152961, -0.008801353, -0.999961256, 0.095126864, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower", "leader"],
-      "host": null,
-      "joint": "wrist_roll",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-geared",
-      "mesh": "servo-horn-geared.glb",
-      "name": "金属舵盘（驱动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
-      "transform": [
-        0.008726205, 6.65e-7, -0.999961926, -0.000969478, -0.999923183, -0.008802682, -0.008725873,
-        0.181849422, -0.008802353, 0.999961256, -7.615e-5, 0.145790562, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower"],
-      "host": null,
-      "joint": "gripper",
-      "step": null
-    },
-    {
-      "kind": "horn",
-      "id": "servo-horn-plain",
-      "mesh": "servo-horn-plain.glb",
-      "name": "金属舵盘（从动） v2:1",
-      "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
-      "transform": [
-        -0.008726205, 6.65e-7, 0.999961926, -0.032843734, 0.999923183, -0.008802682, 0.008725873,
-        0.161571294, 0.008802353, 0.999961256, 7.615e-5, 0.145612075, 0.0, 0.0, 0.0, 1.0
-      ],
-      "approximation": true,
-      "via": "rule",
-      "note": null,
-      "feature": null,
-      "assembly": ["follower"],
-      "host": null,
-      "joint": "gripper",
-      "step": null
-    },
-    {
       "kind": "cable",
       "id": "servo-cable-3pin",
       "mesh": "servo-cable-3pin--component1.glb",
@@ -2133,7 +1923,7 @@
       "approximation": true,
       "via": "rule",
       "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
-      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "feature": "upstream STS3215_03a body on the vendor transform: shaft axis from the drive-horn centre (offset [12.5, -0.0] from the vendor bbox centre), case mid-height at the vendor bbox centre; vendor bbox [45.2, 36.3, 24.7], axes len/h/w = 0/1/2",
       "assembly": ["follower", "leader"],
       "host": null,
       "joint": "shoulder_pan",
@@ -2152,7 +1942,7 @@
       "approximation": true,
       "via": "rule",
       "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
-      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "feature": "upstream STS3215_03a body on the vendor transform: shaft axis from the drive-horn centre (offset [12.5, -0.0] from the vendor bbox centre), case mid-height at the vendor bbox centre; vendor bbox [45.2, 36.3, 24.7], axes len/h/w = 0/1/2",
       "assembly": ["follower", "leader"],
       "host": null,
       "joint": "shoulder_lift",
@@ -2171,7 +1961,7 @@
       "approximation": true,
       "via": "rule",
       "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
-      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "feature": "upstream STS3215_03a body on the vendor transform: shaft axis from the drive-horn centre (offset [12.5, -0.0] from the vendor bbox centre), case mid-height at the vendor bbox centre; vendor bbox [45.2, 36.3, 24.7], axes len/h/w = 0/1/2",
       "assembly": ["follower", "leader"],
       "host": null,
       "joint": "elbow_flex",
@@ -2190,7 +1980,7 @@
       "approximation": true,
       "via": "rule",
       "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
-      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "feature": "upstream STS3215_03a body on the vendor transform: shaft axis from the drive-horn centre (offset [12.5, -0.0] from the vendor bbox centre), case mid-height at the vendor bbox centre; vendor bbox [45.2, 36.3, 24.7], axes len/h/w = 0/1/2",
       "assembly": ["follower", "leader"],
       "host": null,
       "joint": "wrist_flex",
@@ -2209,7 +1999,7 @@
       "approximation": true,
       "via": "rule",
       "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
-      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "feature": "upstream STS3215_03a body on the vendor transform: shaft axis from the drive-horn centre (offset [12.5, -0.0] from the vendor bbox centre), case mid-height at the vendor bbox centre; vendor bbox [45.2, 36.3, 24.7], axes len/h/w = 0/1/2",
       "assembly": ["follower", "leader"],
       "host": null,
       "joint": "wrist_roll",
@@ -2228,7 +2018,217 @@
       "approximation": true,
       "via": "rule",
       "note": "follower arm model: all six slots carry the 1:345 servo; leader variants are placed by servo_slot in the viewer",
-      "feature": "vendor bbox [45.2, 36.3, 24.7] -> datasheet 45.23x24.73x35.0; axes len/h/w = 0/1/2",
+      "feature": "upstream STS3215_03a body on the vendor transform: shaft axis from the drive-horn centre (offset [12.5, -0.0] from the vendor bbox centre), case mid-height at the vendor bbox centre; vendor bbox [45.2, 36.3, 24.7], axes len/h/w = 0/1/2",
+      "assembly": ["follower"],
+      "host": null,
+      "joint": "gripper",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
+      "transform": [
+        -0.0, 1.0, -0.0, -9.9432e-5, 0.008726535, -0.0, -0.999961923, 0.038695156, -0.999961923,
+        -0.0, -0.008726535, 0.017336477, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "shoulder_pan",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
+      "transform": [
+        0.0, 1.0, 0.0, -9.9432e-5, -0.008726535, -0.0, 0.999961923, 0.006820907, 0.999961923, -0.0,
+        0.008726535, -0.002942447, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "shoulder_pan",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
+      "transform": [
+        0.0, -0.008726535, 0.999961923, 0.009992807, -0.999961923, 0.008726203, 7.6152e-5,
+        0.129758789, -0.008726535, -0.999923848, -0.008726203, 0.038741058, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "shoulder_lift",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
+      "transform": [
+        -0.0, -0.008726535, -0.999961923, 0.042041587, 0.999961923, 0.008726203, -7.6152e-5,
+        0.109761991, 0.008726535, -0.999923848, 0.008726203, 0.038286853, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "shoulder_lift",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
+      "transform": [
+        0.008726203, -0.008726535, 0.999923848, 0.011415942, -0.999923183, 0.008726203, 0.008802353,
+        0.158680746, -0.008802353, -0.999923848, -0.008649719, -0.073697523, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "elbow_flex",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
+      "transform": [
+        -0.008726203, -0.008726535, -0.999923848, 0.043638025, 0.999923183, 0.008726203,
+        -0.008802353, 0.138964398, 0.008802353, -0.999923848, 0.008649719, -0.074150793, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "elbow_flex",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
+      "transform": [
+        -6.65e-7, -0.017452074, 0.999847701, 0.013583573, 0.008802682, 0.999808962, 0.017451404,
+        0.152620114, -0.999961256, 0.008801353, 0.000152961, 0.070580342, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "wrist_flex",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
+      "transform": [
+        6.65e-7, -0.017452074, -0.999847701, 0.045628679, -0.008802682, 0.999808962, -0.017451404,
+        0.153355485, 0.999961256, 0.008801353, -0.000152961, 0.05058602, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "wrist_flex",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:5/SCS215 v6_7:1",
+      "transform": [
+        0.999847701, 0.017452076, -6.65e-7, -0.002936687, 0.017451406, -0.999808962, 0.008802682,
+        0.152115662, 0.000152961, -0.008801353, -0.999961256, 0.095126864, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower", "leader"],
+      "host": null,
+      "joint": "wrist_roll",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-geared",
+      "mesh": "servo-horn-geared.glb",
+      "name": "金属舵盘（驱动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
+      "transform": [
+        0.008726205, 6.65e-7, -0.999961926, -0.000969478, -0.999923183, -0.008802682, -0.008725873,
+        0.181849422, -0.008802353, 0.999961256, -7.615e-5, 0.145790562, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
+      "assembly": ["follower"],
+      "host": null,
+      "joint": "gripper",
+      "step": null
+    },
+    {
+      "kind": "horn",
+      "id": "servo-horn-plain",
+      "mesh": "servo-horn-plain.glb",
+      "name": "金属舵盘（从动） v2:1",
+      "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
+      "transform": [
+        -0.008726205, 6.65e-7, 0.999961926, -0.032843734, 0.999923183, -0.008802682, 0.008725873,
+        0.161571294, 0.008802353, 0.999961256, 7.615e-5, 0.145612075, 0.0, 0.0, 0.0, 1.0
+      ],
+      "approximation": true,
+      "via": "rule",
+      "note": null,
+      "feature": "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor extent, hub toward the servo; outline drawn as the ø19.95 circle",
       "assembly": ["follower"],
       "host": null,
       "joint": "gripper",
@@ -2341,7 +2341,7 @@
       "approximation": true,
       "via": "hand",
       "note": "trigger on the leader gripper servo's drive horn; D-005",
-      "feature": "four r=1.6 holes on the r=7 horn pattern set on the STEP's drive-side gripper screws (head base 4.9 mm out from the horn centre, plate 3.5 mm); rotation about the horn axis (solution 2 of 4) chosen so the finger loop points down and toward the gripper tip as in the upstream leader photo; the loop's rest angle and the leader servo pocket are assumptions, so it overlaps the holder",
+      "feature": "four r=1.6 holes on the r=7 horn pattern set on the STEP's drive-side gripper screws (head base 4.4 mm out from the horn centre, plate 3.5 mm); rotation about the horn axis (solution 2 of 4) chosen so the finger loop points down and toward the gripper tip as in the upstream leader photo; the loop's rest angle and the leader servo pocket are assumptions, so it overlaps the holder",
       "assembly": ["leader"],
       "host": null,
       "joint": null,
@@ -2394,8 +2394,8 @@
       "name": "M3x6 horn screw (shoulder_pan, synthesized)",
       "path": "SO101 Assembly v4/ST3215 Servo v2:1/SCS215 v6_7:1",
       "transform": [
-        1.0, 0.0, 0.0, -9.9432e-5, 0.0, 0.999961923, -0.008726535, 0.05983162, 0.0, 0.008726535,
-        0.999961923, 0.007520551, 0.0, 0.0, 0.0, 1.0
+        1.0, 0.0, 0.0, -9.9432e-5, 0.0, 0.999961923, -0.008726535, 0.059805574, 0.0, 0.008726535,
+        0.999961923, 0.007528842, 0.0, 0.0, 0.0, 1.0
       ],
       "approximation": true,
       "via": "derived",
@@ -2416,8 +2416,8 @@
       "name": "M3x6 horn screw (shoulder_lift, synthesized)",
       "path": "SO101 Assembly v4/ST3215 Servo v2:2/SCS215 v6_7:1",
       "transform": [
-        0.0, -0.999961923, 0.008726535, -0.011056391, 0.999961923, -7.6152e-5, -0.008726203,
-        0.119757567, 0.008726535, 0.008726203, 0.999923848, 0.038837479, 0.0, 0.0, 0.0, 1.0
+        0.0, -0.999961923, 0.008726535, -0.011030234, 0.999961923, -7.6152e-5, -0.008726203,
+        0.119757494, 0.008726535, 0.008726203, 0.999923848, 0.038845769, 0.0, 0.0, 0.0, 1.0
       ],
       "approximation": true,
       "via": "derived",
@@ -2438,8 +2438,8 @@
       "name": "M3x6 horn screw (elbow_flex, synthesized)",
       "path": "SO101 Assembly v4/ST3215 Servo v2:3/SCS215 v6_7:1",
       "transform": [
-        -0.008726871, -0.999923848, 0.008725868, -0.009545193, 0.999923848, -0.008802353,
-        -0.008649719, 0.148496225, 0.008725868, 0.008649719, 0.999924518, -0.07360347, 0.0, 0.0,
+        -0.008726871, -0.999923848, 0.008725868, -0.009528963, 0.999923848, -0.008802353,
+        -0.008649719, 0.148487862, 0.008725868, 0.008649719, 0.999924518, -0.073595253, 0.0, 0.0,
         0.0, 1.0
       ],
       "approximation": true,
@@ -2461,8 +2461,8 @@
       "name": "M3x6 horn screw (wrist_flex, synthesized)",
       "path": "SO101 Assembly v4/ST3215 Servo v2:4/SCS215 v6_7:1",
       "transform": [
-        -0.01745138, -0.999847701, -0.000155654, -0.007463228, 0.999847701, -0.017451404,
-        0.000152961, 0.152340789, -0.000155654, -0.000152961, 0.999999976, 0.06057751, 0.0, 0.0,
+        -0.01745138, -0.999847701, -0.000155654, -0.007460915, 0.999847701, -0.017451404,
+        0.000152961, 0.15232421, -0.000155654, -0.000152961, 0.999999976, 0.060577364, 0.0, 0.0,
         0.0, 1.0
       ],
       "approximation": true,
@@ -2484,8 +2484,8 @@
       "name": "M3x6 horn screw (gripper, synthesized)",
       "path": "SO101 Assembly v4/ST3215 Servo v2:6/SCS215 v6_7:1",
       "transform": [
-        0.008725879, 0.999961926, -7.5488e-5, 0.020166983, -0.999961926, 0.008725873, -7.615e-5,
-        0.17203387, -7.5488e-5, 7.615e-5, 0.999999994, 0.145704141, 0.0, 0.0, 0.0, 1.0
+        0.008725879, 0.999961926, -7.5488e-5, 0.020140936, -0.999961926, 0.008725873, -7.615e-5,
+        0.172042159, -7.5488e-5, 7.615e-5, 0.999999994, 0.145704214, 0.0, 0.0, 0.0, 1.0
       ],
       "approximation": true,
       "via": "derived",
@@ -2505,8 +2505,8 @@
       "name": "M3x6 horn screw (gripper, synthesized)",
       "path": "hand-placed",
       "transform": [
-        0.008725879, 0.999961926, -7.5488e-5, 0.02038695, -0.999961926, 0.008725873, -7.615e-5,
-        0.172029347, -7.5488e-5, 7.615e-5, 0.999999994, 0.146654138, 0.0, 0.0, 0.0, 1.0
+        0.008725879, 0.999961926, -7.5488e-5, 0.020360903, -0.999961926, 0.008725873, -7.615e-5,
+        0.172037636, -7.5488e-5, 7.615e-5, 0.999999994, 0.146654211, 0.0, 0.0, 0.0, 1.0
       ],
       "approximation": true,
       "via": "derived",
