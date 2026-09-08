@@ -139,6 +139,27 @@ listed in `SOURCES.md`.
 - Resolution: open; step lists both horns and says so.
 - Affects: L-062
 
+## D-007 — Servo body: upstream STEP model vs datasheet
+
+- Topic: `servo-sts3215-*` geometry; every "fit the motor" step's picture
+- Source A: `upstream/SO-ARM100/STEP/SO100/STS3215_03a.step` (repo's own
+  simplified body, read 2026-09-08): case 45.40 x 24.80 x 28.8 mm, shaft
+  axis 10.2 mm from the case end, no output boss modelled (the geared horn's
+  ø9 hub sits directly on the case top), fused horn plates 2.5 and 2.1 mm.
+- Source B: Feetech STS3215 product specification A/0, section 9: outside
+  dimensions 45.23 x 24.73 x 35 (case 32, ears to 36.5), shaft axis 12.5 mm
+  from the end, ø6 x 3.4 output boss.
+- Source C (pipeline, 2026-09-08): the embedded vendor model (Waveshare's
+  ST3215 file, transforms only) has its drive-horn axis 12.5 mm from its
+  45.2 mm bbox centre, i.e. 10.1 mm from the case end, agreeing with the
+  STEP body; its bbox height is 36.3 (datasheet 36.5 over the ears).
+- Resolution: the STEP body is used for its shape (it is the only licensed
+  body geometry) and the datasheet for the boss. The body is posed on the
+  vendor model's shaft axis (drive-horn centre), where STEP body and vendor
+  model agree; the datasheet's "12.5" is read as a different reference and
+  is not used for placement. Dimensions in text come from the datasheet.
+- Affects: `servo-sts3215.glb`; the servo stays `approximation: true`
+
 ## Not discrepancies (checked, consistent)
 
 - Motor 5 gets one horn only: LeRobot Joint 5 and Waveshare step 15 agree.

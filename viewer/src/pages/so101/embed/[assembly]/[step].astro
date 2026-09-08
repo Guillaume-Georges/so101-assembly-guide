@@ -3,12 +3,14 @@ import '../../../../styles/global.css';
 import Viewer from '../../../../island/Viewer';
 import { ASSEMBLIES, steps, stepNumber, stepPath } from '../../../../lib/data';
 import { withBase, sitePath } from '../../../../lib/seo';
+import { islandPreloads } from '../../../../lib/preload';
 export function getStaticPaths() {
   return ASSEMBLIES.flatMap((assembly) => steps(assembly).map((s) => ({ params: { assembly, step: `${stepNumber(s.id)}-${s.slug}` }, props: { s } })));
 }
 const { assembly } = Astro.params as { assembly: string };
 const { s } = Astro.props;
 const site = Astro.site ?? new URL('https://kitsmith.dev');
+const preloads = islandPreloads(assembly, s.id, sitePath('/'));
 ---
 <!doctype html>
 <html lang="en">
@@ -17,6 +19,7 @@ const site = Astro.site ?? new URL('https://kitsmith.dev');
     <title>{s.id} {s.title} — embed</title>
     <meta name="robots" content="noindex" />
     <link rel="canonical" href={new URL(withBase(stepPath(s)), site).toString()} />
+    {preloads.map((href) => <link rel="preload" href={href} as="fetch" crossorigin />)}
     <style>html, body { height: 100%; margin: 0; } .viewer { min-height: 100vh; border: 0; border-radius: 0; }</style>
   </head>
   <body>

@@ -14,23 +14,41 @@ import json
 import re
 from collections import defaultdict
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 
+import cadquery as cq
 import numpy as np
 import trimesh
+from OCP.IFSelect import IFSelect_RetDone
+from OCP.STEPControl import STEPControl_Reader
 
 from . import geom
 from .mapping import Resolved
 from .walk import Occurrence
 
-# Feetech STS3215 product specification A/0 (2020-03-28), section 9, mm.
+# Feetech STS3215 product specification A/0 (2020-03-28), section 9 (Outside Dimension), mm.
 SERVO_LENGTH, SERVO_WIDTH, SERVO_HEIGHT = 45.23, 24.73, 35.0
 SERVO_SHAFT_FROM_END, SERVO_BOSS_D, SERVO_BOSS_H = 12.5, 6.0, 3.4
-HORN_D = 19.2  # vendor-model extent; the datasheet page read gives no horn diameter
-HORN_T = {"servo-horn-geared": 4.6, "servo-horn-plain": 3.5}
+# Servo body: the upstream repo's own simplified model (Apache-2.0), in its authoring frame: X along the
+# length, Z along the output axis, shaft at x=+12.5, case top at z=14.4 and bottom at z=-14.4, rear ø6 boss to
+# z=-15.6. Both horn plates are fused onto it (z 16.2..18.7 and -15.6..-17.7) and are cut away, since the
+# horns are separate placements drawn from the datasheet (D-007 records where body and datasheet differ).
+SERVO_BODY_STEP = Path(__file__).resolve().parents[2] / "upstream/SO-ARM100/STEP/SO100/STS3215_03a.step"
+SERVO_BODY_SHAFT_XY = (12.5, 0.0)
+SERVO_BODY_KEEP_Z = (-15.6, 14.4)
+SERVO_BODY_DEFLECTION_MM = 0.05
+# Horns: datasheet section 10 (Accessories) drawings, mm. Plate outline drawn as the ø19.95 circle (the geared
+# horn's drawing shows a polygon whose side count is not dimensioned); 4-M3 on the ø14 bolt circle as ø2.5
+# tapped holes; the 25T spline is not modelled.
+HORN_D, HORN_HUB_D, HORN_BOLT_CIRCLE_D, HORN_TAP_D = 19.95, 9.0, 14.0, 2.5
+HORN = {  # id -> (plate thickness, hub protrusion on the servo side, centre bore)
+    "servo-horn-geared": (2.5, 2.0, 3.2),  # 4.5 overall
+    "servo-horn-plain": (2.1, 1.0, 6.05),  # 3.1 overall
+}
 FASTENER_PRIMS = {  # id -> (shank_d, shank_len, head_d, head_h) mm, all approximations
     "m3x6": (3.0, 6.0, 5.5, 2.4),
-    "m2x6": (2.0, 6.0, 3.8, 1.5),
+    "m2x6": (2.0, 6.0, 4.0, 1.6),  # head per ISO 7045 M2 (dk 4.0, k 1.6), type unsourced
     "motor-tab-screw": (1.9, 4.8, 3.6, 1.4),
     "m2.5x4": (2.5, 4.0, 4.7, 2.1),
     "spacer-m2.5-h6": (5.0, 6.0, 5.0, 0.0),
@@ -113,6 +131,8 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
     asm_nodes = {"/".join([*o.raw_path, o.raw_name]): o for o in all_occs if o.solids == -1}
     servo_groups: dict[str, list[Resolved]] = defaultdict(list)
     board_groups: dict[str, list[Resolved]] = defaultdict(list)
+    horns: list[Resolved] = []
+    servo_centre: dict[str, np.ndarray] = {}  # servo group key -> case centre, STEP world frame (mm)
 
     for r in resolved:
         o = r.occ
@@ -144,33 +164,27 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
                 r.note,
             )
         elif r.kind == "fastener":
-            mesh = _add_mesh(out, f"fastener-{r.id}.glb", fastener_primitive(r.id))
+            mesh = _add_mesh(out, f"fastener-{r.id}.glb", fastener_from_step(r.id, o))
             _place(out, "fastener", r.id, mesh, o, _fastener_pose(r.id, o), True, r.via, r.note)
         elif r.kind == "horn":
-            mesh = _add_mesh(out, f"{r.id}.glb", _horn_primitive(r.id, o))
-            _place(
-                out,
-                "horn",
-                r.id,
-                mesh,
-                o,
-                geom.matrix_from_loc(o.location),
-                True,
-                r.via,
-                r.note,
-                arms=_arms_for_servo(o),
-            )
-            out.placements[-1].joint = joint_of(o)
+            horns.append(r)
         elif r.kind == "servo":
             servo_groups[_group_key(o, "ST3215 Servo")].append(r)
         elif r.kind == "board":
             board_groups[_group_key(o, "Bus Servo Adapter (A)")].append(r)
 
+    horns_by_servo: dict[str, list[Occurrence]] = defaultdict(list)
+    for r in horns:
+        horns_by_servo[_group_key(r.occ, "ST3215 Servo")].append(r.occ)
     for key, members in servo_groups.items():
         node = asm_nodes[key]
+        # horns resolve as their own kind, so they are looked up by sub-assembly, not found among members
         local = [(m.occ, node.location.Inverted().Multiplied(m.occ.location)) for m in members]
-        horn = next((o for o, _ in local if "驱动" in o.name), None)
-        mesh_mm, feature = _servo_primitive(local, horn, node)
+        local_horns = [(o, node.location.Inverted().Multiplied(o.location)) for o in horns_by_servo[key]]
+        drive = next((h for h in local_horns if "驱动" in h[0].name), None)
+        idle = next((h for h in local_horns if "从动" in h[0].name), None)
+        mesh_mm, feature, centre_local = _servo_body(local, drive, idle)
+        servo_centre[key] = (geom.matrix_from_loc(node.location) @ np.array([*centre_local, 1.0]))[:3]
         mesh = _add_mesh(out, "servo-sts3215.glb", mesh_mm)
         r0 = members[0]
         _place(
@@ -187,6 +201,26 @@ def build(resolved: list[Resolved], all_occs: list[Occurrence], parts: dict[str,
             arms=_arms_for_servo(node),
         )
         out.placements[-1].joint = joint_of(node)
+
+    for r in horns:
+        o = r.occ
+        centre = servo_centre[_group_key(o, "ST3215 Servo")]
+        mesh = _add_mesh(out, f"{r.id}.glb", _horn_mesh(r.id, o, centre))
+        _place(
+            out,
+            "horn",
+            r.id,
+            mesh,
+            o,
+            geom.matrix_from_loc(o.location),
+            True,
+            r.via,
+            r.note,
+            "datasheet horn (section 10) on the vendor horn's transform: outer face flush with the vendor "
+            "extent, hub toward the servo; outline drawn as the ø19.95 circle",
+            arms=_arms_for_servo(o),
+        )
+        out.placements[-1].joint = joint_of(o)
 
     for key, members in board_groups.items():
         node = asm_nodes[key]
@@ -238,47 +272,93 @@ def _group_key(o: Occurrence, prefix: str) -> str:
     return "/".join(o.raw_path[: idx + 1])
 
 
-def _servo_primitive(local, horn, node):
-    """Datasheet box aligned to the vendor model's local bbox; boss on the drive-horn side."""
-    boxes = [geom.bbox(o.shape, loc) for o, loc in local if "舵盘" not in o.name]
+@lru_cache(maxsize=1)
+def servo_body_mesh() -> trimesh.Trimesh:
+    """The upstream STS3215 body in its own frame (mm): case plus rear boss, both fused horn plates cut off,
+    datasheet ø6 x 3.4 output boss added on the shaft axis."""
+    reader = STEPControl_Reader()
+    if reader.ReadFile(str(SERVO_BODY_STEP)) != IFSelect_RetDone:
+        raise RuntimeError(f"cannot read {SERVO_BODY_STEP}")
+    reader.TransferRoots()
+    body = cq.Shape.cast(reader.OneShape())
+    z0, z1 = SERVO_BODY_KEEP_Z
+    keep = cq.Solid.makeBox(80.0, 60.0, z1 - z0, pnt=cq.Vector(-40.0, -30.0, z0))
+    sx, sy = SERVO_BODY_SHAFT_XY
+    boss = cq.Solid.makeCylinder(SERVO_BOSS_D / 2, SERVO_BOSS_H, pnt=cq.Vector(sx, sy, z1))
+    solid = body.intersect(keep).fuse(boss)
+    return geom.tessellate(solid.wrapped, SERVO_BODY_DEFLECTION_MM, 0.35)
+
+
+def _servo_body(local, drive, idle):
+    """The upstream body posed in the vendor sub-assembly frame: its shaft axis on the vendor drive horn's
+    centre (the idle horn's when the drive horn is absent, as on motor 5), its case mid-height at the vendor
+    bbox centre, its length axis toward the horn end. `local` are the body members and `drive` / `idle` the
+    horns, each with its location relative to the sub-assembly node. Returns the mesh, a feature note and
+    the case centre (vendor frame, mm)."""
+    boxes = [geom.bbox(o.shape, loc) for o, loc in local]
     boxes = [b for b in boxes if b is not None]
     lo, hi = np.min([b[0] for b in boxes], axis=0), np.max([b[1] for b in boxes], axis=0)
     ext = hi - lo
     order = np.argsort(-ext)  # longest first: length (45), then height (35), then width (25)
     ax_len, ax_h, ax_w = order[0], order[1], order[2]
-    dims = np.zeros(3)
-    dims[ax_len], dims[ax_h], dims[ax_w] = SERVO_LENGTH, SERVO_HEIGHT - SERVO_BOSS_H, SERVO_WIDTH
     centre = (lo + hi) / 2
-    body = geom.box_mesh(dims, centre)
+    horn = drive if drive is not None else idle
+    if horn is None:
+        raise RuntimeError("servo sub-assembly without any horn: cannot orient the body")
+    hb = geom.bbox(horn[0].shape, horn[1])
+    hc = (hb[0] + hb[1]) / 2
+    sign_h = 1.0 if hc[ax_h] > centre[ax_h] else -1.0
+    if drive is None:
+        sign_h = -sign_h  # the idle horn sits on the rear boss: the output axis points the other way
+    sign_len = 1.0 if hc[ax_len] > centre[ax_len] else -1.0
+    ex, ez = np.eye(3)[ax_len] * sign_len, np.eye(3)[ax_h] * sign_h
+    rot = np.column_stack([ex, np.cross(ez, ex), ez])
+    target = centre.copy()
+    target[ax_len], target[ax_w] = hc[ax_len], hc[ax_w]
+    m = np.eye(4)
+    m[:3, :3] = rot
+    m[:3, 3] = target - rot @ np.array([*SERVO_BODY_SHAFT_XY, 0.0])
+    mesh = servo_body_mesh().copy()
+    mesh.apply_transform(m)
+    which = "drive" if drive is not None else "idle"
     feature = (
-        f"vendor bbox {np.round(ext, 1).tolist()} -> datasheet {SERVO_LENGTH}x{SERVO_WIDTH}x{SERVO_HEIGHT}; "
+        f"upstream STS3215_03a body on the vendor transform: shaft axis from the {which}-horn centre "
+        f"(offset {np.round(hc[[ax_len, ax_w]] - centre[[ax_len, ax_w]], 2).tolist()} from the vendor bbox centre), "
+        f"case mid-height at the vendor bbox centre; vendor bbox {np.round(ext, 1).tolist()}, "
         f"axes len/h/w = {ax_len}/{ax_h}/{ax_w}"
     )
-    if horn is not None:
-        hb = geom.bbox(horn.shape, next(loc for o, loc in local if o is horn))
-        hc = (hb[0] + hb[1]) / 2
-        sign = 1.0 if hc[ax_h] > centre[ax_h] else -1.0
-        axis = np.zeros(3)
-        axis[ax_h] = sign
-        boss_c = centre.copy()
-        boss_c[ax_len] = hc[ax_len]
-        boss_c[ax_w] = hc[ax_w]
-        boss_c[ax_h] = centre[ax_h] + sign * (dims[ax_h] / 2 + SERVO_BOSS_H / 2)
-        body = trimesh.util.concatenate([body, geom.cylinder_along(axis, boss_c, SERVO_BOSS_D / 2, SERVO_BOSS_H)])
-        feature += (
-            f"; boss at drive-horn centre, {abs(hc[ax_len] - lo[ax_len]):.1f} mm from bbox end "
-            f"(datasheet {SERVO_SHAFT_FROM_END})"
-        )
-    return body, feature
+    return mesh, feature, target
 
 
-def _horn_primitive(hid: str, o: Occurrence) -> trimesh.Trimesh:
+def _horn_solid(hid: str) -> cq.Shape:
+    """Datasheet horn, canonical frame: plate from z=0 to its thickness, outer face at +Z, hub on -Z."""
+    plate, hub, bore = HORN[hid]
+    solid = cq.Workplane("XY").circle(HORN_D / 2).extrude(plate)
+    solid = solid.union(cq.Workplane("XY").workplane(offset=-hub).circle(HORN_HUB_D / 2).extrude(hub))
+    solid = solid.faces(">Z").workplane().hole(bore)
+    bolts = solid.faces(">Z").workplane().polygon(4, HORN_BOLT_CIRCLE_D, forConstruction=True).vertices()
+    solid = bolts.hole(HORN_TAP_D)
+    return solid.val()
+
+
+def _horn_mesh(hid: str, o: Occurrence, servo_centre_world: np.ndarray) -> trimesh.Trimesh:
+    """The datasheet horn in the vendor horn's own frame: axis along the thinnest extent, outer face flush
+    with the vendor extent on the side away from the servo, hub toward the servo."""
     b = geom.bbox(o.shape)
     ext = b[1] - b[0]
     ax = int(np.argmin(ext))
-    axis = np.zeros(3)
-    axis[ax] = 1.0
-    return geom.cylinder_along(axis, (b[0] + b[1]) / 2, HORN_D / 2, HORN_T[hid])
+    c = (b[0] + b[1]) / 2
+    inv = np.linalg.inv(geom.matrix_from_loc(o.location))
+    servo_c = (inv @ np.array([*servo_centre_world, 1.0]))[:3]
+    inward = 1.0 if servo_c[ax] > c[ax] else -1.0
+    outward = -inward * np.eye(3)[ax]
+    outer = c.copy()
+    outer[ax] = b[0][ax] if inward > 0 else b[1][ax]
+    plate = HORN[hid][0]
+    mesh = geom.tessellate(_horn_solid(hid).wrapped, 0.03, 0.4)
+    m = screw_matrix(outer - outward * plate, outward)  # canonical +Z -> outward, z=0 at plate underside
+    mesh.apply_transform(m)
+    return mesh
 
 
 def fastener_length(fid: str) -> float:
@@ -288,15 +368,28 @@ def fastener_length(fid: str) -> float:
 
 
 def fastener_primitive(fid: str) -> trimesh.Trimesh:
-    """One canonical mesh per fastener id (mm): axis +Z, tip at the origin, head at the +Z end.
-    A placement is then fully described by its tip point and its tip->head direction (`screw_matrix`)."""
+    """One canonical mesh per fastener id (mm) for ids the STEP does not model (the hand-placed M2x6):
+    axis +Z, tip at the origin, head at +Z. A placement is then fully described by its tip point and
+    its tip->head direction (`screw_matrix`).
+    Screws get a pan head in the style of the STEP's ISO 7045 siblings (rounded top edge, cross recess),
+    nuts and spacers a hexagonal prism; head and recess proportions are decoration, not a spec (the
+    placement stays `approximation: true`)."""
+    import cadquery as cq
+
     shank_d, shank_len, head_d, head_h = FASTENER_PRIMS[fid]
-    z = np.array([0.0, 0.0, 1.0])
-    shank = geom.cylinder_along(z, np.array([0.0, 0.0, shank_len / 2]), shank_d / 2, shank_len)
-    if head_h == 0.0:  # nut / spacer: one cylinder
-        return shank
-    head = geom.cylinder_along(z, np.array([0.0, 0.0, shank_len + head_h / 2]), head_d / 2, head_h)
-    return trimesh.util.concatenate([shank, head])
+    if head_h == 0.0:  # nut / spacer: hex prism (across flats = head_d) with the thread bore
+        solid = cq.Workplane("XY").polygon(6, head_d / np.cos(np.pi / 6)).extrude(shank_len)
+        bore = 3.0 if fid == "m3-nut" else 2.5
+        solid = solid.faces(">Z").workplane().hole(bore)
+        return geom.tessellate(solid.val().wrapped, FASTENER_DEFLECTION_MM, 0.4)
+    shank = cq.Workplane("XY").circle(shank_d / 2).extrude(shank_len)
+    head = cq.Workplane("XY").workplane(offset=shank_len).circle(head_d / 2).extrude(head_h)
+    head = head.faces(">Z").edges().fillet(head_h * 0.35)
+    slot_w, slot_l, slot_d = 0.22 * head_d, 0.62 * head_d, 0.5 * head_h
+    top = cq.Workplane("XY").workplane(offset=shank_len + head_h - slot_d)
+    recess = top.rect(slot_l, slot_w).extrude(slot_d + 0.1).union(top.rect(slot_w, slot_l).extrude(slot_d + 0.1))
+    solid = shank.union(head).cut(recess)
+    return geom.tessellate(solid.val().wrapped, FASTENER_DEFLECTION_MM, 0.4)
 
 
 def screw_matrix(tip: np.ndarray, up: np.ndarray) -> np.ndarray:
@@ -328,28 +421,50 @@ def screw_tip_up_glb(transform: list[float]) -> tuple[np.ndarray, np.ndarray]:
     return geom.points_to_glb_frame(m[:3, 3]), up / np.linalg.norm(up)
 
 
-def _fastener_pose(fid: str, o: Occurrence) -> np.ndarray:
-    """Tip point and tip->head direction of a STEP fastener product, read off its own bbox: the axis is
-    the longest extent (the thinnest for a nut) and the head is the end the centre of mass leans to."""
+def _fastener_tip_up(fid: str, shape) -> tuple[np.ndarray, np.ndarray]:
+    """Tip point and tip->head direction of a STEP fastener product in its own frame, read off its bbox:
+    the axis is the longest extent (the thinnest for a nut) and the head is the end the centre of mass
+    leans to."""
     shank_d, shank_len, _, head_h = FASTENER_PRIMS[fid]
-    b = geom.bbox(o.shape)
+    b = geom.bbox(shape)
     ext = b[1] - b[0]
     ax = int(np.argmin(ext)) if head_h == 0.0 and shank_len < shank_d else int(np.argmax(ext))
     centre = (b[0] + b[1]) / 2
     if head_h == 0.0:
         sign = 1.0
     else:
-        sign = 1.0 if geom.centre_of_mass(o.shape)[ax] > centre[ax] else -1.0
+        sign = 1.0 if geom.centre_of_mass(shape)[ax] > centre[ax] else -1.0
     up = np.zeros(3)
     up[ax] = sign
     tip = centre.copy()
     tip[ax] = b[0][ax] if sign > 0 else b[1][ax]
+    return tip, up
+
+
+def _fastener_pose(fid: str, o: Occurrence) -> np.ndarray:
+    tip, up = _fastener_tip_up(fid, o.shape)
     return geom.matrix_from_loc(o.location) @ screw_matrix(tip, up)
+
+
+FASTENER_DEFLECTION_MM = 0.03  # screws are 2-6 mm; the part-level 0.08 turns a cross recess into a smudge
+
+
+def fastener_from_step(fid: str, o: Occurrence) -> trimesh.Trimesh:
+    """The STEP's own library part (ISO 7045 pan head with its cross recess, ANSI B18.6.4 fillister head,
+    DIN 934 hex nut) tessellated finely and moved into the canonical fastener frame: axis +Z, tip at the
+    origin, head at +Z. Same convention as `fastener_primitive`, so STEP-placed, synthesized and
+    hand-placed screws of one id keep sharing a mesh; the first STEP occurrence of an id is the one kept."""
+    tip, up = _fastener_tip_up(fid, o.shape)
+    mesh = geom.tessellate(o.shape, FASTENER_DEFLECTION_MM, 0.4)
+    mesh.apply_transform(np.linalg.inv(screw_matrix(tip, up)))
+    return mesh
 
 
 def write(out: Output, out_dir: Path, meta: dict) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     for name, mesh in out.meshes.items():
+        # merged vertices, no NORMAL: the viewer derives creased normals itself (toCreasedNormals). Splitting
+        # here or shipping normals costs 2.5-3x in the meshopt-compressed file for the same picture.
         mesh.export(out_dir / name)
     doc = {
         "meta": meta,

@@ -10,7 +10,8 @@ Live: https://guillaume-georges.github.io/so101-assembly-guide/
 - Pre-Phase-3 changes: D-001 stays open (`motor-tab-screw` carries the
   STEP default plus LeRobot/Waveshare variants, unverified until a kit is
   measured; `m2x6` is now only the handle screw); horn disc ø19.2 sourced
-  as measured from the embedded vendor model; handle placed from the
+  as measured from the embedded vendor model (superseded 2026-09-08: horns
+  drawn from datasheet section 10, ø19.95); handle placed from the
   LeRobot leader video pose (0:14, 0:24) as `approximation` since neither a
   feature pair nor the assembly STL (a follower, no handle body) allows
   registration; six cable centrelines derived in the pipeline and written

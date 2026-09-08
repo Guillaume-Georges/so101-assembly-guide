@@ -1,8 +1,19 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
-import { Grid, Html, Line, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
+import {
+  ContactShadows,
+  Grid,
+  Html,
+  Line,
+  OrbitControls,
+  Outlines,
+  useGLTF,
+  useProgress,
+} from '@react-three/drei';
 import * as THREE from 'three';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import { toCreasedNormals } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import {
   cablesAt,
   screwAxis,
@@ -38,8 +49,27 @@ function readColors(): void {
   COLORS.installed = v('--mesh-built', v('--muted', COLORS.installed));
   COLORS.future = v('--mesh-future', v('--line', COLORS.future));
 }
+/** Shading crease angle: flat faces stay flat, holes and fillets stay round. Outlines use the same. */
+const CREASE = Math.PI / 6;
 /** Crease lines: near-black reads on the lit grey and orange meshes in both themes. */
 const EDGE = '#0b0d12';
+/**
+ * What each kind of part is made of. Built parts render in these; the step's own parts get the accent
+ * as an outline and a tint on top, ghosts keep the flat future token. Colours are a neutral reading of
+ * the materials (light PLA, black servo case, steel screws), not a kit's actual print colour.
+ */
+type Look = { color: string; roughness: number; metalness: number };
+/** A current-step part keeps its material but leans toward the accent so it reads at a glance. */
+const tint = (base: string, accent: string): string =>
+  '#' + new THREE.Color(base).lerp(new THREE.Color(accent), 0.55).getHexString();
+const LOOK: Record<Placement['kind'], Look> = {
+  part: { color: '#d9d4cb', roughness: 0.55, metalness: 0 },
+  servo: { color: '#2a2d33', roughness: 0.45, metalness: 0.05 },
+  horn: { color: '#202226', roughness: 0.35, metalness: 0.6 },
+  board: { color: '#1d6b3a', roughness: 0.6, metalness: 0.05 },
+  fastener: { color: '#b4b8bf', roughness: 0.3, metalness: 0.9 },
+  cable: { color: '#c678dd', roughness: 0.7, metalness: 0 },
+};
 /** Name chip for a current-step part; fasteners stay unlabelled (eight screws would bury the picture). */
 const labelFor = (arm: ArmData, p: Placement, vis: Visibility): string | undefined =>
   vis === 'current' && p.kind !== 'fastener' ? (arm.parts[p.id]?.name ?? p.name) : undefined;
@@ -51,6 +81,25 @@ const LEGEND: [Visibility, string][] = [
   ['future', 'Later'],
 ];
 
+/** Image-based light from three's procedural room (no HDR asset to fetch); it gives the PLA its soft
+ * shading and the screws their reflections. Built once per renderer. */
+function Studio() {
+  const { gl, scene, invalidate } = useThree();
+  useEffect(() => {
+    const pmrem = new THREE.PMREMGenerator(gl);
+    const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = env;
+    scene.environmentIntensity = 0.75;
+    pmrem.dispose();
+    invalidate();
+    return () => {
+      scene.environment = null;
+      env.dispose();
+    };
+  }, [gl, scene, invalidate]);
+  return null;
+}
+
 function Part({
   p,
   vis,
@@ -61,6 +110,7 @@ function Part({
   url,
   mark,
   dragging,
+  onReady,
 }: {
   p: Placement;
   vis: Visibility;
@@ -71,6 +121,7 @@ function Part({
   url: string;
   mark?: number;
   dragging: boolean;
+  onReady: (url: string) => void;
 }) {
   const gltf = useGLTF(url, undefined, undefined, (loader) =>
     loader.setMeshoptDecoder(MeshoptDecoder),
@@ -83,7 +134,9 @@ function Part({
       const mesh = o as THREE.Mesh;
       if (!g && mesh.isMesh) g = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
     });
-    return g;
+    // GLBs ship merged vertices and no NORMAL (either would cost 2.5-3x in the compressed file): split at
+    // creases sharper than 30 deg here, so a box shades as a box and a bored hole as a cylinder.
+    return g && !g.attributes.normal ? toCreasedNormals(g, CREASE) : g;
   }, [gltf]);
   const m = useMemo(() => new THREE.Matrix4().fromArray(p.transform).transpose(), [p.transform]);
   const { pos, quat, scale } = useMemo(() => {
@@ -115,6 +168,9 @@ function Part({
     const top = new THREE.Vector3((b.min.x + b.max.x) / 2, b.max.y, (b.min.z + b.max.z) / 2);
     return top.multiply(scale).applyQuaternion(quat).add(pos);
   }, [geom, pos, quat, scale]);
+  useEffect(() => {
+    if (geom) onReady(url);
+  }, [geom, url, onReady]);
   if (!geom) return null;
   if (vis === 'future' && !ghost) return null;
   // guide from the hole to the backed-out screw
@@ -146,15 +202,29 @@ function Part({
             onPick(p);
           }}
         >
-          <meshStandardMaterial
-            color={COLORS[vis]}
-            transparent={vis === 'future'}
-            opacity={vis === 'future' ? 0.12 : 1}
-            roughness={0.7}
-            metalness={p.kind === 'fastener' || p.kind === 'horn' ? 0.6 : 0.05}
-          />
+          {vis === 'future' ? (
+            <meshStandardMaterial
+              color={COLORS.future}
+              transparent
+              opacity={0.12}
+              roughness={0.7}
+            />
+          ) : (
+            <meshStandardMaterial
+              color={
+                vis === 'current' ? tint(LOOK[p.kind].color, COLORS.current) : LOOK[p.kind].color
+              }
+              roughness={LOOK[p.kind].roughness}
+              metalness={LOOK[p.kind].metalness}
+              emissive={vis === 'current' ? COLORS.current : '#000000'}
+              emissiveIntensity={vis === 'current' ? 0.12 : 0}
+            />
+          )}
+          {vis === 'current' && (
+            <Outlines thickness={0.0008} color={COLORS.current} angle={CREASE} />
+          )}
         </mesh>
-        {edges && vis !== 'future' && (
+        {edges && vis === 'current' && (
           <lineSegments
             geometry={edges}
             position={pos}
@@ -162,7 +232,7 @@ function Part({
             scale={scale}
             raycast={() => null}
           >
-            <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
+            <lineBasicMaterial color={EDGE} transparent opacity={0.3} />
           </lineSegments>
         )}
         {mark && anchor && !dragging && (
@@ -177,17 +247,23 @@ function Part({
   );
 }
 
-/** Frame the built-so-far group once its meshes exist (Bounds would fit before world matrices update). */
+/**
+ * Frame the built-so-far group once its meshes exist (Bounds would fit before world matrices update).
+ * Parts stream in one Suspense boundary each, so `ready` (every built mesh decoded) gates the fit:
+ * one frame when the last built part lands, not a jump per part.
+ */
 function FitCamera({
   target,
   k,
   fit,
   mode,
+  ready,
 }: {
   target: React.RefObject<THREE.Group | null>;
   k: number;
   fit: number;
   mode: FitMode;
+  ready: boolean;
 }) {
   const { camera, controls, invalidate, scene } = useThree();
   useEffect(() => {
@@ -198,7 +274,7 @@ function FitCamera({
       group: target.current,
     };
     const g = target.current;
-    if (!g) return;
+    if (!g || !ready) return;
     g.updateMatrixWorld(true);
     // "step" frames this step's parts (with a wider margin for context); "arm" frames everything built.
     const collect = (want: (vis: string) => boolean) => {
@@ -213,7 +289,8 @@ function FitCamera({
     };
     let box = mode === 'step' ? collect((v) => v === 'current') : new THREE.Box3();
     if (box.isEmpty()) box = collect((v) => v !== 'future');
-    const margin = mode === 'step' ? 2.1 : 1.15;
+    // step: the current parts with a little air (the fit now waits for every mesh, so the box is the real one)
+    const margin = mode === 'step' ? 1.4 : 1.15;
     console.log('so101 fit', {
       meshes: g.children.length,
       empty: box.isEmpty(),
@@ -236,7 +313,7 @@ function FitCamera({
       c.update();
     } else cam.lookAt(centre);
     invalidate();
-  }, [target, k, fit, mode, camera, controls, invalidate]);
+  }, [target, k, fit, mode, ready, camera, controls, invalidate]);
   return null;
 }
 
@@ -384,33 +461,56 @@ function Scene({
       .reduce((a, v) => ({ ...a, [v]: (a[v] ?? 0) + 1 }), {} as Record<string, number>),
   });
   const built = useRef<THREE.Group>(null);
+  // Mesh files decoded so far (useGLTF caches per URL, so every placement of a file lands together).
+  const [loaded, setLoaded] = useState<ReadonlySet<string>>(() => new Set());
+  const onReady = useCallback(
+    (url: string) => setLoaded((s) => (s.has(url) ? s : new Set(s).add(url))),
+    [],
+  );
+  const ready = placements.every(
+    (p) =>
+      p.kind === 'cable' ||
+      visibility(p, arm.steps, k, arm.assembly) === 'future' ||
+      loaded.has(`${base}so101/geometry/${p.mesh}`),
+  );
   const { invalidate } = useThree();
-  useEffect(() => invalidate(), [k, explode, ghost, invalidate]);
+  useEffect(() => invalidate(), [k, explode, ghost, loaded, invalidate]);
   return (
     <>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[1, 2, 1]} intensity={1.2} />
-      <directionalLight position={[-1, 1, -1]} intensity={0.4} />
+      <Studio />
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[1, 2, 1]} intensity={1.4} />
+      <ContactShadows
+        position={[0, -0.0005, 0]}
+        scale={0.8}
+        blur={2.2}
+        opacity={0.45}
+        far={0.4}
+        resolution={512}
+        frames={Infinity}
+      />
       {/* Camera frames only what is built so far; ghosted future parts sit in a sibling group. */}
-      <FitCamera target={built} k={k} fit={fit} mode={mode} />
+      <FitCamera target={built} k={k} fit={fit} mode={mode} ready={ready} />
       <group ref={built}>
         {placements.map((p, i) => {
           if (p.kind === 'cable') return null;
           const vis = visibility(p, arm.steps, k, arm.assembly);
           if (vis === 'future') return null;
           return (
-            <Part
-              key={i}
-              p={p}
-              vis={vis}
-              explode={explode}
-              centre={hostFor(p, vis)}
-              ghost={ghost}
-              onPick={onPick}
-              url={`${base}so101/geometry/${p.mesh}`}
-              mark={marks.get(i)}
-              dragging={dragging}
-            />
+            <Suspense key={i} fallback={null}>
+              <Part
+                p={p}
+                vis={vis}
+                explode={explode}
+                centre={hostFor(p, vis)}
+                ghost={ghost}
+                onPick={onPick}
+                url={`${base}so101/geometry/${p.mesh}`}
+                mark={marks.get(i)}
+                dragging={dragging}
+                onReady={onReady}
+              />
+            </Suspense>
           );
         })}
         {arm.cables
@@ -425,18 +525,20 @@ function Scene({
           const vis = visibility(p, arm.steps, k, arm.assembly);
           if (vis !== 'future') return null;
           return (
-            <Part
-              key={i}
-              p={p}
-              vis={vis}
-              explode={explode}
-              centre={hostFor(p, vis)}
-              ghost={ghost}
-              onPick={onPick}
-              url={`${base}so101/geometry/${p.mesh}`}
-              mark={marks.get(i)}
-              dragging={dragging}
-            />
+            <Suspense key={i} fallback={null}>
+              <Part
+                p={p}
+                vis={vis}
+                explode={explode}
+                centre={hostFor(p, vis)}
+                ghost={ghost}
+                onPick={onPick}
+                url={`${base}so101/geometry/${p.mesh}`}
+                mark={marks.get(i)}
+                dragging={dragging}
+                onReady={onReady}
+              />
+            </Suspense>
           );
         })}
       </group>
@@ -499,11 +601,12 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         Loading 3D view…
       </p>
     );
-  // preload the meshes of the next step
+  // Preload the meshes of the next step. Cables are drawn from data paths, never from their meshes
+  // (the seven cable GLBs outweigh every printed part together), so they are skipped here as in Scene.
   const next = arm.steps[k + 1];
   if (next)
     for (const p of placements)
-      if (visibility(p, arm.steps, k + 1, assembly) === 'current')
+      if (p.kind !== 'cable' && visibility(p, arm.steps, k + 1, assembly) === 'current')
         useGLTF.preload(`${base}so101/geometry/${p.mesh}`);
   // Numbered callouts: one number per distinct current part name (two horns share a number),
   // drawn on the picture; the names live in the key under it, never over the geometry.
@@ -622,7 +725,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         <span className="legend" aria-hidden="true">
           {LEGEND.map(([vis, text]) => (
             <span key={vis} className={`key ${vis}`}>
-              <i style={{ background: COLORS[vis] }} />
+              <i style={{ background: vis === 'installed' ? LOOK.part.color : COLORS[vis] }} />
               {text}
             </span>
           ))}
