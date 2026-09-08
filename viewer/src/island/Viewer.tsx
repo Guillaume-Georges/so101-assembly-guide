@@ -289,7 +289,8 @@ function FitCamera({
     };
     let box = mode === 'step' ? collect((v) => v === 'current') : new THREE.Box3();
     if (box.isEmpty()) box = collect((v) => v !== 'future');
-    const margin = mode === 'step' ? 2.1 : 1.15;
+    // step: the current parts with a little air (the fit now waits for every mesh, so the box is the real one)
+    const margin = mode === 'step' ? 1.4 : 1.15;
     console.log('so101 fit', {
       meshes: g.children.length,
       empty: box.isEmpty(),
