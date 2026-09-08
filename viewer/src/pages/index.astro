@@ -1,22 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
 import { data, steps, stepPath, stepNumber } from '../lib/data';
-import { withBase, sitePath } from '../lib/seo';
+import { withBase, sitePath, organization, GITHUB } from '../lib/seo';
 const site = Astro.site ?? new URL('https://kitsmith.dev');
-const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Kitsmith', url: new URL(sitePath('/'), site).toString(), description: 'Source-traceable build companions for open-hardware kits.' }];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Kitsmith', url: new URL(sitePath('/'), site).toString(), description: 'Source-traceable build companions for open-hardware kits.', publisher: organization(site.toString()) },
+  { '@context': 'https://schema.org', ...organization(site.toString()) },
+];
 // One real step on the landing: the first follower step with a servo slot (a joint, not prep).
 const sample = steps('follower').find((s) => s.servo_slot) ?? steps('follower')[0];
 const embed = withBase(`/embed/follower/${stepNumber(sample.id)}-${sample.slug}/`);
 const total = steps('follower').length + steps('leader').length;
 ---
-<Base title="Kitsmith" path="/" description="Kitsmith: source-traceable, step-by-step build companions for open-hardware kits. First guide: the SO-101 robot arm, with a 3D view for every step." jsonLd={jsonLd}>
+<Base title="Kitsmith: step-by-step build guides for open-hardware kits" path="/" description="Kitsmith: source-traceable, step-by-step build guides for open-hardware kits. First guide: the SO-101 robot arm, with a 3D view for every step." jsonLd={jsonLd}>
   <div class="hero landing">
     <div>
       <h1>Build guides that show you every step.</h1>
       <p>One page per step: what you need, what to do, and how to know you got it right. A 3D view of the part going on, and a source for every fact. If we don't know, the page says so.</p>
       <div class="actions">
         <a class="button primary" href={withBase('/')}>Build the SO-101 robot arm →</a>
-        <a class="button" href="https://github.com/Guillaume-Georges/so101-assembly-guide">How the guides are made</a>
+        <a class="button" href={GITHUB}>How the guides are made</a>
       </div>
     </div>
     <figure class="sample">
@@ -37,7 +40,7 @@ const total = steps('follower').length + steps('leader').length;
     </a>
     <div class="card ghost"><h3>More kits later</h3><p>Same rules, same data model.</p></div>
   </div>
-  <p class="muted">Source and corrections on <a href="https://github.com/Guillaume-Georges/so101-assembly-guide">GitHub</a>.</p>
+  <p class="muted">Source and corrections on <a href={GITHUB}>GitHub</a>.</p>
 </Base>
 <style>
   .hero.landing {

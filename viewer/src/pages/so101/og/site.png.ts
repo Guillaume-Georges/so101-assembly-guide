@@ -4,7 +4,10 @@ import { card } from '../../../lib/og';
 export const GET: APIRoute = async () => {
   const png = await sharp(
     Buffer.from(
-      card('SO-101 Assembly Guide', 'Source-traceable, step-by-step, with a 3D view per step'),
+      card(
+        'SO-101 robot arm assembly guide',
+        'Step by step, every fact sourced, a 3D view per step',
+      ),
     ),
   )
     .png()

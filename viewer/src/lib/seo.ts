@@ -5,13 +5,22 @@ export const SITE_NAME = 'SO-101 Assembly Guide';
 export const BRAND = 'Kitsmith';
 export const GUIDE_NAME = 'SO-101 guide';
 /**
- * Site-wide noindex until the custom domain is live: the canonicals still point at the
- * GitHub Pages URL and nothing may be indexed there. Flip with SITE_INDEXABLE=true at build.
+ * kitsmith.dev is the canonical host, so builds are indexable unless SITE_INDEXABLE=false is set
+ * (a staging host, or a build that must never reach search). robots.txt and the sitemap link follow.
  */
 declare const __SITE_INDEXABLE__: string;
-export const NOINDEX = __SITE_INDEXABLE__ !== 'true';
+export const NOINDEX = __SITE_INDEXABLE__ === 'false';
 export const DESCRIPTION =
-  'Source-traceable, step-by-step assembly guide for the SO-101 robot arm: parts, servos and gear ratios per joint, screws, tools, cable routing, checks, and a 3D view for every step.';
+  'Step-by-step SO-101 robot arm assembly guide: servo and gear ratio per joint, screws, tools, cable routing, a check and a 3D view per step. Every fact sourced.';
+export const GITHUB = 'https://github.com/Guillaume-Georges/so101-assembly-guide';
+
+/** Cut a meta description at a word boundary so the snippet never ends mid-word. */
+export function clip(text: string, max = 155): string {
+  const t = text.replace(/\s+/g, ' ').trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max - 1);
+  return cut.slice(0, Math.max(cut.lastIndexOf(' '), max - 30)).replace(/[\s,;:·]+$/, '') + '…';
+}
 
 /** The SO-101 guide lives under /so101/ on kitsmith.dev (brand site, more kits later). */
 export const GUIDE = '/so101';
@@ -26,13 +35,25 @@ export function sitePath(path: string): string {
 }
 
 export function stepDescription(s: Step): string {
-  const bits = [`Step ${s.id}: ${s.title}.`];
-  if (s.plain) return [...bits, ...s.plain.do.map((d) => d.text)].join(' ').slice(0, 158);
+  const arm = s.assembly === 'leader' ? 'leader' : 'follower';
+  const bits = [`SO-101 ${arm} arm, step ${s.id}: ${s.title}.`];
+  if (s.plain) return clip([...bits, ...s.plain.do.map((d) => d.text)].join(' '));
   if (s.servo_slot) bits.push(`Motor slot ${s.servo_slot.replace(/_/g, ' ')}.`);
   if (s.fasteners?.length)
     bits.push(`Fasteners: ${s.fasteners.map((f) => `${f.qty}× ${f.id}`).join(', ')}.`);
   bits.push(`Check: ${s.check}`);
-  return bits.join(' ').slice(0, 158);
+  return clip(bits.join(' '));
+}
+
+/** Kitsmith as schema.org publisher/author of every page. */
+export function organization(site: string) {
+  return {
+    '@type': 'Organization',
+    name: BRAND,
+    url: new URL(sitePath('/'), site).toString(),
+    logo: new URL(sitePath('/icon-512.png'), site).toString(),
+    sameAs: [GITHUB],
+  };
 }
 
 export function breadcrumbs(items: { name: string; path: string }[], site: string) {
@@ -48,16 +69,26 @@ export function breadcrumbs(items: { name: string; path: string }[], site: strin
   };
 }
 
-export function techArticle(s: Step, site: string) {
+export function techArticle(s: Step, site: string, image: string) {
+  const arm = s.assembly === 'leader' ? 'leader' : 'follower';
   return {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
-    headline: `${s.id} ${s.title}`,
+    headline: `${s.title} (SO-101 ${arm} arm, step ${s.id})`,
     description: stepDescription(s),
     url: new URL(withBase(stepPath(s)), site).toString(),
+    image: new URL(withBase(image), site).toString(),
+    inLanguage: 'en',
     dateModified: data.generated_at,
     isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: new URL(withBase('/'), site).toString() },
+    author: organization(site),
+    publisher: organization(site),
     proficiencyLevel: 'Beginner',
     dependencies: s.tools?.join(', '),
+    about: {
+      '@type': 'Product',
+      name: 'SO-101 robot arm',
+      url: 'https://github.com/TheRobotStudio/SO-ARM100',
+    },
   };
 }

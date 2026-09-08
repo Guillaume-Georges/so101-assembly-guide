@@ -1,12 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { data, steps, stepPath } from '../../lib/data';
-import { withBase, SITE_NAME, DESCRIPTION } from '../../lib/seo';
+import { withBase, SITE_NAME, DESCRIPTION, organization } from '../../lib/seo';
 const counts = { follower: steps('follower').length, leader: steps('leader').length };
 const firstFollower = steps('follower')[0];
 const servoIdStep = steps('follower').find((s) => s.prep && /servo id/i.test(s.title));
 const site = Astro.site ?? new URL('https://kitsmith.dev');
-const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: new URL(withBase('/'), site).toString(), description: DESCRIPTION }];
+const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: new URL(withBase('/'), site).toString(), description: DESCRIPTION, publisher: organization(site.toString()) }];
 ---
 <Base title={SITE_NAME} path="" jsonLd={jsonLd}>
   <div class="hero">

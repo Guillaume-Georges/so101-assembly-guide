@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import Flags from '../../../components/Flags.astro';
 import Sources from '../../../components/Sources.astro';
 import { data, stepPath } from '../../../lib/data';
-import { withBase, breadcrumbs } from '../../../lib/seo';
+import { withBase, breadcrumbs, clip } from '../../../lib/seo';
 export function getStaticPaths() {
   return data.parts.map((p) => ({ params: { id: p.id }, props: { p } }));
 }
@@ -13,7 +13,7 @@ const vendorRefs = data.vendors.flatMap((v) => (v.part_map ?? []).filter((m) => 
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const upstream = p.source_file ? `https://github.com/TheRobotStudio/SO-ARM100/blob/eecbe3e0a9ebb23e25ad7b2759b03884c6660903/${p.source_file.replace('upstream/SO-ARM100/', '')}` : undefined;
 ---
-<Base title={p.name} path={`/parts/${p.id}/`} section="/parts/" description={`${p.name}: SO-101 ${p.category} part, qty ${p.qty}, used in ${used.length} steps. ${(p.notes ?? '').slice(0, 90)}`} noindex={!!p.unverified} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Parts', path: '/parts/' }, { name: p.name, path: `/parts/${p.id}/` }], site.toString())]}>
+<Base title={p.name} path={`/parts/${p.id}/`} section="/parts/" description={clip(`${p.name}: SO-101 ${p.category} part, qty ${p.qty}${used.length ? `, used in ${used.length} assembly step${used.length === 1 ? '' : 's'}` : ''}. ${p.notes ?? ''} Upstream file, licence${vendorRefs.length ? ', vendor part numbers' : ''} and where it goes.`)} noindex={!!p.unverified} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Parts', path: '/parts/' }, { name: p.name, path: `/parts/${p.id}/` }], site.toString())]}>
   <p class="muted"><a href={withBase('/parts/')}>Parts</a> · {p.category}</p>
   <h1>{p.name} <Flags unverified={p.unverified} approximation={p.approximation} /></h1>
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">

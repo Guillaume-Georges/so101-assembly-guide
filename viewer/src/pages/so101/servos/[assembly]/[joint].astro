@@ -18,7 +18,7 @@ const plainName = (id: string) => parts.get(id)?.name_plain ?? parts.get(id)?.na
 const std = s.variants.find((v) => v.default) ?? s.variants[0];
 const optional = s.variants.filter((v) => !v.default);
 ---
-<Base title={title} path={`/servos/${s.assembly}/${s.joint}/`} section="/servos/" description={`SO-101 ${s.assembly} motor ${s.bus_id} (${jointLabel(s.joint)}): ${s.model} ${s.gear_ratio}, ${s.variants.map((v) => v.servo_voltage + ' on ' + v.supply).join(' or ')}.`} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Servos', path: '/servos/' }, { name: title, path: `/servos/${s.assembly}/${s.joint}/` }], site.toString())]}>
+<Base title={title} path={`/servos/${s.assembly}/${s.joint}/`} section="/servos/" description={`Which servo goes at the SO-101 ${s.assembly} arm ${jointLabel(s.joint).toLowerCase()} joint: bus ID ${s.bus_id}, ${s.model}, gear ratio ${s.gear_ratio}, ${s.variants.map((v) => v.servo_voltage + ' on ' + v.supply).join(' or ')}, and the steps that mount it.`} jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Servos', path: '/servos/' }, { name: title, path: `/servos/${s.assembly}/${s.joint}/` }], site.toString())]}>
   <p class="muted"><a href={withBase('/servos/')}>Motors</a> · {arm}</p>
   <h1>Motor {s.bus_id} · <Gloss text={jointLabel(s.joint)} seen={seen} /></h1>
   <div class="card steppanel">

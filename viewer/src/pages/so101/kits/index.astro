@@ -6,7 +6,7 @@ import { data, parts } from '../../../lib/data';
 import { withBase, breadcrumbs } from '../../../lib/seo';
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 ---
-<Base title="Kits and vendor part numbers" path="/kits/" section="/kits/" description="SO-101 kit vendors listed upstream, what each kit includes, the servos it ships, and a cross-reference from vendor part numbers (Waveshare F1–F11, L1–L12; Seeed F1–F6, L1–L6) to upstream part names." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Kits', path: '/kits/' }], site.toString())]}>
+<Base title="Kits and vendor part numbers" path="/kits/" section="/kits/" description="SO-101 kit vendors: what each kit includes, which servos ship, and vendor part numbers (Waveshare F1–F11/L1–L12, Seeed F1–F6/L1–L6) mapped to upstream names." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Kits', path: '/kits/' }], site.toString())]}>
   <h1>Kits and vendor part numbers</h1>
   <p>Vendors as listed in the upstream README plus Waveshare. Links only; no prices without a retrieved date. Not affiliated with any vendor.</p>
   {data.vendors.map((v) => (
