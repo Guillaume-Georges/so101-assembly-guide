@@ -909,13 +909,20 @@ details.menu > summary {
   border-color: var(--accent);
 }
 
-/* Headings in Archivo (two weights, latin subset, ~28 KB); body stays on the system stack. */
+/* Headings on the system stack like the body: no web font, no third-party request before first paint. */
 h1,
 h2,
 h3,
 .hero h1,
 section.group h3 {
-  font-family: 'Archivo', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
   letter-spacing: -0.01em;
   font-weight: 700;
 }
@@ -960,7 +967,6 @@ header.site a.guide .sep {
   border-radius: 12px;
   background: var(--accent);
   color: var(--bg);
-  font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 700;
   font-size: 1.8rem;
   display: inline-flex;
