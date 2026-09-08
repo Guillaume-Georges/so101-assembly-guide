@@ -11,7 +11,7 @@ export function getStaticPaths() {
 export const GET: APIRoute = async ({ props }) => {
   const { s } = props as { s: { id: string; title: string; assembly: string; check: string } };
   const png = await sharp(
-    Buffer.from(card(`${s.id} ${s.title}`, `${s.assembly} arm · check: ${s.check}`)),
+    Buffer.from(card(s.title, `${s.assembly} arm · step ${s.id} · check: ${s.check}`)),
   )
     .png()
     .toBuffer();

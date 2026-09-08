@@ -79,7 +79,9 @@ const navGroups: [string, [string, string][]][] = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&display=swap" />
     <link rel="manifest" href={sitePath('/manifest.webmanifest')} />
+    <link rel="icon" href={sitePath('/favicon.ico')} sizes="32x32" />
     <link rel="icon" href={sitePath('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={sitePath('/apple-touch-icon.png')} />
     {!NOINDEX && <link rel="sitemap" href={sitePath('/sitemap-index.xml')} />}
     {jsonLd.map((o) => <script is:inline type="application/ld+json" set:html={JSON.stringify(o)} />)}
     {analytics && <script is:inline defer data-domain={analyticsDomain} src={analytics}></script>}
