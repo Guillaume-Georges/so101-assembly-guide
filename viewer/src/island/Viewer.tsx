@@ -1,8 +1,19 @@
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
-import { Grid, Html, Line, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
+import {
+  ContactShadows,
+  Grid,
+  Html,
+  Line,
+  OrbitControls,
+  Outlines,
+  useGLTF,
+  useProgress,
+} from '@react-three/drei';
 import * as THREE from 'three';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import { toCreasedNormals } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import {
   cablesAt,
   screwAxis,
@@ -38,8 +49,27 @@ function readColors(): void {
   COLORS.installed = v('--mesh-built', v('--muted', COLORS.installed));
   COLORS.future = v('--mesh-future', v('--line', COLORS.future));
 }
+/** Shading crease angle: flat faces stay flat, holes and fillets stay round. Outlines use the same. */
+const CREASE = Math.PI / 6;
 /** Crease lines: near-black reads on the lit grey and orange meshes in both themes. */
 const EDGE = '#0b0d12';
+/**
+ * What each kind of part is made of. Built parts render in these; the step's own parts get the accent
+ * as an outline and a tint on top, ghosts keep the flat future token. Colours are a neutral reading of
+ * the materials (light PLA, black servo case, steel screws), not a kit's actual print colour.
+ */
+type Look = { color: string; roughness: number; metalness: number };
+/** A current-step part keeps its material but leans toward the accent so it reads at a glance. */
+const tint = (base: string, accent: string): string =>
+  '#' + new THREE.Color(base).lerp(new THREE.Color(accent), 0.55).getHexString();
+const LOOK: Record<Placement['kind'], Look> = {
+  part: { color: '#d9d4cb', roughness: 0.55, metalness: 0 },
+  servo: { color: '#2a2d33', roughness: 0.45, metalness: 0.05 },
+  horn: { color: '#202226', roughness: 0.35, metalness: 0.6 },
+  board: { color: '#1d6b3a', roughness: 0.6, metalness: 0.05 },
+  fastener: { color: '#b4b8bf', roughness: 0.3, metalness: 0.9 },
+  cable: { color: '#c678dd', roughness: 0.7, metalness: 0 },
+};
 /** Name chip for a current-step part; fasteners stay unlabelled (eight screws would bury the picture). */
 const labelFor = (arm: ArmData, p: Placement, vis: Visibility): string | undefined =>
   vis === 'current' && p.kind !== 'fastener' ? (arm.parts[p.id]?.name ?? p.name) : undefined;
@@ -50,6 +80,25 @@ const LEGEND: [Visibility, string][] = [
   ['installed', 'Built'],
   ['future', 'Later'],
 ];
+
+/** Image-based light from three's procedural room (no HDR asset to fetch); it gives the PLA its soft
+ * shading and the screws their reflections. Built once per renderer. */
+function Studio() {
+  const { gl, scene, invalidate } = useThree();
+  useEffect(() => {
+    const pmrem = new THREE.PMREMGenerator(gl);
+    const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = env;
+    scene.environmentIntensity = 0.75;
+    pmrem.dispose();
+    invalidate();
+    return () => {
+      scene.environment = null;
+      env.dispose();
+    };
+  }, [gl, scene, invalidate]);
+  return null;
+}
 
 function Part({
   p,
@@ -85,7 +134,9 @@ function Part({
       const mesh = o as THREE.Mesh;
       if (!g && mesh.isMesh) g = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
     });
-    return g;
+    // GLBs ship merged vertices and no NORMAL (either would cost 2.5-3x in the compressed file): split at
+    // creases sharper than 30 deg here, so a box shades as a box and a bored hole as a cylinder.
+    return g && !g.attributes.normal ? toCreasedNormals(g, CREASE) : g;
   }, [gltf]);
   const m = useMemo(() => new THREE.Matrix4().fromArray(p.transform).transpose(), [p.transform]);
   const { pos, quat, scale } = useMemo(() => {
@@ -151,15 +202,29 @@ function Part({
             onPick(p);
           }}
         >
-          <meshStandardMaterial
-            color={COLORS[vis]}
-            transparent={vis === 'future'}
-            opacity={vis === 'future' ? 0.12 : 1}
-            roughness={0.7}
-            metalness={p.kind === 'fastener' || p.kind === 'horn' ? 0.6 : 0.05}
-          />
+          {vis === 'future' ? (
+            <meshStandardMaterial
+              color={COLORS.future}
+              transparent
+              opacity={0.12}
+              roughness={0.7}
+            />
+          ) : (
+            <meshStandardMaterial
+              color={
+                vis === 'current' ? tint(LOOK[p.kind].color, COLORS.current) : LOOK[p.kind].color
+              }
+              roughness={LOOK[p.kind].roughness}
+              metalness={LOOK[p.kind].metalness}
+              emissive={vis === 'current' ? COLORS.current : '#000000'}
+              emissiveIntensity={vis === 'current' ? 0.12 : 0}
+            />
+          )}
+          {vis === 'current' && (
+            <Outlines thickness={0.0008} color={COLORS.current} angle={CREASE} />
+          )}
         </mesh>
-        {edges && vis !== 'future' && (
+        {edges && vis === 'current' && (
           <lineSegments
             geometry={edges}
             position={pos}
@@ -167,7 +232,7 @@ function Part({
             scale={scale}
             raycast={() => null}
           >
-            <lineBasicMaterial color={EDGE} transparent opacity={vis === 'current' ? 0.75 : 0.45} />
+            <lineBasicMaterial color={EDGE} transparent opacity={0.3} />
           </lineSegments>
         )}
         {mark && anchor && !dragging && (
@@ -411,9 +476,18 @@ function Scene({
   useEffect(() => invalidate(), [k, explode, ghost, loaded, invalidate]);
   return (
     <>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[1, 2, 1]} intensity={1.2} />
-      <directionalLight position={[-1, 1, -1]} intensity={0.4} />
+      <Studio />
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[1, 2, 1]} intensity={1.4} />
+      <ContactShadows
+        position={[0, -0.0005, 0]}
+        scale={0.8}
+        blur={2.2}
+        opacity={0.45}
+        far={0.4}
+        resolution={512}
+        frames={Infinity}
+      />
       {/* Camera frames only what is built so far; ghosted future parts sit in a sibling group. */}
       <FitCamera target={built} k={k} fit={fit} mode={mode} ready={ready} />
       <group ref={built}>
@@ -650,7 +724,7 @@ export default function Viewer({ assembly, stepId, base, embed }: Props) {
         <span className="legend" aria-hidden="true">
           {LEGEND.map(([vis, text]) => (
             <span key={vis} className={`key ${vis}`}>
-              <i style={{ background: COLORS[vis] }} />
+              <i style={{ background: vis === 'installed' ? LOOK.part.color : COLORS[vis] }} />
               {text}
             </span>
           ))}
