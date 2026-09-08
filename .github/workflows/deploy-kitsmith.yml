@@ -36,9 +36,11 @@ jobs:
         env:
           SITE: https://kitsmith.dev
           VITE_BASE: /
-          SITE_INDEXABLE: ${{ vars.SITE_INDEXABLE || 'false' }}
+          SITE_INDEXABLE: ${{ vars.SITE_INDEXABLE || 'true' }} # set the repo variable to 'false' to pull the site from search
           PUBLIC_ANALYTICS_SCRIPT: ${{ vars.PUBLIC_ANALYTICS_SCRIPT }}
           PUBLIC_ANALYTICS_DOMAIN: ${{ vars.PUBLIC_ANALYTICS_DOMAIN }}
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          PUBLIC_BING_SITE_VERIFICATION: ${{ vars.PUBLIC_BING_SITE_VERIFICATION }}
       - name: Release must be complete before it leaves CI
         run: test -f viewer/dist/index.html && test -f viewer/dist/so101/index.html && test -f viewer/dist/robots.txt
       - name: SSH key + pinned host key (no ssh-keyscan at deploy time)

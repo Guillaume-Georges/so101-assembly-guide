@@ -5,11 +5,11 @@ export const SITE_NAME = 'SO-101 Assembly Guide';
 export const BRAND = 'Kitsmith';
 export const GUIDE_NAME = 'SO-101 guide';
 /**
- * Site-wide noindex until the custom domain is live: the canonicals still point at the
- * GitHub Pages URL and nothing may be indexed there. Flip with SITE_INDEXABLE=true at build.
+ * kitsmith.dev is the canonical host, so builds are indexable unless SITE_INDEXABLE=false is set
+ * (a staging host, or a build that must never reach search). robots.txt and the sitemap link follow.
  */
 declare const __SITE_INDEXABLE__: string;
-export const NOINDEX = __SITE_INDEXABLE__ !== 'true';
+export const NOINDEX = __SITE_INDEXABLE__ === 'false';
 export const DESCRIPTION =
   'Source-traceable, step-by-step assembly guide for the SO-101 robot arm: parts, servos and gear ratios per joint, screws, tools, cable routing, checks, and a 3D view for every step.';
 

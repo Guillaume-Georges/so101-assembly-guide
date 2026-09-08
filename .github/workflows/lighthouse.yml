@@ -17,8 +17,6 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-        env:
-          SITE_INDEXABLE: 'true' # audit the indexable variant; the deployed site stays noindex until the domain is live
+      - run: pnpm build # indexable by default, the same variant deploy-kitsmith.yml ships
       - run: npm i -g @lhci/cli@0.15.x
       - run: lhci autorun

@@ -19,6 +19,9 @@ const canonical = new URL(canonicalPath, site).toString();
 const og = new URL(withBase(ogImage ?? '/og/site.png'), site).toString();
 const analytics = import.meta.env.PUBLIC_ANALYTICS_SCRIPT as string | undefined;
 const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | undefined;
+// Search Console / Bing Webmaster ownership tokens (repo variables; a DNS TXT record works without them).
+const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION as string | undefined;
+const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION as string | undefined;
 // "{page} · SO-101 guide · Kitsmith": kit first (what people search), brand last (what accumulates).
 const landing = path === '/';
 const fullTitle = landing ? title : title === SITE_NAME ? `${GUIDE_NAME} · ${BRAND}` : `${title} · ${GUIDE_NAME} · ${BRAND}`;
@@ -62,6 +65,8 @@ const navGroups: [string, [string, string][]][] = [
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {(noindex || NOINDEX) && <meta name="robots" content="noindex" />}
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+    {bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={fullTitle} />
