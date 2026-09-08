@@ -101,6 +101,12 @@ SOURCES.md
 - Remote actions (creating repos, enabling Pages, adding secrets) are
   confirmed before execution. Nothing here is production, but treat the
   GitHub org as shared.
+- Secrets live in Doppler, project `kitsmith`, config `prd` (`doppler.yaml`
+  binds this checkout). That config syncs to the GitHub Actions repository
+  secrets `deploy-kitsmith.yml` reads (`CF_ZONE_ID`, `CF_PURGE_TOKEN`; the
+  `DEPLOY_*` set predates Doppler and is still set directly on GitHub). Set a
+  value with `doppler secrets set NAME` (prompted, never on the command
+  line); no value is ever written to the tree.
 - When a source and reality disagree (e.g. a kit vendor ships a different
   bracket), record it in discrepancies.md and prefer the upstream
   TheRobotStudio spec, noting the variant.

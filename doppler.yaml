@@ -1,0 +1,5 @@
+# Doppler is the secrets store for this repo (project kitsmith). `doppler setup` reads this file;
+# the prd config syncs to the GitHub Actions repository secrets that deploy-kitsmith.yml uses.
+setup:
+  project: kitsmith
+  config: prd
