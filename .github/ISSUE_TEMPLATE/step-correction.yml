@@ -1,0 +1,58 @@
+name: A step is wrong or unclear
+description: You built it and a step does not match your parts, your kit, or what actually worked.
+title: '[F-0xx] '
+labels: [correction]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. Every fix to the guide needs a public source, or it is recorded as `unverified` (still shown, flagged, kept out of search). A photo of your part, a vendor wiki page, a GitHub issue or a video timestamp all count. "I did it this way and it worked" is useful too; say so and it goes in flagged until a source confirms it.
+  - type: input
+    id: step
+    attributes:
+      label: Step
+      description: The step id from the page (F-012, L-051) or the page URL.
+      placeholder: F-032 · https://kitsmith.dev/so101/follower/032-follower-joint3-forearm/
+    validations:
+      required: true
+  - type: dropdown
+    id: kit
+    attributes:
+      label: Your parts came from
+      options:
+        - Printed and sourced myself
+        - Seeed Studio
+        - Waveshare
+        - WowRobo
+        - PartaBot
+        - Robonine
+        - RobotEd
+        - ForgeMotion Labs
+        - Autodiscovery
+        - Other (say which below)
+    validations:
+      required: true
+  - type: textarea
+    id: found
+    attributes:
+      label: What the guide says, and what you found
+      description: Quote the sentence that is wrong or unclear, then what your parts actually do. Drag a photo in if you have one.
+      placeholder: |
+        Guide: "Screw it to the horns with 4 M3x6 on each side."
+        Mine: the Waveshare kit shipped M3x8; M3x6 does not reach the horn. Photo attached.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public source (if you have one)
+      description: A URL anyone can open without logging in. Discord messages cannot be cited.
+      placeholder: https://www.waveshare.com/wiki/... · https://github.com/TheRobotStudio/SO-ARM100/issues/...
+  - type: dropdown
+    id: register
+    attributes:
+      label: Which wording were you reading?
+      options:
+        - Plain (default)
+        - Exact
+        - Both
