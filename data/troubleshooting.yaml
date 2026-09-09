@@ -6,14 +6,38 @@
   aliases:
     - motor not found
     - lerobot-setup-motors fails
+    - "RuntimeError: Motor 'gripper' (model 'sts3215') was not found. Make sure it is connected."
+    - Motor 'gripper' was not found, Make sure it is connected
+    - "RuntimeError: Motor 'shoulder_lift' (model 'sts3215') was not found. Make sure it is connected."
+    - 'Error occurred during motor configuration: No motors detected. Please ensure you have one motor connected.'
+    - "RuntimeError: FeetechMotorsBus motor check failed on port '/dev/ttyACM0': Missing motor IDs"
+    - Missing motor IDs
+    - Cannot set up servo sts3215
+    - COMM_RX_TIMEOUT (-6)
+    - lerobot-setup-motors fails to detect any STS3215 servo motors
+    - the power supply cable might disconnect as you manipulate the board
   symptoms:
     - The setup script errors at "Connect the controller board to the ... motor only and press enter"
+    - 'lerobot-setup-motors stops with "Motor ''<joint>'' (model ''sts3215'') was not found. Make sure it is connected.",
+      or the following lerobot-calibrate reports ''Missing motor IDs'' for exactly the motors that failed to be set'
+    - The board's LED is on and the port opens, but every motor returns COMM_RX_TIMEOUT (-6) at every baudrate and every
+      ID
+    - Two motors carry the same ID, so one expected ID is missing and the whole bus is intermittent
+    - The controller board reaches the computer through a USB hub and no motor answers until it is plugged in directly
+    - A mains adapter over-delivering (16 V measured on a 12 V adapter) puts the servos into protection mode so they
+      never answer
+    - The power supply cable disconnects while the board is handled between the per-motor steps
+    - '"[RxPacketError] Input voltage error!" appears before the not-found message: a 12 V supply on 7.4 V motors, see
+      power-supply-5v-or-12v-input-voltage-error'
   cause:
-    'A cable is not seated: power supply, USB to the board, or the 3-pin cable board-to-motor; or, on a Waveshare
-    board, the jumpers are not on the B (USB) channel.'
+    'A cable is not seated (power supply, USB to the board, or the 3-pin cable board-to-motor, including a power lead
+    that came loose while the board was handled between motors); on a Waveshare board the jumpers are not on the B
+    (USB) channel; or two motors already carry the same ID, so one expected ID never answers and the bus is
+    intermittent.'
   fix:
-    Check power, USB and the 3-pin cable; set both Waveshare jumpers to B; connect only the one motor being configured,
-    not yet daisy-chained.
+    Check power, USB and the 3-pin cable at every step; set both Waveshare jumpers to B; connect only the one motor
+    being configured, not yet daisy-chained; if a motor is still not found, scan the bus for a duplicate ID
+    (FeetechMotorsBus.scan_port across all baudrates), then isolate each motor and rerun setup.
   related_steps:
     - F-002
     - L-002
@@ -23,11 +47,54 @@
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#2-set-the-motors-ids-and-baudrates
       note: Troubleshooting details block
+    - ref: https://github.com/huggingface/lerobot/issues/3211
+      retrieved: '2026-09-09'
+      note: issue title and body ('Missing motor IDs' for ids 1 and 6)
+    - ref: https://github.com/huggingface/lerobot/issues/3211#issuecomment-4582371577
+      retrieved: '2026-09-09'
+      note: 'comment 3 by jonirajala (NONE): duplicate motor ID diagnosis, scan_port check, and fix'
+    - ref: https://github.com/huggingface/lerobot/issues/3211#issuecomment-5145497133
+      retrieved: '2026-09-09'
+      note: 'comment 5 by imstevenpmwork (COLLABORATOR): confirms the duplicate-ID cause; isolating motors and rerunning setup fixed it'
+    - ref: https://github.com/huggingface/lerobot/issues/3394
+      retrieved: '2026-09-09'
+      note: 'issue title and body: verbatim "RuntimeError: Motor ''gripper'' (model ''sts3215'') was not found. Make sure it is connected."; all motors COMM_RX_TIMEOUT; open, unexplained'
+    - ref: https://github.com/huggingface/lerobot/issues/3394#issuecomment-4591226117
+      retrieved: '2026-09-09'
+      note: 'comment 2 by AryanMadhavVerma (NONE): adapter overshooting 12 V to 16 V put the servos in protection mode; new adapter fixed it'
+    - ref: https://github.com/huggingface/lerobot/issues/3394#issuecomment-4272690651
+      retrieved: '2026-09-09'
+      note: 'comment 1 by masato-ka (COLLABORATOR): test with the Feetech debug tools to separate hardware from software'
+    - ref: https://github.com/huggingface/lerobot/issues/1110
+      retrieved: '2026-09-09'
+      note: "issue title and body: verbatim 'Error occurred during motor configuration: No motors detected. Please ensure you have one motor connected.'"
+    - ref: https://github.com/huggingface/lerobot/issues/1110#issuecomment-2886246590
+      retrieved: '2026-09-09'
+      note: 'comment 5 by SangbumChoi (NONE, reporter): connecting the jumpers solved it'
+    - ref: https://github.com/huggingface/lerobot/issues/1110#issuecomment-2886466180
+      retrieved: '2026-09-09'
+      note: 'comment 6 by gilspringer (NONE): the USB hub was the problem, direct connection worked'
+    - ref: https://github.com/huggingface/lerobot/issues/2387
+      retrieved: '2026-09-09'
+      note: issue body and comment 5 (same not-found string after the input voltage error)
+    - ref: https://github.com/huggingface/lerobot/issues/1244
+      retrieved: '2026-09-09'
+      note: issue body (same verbatim string on macOS with a Waveshare adapter); 8 comments, no confirmed fix
+    - ref: https://github.com/huggingface/lerobot/issues/1399#issuecomment-3021078110
+      retrieved: '2026-09-09'
+      note: "comment 2 by ramallis (NONE): same string for 'shoulder_lift' plus 'Missing motor IDs' after a full setup run"
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-09'
+      note: 'FAQ entry "Motor ''gripper'' was not found during servo ID setup": check the communication cable and the bus voltage; motor-ID setup tip: "Check your cabling at each step before pressing Enter. For instance, the power supply cable might disconnect as you manipulate the board."'
 - id: servo5-cable-torn
   slug: wrist-roll-servo-cable-torn
   title: Wrist roll (motor 5) cable damaged during insertion
+  aliases:
+    - Be careful when inserting the No. 5 servo, otherwise it is easy to tear the wire
+    - can't get the motor 5 cable in after the servo is fitted
   symptoms:
     - 3-pin cable pinched or torn at motor 5
+    - With servo 5 already in the wrist bracket there is too little space left to route its wires
     - 'Motor 5 not answering after the wrist is assembled, at motor setup or in use (a silent servo 5 during
       calibration alone is expected: see no-signal-from-servo5-during-calibration)'
   cause:
@@ -43,22 +110,31 @@
     - wrist-roll-pitch-so101
   source:
     - ref: https://www.waveshare.com/w/index.php?title=SO-ARM100/101_Kit_Aassembly&oldid=109741
-      retrieved: '2026-09-07'
-      note: Follower step 14 note
+      retrieved: '2026-09-09'
+      note: 'Follower step 14 and its note: "Be careful when inserting the No. 5 servo, otherwise it is easy to tear the wire. If the servo is installed here before wiring, it will be difficult to install due to the limited space."; leader steps 1-15 are the same'
 - id: wrong-leader-gear-ratio
   slug: leader-servo-wrong-gear-ratio-at-joint
   title: Leader arm servo with the wrong gear ratio at a joint
   aliases:
     - leader arm too stiff
     - leader arm collapses
+    - Is it strictly necessary for me to modify all leader servos?
+    - 'Disaster: Built following the instructions here. Only then started following Huggingface, which says I need to modify all leader servos.'
+    - SO-100 components(without 3D Parts) can be used for SO-101?
+    - how can I modify the gear ratio base on the so100 leader arm's servo?
+    - Can I equip it with New SO-101 3D printed parts?
   symptoms:
     - Leader joint is hard to move by hand or does not hold its own weight
+    - The arm was built from the SO-ARM100 instructions first, and only afterwards did the LeRobot page say the leader servos need different gearing
+    - Leader arm is harder to move because of friction, so it cannot be teleoperated with one hand or for long
+    - An SO-100 motor kit bought without printed parts is being fitted under SO-101 printed parts, with twelve identical motors and no replacement gears for the leader joints
   cause:
     The SO-101 leader uses three ratios (1:191 at joints 1 and 3, 1:345 at joint 2, 1:147 at joints 4–6); a
     1:345 follower servo or a swapped leader servo was fitted at the wrong joint.
   fix:
     Compare each leader servo's product code (C044 = 1:191, C001 = 1:345, C046 = 1:147) against the joint table
-    before assembly; swap the servo, then re-run motor setup.
+    before assembly; swap the servo (or fit the replacement gears), then re-run motor setup; an unmodified leader still
+    works but is harder to move because of friction and cannot be teleoperated one-handed or for long.
   related_steps:
     - L-002
     - L-011
@@ -79,6 +155,21 @@
       note: '"make sure that the servo joint IDs and gear ratios strictly correspond to those of the SO-ARM101"'
     - ref: upstream/SO-ARM100/README.md#sourcing-parts
       note: product codes
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/31
+      retrieved: '2026-09-09'
+      note: issue body (built from the SO-ARM100 instructions before reading the LeRobot page)
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/31#issuecomment-2615120271
+      retrieved: '2026-09-09'
+      note: 'comment 1 by Cadene (COLLABORATOR): "No it is not, but the leader arm will be harder to move due to friction. You wont be able to teleoperate it with one hand and for a long time."'
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/71
+      retrieved: '2026-09-09'
+      note: issue body (SO-100 motor kit under SO-101 printed parts)
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2839500396
+      retrieved: '2026-09-09'
+      note: 'comment 1 by pkooij (COLLABORATOR): only the leader arm motors for SO-101 are differently geared'
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2851568695
+      retrieved: '2026-09-09'
+      note: 'comment 3 by matbeedotcom (NONE): replacement gears, or the servo kit from Alibaba'
 - id: power-supply-5v-or-12v-input-voltage-error
   slug: servo-input-voltage-error-wrong-power-supply
   title: '[RxPacketError] Input voltage error!'
