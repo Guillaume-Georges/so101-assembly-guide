@@ -1,7 +1,13 @@
 # Troubleshooting candidates — review report
 
 Mined 2026-09-09 per `docs/tickets/troubleshooting-corpus-mining.md`. Staging only: the build reads none of this.
-Companion file: `troubleshooting-candidates.yaml` (112 candidates, 5 merges into existing entries).
+Companion file: `troubleshooting-candidates.yaml` (110 candidates, 5 merges into existing entries).
+
+## Promoted after review (2026-09-09)
+
+- `power-supply-5v-or-12v-input-voltage-error` → `data/troubleshooting.yaml`, unchanged apart from the added `power-supply-12v` part.
+- `no-signal-from-servo5-during-calibration` → `data/troubleshooting.yaml`, cause and fix rewritten on the lerobot calibration code (public, pinned by commit), so no longer unverified. See D-008.
+- Decisions applied: D-002 amended, D-008 and D-009 added in `data/discrepancies.md`; `daisy-chain-power-brownout` and the board-mismatch report stay in staging.
 
 ## Corpus covered
 

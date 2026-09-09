@@ -52,6 +52,13 @@ listed in `SOURCES.md`.
   5V for the leader.
 - Resolution: upstream (5V for 7.4V servos). SVRC's 12V applies only to the
   12V-servo variant; treated as a kit variant note.
+- Source D (2026-09-09 corpus mining): six threads report
+  `[RxPacketError] Input voltage error!` after powering 7.4V servos from 12V
+  (lerobot#2387, maintainer-confirmed; SO-ARM100 #174, #151, #142, #36, #17),
+  and lerobot#2924's reporter ran a leader on 12V. Treated as builder errors
+  the troubleshooting entry `power-supply-5v-or-12v-input-voltage-error`
+  warns against, not as a variant. The 12V supply is now a qty-0 part
+  (`power-supply-12v`) so the 12V servo variant is fully modelled.
 - Affects: F/L-002
 
 ## D-003 — Wiring holders / cable clips
@@ -159,6 +166,37 @@ listed in `SOURCES.md`.
   model agree; the datasheet's "12.5" is read as a different reference and
   is not used for placement. Dimensions in text come from the datasheet.
 - Affects: `servo-sts3215.glb`; the servo stays `approximation: true`
+
+## D-008 — Servo 5 silent: cable damage vs calibration behaviour
+
+- Topic: troubleshooting `servo5-cable-torn` and
+  `no-signal-from-servo5-during-calibration`
+- Source A: Waveshare wiki, follower step 14 note: inserting servo 5 before
+  its wires are routed tears the wire; motor 5 then does not answer.
+- Source B: Seeed wiki, calibration tip: "it is normal that the terminal
+  does not receive a signal from servo 5 when performing master-slave arm
+  calibration. You can continue with the operation."
+- Source C: lerobot `so_leader.py` (commit 7d615ac, 2026-07-29): wrist_roll
+  is the `full_turn_motor`, left out of `record_ranges_of_motion`, range set
+  to 0–4095 in code.
+- Resolution: not a contradiction. A and B describe different situations
+  that share the phrase "no signal from servo 5". B is explained by C and
+  is expected; A is a physical fault. Two entries, each naming the other.
+- Affects: F/L-050, calibration
+
+## D-009 — Leader and follower control boards interchangeable?
+
+- Topic: part `motor-control-board` (one id, qty 2)
+- Source A: SO-ARM100 README and both vendor wikis: one bus servo adapter
+  per arm, no leader/follower distinction stated.
+- Source B: one builder in lerobot#1244 (2026-09-09 corpus mining, comment
+  3359241601 by a non-maintainer): "In my case. It was follower's board. not one with
+  leader's. Make it sure it's right one's. Follower - Follower Servo, Leader
+  - Leader Servo." No maintainer reply, no second report.
+- Resolution: upstream (one board type). Unverified, one report; kept as a
+  symptom line on `setup-motors-no-response` when that merge lands. A second
+  independent report upgrades this to a variant note.
+- Affects: F/L-070
 
 ## Not discrepancies (checked, consistent)
 

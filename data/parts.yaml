@@ -536,6 +536,20 @@
   source:
     - ref: upstream/SO-ARM100/README.md#sourcing-parts
       note: Power Supply row and IMPORTANT note on 7.4V vs 12V
+- id: power-supply-12v
+  name: Power supply, 12V 5A+ (only for the optional 12V follower servos)
+  name_plain: '12V power supply (only if the optional 12V motors are used)'
+  qty: 0
+  category: electronics
+  assembly:
+    - follower
+  notes:
+    'Optional. Needed only with servo-sts3215-12v-345; never for the leader, which is always 7.4V. Qty 0 because it
+    is not part of the standard build (D-002). Connected to 7.4V servos it raises "[RxPacketError] Input voltage
+    error!" (troubleshooting: power-supply-5v-or-12v-input-voltage-error).'
+  source:
+    - ref: upstream/SO-ARM100/README.md#sourcing-parts
+      note: 'IMPORTANT note: 12V version needs a 12V 5A+ power supply'
 - id: table-clamp
   name: Table clamp
   qty: 4

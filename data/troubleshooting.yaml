@@ -1,4 +1,5 @@
-# troubleshooting.yaml — assembly issues only in v1 (ADR-0002). Schema: data/schema/troubleshooting.json
+# troubleshooting.yaml — assembly and motor-setup issues, plus calibration behaviour mistaken for an assembly fault.
+# Schema: data/schema/troubleshooting.json. Candidates await review in data/staging/ (never read by the build).
 - id: setup-motors-no-response
   slug: setup-motors-error-check-cables
   title: Error while setting a motor ID (setup-motors)
@@ -27,7 +28,8 @@
   title: Wrist roll (motor 5) cable damaged during insertion
   symptoms:
     - 3-pin cable pinched or torn at motor 5
-    - Motor 5 not answering after the wrist is assembled
+    - 'Motor 5 not answering after the wrist is assembled, at motor setup or in use (a silent servo 5 during
+      calibration alone is expected: see no-signal-from-servo5-during-calibration)'
   cause:
     Motor 5 was pushed into the wrist holder before its cables were routed through the holder; there is little
     room to wire it afterwards.
@@ -77,3 +79,106 @@
       note: '"make sure that the servo joint IDs and gear ratios strictly correspond to those of the SO-ARM101"'
     - ref: upstream/SO-ARM100/README.md#sourcing-parts
       note: product codes
+- id: power-supply-5v-or-12v-input-voltage-error
+  slug: servo-input-voltage-error-wrong-power-supply
+  title: '[RxPacketError] Input voltage error!'
+  aliases:
+    - "Some motors found returned an error status: {2: '[RxPacketError] Input voltage error!'}"
+    - Wrong power-supply voltage can burn the motors
+    - So can I use 12V power supply for 7.4V STS3215 Servo (not 12V STS3215)?
+    - PSU clarity.
+    - Voltage clarification
+    - About Power supply
+    - 'Help needed: STS3215-C001 voltage and Waveshare Bus Servo Adapter (A) - LeRobot input voltage error'
+    - ThinkRobotics kit - power adapter mismatch
+  symptoms:
+    - 'lerobot-setup-motors sets motors 6,5,4,3 fine, then on shoulder_lift reports "Some motors found returned an
+      error status: {2: ''[RxPacketError] Input voltage error!''}" while that motor''s LED blinks red fast and the others
+      do not blink'
+    - the following lerobot-calibrate run then lists that motor under 'Missing motor IDs'
+    - setup-motors reports the input-voltage error and then "Motor 'gripper' (model 'sts3215') was not found" on a 12 V
+      / 2 A adapter with STS3215-C001 (7.4 V) servos
+    - the Waveshare Bus Servo Adapter (A) is printed 9-12.6 V input while the upstream BOM links a 5 V supply, and
+      builders cannot tell which to use
+    - a kit ships one 5 V and one 12 V adapter for two control boards, so one arm has no matching supply
+  cause:
+    A 12 V supply was connected to a bus of 7.4 V STS3215 motors (rated about 6-7.4 V), so the servo reports an
+    input-voltage error and, per the Seeed Studio wiki, can be burnt.
+  fix:
+    Power an arm built from 7.4 V motors - always the leader - from the 5 V supply, and use the 12 V supply only for an
+    arm built from 12 V motors.
+  related_steps:
+    - F-002
+    - L-002
+  related_parts:
+    - power-supply-5v
+    - power-supply-12v
+    - motor-control-board
+    - servo-sts3215-12v-345
+  source:
+    - ref: https://github.com/huggingface/lerobot/issues/2387#issuecomment-3536861545
+      retrieved: '2026-09-09'
+      note: comment 1 by BDacre (NONE), reporter of the same symptom
+    - ref: https://github.com/huggingface/lerobot/issues/2387#issuecomment-3568311849
+      retrieved: '2026-09-09'
+      note: comment 2 by danielowa (NONE), second confirmation
+    - ref: https://github.com/huggingface/lerobot/issues/2387#issuecomment-5145503111
+      retrieved: '2026-09-09'
+      note: comment 10 by imstevenpmwork (COLLABORATOR)
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-09'
+      note:
+        "danger callout under 'Configure Motors and Assemble the Arm': 5V for the STS3215 7.4V motors, 12V for the
+        STS3215 12V motors, 'otherwise you might burn your motors'; and under 'Calibrate the Robotic Arm': Standard
+        Edition all 5V, Pro Edition leader 5V and follower 12V"
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/174
+      retrieved: '2026-09-09'
+      note: issue body (verbatim '[RxPacketError] Input voltage error!' on a 12V/2A adapter with C001 servos; zero comments)
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/151
+      retrieved: '2026-09-09'
+      note: 'issue body (kit-level mismatch) and comment 1 by Ankk98 (NONE, reporter): vendor sent a 5V 6A supply after testing'
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/142
+      retrieved: '2026-09-09'
+      note: 'issue body: board rated 9-12.6V vs the 5V supply in the BOM; no answer'
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/36
+      retrieved: '2026-09-09'
+      note: issue body and comment 1 by odellus (NONE); no answer
+    - ref: https://github.com/TheRobotStudio/SO-ARM100/issues/17
+      retrieved: '2026-09-09'
+      note: 'issue body: can a 12V supply be used for 7.4V STS3215 servos; zero comments'
+- id: no-signal-from-servo5-during-calibration
+  slug: no-signal-from-servo5-during-calibration
+  title: No signal from servo 5 during master-slave arm calibration
+  aliases:
+    - it is normal that the terminal does not receive a signal from servo 5 when performing master-slave arm calibration
+    - terminal doesn't receive a signal from servo 5
+    - servo 5 silent during leader-follower calibration
+    - Move all joints except 'wrist_roll' sequentially through their entire ranges of motion
+  symptoms:
+    - During master-slave (leader and follower) arm calibration the terminal receives no signal from servo 5, while the
+      other five servos report normally
+  cause:
+    lerobot's SO-101 leader and follower calibration code treats wrist_roll (servo 5) as the full-turn motor, leaves it
+    out of range recording and sets its range to 0-4095 in code, so calibration never asks that servo for a reading.
+  fix:
+    Nothing to fix; continue the calibration as the Seeed wiki says. If servo 5 also fails motor setup or does not move
+    in use, see servo5-cable-torn.
+  related_steps:
+    - F-050
+    - L-050
+  related_parts:
+    - servo-sts3215-c001-345
+    - servo-sts3215-c046-147
+  source:
+    - ref: https://wiki.seeedstudio.com/lerobot_so100m_new/
+      retrieved: '2026-09-09'
+      note:
+        'calibration section tip: "Due to the update of the lerobot repository, it is normal that the terminal does not
+        receive a signal from servo 5 when performing master-slave arm calibration. You can continue with the
+        operation."'
+    - ref: https://github.com/huggingface/lerobot/blob/7d615acf9aef770e66054ce1d38d256e2922448f/src/lerobot/teleoperators/so_leader/so_leader.py#L103-L111
+      retrieved: '2026-09-09'
+      note: 'leader calibrate(): full_turn_motor = "wrist_roll", excluded from record_ranges_of_motion, range set to 0-4095'
+    - ref: https://github.com/huggingface/lerobot/blob/7e0fd0d65338a2515e875da97f3c34ff28e81ddc/src/lerobot/robots/so_follower/so_follower.py#L135-L142
+      retrieved: '2026-09-09'
+      note: 'follower calibrate(): same full_turn_motor = "wrist_roll" handling'
