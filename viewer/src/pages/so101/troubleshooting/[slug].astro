@@ -2,25 +2,100 @@
 import Base from '../../../layouts/Base.astro';
 import Sources from '../../../components/Sources.astro';
 import Flags from '../../../components/Flags.astro';
-import { data, stepById, stepPath, parts } from '../../../lib/data';
-import { withBase, breadcrumbs, clip } from '../../../lib/seo';
+import Gloss from '../../../components/Gloss.astro';
+import { data, stepById, stepPath, parts, partName, jointLabel, JOINT_ORDER, ARM_LABEL } from '../../../lib/data';
+import { withBase, breadcrumbs, clip, GITHUB } from '../../../lib/seo';
 export function getStaticPaths() {
   return data.troubleshooting.map((t) => ({ params: { slug: t.slug }, props: { t } }));
 }
 const { t } = Astro.props;
 const site = Astro.site ?? new URL('https://kitsmith.dev');
-const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: t.title, acceptedAnswer: { '@type': 'Answer', text: `${t.cause} Fix: ${t.fix}` } }] };
+const fixText = t.fix.join(' ');
+const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: t.title, acceptedAnswer: { '@type': 'Answer', text: `${t.cause} Fix: ${fixText}` } }] };
+// Aliases are search fuel first: the short ones (a builder's own words) show as chips, the long ones
+// (mined issue titles) fold away so the page does not open with a paragraph of other people's titles.
+const SHORT = 6;
+const aliases = t.aliases ?? [];
+const shortAliases = aliases.filter((a) => a.split(/\s+/).length <= SHORT);
+const longAliases = aliases.filter((a) => a.split(/\s+/).length > SHORT);
+const related = (t.related_steps ?? []).map((id) => stepById(id)).filter((s) => !!s);
+const backToBuild = related[0];
+// The joint -> gear ratio -> product code table for one arm, from servos.yaml and parts.yaml (both sourced).
+const servoRows = t.servo_table
+  ? JOINT_ORDER.map((joint) => data.servos.find((s) => s.assembly === t.servo_table && s.joint === joint)).filter((s) => !!s)
+  : [];
+const code = (partId: string) => parts.get(partId)?.name.match(/\((C\d{3})\)/)?.[1] ?? partId;
+const reportNo = `${GITHUB}/issues/new?template=troubleshooting-entry.yml&title=${encodeURIComponent(`Troubleshooting: ${t.title} (the fix did not work)`)}`;
+const seen = new Set<string>();
 ---
-<Base title={t.title} path={`/troubleshooting/${t.slug}/`} section="/troubleshooting/" description={clip(`SO-101 troubleshooting: ${t.title}. Cause: ${t.cause} Fix: ${t.fix}`)} noindex={!!t.unverified} ogType="article" jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }, { name: t.title, path: `/troubleshooting/${t.slug}/` }], site.toString()), faq]}>
-  <p class="muted"><a href={withBase('/troubleshooting/')}>Troubleshooting</a></p>
-  <h1>{t.title} <Flags unverified={t.unverified} /></h1>
-  {t.aliases?.length ? <p class="muted">Also reported as: {t.aliases.join(' · ')}</p> : null}
-  <div class="card">
-    <h2>Symptoms</h2><ul>{t.symptoms.map((s) => <li>{s}</li>)}</ul>
-    <h2>Cause</h2><p>{t.cause}</p>
-    <h2>Fix</h2><p class="check">{t.fix}</p>
+<Base title={t.title} path={`/troubleshooting/${t.slug}/`} section="/troubleshooting/" description={clip(`SO-101 troubleshooting: ${t.title}. Cause: ${t.cause} Fix: ${fixText}`)} noindex={!!t.unverified} ogType="article" jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }, { name: t.title, path: `/troubleshooting/${t.slug}/` }], site.toString()), faq]}>
+  <p class="backline"><a href={withBase('/troubleshooting/')}>← All problems</a></p>
+  <h1 class="issue-title">{t.title} <Flags unverified={t.unverified} /></h1>
+  {aliases.length > 0 && (
+    <div class="aka">
+      <span class="lbl">Also called</span>
+      {shortAliases.map((a) => <span class="chip">{a}</span>)}
+      {longAliases.length > 0 && (
+        <details>
+          <summary>+{longAliases.length} more {longAliases.length === 1 ? 'way' : 'ways'} people said it</summary>
+          <p>{longAliases.join(' · ')}</p>
+        </details>
+      )}
+    </div>
+  )}
+
+  <section class="card match" aria-labelledby="match-h">
+    <h2 id="match-h">Does this sound like you?</h2>
+    <ul class="checks">
+      {t.symptoms.map((s) => (
+        <li><label><input type="checkbox" /> <span>{s}</span></label></li>
+      ))}
+    </ul>
+    <p class="nope muted">None of these? <a href={withBase('/troubleshooting/')}>Back to all problems</a></p>
+  </section>
+
+  <section class="fixbox" aria-labelledby="fix-h">
+    <h2 id="fix-h"><span class="dot" aria-hidden="true"></span>Fix</h2>
+    <ol class="fixsteps">{t.fix.map((f) => <li>{f}</li>)}</ol>
+    {servoRows.length > 0 && (
+      <div class="tblwrap">
+        <table class="codes">
+          <caption>{ARM_LABEL[t.servo_table!]} servos by joint</caption>
+          <thead><tr><th>Joint</th><th>Gear ratio</th><th>Code on the servo</th></tr></thead>
+          <tbody>
+            {servoRows.map((s) => (
+              <tr>
+                <td>{s.bus_id ? `${s.bus_id} · ` : ''}{jointLabel(s.joint)}</td>
+                <td>{s.gear_ratio}</td>
+                <td><a href={withBase(`/parts/${s.part}/`)}><code>{code(s.part)}</code></a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+    {related.length > 0 && (
+      <div class="where">
+        <span class="muted">Where this is in the build:</span>
+        {related.map((s, i) => (
+          <a class:list={['button', { primary: i === 0 }]} href={withBase(stepPath(s))}>{s.id} {s.title}</a>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section class="card why" aria-labelledby="why-h">
+    <h2 id="why-h">Why it happens</h2>
+    {/* A div, not a p: the glossary popovers are <details>, which the HTML parser refuses inside a paragraph. */}
+    <div class="text"><Gloss text={t.cause} seen={seen} /></div>
+  </section>
+
+  <div class="didit">
+    <span>Did this fix it?</span>
+    <a class="button" href={backToBuild ? withBase(stepPath(backToBuild)) : withBase('/troubleshooting/')}>{backToBuild ? `Yes, back to step ${backToBuild.id}` : 'Yes, back to all problems'}</a>
+    <a class="button" href={reportNo} rel="noopener">No, tell us what happened ↗</a>
   </div>
-  {t.related_steps?.length ? (<><h2>Related steps</h2><ul class="plain">{t.related_steps.map((id) => { const s = stepById(id); return s ? <li><a href={withBase(stepPath(s))}>{s.id} {s.title}</a></li> : null; })}</ul></>) : null}
-  {t.related_parts?.length ? (<><h2>Related parts</h2><ul class="plain">{t.related_parts.map((id) => <li><a href={withBase(`/parts/${id}/`)}>{parts.get(id)?.name ?? id}</a></li>)}</ul></>) : null}
+
+  {t.related_parts?.length ? (<><h2>Related parts</h2><ul class="plain">{t.related_parts.map((id) => <li><a href={withBase(`/parts/${id}/`)}>{partName(id)}</a></li>)}</ul></>) : null}
   <Sources sources={t.source} />
 </Base>

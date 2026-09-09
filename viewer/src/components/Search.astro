@@ -1,85 +1,173 @@
 ---
-import { data, stepPath } from '../lib/data';
-import { toDocs } from '../lib/search';
+import { data, stepPath, ARM_LABEL, STAGE_LABEL, type IssueStage } from '../lib/data';
+import { toDocs, exampleQueries } from '../lib/search';
 import { withBase, GITHUB } from '../lib/seo';
 // Error-string search over troubleshooting entries (title, aliases, symptoms) and step titles.
 // Scoring lives in src/lib/search.ts (prefix + typo tolerance); the troubleshooting index page
-// reads this form's data-index to render results for a submitted `?q=`.
-const docs = toDocs(data.troubleshooting, Object.values(data.assemblies).flat(), {
-  issue: (i) => withBase(`/troubleshooting/${i.slug}/`),
-  step: (s) => withBase(stepPath(s)),
-});
+// reads the header form's data-index to render results for a submitted `?q=`.
+// A page may mount a second box (the troubleshooting index hero): it carries no index of its own
+// and the script feeds every form on the page from the first one that has one.
+interface Props {
+  id?: string;
+  /** Wider box with a bigger placeholder, for a page hero. */
+  big?: boolean;
+  placeholder?: string;
+  /** Serialise the document list on this instance (exactly one form per page should). */
+  index?: boolean;
+}
+const { id = 'q', big = false, placeholder = 'Paste an error, or search', index = true } = Astro.props;
+const docs = index
+  ? toDocs(
+      data.troubleshooting,
+      Object.values(data.assemblies).flat(),
+      {
+        issue: (i) => withBase(`/troubleshooting/${i.slug}/`),
+        step: (s) => withBase(stepPath(s)),
+      },
+      { stage: (s) => STAGE_LABEL[s as IssueStage] ?? s, arm: (a) => ARM_LABEL[a] ?? a },
+    )
+  : null;
 const reportForm = `${GITHUB}/issues/new?template=troubleshooting-entry.yml`;
+const examples = exampleQueries(data.troubleshooting);
 ---
 
-<form class="search" role="search" action={withBase('/troubleshooting/')} method="get" data-index={JSON.stringify(docs)} data-report={reportForm}>
-  <label class="sr-only" for="q" style="position:absolute;left:-9999px">Search steps or paste an error message</label>
-  <input id="q" name="q" type="search" placeholder="Search steps or paste an error" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="q-results" aria-autocomplete="list" aria-haspopup="listbox" />
-  <ul id="q-results" role="listbox" aria-label="Results" hidden></ul>
+<form
+  class:list={['search', { big }]}
+  role="search"
+  action={withBase('/troubleshooting/')}
+  method="get"
+  data-index={docs ? JSON.stringify(docs) : undefined}
+  data-report={reportForm}
+  data-examples={JSON.stringify(examples)}
+>
+  <label class="sr-only" for={id} style="position:absolute;left:-9999px">Search steps or paste an error message</label>
+  <svg class="glass" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+  <input id={id} name="q" type="search" placeholder={placeholder} autocomplete="off" role="combobox" aria-expanded="false" aria-controls={`${id}-results`} aria-autocomplete="list" aria-haspopup="listbox" />
+  {!big && <kbd class="key" aria-hidden="true">/</kbd>}
+  <ul id={`${id}-results`} role="listbox" aria-label="Results" hidden></ul>
 </form>
 <script>
-  import { createSearch, fallbackLinks, esc, type SearchDoc } from '../lib/search';
-  const form = document.querySelector('form.search') as HTMLFormElement;
-  const input = form.querySelector('input') as HTMLInputElement;
-  const list = form.querySelector('ul') as HTMLUListElement;
-  const search = createSearch(JSON.parse(form.dataset.index ?? '[]') as SearchDoc[]);
-  const reportForm = form.dataset.report ?? '';
-  let active = -1;
-  const options = () => [...list.querySelectorAll('a[role="option"]')] as HTMLAnchorElement[];
-  const setActive = (n: number) => {
-    const opts = options();
-    active = opts.length ? Math.max(-1, Math.min(n, opts.length - 1)) : -1;
-    opts.forEach((a, i) => a.setAttribute('aria-selected', String(i === active)));
-    input.setAttribute('aria-activedescendant', active >= 0 ? `q-opt-${active}` : '');
-    opts[active]?.scrollIntoView({ block: 'nearest' });
-  };
-  const open = (yes: boolean) => {
-    list.hidden = !yes;
-    input.setAttribute('aria-expanded', String(yes));
-    if (!yes) setActive(-1);
-  };
-  const render = () => {
-    const q = input.value.trim();
-    const hits = search.query(q);
-    const rows = hits.map((h, i) => `<li role="none"><a id="q-opt-${i}" role="option" aria-selected="false" data-hit href="${esc(h.href)}">${esc(h.label)}</a></li>`);
-    // No troubleshooting page answers this: say so and hand over to the public record.
-    if (q.length >= 3 && !hits.some((h) => h.kind === 'issue')) {
-      rows.push(`<li role="none" class="nomatch">${hits.length ? 'No troubleshooting page' : 'Nothing in this guide'} matches “${esc(q)}”.</li>`);
-      fallbackLinks(q, reportForm).forEach((l, j) => {
-        rows.push(`<li role="none" class="fallback"><a id="q-opt-${hits.length + j}" role="option" aria-selected="false" href="${esc(l.href)}" rel="noopener">${l.label} ↗</a></li>`);
+  import { createSearch, fallbackLinks, esc, type SearchDoc, type SearchHit } from '../lib/search';
+  const forms = [...document.querySelectorAll('form.search')] as HTMLFormElement[];
+  const source = forms.find((f) => f.dataset.index);
+  if (source && !(source as HTMLFormElement & { _wired?: boolean })._wired) {
+    const search = createSearch(JSON.parse(source.dataset.index ?? '[]') as SearchDoc[]);
+    const reportForm = source.dataset.report ?? '';
+    const examples = JSON.parse(source.dataset.examples ?? '[]') as string[];
+    const ICON = {
+      issue:
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0 5 5L9 22l-3-3zM3 3l6 6"/></svg>',
+      step: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>',
+      out: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+      add: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+    };
+    const wire = (form: HTMLFormElement) => {
+      const input = form.querySelector('input') as HTMLInputElement;
+      const list = form.querySelector('ul') as HTMLUListElement;
+      const id = input.id;
+      let active = -1;
+      const options = () => [...list.querySelectorAll('a[role="option"]')] as HTMLAnchorElement[];
+      const setActive = (n: number) => {
+        const opts = options();
+        active = opts.length ? Math.max(-1, Math.min(n, opts.length - 1)) : -1;
+        opts.forEach((a, i) => a.setAttribute('aria-selected', String(i === active)));
+        input.setAttribute('aria-activedescendant', active >= 0 ? `${id}-opt-${active}` : '');
+        opts[active]?.scrollIntoView({ block: 'nearest' });
+      };
+      const open = (yes: boolean) => {
+        list.hidden = !yes;
+        input.setAttribute('aria-expanded', String(yes));
+        if (!yes) setActive(-1);
+      };
+      let n = 0;
+      const short = (t: string, max = 80) => (t.length > max ? `${t.slice(0, max - 1).replace(/\s+\S*$/, '')}…` : t);
+      const row = (h: SearchHit) => {
+        const second = h.matched ? `also called “${esc(short(h.matched))}”` : esc(h.sub);
+        return `<li role="none"><a id="${id}-opt-${n++}" role="option" aria-selected="false" data-hit href="${esc(h.href)}"><span class="ic ${h.kind}">${ICON[h.kind]}</span><span class="t">${esc(h.label)}</span><span class="s">${second}</span></a></li>`;
+      };
+      const render = () => {
+        const q = input.value.trim();
+        n = 0;
+        const rows: string[] = [];
+        if (!q) {
+          // Empty and focused: say what to type, with a few real phrasings from the entries.
+          if (examples.length)
+            rows.push(
+              `<li role="none" class="hint">Paste the red line from your terminal, or describe it in your own words.<span class="chips">${examples.map((e) => `<a href="#" class="chip" data-fill="${esc(e)}">${esc(e)}</a>`).join('')}</span></li>`,
+            );
+        } else {
+          const hits = search.query(q);
+          const issues = hits.filter((h) => h.kind === 'issue');
+          const steps = hits.filter((h) => h.kind === 'step');
+          if (issues.length) rows.push('<li role="presentation" class="h">Problems</li>', ...issues.map(row));
+          if (steps.length) rows.push('<li role="presentation" class="h">Build steps</li>', ...steps.map(row));
+          // No troubleshooting page answers this: say so and hand over to the public record.
+          if (q.length >= 3 && !issues.length) {
+            rows.push(
+              `<li role="none" class="nomatch"><b>${hits.length ? 'No problem page for that yet.' : 'This guide has no page for that yet.'}</b><p>It may be a software problem rather than an assembly one. Other builders have probably hit it:</p></li>`,
+            );
+            fallbackLinks(q, reportForm).forEach((l) => {
+              rows.push(
+                `<li role="none" class="fallback${l.primary ? ' primary' : ''}"><a id="${id}-opt-${n++}" role="option" aria-selected="false" href="${esc(l.href)}" rel="noopener"><span class="ic ${l.primary ? 'issue' : ''}">${l.primary ? ICON.add : ICON.out}</span><span class="t">${esc(l.label)}</span><span class="arrow">github ↗</span></a></li>`,
+              );
+            });
+          }
+        }
+        list.innerHTML = rows.join('');
+        open(rows.length > 0);
+      };
+      input.addEventListener('input', render);
+      input.addEventListener('focus', render);
+      input.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') {
+          open(false);
+          return;
+        }
+        if (list.hidden) return;
+        if (ev.key === 'ArrowDown') {
+          ev.preventDefault();
+          setActive(active + 1);
+        } else if (ev.key === 'ArrowUp') {
+          ev.preventDefault();
+          setActive(active - 1);
+        }
       });
-    }
-    list.innerHTML = rows.join('');
-    open(rows.length > 0);
-  };
-  input.addEventListener('input', render);
-  input.addEventListener('focus', render);
-  input.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape') {
-      open(false);
-      return;
-    }
-    if (list.hidden) return;
-    if (ev.key === 'ArrowDown') {
+      list.addEventListener('click', (ev) => {
+        const chip = (ev.target as HTMLElement).closest('a[data-fill]') as HTMLAnchorElement | null;
+        if (!chip) return;
+        ev.preventDefault();
+        input.value = chip.dataset.fill ?? '';
+        input.focus();
+        render();
+      });
+      document.addEventListener('click', (ev) => {
+        if (!form.contains(ev.target as Node)) open(false);
+      });
+      form.addEventListener('submit', (ev) => {
+        // Enter follows the highlighted row, else the first guide hit; a fallback link is never
+        // taken implicitly. With no guide hit the form submits to /troubleshooting/?q= as a page.
+        const pick = (active >= 0 ? options()[active] : list.querySelector('a[data-hit]')) as HTMLAnchorElement | null;
+        if (pick) {
+          ev.preventDefault();
+          location.href = pick.href;
+        }
+      });
+      return input;
+    };
+    const inputs = forms.map(wire);
+    (source as HTMLFormElement & { _wired?: boolean })._wired = true;
+    // "/" from anywhere on the page jumps to the first visible search box, as on GitHub.
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key !== '/' || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+      const t = ev.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      const box = inputs.find((i) => i.offsetParent !== null);
+      if (!box) return;
       ev.preventDefault();
-      setActive(active + 1);
-    } else if (ev.key === 'ArrowUp') {
-      ev.preventDefault();
-      setActive(active - 1);
-    }
-  });
-  document.addEventListener('click', (ev) => {
-    if (!form.contains(ev.target as Node)) open(false);
-  });
-  form.addEventListener('submit', (ev) => {
-    // Enter follows the highlighted row, else the first guide hit; a fallback link is never
-    // taken implicitly. With no guide hit the form submits to /troubleshooting/?q= as a page.
-    const pick = (active >= 0 ? options()[active] : list.querySelector('a[data-hit]')) as HTMLAnchorElement | null;
-    if (pick) {
-      ev.preventDefault();
-      location.href = pick.href;
-    }
-  });
+      box.focus();
+      box.select();
+    });
+  }
 </script>
 <style is:global>
   /* Global: rows are injected with innerHTML, so scoped selectors would never match them. */
@@ -87,25 +175,83 @@ const reportForm = `${GITHUB}/issues/new?template=troubleshooting-entry.yml`;
     background: color-mix(in srgb, var(--accent) 18%, var(--bg-2));
     outline: 0;
   }
-  form.search li.nomatch {
-    padding: 0.5rem 0.6rem 0.25rem;
+  form.search li.h {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.55rem 0.6rem 0.2rem;
+  }
+  form.search li a {
+    display: grid;
+    grid-template-columns: 1.4rem 1fr;
+    gap: 0.05rem 0.6rem;
+    align-items: start;
+    padding: 0.5rem 0.6rem;
+    min-height: var(--tap);
+    text-decoration: none;
+    color: var(--fg);
+    border-radius: 6px;
+  }
+  form.search li a .ic {
+    grid-row: span 2;
+    color: var(--muted);
+    padding-top: 0.15rem;
+  }
+  form.search li a .ic.issue {
+    color: var(--ok);
+  }
+  form.search li a .ic.step {
+    color: var(--accent);
+  }
+  form.search li a .t {
+    font-weight: 600;
+  }
+  form.search li a .s {
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
+  form.search li.hint {
+    padding: 0.6rem 0.6rem 0.55rem;
     color: var(--muted);
     font-size: 0.9rem;
-    border-top: 1px solid var(--line);
-    margin-top: 0.25rem;
   }
-  form.search li.nomatch:first-child {
-    border-top: 0;
-    margin-top: 0;
+  form.search li.hint .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.45rem;
+  }
+  form.search li.nomatch {
+    padding: 0.6rem 0.6rem 0.3rem;
+  }
+  form.search li.nomatch b {
+    display: block;
+  }
+  form.search li.nomatch p {
+    margin: 0.15rem 0 0.4rem;
+    color: var(--muted);
+    font-size: 0.9rem;
   }
   form.search li.fallback a {
-    font-size: 0.9rem;
-    min-height: 0;
-    padding: 0.4rem 0.6rem;
+    grid-template-columns: 1.4rem 1fr auto;
+    font-size: 0.95rem;
+  }
+  form.search li.fallback a .ic {
+    grid-row: auto;
+  }
+  form.search li.fallback .arrow {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  form.search li.fallback.primary a {
+    border: 1px solid color-mix(in srgb, var(--ok) 45%, var(--line));
+    background: color-mix(in srgb, var(--ok) 10%, var(--bg-2));
+    margin: 0.2rem 0;
   }
   /* Results: a dropdown on wide screens, a full-width sheet under the header on phones. */
   @media (max-width: 59.99rem) {
-    form.search ul {
+    header.site form.search ul {
       position: fixed;
       left: 0;
       right: 0;
@@ -115,8 +261,8 @@ const reportForm = `${GITHUB}/issues/new?template=troubleshooting-entry.yml`;
       max-height: 60vh;
       box-shadow: 0 12px 32px color-mix(in srgb, #000 40%, transparent);
     }
-    form.search li a {
-      padding: 0.75rem 1rem;
+    header.site form.search li a {
+      padding: 0.6rem 1rem;
     }
   }
 </style>

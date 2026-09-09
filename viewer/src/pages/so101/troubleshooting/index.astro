@@ -1,41 +1,60 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Flags from '../../../components/Flags.astro';
-import { data } from '../../../lib/data';
-import { withBase, breadcrumbs } from '../../../lib/seo';
+import Search from '../../../components/Search.astro';
+import { data, STAGE_ORDER, STAGE_LABEL } from '../../../lib/data';
+import { withBase, breadcrumbs, clip } from '../../../lib/seo';
 const site = Astro.site ?? new URL('https://kitsmith.dev');
+const groups = STAGE_ORDER.map((stage) => ({ stage, label: STAGE_LABEL[stage], issues: data.troubleshooting.filter((t) => t.stage === stage) })).filter((g) => g.issues.length);
 ---
 <Base title="Troubleshooting" path="/troubleshooting/" section="/troubleshooting/" description="SO-101 assembly, motor-setup and calibration troubleshooting: setup-motors errors, input voltage error, wrong gear ratio at a leader joint, torn wrist-roll cable, servo 5 silent during calibration. Paste your error string in the search box." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }], site.toString())]}>
-  <h1>Troubleshooting</h1>
-  <p>Assembly, motor-setup and calibration issues in this version; LeRobot software errors (install, teleop, recording, cameras, training) are a later phase. Paste an exact error message in the search box above.</p>
-  <!-- Filled by the script below when the header search submits with no direct hit (?q=). The page is static, so the query is read in the browser. -->
+  <div class="tshero">
+    <h1>Something's wrong?</h1>
+    <p class="muted">Paste the exact error, or describe what the arm is doing.</p>
+    <Search id="tq" big index={false} placeholder="e.g. motor not found, leader arm too stiff" />
+  </div>
+  <!-- Filled by the script below when a search submits with no direct hit (?q=). The page is static, so the query is read in the browser. -->
   <section class="card qstate" id="qstate" hidden aria-live="polite"></section>
-  <ul class="plain">{data.troubleshooting.map((t) => <li><a href={withBase(`/troubleshooting/${t.slug}/`)}>{t.title}</a> <Flags unverified={t.unverified} />{t.aliases?.length ? <span class="muted"> — also: {t.aliases.join(', ')}</span> : null}</li>)}</ul>
+  {groups.map((g) => (
+    <section class="stage" aria-labelledby={`stage-${g.stage}`}>
+      <h2 id={`stage-${g.stage}`} class="stagelbl">{g.label}</h2>
+      <div class="igrid">
+        {g.issues.map((t) => (
+          <a class="card icard" href={withBase(`/troubleshooting/${t.slug}/`)}>
+            <b>{t.title}</b>
+            <span class="muted">{clip(t.symptoms[0], 110)}</span>
+            {t.unverified && <span><Flags unverified={t.unverified} /></span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+  <p class="muted scope">Assembly, motor-setup and calibration problems are covered here. LeRobot software errors (install, teleop, recording, cameras, training) are a later phase; the search box points you at the public bug trackers for those.</p>
 </Base>
 <script>
   import { createSearch, fallbackLinks, esc, type SearchDoc } from '../../../lib/search';
   const q = new URLSearchParams(location.search).get('q')?.trim() ?? '';
   const box = document.getElementById('qstate');
-  const form = document.querySelector('form.search') as HTMLFormElement | null;
+  const form = document.querySelector('form.search[data-index]') as HTMLFormElement | null;
   if (q && box && form) {
-    // Same index and scoring as the header dropdown, read from the form it already carries.
+    // Same index and scoring as the dropdown, read from the header form that already carries it.
     const hits = createSearch(JSON.parse(form.dataset.index ?? '[]') as SearchDoc[]).query(q);
     const issues = hits.filter((h) => h.kind === 'issue');
     const steps = hits.filter((h) => h.kind === 'step');
-    const list = (rows: { href: string; label: string }[], ext = false) =>
-      `<ul class="plain">${rows.map((r) => `<li><a href="${esc(r.href)}"${ext ? ' rel="noopener"' : ''}>${esc(r.label)}${ext ? ' ↗' : ''}</a></li>`).join('')}</ul>`;
-    const parts = [`<h2>${issues.length ? 'Results' : 'No troubleshooting page'} for “${esc(q)}”</h2>`];
+    const list = (rows: { href: string; label: string; sub?: string }[], ext = false) =>
+      `<ul class="plain">${rows.map((r) => `<li><a href="${esc(r.href)}"${ext ? ' rel="noopener"' : ''}>${esc(r.label)}${ext ? ' ↗' : ''}</a>${r.sub ? ` <span class="muted">· ${esc(r.sub)}</span>` : ''}</li>`).join('')}</ul>`;
+    const parts = [`<h2>${issues.length ? 'Results' : 'No problem page yet'} for “${esc(q)}”</h2>`];
     if (issues.length) parts.push(list(issues));
     if (steps.length) parts.push(`<h3>Steps that mention it</h3>`, list(steps));
     if (!issues.length) {
       parts.push(
-        `<p>This guide covers assembly problems only; calibration and LeRobot software errors are not written up yet. The public issue trackers are the best record for those, and reporting the phrase you searched tells us what to add next.</p>`,
+        `<p>It may be a software problem rather than an assembly one; this guide covers assembly, motor setup and calibration. Other builders have probably hit it, and telling us the phrase you searched is how a page gets written.</p>`,
         list(fallbackLinks(q, form.dataset.report ?? ''), true),
       );
     }
     box.innerHTML = parts.join('');
     box.hidden = false;
-    const input = form.querySelector('input');
+    const input = document.getElementById('tq') as HTMLInputElement | null;
     if (input) input.value = q;
   }
 </script>

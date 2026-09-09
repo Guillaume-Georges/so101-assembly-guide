@@ -3,6 +3,7 @@
 - id: setup-motors-no-response
   slug: setup-motors-error-check-cables
   title: Error while setting a motor ID (setup-motors)
+  stage: setup-motors
   aliases:
     - motor not found
     - lerobot-setup-motors fails
@@ -17,16 +18,16 @@
     - lerobot-setup-motors fails to detect any STS3215 servo motors
     - the power supply cable might disconnect as you manipulate the board
   symptoms:
-    - The setup script errors at "Connect the controller board to the ... motor only and press enter"
+    - The setup script stops with an error at "Connect the controller board to the ... motor only and press enter"
     - 'lerobot-setup-motors stops with "Motor ''<joint>'' (model ''sts3215'') was not found. Make sure it is connected.",
       or the following lerobot-calibrate reports ''Missing motor IDs'' for exactly the motors that failed to be set'
     - The board's LED is on and the port opens, but every motor returns COMM_RX_TIMEOUT (-6) at every baudrate and every
       ID
-    - Two motors carry the same ID, so one expected ID is missing and the whole bus is intermittent
-    - The controller board reaches the computer through a USB hub and no motor answers until it is plugged in directly
-    - A mains adapter over-delivering (16 V measured on a 12 V adapter) puts the servos into protection mode so they
-      never answer
-    - The power supply cable disconnects while the board is handled between the per-motor steps
+    - Two of your motors carry the same ID, so one expected ID is missing and the whole bus is intermittent
+    - Your controller board reaches the computer through a USB hub, and no motor answers until you plug it in directly
+    - Your mains adapter over-delivers (16 V measured on a 12 V adapter), which puts the servos into protection mode
+      so they never answer
+    - The power supply cable disconnects while you handle the board between the per-motor steps
     - '"[RxPacketError] Input voltage error!" appears before the not-found message: a 12 V supply on 7.4 V motors, see
       power-supply-5v-or-12v-input-voltage-error'
   cause:
@@ -35,9 +36,11 @@
     (USB) channel; or two motors already carry the same ID, so one expected ID never answers and the bus is
     intermittent.'
   fix:
-    Check power, USB and the 3-pin cable at every step; set both Waveshare jumpers to B; connect only the one motor
-    being configured, not yet daisy-chained; if a motor is still not found, scan the bus for a duplicate ID
-    (FeetechMotorsBus.scan_port across all baudrates), then isolate each motor and rerun setup.
+    - Check power, USB and the 3-pin cable at every step.
+    - On a Waveshare board, set both jumpers to B.
+    - Connect only the one motor being configured, not yet daisy-chained.
+    - If a motor is still not found, scan the bus for a duplicate ID (FeetechMotorsBus.scan_port across all
+      baudrates), then isolate each motor and rerun setup.
   related_steps:
     - F-002
     - L-002
@@ -89,11 +92,12 @@
 - id: servo5-cable-torn
   slug: wrist-roll-servo-cable-torn
   title: Wrist roll (motor 5) cable damaged during insertion
+  stage: assembly
   aliases:
     - Be careful when inserting the No. 5 servo, otherwise it is easy to tear the wire
     - can't get the motor 5 cable in after the servo is fitted
   symptoms:
-    - 3-pin cable pinched or torn at motor 5
+    - The 3-pin cable is pinched or torn at motor 5
     - With servo 5 already in the wrist bracket there is too little space left to route its wires
     - 'Motor 5 not answering after the wrist is assembled, at motor setup or in use (a silent servo 5 during
       calibration alone is expected: see no-signal-from-servo5-during-calibration)'
@@ -101,8 +105,9 @@
     Motor 5 was pushed into the wrist holder before its cables were routed through the holder; there is little
     room to wire it afterwards.
   fix:
-    Remove motor 5, route both cables through the holder first, then insert the servo gear side first with the
-    gear facing up.
+    - Remove motor 5.
+    - Route both cables through the holder first.
+    - Insert the servo gear side first, with the gear facing up.
   related_steps:
     - F-050
     - L-050
@@ -115,6 +120,7 @@
 - id: wrong-leader-gear-ratio
   slug: leader-servo-wrong-gear-ratio-at-joint
   title: Leader arm servo with the wrong gear ratio at a joint
+  stage: assembly
   aliases:
     - leader arm too stiff
     - leader arm collapses
@@ -124,17 +130,22 @@
     - how can I modify the gear ratio base on the so100 leader arm's servo?
     - Can I equip it with New SO-101 3D printed parts?
   symptoms:
-    - Leader joint is hard to move by hand or does not hold its own weight
-    - The arm was built from the SO-ARM100 instructions first, and only afterwards did the LeRobot page say the leader servos need different gearing
-    - Leader arm is harder to move because of friction, so it cannot be teleoperated with one hand or for long
-    - An SO-100 motor kit bought without printed parts is being fitted under SO-101 printed parts, with twelve identical motors and no replacement gears for the leader joints
+    - A leader joint is hard to move by hand, or does not hold its own weight
+    - You built the arm from the SO-ARM100 instructions first, and only afterwards did the LeRobot page say the leader
+      servos need different gearing
+    - The leader arm is harder to move because of friction, so you cannot teleoperate it with one hand or for long
+    - 'You are fitting an SO-100 motor kit bought without printed parts under SO-101 printed parts: twelve identical
+      motors and no replacement gears for the leader joints'
   cause:
     The SO-101 leader uses three ratios (1:191 at joints 1 and 3, 1:345 at joint 2, 1:147 at joints 4–6); a
     1:345 follower servo or a swapped leader servo was fitted at the wrong joint.
   fix:
-    Compare each leader servo's product code (C044 = 1:191, C001 = 1:345, C046 = 1:147) against the joint table
-    before assembly; swap the servo (or fit the replacement gears), then re-run motor setup; an unmodified leader still
-    works but is harder to move because of friction and cannot be teleoperated one-handed or for long.
+    - Read the product code on each leader servo (C044 = 1:191, C001 = 1:345, C046 = 1:147) and check it against the
+      joint table before assembly.
+    - Swap any servo that is at the wrong joint, or fit the replacement gears.
+    - Re-run motor setup.
+    - If you leave the leader unmodified it still works, but it is harder to move because of friction and cannot be
+      teleoperated one-handed or for long.
   related_steps:
     - L-002
     - L-011
@@ -147,6 +158,7 @@
     - servo-sts3215-c044-191
     - servo-sts3215-c001-345
     - servo-sts3215-c046-147
+  servo_table: leader
   source:
     - ref: upstream/lerobot/docs/source/so101.mdx#step-by-step-assembly-instructions
       note: leader gear-ratio table and rationale
@@ -173,6 +185,7 @@
 - id: power-supply-5v-or-12v-input-voltage-error
   slug: servo-input-voltage-error-wrong-power-supply
   title: '[RxPacketError] Input voltage error!'
+  stage: setup-motors
   aliases:
     - "Some motors found returned an error status: {2: '[RxPacketError] Input voltage error!'}"
     - Wrong power-supply voltage can burn the motors
@@ -190,14 +203,14 @@
     - setup-motors reports the input-voltage error and then "Motor 'gripper' (model 'sts3215') was not found" on a 12 V
       / 2 A adapter with STS3215-C001 (7.4 V) servos
     - the Waveshare Bus Servo Adapter (A) is printed 9-12.6 V input while the upstream BOM links a 5 V supply, and
-      builders cannot tell which to use
-    - a kit ships one 5 V and one 12 V adapter for two control boards, so one arm has no matching supply
+      you cannot tell which to use
+    - your kit shipped one 5 V and one 12 V adapter for two control boards, so one arm has no matching supply
   cause:
     A 12 V supply was connected to a bus of 7.4 V STS3215 motors (rated about 6-7.4 V), so the servo reports an
     input-voltage error and, per the Seeed Studio wiki, can be burnt.
   fix:
-    Power an arm built from 7.4 V motors - always the leader - from the 5 V supply, and use the 12 V supply only for an
-    arm built from 12 V motors.
+    - Power an arm built from 7.4 V motors (always the leader) from the 5 V supply.
+    - Use the 12 V supply only for an arm built from 12 V motors.
   related_steps:
     - F-002
     - L-002
@@ -240,20 +253,21 @@
 - id: no-signal-from-servo5-during-calibration
   slug: no-signal-from-servo5-during-calibration
   title: No signal from servo 5 during master-slave arm calibration
+  stage: calibration
   aliases:
     - it is normal that the terminal does not receive a signal from servo 5 when performing master-slave arm calibration
     - terminal doesn't receive a signal from servo 5
     - servo 5 silent during leader-follower calibration
     - Move all joints except 'wrist_roll' sequentially through their entire ranges of motion
   symptoms:
-    - During master-slave (leader and follower) arm calibration the terminal receives no signal from servo 5, while the
-      other five servos report normally
+    - During master-slave (leader and follower) arm calibration your terminal receives no signal from servo 5, while
+      the other five servos report normally
   cause:
     lerobot's SO-101 leader and follower calibration code treats wrist_roll (servo 5) as the full-turn motor, leaves it
     out of range recording and sets its range to 0-4095 in code, so calibration never asks that servo for a reading.
   fix:
-    Nothing to fix; continue the calibration as the Seeed wiki says. If servo 5 also fails motor setup or does not move
-    in use, see servo5-cable-torn.
+    - Nothing to fix; continue the calibration as the Seeed wiki says.
+    - If servo 5 also fails motor setup or does not move in use, see servo5-cable-torn.
   related_steps:
     - F-050
     - L-050
