@@ -1,6 +1,6 @@
 # Ticket: mine the public SO-101 record into troubleshooting candidates
 
-Status: open · Owner: Guillaume · Created: 2026-09-09
+Status: run 2026-09-09, decision 1 taken, decisions 2 and 3 open · Owner: Guillaume · Created: 2026-09-09
 
 ## Why
 
@@ -88,10 +88,12 @@ untouched.
 
 ## Open decisions for Guillaume
 
-1. **Scope.** Do `calibration` and `lerobot-software` entries enter v1? CLAUDE.md says a
-   later phase; the corpus and the search box both point the other way. If yes, the
-   troubleshooting index copy, the issue form text and the out-of-scope line in CLAUDE.md
-   change in the same PR.
+1. **Scope.** Decided 2026-09-09: `setup-motors` and `calibration` enter v1;
+   `lerobot-software` stays a post-v1 phase. Evidence: 91 of 112 candidates were
+   calibration or software, but the calibration set is small (13) and bound to the arm
+   (encoder wrap, homing offset overflow, wrist roll excluded from range recording), while
+   the software set is training and camera issues that belong to LeRobot's own docs. The
+   index copy, issue form and CLAUDE.md out-of-scope line changed in the same PR.
 2. **Where reviewed entries land.** One growing `troubleshooting.yaml`, or one file per
    scope under `data/troubleshooting/`? Either is a small loader change in
    `scripts/src/load.ts`.
