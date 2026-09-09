@@ -1,11 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { createSearch, fallbackLinks, toDocs } from './search';
+import { createSearch, exampleQueries, fallbackLinks, toDocs } from './search';
 import { data, steps } from './data';
 
-const docs = toDocs(data.troubleshooting, [...steps('follower'), ...steps('leader')], {
-  issue: (i) => `/troubleshooting/${i.id}/`,
-  step: (s) => `/${s.assembly}/${s.id}/`,
-});
+const docs = toDocs(
+  data.troubleshooting,
+  [...steps('follower'), ...steps('leader')],
+  {
+    issue: (i) => `/troubleshooting/${i.id}/`,
+    step: (s) => `/${s.assembly}/${s.id}/`,
+  },
+  { stage: (s) => `stage:${s}`, arm: (a) => `${a} arm` },
+);
 const search = createSearch(docs);
 const first = (q: string) => search.query(q)[0]?.href;
 
@@ -19,8 +24,18 @@ describe('site search', () => {
     expect(first('moter not found')).toBe('/troubleshooting/setup-motors-no-response/');
     expect(first('gear ration')).toBe('/troubleshooting/wrong-leader-gear-ratio/');
   });
-  it('reaches an entry through an alias', () => {
-    expect(first('leader arm too stiff')).toBe('/troubleshooting/wrong-leader-gear-ratio/');
+  it('reaches an entry through an alias and echoes that alias', () => {
+    const hit = search.query('leader arm too stiff')[0];
+    expect(hit.href).toBe('/troubleshooting/wrong-leader-gear-ratio/');
+    expect(hit.matched).toBe('leader arm too stiff');
+    expect(hit.sub).toBe('stage:assembly');
+  });
+  it('does not echo an alias when the title itself matched', () => {
+    expect(search.query('Error while setting a motor ID')[0].matched).toBeUndefined();
+  });
+  it('labels a step with its arm and number', () => {
+    const s = steps('follower')[4];
+    expect(search.query(s.title)[0].sub).toBe(`follower arm · step ${Number(s.id.slice(2))}`);
   });
   it('ranks the entry above steps for a pasted error line', () => {
     const hits = search.query(
@@ -36,6 +51,16 @@ describe('site search', () => {
   it('returns nothing for a query the guide does not cover', () => {
     expect(search.query('xyzzy qwv')).toEqual([]);
     expect(search.query('   ')).toEqual([]);
+  });
+});
+
+describe('exampleQueries', () => {
+  it('picks short builder phrasings, one per issue', () => {
+    const ex = exampleQueries(data.troubleshooting);
+    expect(ex).toContain('motor not found');
+    expect(ex).toContain('leader arm too stiff');
+    expect(ex.length).toBeLessThanOrEqual(4);
+    for (const q of ex) expect(q.split(' ').length).toBeLessThanOrEqual(4);
   });
 });
 
