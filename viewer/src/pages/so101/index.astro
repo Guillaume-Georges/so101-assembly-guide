@@ -35,7 +35,7 @@ const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SI
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));">
     <a class="card" href={withBase('/servos/')}><h3>Servos by joint</h3><p>IDs, gear ratios, voltages and supply per joint</p></a>
     <a class="card" href={withBase('/parts/')}><h3>Bill of materials</h3><p>{data.parts.length} parts with upstream file, licence and vendor names</p></a>
-    <a class="card" href={withBase('/troubleshooting/')}><h3>Troubleshooting</h3><p>{data.troubleshooting.length} assembly issues, searchable by error string</p></a>
+    <a class="card" href={withBase('/troubleshooting/')}><h3>Fix a problem</h3><p>{data.troubleshooting.length} problems with a fix, searchable by error string</p></a>
     <a class="card" href={withBase('/kits/')}><h3>Kits and vendor part numbers</h3><p>{data.vendors.length} vendors, cross-referenced to upstream part names</p></a>
   </div>
   <p class="muted">Data compiled {data.generated_at.slice(0, 10)} from SO-ARM100 and LeRobot at pinned commits; build {data.commit}.</p>
