@@ -1647,25 +1647,11 @@ form.search a.chip {
   font-size: 1.05rem;
   margin: 0 0 0.5rem;
 }
-ul.checks {
-  list-style: none;
+ul.symptoms {
   margin: 0;
-  padding: 0;
+  padding-left: 1.2rem;
   display: grid;
   gap: 0.35rem;
-}
-ul.checks label {
-  display: flex;
-  gap: 0.55rem;
-  align-items: flex-start;
-  cursor: pointer;
-}
-ul.checks input {
-  flex: none;
-  width: 1.1rem;
-  height: 1.1rem;
-  margin: 0.25rem 0 0;
-  accent-color: var(--ok);
 }
 .match .nope {
   margin: 0.7rem 0 0;
