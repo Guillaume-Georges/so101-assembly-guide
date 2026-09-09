@@ -6,8 +6,10 @@ models. Not yet opened; Guillaume posts it.
 **Title:** Licence of `STEP/SO100/STS3215_03a.step`, and of the vendor models embedded in `SO101 Assembly.step`
 
 Hi, thanks for publishing the SO-101 under Apache-2.0. We build a derived,
-source-cited assembly guide from this repo and have two licence questions
-about the servo geometry.
+source-cited assembly guide from this repo (https://kitsmith.dev/so101/,
+source and data at https://github.com/Guillaume-Georges/so101-assembly-guide;
+every step cites a file here at a pinned commit) and have two licence
+questions about the servo geometry.
 
 **1. Embedded vendor models.** `STEP/SO101/SO101 Assembly.step` (commit
 `eecbe3e`) embeds six `ST3215 Servo v2` sub-assemblies and a
