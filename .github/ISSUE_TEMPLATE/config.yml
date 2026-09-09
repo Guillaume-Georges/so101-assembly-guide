@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: The guide
+    url: https://kitsmith.dev/so101/
+    about: Step pages, servo table, kits, troubleshooting. Check the step page first; the source badge shows where each sentence comes from.
+  - name: LeRobot Discord (SO-ARM channel)
+    url: https://discord.gg/ggrqhPTsMe
+    about: For build questions and quick help. Corrections to the guide belong here on GitHub so they get a source and land in the data.

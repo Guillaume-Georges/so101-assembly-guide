@@ -1,0 +1,40 @@
+name: Add a troubleshooting issue
+description: A problem you hit during assembly that the troubleshooting section does not cover yet.
+title: 'Troubleshooting: '
+labels: [troubleshooting]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Troubleshooting pages are titled with the exact string people search for, and each needs a public source (a GitHub issue, forum post or vendor wiki page). Calibration and LeRobot software errors are out of scope for now; assembly problems are in.
+  - type: input
+    id: title
+    attributes:
+      label: Exact error string or the phrase you searched
+      placeholder: 'Servo will not seat in the base, printed part about 0.5 mm too tight'
+    validations:
+      required: true
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Symptoms
+      description: What you saw, one per line.
+    validations:
+      required: true
+  - type: textarea
+    id: cause_fix
+    attributes:
+      label: Cause and fix, if known
+  - type: input
+    id: step
+    attributes:
+      label: Step where it happens
+      placeholder: F-011
+  - type: input
+    id: source
+    attributes:
+      label: Public source
+      description: Where this problem is discussed or documented. Required before the page can be published.
+      placeholder: https://github.com/TheRobotStudio/SO-ARM100/issues/63
+    validations:
+      required: true
