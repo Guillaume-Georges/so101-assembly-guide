@@ -50,16 +50,19 @@ export type Fastener = Flagged & {
   name_plain?: string;
 };
 export type Tool = Flagged & { id: string; name: string; size?: string; purchase_note?: string };
+export type IssueStage = 'setup-motors' | 'assembly' | 'calibration';
 export type Issue = Flagged & {
   id: string;
   slug: string;
   title: string;
+  stage: IssueStage;
   aliases?: string[];
   symptoms: string[];
   cause: string;
-  fix: string;
+  fix: string[];
   related_steps?: string[];
   related_parts?: string[];
+  servo_table?: 'follower' | 'leader';
 };
 export type Vendor = Flagged & {
   id: string;

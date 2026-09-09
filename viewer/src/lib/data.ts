@@ -47,16 +47,19 @@ export type Fastener = Flagged & {
   name_plain?: string;
 };
 export type Tool = Flagged & { id: string; name: string; size?: string; purchase_note?: string };
+export type IssueStage = 'setup-motors' | 'assembly' | 'calibration';
 export type Issue = Flagged & {
   id: string;
   slug: string;
   title: string;
+  stage: IssueStage;
   aliases?: string[];
   symptoms: string[];
   cause: string;
-  fix: string;
+  fix: string[];
   related_steps?: string[];
   related_parts?: string[];
+  servo_table?: 'follower' | 'leader';
 };
 export type Vendor = Flagged & {
   id: string;
@@ -186,6 +189,14 @@ export const stepById = (id: string) =>
     .flat()
     .find((s) => s.id === id);
 export const jointLabel = (joint: string) => joint.replace(/_/g, ' ');
+/** How a builder names each arm and each troubleshooting stage; the search rows and the index page share these. */
+export const ARM_LABEL: Record<string, string> = { follower: 'Follower arm', leader: 'Leader arm' };
+export const STAGE_ORDER: IssueStage[] = ['setup-motors', 'assembly', 'calibration'];
+export const STAGE_LABEL: Record<IssueStage, string> = {
+  'setup-motors': 'Setting motor IDs',
+  assembly: 'Building the arm',
+  calibration: 'Calibrating',
+};
 export const JOINT_ORDER = [
   'shoulder_pan',
   'shoulder_lift',
