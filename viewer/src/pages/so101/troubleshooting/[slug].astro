@@ -46,11 +46,7 @@ const seen = new Set<string>();
 
   <section class="card match" aria-labelledby="match-h">
     <h2 id="match-h">Does this sound like you?</h2>
-    <ul class="checks">
-      {t.symptoms.map((s) => (
-        <li><label><input type="checkbox" /> <span>{s}</span></label></li>
-      ))}
-    </ul>
+    <ul class="symptoms">{t.symptoms.map((s) => <li>{s}</li>)}</ul>
     <p class="nope muted">None of these? <a href={withBase('/troubleshooting/')}>Back to all problems</a></p>
   </section>
 
