@@ -4,7 +4,7 @@ import { data, steps, stepPath } from '../../lib/data';
 import { withBase, SITE_NAME, DESCRIPTION, organization } from '../../lib/seo';
 const counts = { follower: steps('follower').length, leader: steps('leader').length };
 const firstFollower = steps('follower')[0];
-const servoIdStep = steps('follower').find((s) => s.prep && /servo id/i.test(s.title));
+const servoIdStep = steps('follower').find((s) => s.prep && /(servo|motor) ids?/i.test(s.title));
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: new URL(withBase('/'), site).toString(), description: DESCRIPTION, publisher: organization(site.toString()) }];
 ---
