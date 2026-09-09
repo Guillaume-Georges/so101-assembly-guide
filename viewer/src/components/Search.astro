@@ -1,39 +1,31 @@
 ---
-import { data } from '../lib/data';
-import { withBase } from '../lib/seo';
-// Error-string search: fuzzy match over troubleshooting titles + aliases + symptoms, and step titles.
-const index = [
-  ...data.troubleshooting.map((t) => ({
-    href: withBase(`/troubleshooting/${t.slug}/`),
-    label: t.title,
-    text: [t.title, ...(t.aliases ?? []), ...t.symptoms].join(' | '),
-  })),
-  ...Object.values(data.assemblies)
-    .flat()
-    .map((s) => ({ href: withBase(`/${s.assembly}/${s.id.slice(2)}-${s.slug}/`), label: `${s.id} ${s.title}`, text: `${s.id} ${s.title} ${s.assembly}` })),
-];
+import { data, stepPath } from '../lib/data';
+import { toDocs } from '../lib/search';
+import { withBase, GITHUB } from '../lib/seo';
+// Error-string search over troubleshooting entries (title, aliases, symptoms) and step titles.
+// Scoring lives in src/lib/search.ts (prefix + typo tolerance); the troubleshooting index page
+// reads this form's data-index to render results for a submitted `?q=`.
+const docs = toDocs(data.troubleshooting, Object.values(data.assemblies).flat(), {
+  issue: (i) => withBase(`/troubleshooting/${i.slug}/`),
+  step: (s) => withBase(stepPath(s)),
+});
+const reportForm = `${GITHUB}/issues/new?template=troubleshooting-entry.yml`;
 ---
 
-<form class="search" role="search" action={withBase('/troubleshooting/')} method="get" data-index={JSON.stringify(index)}>
-  <label class="sr-only" for="q" style="position:absolute;left:-9999px">Paste an error message or search steps</label>
-  <input id="q" name="q" type="search" placeholder="Paste an error or search steps" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="q-results" aria-autocomplete="list" aria-haspopup="listbox" />
+<form class="search" role="search" action={withBase('/troubleshooting/')} method="get" data-index={JSON.stringify(docs)} data-report={reportForm}>
+  <label class="sr-only" for="q" style="position:absolute;left:-9999px">Search steps or paste an error message</label>
+  <input id="q" name="q" type="search" placeholder="Search steps or paste an error" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="q-results" aria-autocomplete="list" aria-haspopup="listbox" />
   <ul id="q-results" role="listbox" aria-label="Results" hidden></ul>
 </form>
 <script>
+  import { createSearch, fallbackLinks, esc, type SearchDoc } from '../lib/search';
   const form = document.querySelector('form.search') as HTMLFormElement;
   const input = form.querySelector('input') as HTMLInputElement;
   const list = form.querySelector('ul') as HTMLUListElement;
-  const index = JSON.parse(form.dataset.index ?? '[]') as { href: string; label: string; text: string }[];
-  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-  const score = (q: string, t: string) => {
-    if (!q) return 0;
-    if (t.includes(q)) return 100 + q.length;
-    const words = q.split(' ').filter(Boolean);
-    const hit = words.filter((w) => t.includes(w)).length;
-    return hit ? (hit / words.length) * 60 : 0;
-  };
+  const search = createSearch(JSON.parse(form.dataset.index ?? '[]') as SearchDoc[]);
+  const reportForm = form.dataset.report ?? '';
   let active = -1;
-  const options = () => [...list.querySelectorAll('a')] as HTMLAnchorElement[];
+  const options = () => [...list.querySelectorAll('a[role="option"]')] as HTMLAnchorElement[];
   const setActive = (n: number) => {
     const opts = options();
     active = opts.length ? Math.max(-1, Math.min(n, opts.length - 1)) : -1;
@@ -47,16 +39,18 @@ const index = [
     if (!yes) setActive(-1);
   };
   const render = () => {
-    const q = norm(input.value);
-    const hits = index
-      .map((e) => ({ e, s: score(q, norm(e.text)) }))
-      .filter((x) => x.s > 0)
-      .sort((a, b) => b.s - a.s)
-      .slice(0, 8);
-    list.innerHTML = hits
-      .map((h, i) => `<li role="none"><a id="q-opt-${i}" role="option" aria-selected="false" href="${h.e.href}">${h.e.label}</a></li>`)
-      .join('');
-    open(hits.length > 0);
+    const q = input.value.trim();
+    const hits = search.query(q);
+    const rows = hits.map((h, i) => `<li role="none"><a id="q-opt-${i}" role="option" aria-selected="false" data-hit href="${esc(h.href)}">${esc(h.label)}</a></li>`);
+    // No troubleshooting page answers this: say so and hand over to the public record.
+    if (q.length >= 3 && !hits.some((h) => h.kind === 'issue')) {
+      rows.push(`<li role="none" class="nomatch">${hits.length ? 'No troubleshooting page' : 'Nothing in this guide'} matches “${esc(q)}”.</li>`);
+      fallbackLinks(q, reportForm).forEach((l, j) => {
+        rows.push(`<li role="none" class="fallback"><a id="q-opt-${hits.length + j}" role="option" aria-selected="false" href="${esc(l.href)}" rel="noopener">${l.label} ↗</a></li>`);
+      });
+    }
+    list.innerHTML = rows.join('');
+    open(rows.length > 0);
   };
   input.addEventListener('input', render);
   input.addEventListener('focus', render);
@@ -78,19 +72,38 @@ const index = [
     if (!form.contains(ev.target as Node)) open(false);
   });
   form.addEventListener('submit', (ev) => {
-    const pick = (active >= 0 ? options()[active] : list.querySelector('a')) as HTMLAnchorElement | null;
+    // Enter follows the highlighted row, else the first guide hit; a fallback link is never
+    // taken implicitly. With no guide hit the form submits to /troubleshooting/?q= as a page.
+    const pick = (active >= 0 ? options()[active] : list.querySelector('a[data-hit]')) as HTMLAnchorElement | null;
     if (pick) {
       ev.preventDefault();
       location.href = pick.href;
     }
   });
 </script>
-<style>
-  /* Results: a dropdown on wide screens, a full-width sheet under the header on phones. */
+<style is:global>
+  /* Global: rows are injected with innerHTML, so scoped selectors would never match them. */
   form.search li a[aria-selected='true'] {
     background: color-mix(in srgb, var(--accent) 18%, var(--bg-2));
     outline: 0;
   }
+  form.search li.nomatch {
+    padding: 0.5rem 0.6rem 0.25rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--line);
+    margin-top: 0.25rem;
+  }
+  form.search li.nomatch:first-child {
+    border-top: 0;
+    margin-top: 0;
+  }
+  form.search li.fallback a {
+    font-size: 0.9rem;
+    min-height: 0;
+    padding: 0.4rem 0.6rem;
+  }
+  /* Results: a dropdown on wide screens, a full-width sheet under the header on phones. */
   @media (max-width: 59.99rem) {
     form.search ul {
       position: fixed;

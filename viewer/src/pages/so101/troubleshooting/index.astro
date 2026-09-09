@@ -8,5 +8,43 @@ const site = Astro.site ?? new URL('https://kitsmith.dev');
 <Base title="Troubleshooting" path="/troubleshooting/" section="/troubleshooting/" description="SO-101 assembly troubleshooting: setup-motors errors, wrong gear ratio at a leader joint, torn wrist-roll cable. Paste your error string in the search box." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Troubleshooting', path: '/troubleshooting/' }], site.toString())]}>
   <h1>Troubleshooting</h1>
   <p>Assembly issues only in this version; calibration and LeRobot software errors are a later phase. Paste an exact error message in the search box above.</p>
+  <!-- Filled by the script below when the header search submits with no direct hit (?q=). The page is static, so the query is read in the browser. -->
+  <section class="card qstate" id="qstate" hidden aria-live="polite"></section>
   <ul class="plain">{data.troubleshooting.map((t) => <li><a href={withBase(`/troubleshooting/${t.slug}/`)}>{t.title}</a> <Flags unverified={t.unverified} />{t.aliases?.length ? <span class="muted"> — also: {t.aliases.join(', ')}</span> : null}</li>)}</ul>
 </Base>
+<script>
+  import { createSearch, fallbackLinks, esc, type SearchDoc } from '../../../lib/search';
+  const q = new URLSearchParams(location.search).get('q')?.trim() ?? '';
+  const box = document.getElementById('qstate');
+  const form = document.querySelector('form.search') as HTMLFormElement | null;
+  if (q && box && form) {
+    // Same index and scoring as the header dropdown, read from the form it already carries.
+    const hits = createSearch(JSON.parse(form.dataset.index ?? '[]') as SearchDoc[]).query(q);
+    const issues = hits.filter((h) => h.kind === 'issue');
+    const steps = hits.filter((h) => h.kind === 'step');
+    const list = (rows: { href: string; label: string }[], ext = false) =>
+      `<ul class="plain">${rows.map((r) => `<li><a href="${esc(r.href)}"${ext ? ' rel="noopener"' : ''}>${esc(r.label)}${ext ? ' ↗' : ''}</a></li>`).join('')}</ul>`;
+    const parts = [`<h2>${issues.length ? 'Results' : 'No troubleshooting page'} for “${esc(q)}”</h2>`];
+    if (issues.length) parts.push(list(issues));
+    if (steps.length) parts.push(`<h3>Steps that mention it</h3>`, list(steps));
+    if (!issues.length) {
+      parts.push(
+        `<p>This guide covers assembly problems only; calibration and LeRobot software errors are not written up yet. The public issue trackers are the best record for those, and reporting the phrase you searched tells us what to add next.</p>`,
+        list(fallbackLinks(q, form.dataset.report ?? ''), true),
+      );
+    }
+    box.innerHTML = parts.join('');
+    box.hidden = false;
+    const input = form.querySelector('input');
+    if (input) input.value = q;
+  }
+</script>
+<style is:global>
+  /* Global: the section body is injected with innerHTML. */
+  .qstate {
+    margin-bottom: 1.5rem;
+  }
+  .qstate h3 {
+    margin-top: 1rem;
+  }
+</style>
