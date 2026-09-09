@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Troubleshooting pages are titled with the exact string people search for, and each needs a public source (a GitHub issue, forum post or vendor wiki page). Calibration and LeRobot software errors are out of scope for now; assembly problems are in.
+        Troubleshooting pages are titled with the exact string people search for, and each needs a public source (a GitHub issue, forum post or vendor wiki page). Assembly, motor-setup and calibration problems are in; LeRobot software errors (install, teleop, recording, cameras, training) are out of scope for now.
   - type: input
     id: title
     attributes:

@@ -118,11 +118,14 @@ SOURCES.md
   store lives outside the repo and is never committed either.
 
 ## Out of scope for v1
-Firmware, calibration, LeRobot software setup, leader-follower teleop, kit
-vendor variants beyond noting them (a part-numbering cross-reference in
-`vendors.yaml` is "noting"), and any brand other than SO-101. Consequences:
-troubleshooting pages in v1 cover assembly issues only (wrong servo at joint,
-wrong ID, binding, cable pinch); calibration and LeRobot error strings are a
-named post-v1 phase. `/compare/` in v1 is SO-100 vs SO-101 only, sourced from
+Firmware, the calibration procedure, LeRobot software setup, leader-follower
+teleop, kit vendor variants beyond noting them (a part-numbering
+cross-reference in `vendors.yaml` is "noting"), and any brand other than
+SO-101. Consequences: troubleshooting pages in v1 cover assembly, motor-setup
+and calibration issues (wrong servo at joint, wrong ID, binding, cable pinch,
+wrong supply voltage, calibration behaviour mistaken for a fault); LeRobot
+software error strings (install, teleop, record, cameras, training) are a
+named post-v1 phase. Decided 2026-09-09 from the corpus mining
+(`docs/tickets/troubleshooting-corpus-mining.md`). `/compare/` in v1 is SO-100 vs SO-101 only, sourced from
 the shared upstream repo. `/kits` links vendors; no prices without a
 `retrieved` date.
