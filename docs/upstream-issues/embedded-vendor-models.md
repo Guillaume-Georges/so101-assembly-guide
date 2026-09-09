@@ -1,7 +1,7 @@
 # Draft upstream issue — TheRobotStudio/SO-ARM100
 
-Status: drafted 2026-09-07, revised 2026-09-08 after identifying the embedded
-models. Not yet opened; Guillaume posts it.
+Status: posted 2026-09-09 as TheRobotStudio/SO-ARM100#179
+(https://github.com/TheRobotStudio/SO-ARM100/issues/179). Text below is as posted.
 
 **Title:** Licence of `STEP/SO100/STS3215_03a.step`, and of the vendor models embedded in `SO101 Assembly.step`
 
