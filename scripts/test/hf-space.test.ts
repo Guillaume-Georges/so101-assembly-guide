@@ -45,6 +45,13 @@ describe('hf space', () => {
     expect(html).not.toContain('</script><b>&');
   });
 
+  it('shows only screenshots that exist in deploy/hf-space/shots', () => {
+    const { html } = renderSpace(ds, templates);
+    const shots = [...html.matchAll(/src="shots\/([^"]+)"/g)].map((m) => m[1]);
+    expect(shots.length).toBeGreaterThan(0);
+    for (const f of shots) expect(fs.existsSync(path.join(HF_SPACE_DIR, 'shots', f)), f).toBe(true);
+  });
+
   it('refuses an assembly it has no label for', () => {
     expect(() => spaceSteps({ ...ds, assemblies: { ...ds.assemblies, gripper: [] } })).toThrow(
       /no label for assembly 'gripper'/,

@@ -192,6 +192,72 @@
         color: var(--muted);
         font-size: 0.9rem;
       }
+      /* Screenshot strip: upright cards, all visible on a wide screen, snap-scrolled with the next
+         card peeking on a phone. Captions are text, not pixels, so they read at any width. */
+      .shots {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(13rem, 1fr);
+        gap: 1rem;
+        margin: 0.75rem 0 0;
+        padding: 4px 0 0.75rem;
+        list-style: none;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+      }
+      .shots li {
+        scroll-snap-align: start;
+      }
+      .shots a {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        color: var(--fg);
+        text-decoration: none;
+        border-radius: 1rem;
+      }
+      .shots img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 430 / 760;
+        margin-bottom: 0.5rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: #101827;
+        box-shadow:
+          0 1px 2px rgb(16 24 39 / 0.08),
+          0 8px 24px rgb(16 24 39 / 0.12);
+        transition: transform 0.15s ease;
+      }
+      .shots strong {
+        font-size: 1rem;
+        line-height: 1.3;
+      }
+      .shots span {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      .shots a:hover img {
+        transform: translateY(-3px);
+      }
+      .shots a:hover strong {
+        color: var(--link);
+      }
+      .shots a:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 4px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .shots img {
+          transition: none;
+        }
+        .shots a:hover img {
+          transform: none;
+        }
+      }
       .cta:focus-visible,
       .controls button:focus-visible,
       .steps a:focus-visible {
@@ -221,6 +287,9 @@
         }
         .steps {
           max-height: 24rem;
+        }
+        .shots {
+          grid-auto-columns: 72%;
         }
       }
     </style>
@@ -262,12 +331,90 @@
 
       <p class="held">{{HELD_BACK}}</p>
 
+      <section aria-labelledby="pages-h">
+        <h2 id="pages-h">On each page of the guide</h2>
+        <ul class="shots">
+          <li>
+            <a
+              href="{{GUIDE_URL}}/follower/071-follower-daisy-chain/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="shots/steps.webp"
+                width="430"
+                height="760"
+                loading="lazy"
+                decoding="async"
+                alt="Step F-071 on kitsmith.dev: a supply-voltage warning, three numbered instructions in plain words each with a src link, and a Done when check."
+              />
+              <strong>Plain words, a source for each</strong>
+              <span
+                >Each step in plain English, the source behind every instruction, and a check that
+                tells you it's done.</span
+              >
+            </a>
+          </li>
+          <li>
+            <a href="{{GUIDE_URL}}/servos/" target="_blank" rel="noopener">
+              <img
+                src="shots/servos.webp"
+                width="430"
+                height="760"
+                loading="lazy"
+                decoding="async"
+                alt="The servo table on kitsmith.dev: motor ID, joint, and the gear ratio and product code for the follower and leader arms."
+              />
+              <strong>Which motor goes where</strong>
+              <span
+                >Motor ID, gear ratio and product code for each of the six joints, both arms.</span
+              >
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{GUIDE_URL}}/troubleshooting/wrist-roll-servo-cable-torn/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="shots/issue.webp"
+                width="430"
+                height="760"
+                loading="lazy"
+                decoding="async"
+                alt="A troubleshooting page on kitsmith.dev: the symptoms to recognise it, then the fix as ordered steps."
+              />
+              <strong>Stuck? Start from what you see</strong>
+              <span>Troubleshooting pages go from the symptoms to the fix and why it happens.</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{GUIDE_URL}}/follower/032-follower-joint3-forearm/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="shots/need.webp"
+                width="430"
+                height="760"
+                loading="lazy"
+                decoding="async"
+                alt="Step F-032 on kitsmith.dev: the motor for the joint with its gear ratio, then the parts, screws and tools the step uses."
+              />
+              <strong>Everything the step uses</strong>
+              <span
+                >The motor for that joint, and the parts, screws and tools you need for it.</span
+              >
+            </a>
+          </li>
+        </ul>
+      </section>
+
       <h2>The full guide</h2>
       <p>
-        {{TOTAL}} steps across the follower and leader arms, each with its parts and a check, plus
-        the screws and tools where the step needs them; the servo and gear ratio at every joint;
-        Waveshare part numbers and Seeed servo numbers mapped to the upstream part names. Every fact
-        links to its public source.
+        {{TOTAL}} steps across the follower and leader arms. Every fact links to its public source.
       </p>
       <ul class="links">
         <li><a href="{{GUIDE_URL}}/" target="_blank" rel="noopener">Start the guide</a></li>
