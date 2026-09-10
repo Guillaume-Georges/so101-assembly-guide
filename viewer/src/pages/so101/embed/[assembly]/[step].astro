@@ -25,7 +25,7 @@ const preloads = islandPreloads(assembly, s.id, sitePath('/'));
   <body>
     <div class="viewer">
       <Viewer client:load assembly={assembly} stepId={s.id} base={sitePath('/')} embed />
-      <a class="pick steplink" style="top:0.5rem;left:0.5rem;max-width:60%" href={new URL(withBase(stepPath(s)), site).toString()} target="_blank" rel="noopener">{s.id} {s.title} ↗</a>
+      <a class="pick steplink" style="top:0.5rem;left:0.5rem;max-width:calc(100% - 13rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title={`${s.id} ${s.title}`} href={new URL(withBase(stepPath(s)), site).toString()} target="_blank" rel="noopener">{s.id} {s.title} ↗</a>
     </div>
   </body>
 </html>
