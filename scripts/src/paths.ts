@@ -16,3 +16,5 @@ export const PLACEMENTS_JSON = path.join(
   'placements.json',
 );
 export const GENERATED_DIR = path.join(REPO_ROOT, 'viewer', 'src', 'generated');
+/** Hugging Face Space templates; `build-hf-space` renders them into its gitignored dist/. */
+export const HF_SPACE_DIR = path.join(REPO_ROOT, 'deploy', 'hf-space');

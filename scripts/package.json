@@ -10,7 +10,8 @@
     "test": "vitest run",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "publish-geometry": "tsx src/publish-geometry.ts"
+    "publish-geometry": "tsx src/publish-geometry.ts",
+    "build-hf-space": "tsx src/build-hf-space.ts"
   },
   "dependencies": {
     "ajv": "^8.17.1",

@@ -18,7 +18,8 @@
     "lint": "pnpm -r lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "publish-geometry": "pnpm --filter @so101/scripts publish-geometry"
+    "publish-geometry": "pnpm --filter @so101/scripts publish-geometry",
+    "build-hf-space": "pnpm --filter @so101/scripts build-hf-space"
   },
   "devDependencies": {
     "prettier": "^3.6.2"
