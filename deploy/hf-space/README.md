@@ -16,7 +16,7 @@ tags:
   - assembly
   - 3d
 # datasets:
-#   - kitsmith/so101-assembly-guide
+#   - KitSmith/so101-assembly-guide
 ---
 
 # SO-101 Assembly Guide: 3D preview
