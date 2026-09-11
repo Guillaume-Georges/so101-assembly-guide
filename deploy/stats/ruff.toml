@@ -1,0 +1,6 @@
+# Same rules as pipeline/; this directory is stdlib-only and runs on the droplet's Python 3.12.
+line-length = 120
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "I", "B", "UP"]
