@@ -23,3 +23,8 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv run --directory pipeline ruff check .
       - run: uv run --directory pipeline ruff format --check .
+      - name: traffic report (deploy/stats, stdlib only)
+        run: |
+          uvx ruff check deploy/stats
+          uvx ruff format --check deploy/stats
+          uv run --no-project --with pytest pytest deploy/stats -q

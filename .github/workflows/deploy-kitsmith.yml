@@ -57,7 +57,7 @@ jobs:
       - name: smoke check through Cloudflare
         run: |
           for i in $(seq 1 10); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "https://kitsmith.dev/so101/?nocache=$GITHUB_SHA")
+            code=$(curl -s -o /dev/null -w '%{http_code}' -b ks_self=auto -H 'Cache-Control: no-cache' "https://kitsmith.dev/so101/?nocache=$GITHUB_SHA")
             [ "$code" = "200" ] && { echo "ok $code"; exit 0; }
             sleep 3
           done

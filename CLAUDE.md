@@ -116,6 +116,12 @@ SOURCES.md
   domain, commercial terms, outreach and partner notes. Public files record
   the resulting decision, never the reasoning kept there. Claude's memory
   store lives outside the repo and is never committed either.
+- Traffic questions ("who visits", "is it growing", "where from"): run
+  `ssh kitsmith-stats summary --md` (or `visitors`, `check`; JSON without
+  `--md`). It separates the owner, people and bots in the origin log
+  (ADR-0003, `docs/ops/traffic-report.md`). Don't re-derive from raw logs
+  or root SSH; Cloudflare's numbers can't separate the owner or bots.
+  Scripts that load kitsmith.dev send cookie `ks_self=auto`.
 
 ## Out of scope for v1
 Firmware, the calibration procedure, LeRobot software setup, leader-follower

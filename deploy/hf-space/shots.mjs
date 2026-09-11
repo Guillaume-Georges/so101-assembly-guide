@@ -34,6 +34,17 @@ for (const [name, url, anchor] of jobs) {
     isMobile: true,
     hasTouch: true,
   });
+  // Filed under owner automation by the traffic report (docs/ops/traffic-report.md).
+  await ctx.addCookies([
+    {
+      name: 'ks_self',
+      value: 'auto',
+      domain: 'kitsmith.dev',
+      path: '/',
+      secure: true,
+      sameSite: 'None',
+    },
+  ]);
   const page = await ctx.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
   // Fixed and sticky bars (the step nav, the header) would land on top of the clipped section.

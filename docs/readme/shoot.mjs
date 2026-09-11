@@ -36,6 +36,17 @@ for (const [name, w, h, url] of jobs) {
     isMobile: w < 500,
     hasTouch: w < 500,
   });
+  // Filed under owner automation by the traffic report (docs/ops/traffic-report.md).
+  await ctx.addCookies([
+    {
+      name: 'ks_self',
+      value: 'auto',
+      domain: 'kitsmith.dev',
+      path: '/',
+      secure: true,
+      sameSite: 'None',
+    },
+  ]);
   const page = await ctx.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.waitForTimeout(6000);
