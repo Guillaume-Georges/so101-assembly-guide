@@ -222,3 +222,39 @@ def test_stale_asn_data_is_flagged_not_refetched(monkeypatch, tmp_path, asn_db, 
     monkeypatch.setattr(kt, "refresh_asn_db", no_network)
     assert kt.main(["summary", "--days", "36500"]) == 0
     assert any("days old" in n for n in json.loads(capsys.readouterr().out)["notes"])
+
+
+def test_asn_download_names_itself_and_cleans_up(monkeypatch, tmp_path):
+    """iptoasn.com returns 403 to urllib's default user agent (found on the first server install)."""
+    seen = {}
+
+    class Resp:
+        def __init__(self):
+            self.chunks = [b"data", b""]
+
+        def read(self, n):
+            return self.chunks.pop(0)
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def fake_urlopen(req, timeout):
+        seen["ua"] = req.get_header("User-agent")
+        return Resp()
+
+    monkeypatch.setattr(kt.urllib.request, "urlopen", fake_urlopen)
+    target = tmp_path / "asn" / "db.tsv.gz"
+    kt.refresh_asn_db(dict(kt.DEFAULTS, asn_db=str(target)))
+    assert seen["ua"].startswith("kitsmith-traffic/")
+    assert target.read_bytes() == b"data"
+
+    def refused(req, timeout):
+        raise kt.urllib.error.HTTPError(req.full_url, 403, "Forbidden", {}, None)
+
+    monkeypatch.setattr(kt.urllib.request, "urlopen", refused)
+    with pytest.raises(OSError):
+        kt.refresh_asn_db(dict(kt.DEFAULTS, asn_db=str(target)))
+    assert [p.name for p in target.parent.iterdir()] == ["db.tsv.gz"]  # no .part left behind

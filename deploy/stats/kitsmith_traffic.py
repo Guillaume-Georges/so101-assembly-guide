@@ -92,6 +92,7 @@ DATACENTER_ASN_NAME = re.compile(
 )
 SEARCH_REFERRER = re.compile(r"google\.|bing\.|yahoo\.|duckduckgo\.|yandex\.|baidu\.|ecosia\.|qwant\.")
 SESSION_GAP = dt.timedelta(minutes=30)
+USER_AGENT = "kitsmith-traffic/1 (+https://kitsmith.dev/)"
 
 
 # ---------------------------------------------------------------- config and input
@@ -186,11 +187,17 @@ def asn_lookup(ips: set[str], db_path: str) -> dict[str, tuple[int, str, str]]:
 def refresh_asn_db(cfg: dict) -> str:
     path = cfg["asn_db"]
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    # iptoasn.com answers 403 to urllib's default "Python-urllib/x.y" user agent.
+    req = urllib.request.Request(cfg["asn_url"], headers={"User-Agent": USER_AGENT})
     fd, tmp = tempfile.mkstemp(dir=os.path.dirname(path), suffix=".part")
-    with os.fdopen(fd, "wb") as fh, urllib.request.urlopen(cfg["asn_url"], timeout=60) as resp:
-        while chunk := resp.read(1 << 16):
-            fh.write(chunk)
-    os.replace(tmp, path)
+    try:
+        with os.fdopen(fd, "wb") as fh, urllib.request.urlopen(req, timeout=60) as resp:
+            while chunk := resp.read(1 << 16):
+                fh.write(chunk)
+        os.replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
     return path
 
 
@@ -581,7 +588,11 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_config()
 
     if args.cmd == "update-asn":
-        print(json.dumps({"updated": refresh_asn_db(cfg)}))
+        try:
+            print(json.dumps({"updated": refresh_asn_db(cfg)}))
+        except OSError as exc:  # URLError and HTTPError are OSErrors
+            print(json.dumps({"error": f"{cfg['asn_url']}: {exc}"}))
+            return 1
         return 0
 
     files = log_files(cfg["log_glob"])
