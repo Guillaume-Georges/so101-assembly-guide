@@ -8,10 +8,13 @@
       "pattern": "^[a-z0-9][a-z0-9.-]*$",
       "description": "Stable slug id. Never reused once published."
     },
-    "assembly": { "type": "string", "enum": ["follower", "leader"] },
+    "assembly": {
+      "type": "string",
+      "enum": ["follower", "leader"]
+    },
     "sourceRef": {
       "type": "object",
-      "description": "Where a fact comes from. Exactly one of: upstream path (+#section), URL (+retrieved), or video URL (+timestamp).",
+      "description": "Where a fact comes from. Exactly one of: upstream path (+#section), URL (+retrieved), or video URL (+timestamp). The evidence fields (comment_id, quote, body_sha256, archived, role) are written by scripts/src/corpus/promote.ts and prove what a cited comment said when it was quoted.",
       "properties": {
         "ref": {
           "type": "string",
@@ -28,23 +31,73 @@
           "pattern": "^\\d{1,2}:\\d{2}(:\\d{2})?$",
           "description": "Video timestamp mm:ss or h:mm:ss"
         },
-        "note": { "type": "string" }
+        "note": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["cause", "fix", "confirmation"],
+          "description": "Which claim this quote supports"
+        },
+        "fix_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into fix[] for role fix or confirmation"
+        },
+        "comment_id": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "GitHub comment id; 0 = the issue body"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Verbatim span of the cited comment, 5-60 words"
+        },
+        "body_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "sha256 of the normalised comment body at retrieval"
+        },
+        "archived": {
+          "type": "string",
+          "pattern": "^https://web\\.archive\\.org/",
+          "description": "Wayback snapshot of the cited URL taken at promotion"
+        }
       },
       "required": ["ref"],
       "additionalProperties": false,
-      "if": { "properties": { "ref": { "type": "string", "pattern": "^https?://" } } },
+      "if": {
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^https?://"
+          }
+        }
+      },
       "then": {
-        "anyOf": [{ "required": ["retrieved"] }, { "required": ["timestamp"] }]
+        "anyOf": [
+          {
+            "required": ["retrieved"]
+          },
+          {
+            "required": ["timestamp"]
+          }
+        ]
       }
     },
     "sources": {
       "type": "array",
-      "items": { "$ref": "#/$defs/sourceRef" },
+      "items": {
+        "$ref": "#/$defs/sourceRef"
+      },
       "description": "May be empty ONLY when unverified is true (enforced by scripts/validate)."
     },
     "point3": {
       "type": "array",
-      "items": { "type": "number" },
+      "items": {
+        "type": "number"
+      },
       "minItems": 3,
       "maxItems": 3,
       "description": "[x, y, z] in metres, assembly frame, Y-up"

@@ -3,7 +3,19 @@ import path from 'node:path';
 import { parse } from 'yaml';
 import { ASSEMBLIES_DIR, DATA_DIR } from './paths.js';
 
-export type SourceRef = { ref: string; retrieved?: string; timestamp?: string; note?: string };
+export type SourceRef = {
+  ref: string;
+  retrieved?: string;
+  timestamp?: string;
+  note?: string;
+  /** Evidence fields, written by scripts/src/corpus/promote.ts: what the cited comment said when quoted. */
+  role?: 'cause' | 'fix' | 'confirmation';
+  fix_index?: number;
+  comment_id?: number;
+  quote?: string;
+  body_sha256?: string;
+  archived?: string;
+};
 type Flagged = { source: SourceRef[]; unverified?: boolean; approximation?: boolean };
 
 export type Part = Flagged & {
