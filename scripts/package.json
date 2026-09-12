@@ -11,7 +11,11 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "publish-geometry": "tsx src/publish-geometry.ts",
-    "build-hf-space": "tsx src/build-hf-space.ts"
+    "build-hf-space": "tsx src/build-hf-space.ts",
+    "corpus:fetch": "tsx src/corpus/fetch.ts",
+    "corpus:check": "tsx src/corpus/check.ts",
+    "corpus:promote": "tsx src/corpus/promote.ts",
+    "corpus:hold": "tsx src/corpus/hold.ts"
   },
   "dependencies": {
     "ajv": "^8.17.1",

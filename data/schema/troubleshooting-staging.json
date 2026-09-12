@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://so101-assembly-guide/schema/troubleshooting-staging.json",
+  "title": "troubleshooting-candidates.yaml — staged candidates; the build never reads this file",
+  "type": "object",
+  "properties": {
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate" }
+    },
+    "merges_into_existing": { "type": "array", "items": { "type": "object" } }
+  },
+  "required": ["candidates"],
+  "additionalProperties": false,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "description": "One quote supporting one claim. The miner writes role, fix_index, url and quote; check.ts fills the rest from the fetched thread.",
+      "properties": {
+        "role": { "type": "string", "enum": ["cause", "fix", "confirmation"] },
+        "fix_index": { "type": "integer", "minimum": 0 },
+        "url": { "type": "string", "pattern": "^https://" },
+        "quote": { "type": "string", "minLength": 1 },
+        "comment_id": { "type": "integer", "minimum": 0 },
+        "author": { "type": "string" },
+        "author_association": { "type": "string" },
+        "created_at": { "type": "string" },
+        "body_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      },
+      "required": ["role", "url", "quote"],
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.json#/$defs/id",
+          "description": "Staging key, stable across runs; becomes the published id"
+        },
+        "slug": {
+          "type": "string",
+          "description": "Ignored: promote.ts derives the slug from the title"
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "title_kind": { "type": "string", "enum": ["verbatim", "symptom"] },
+        "aliases": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "symptoms": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "cause": { "type": "string", "minLength": 1 },
+        "fix": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "related_steps": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[FL]-\\d{3}$" },
+          "uniqueItems": true
+        },
+        "related_parts": {
+          "type": "array",
+          "items": { "$ref": "common.json#/$defs/id" },
+          "uniqueItems": true
+        },
+        "servo_table": { "type": "string", "enum": ["follower", "leader"] },
+        "source": { "$ref": "common.json#/$defs/sources" },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } },
+        "unverified": { "type": "boolean" },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "assembly",
+            "setup-motors",
+            "calibration",
+            "lerobot-software",
+            "sourcing",
+            "firmware"
+          ]
+        },
+        "frequency": { "type": "integer", "minimum": 0 },
+        "confidence": { "type": "string", "enum": ["confirmed", "reported", "open"] },
+        "review_notes": { "type": "string" },
+        "held": { "type": "string", "description": "Date Guillaume held it at the gate" },
+        "duplicate_of": { "type": "string" },
+        "merge_into": { "type": "string" }
+      },
+      "required": ["id", "title", "symptoms", "cause", "fix", "source", "scope", "confidence"],
+      "additionalProperties": false
+    }
+  }
+}

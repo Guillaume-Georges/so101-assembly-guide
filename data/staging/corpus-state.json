@@ -1,0 +1,10 @@
+{
+  "watermarks": {
+    "huggingface/lerobot": "2026-09-09T00:00:00Z",
+    "TheRobotStudio/SO-ARM100": "2026-09-09T00:00:00Z",
+    "Guillaume-Georges/so101-assembly-guide": "2026-09-09T00:00:00Z"
+  },
+  "index": {},
+  "ledger": {},
+  "retired_slugs": []
+}
