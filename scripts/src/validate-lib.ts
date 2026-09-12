@@ -13,7 +13,7 @@ import { validateGlossary, validatePlain } from './plain.js';
 
 export type Problem = { file: string; where: string; message: string };
 
-function buildAjv(schemaDir: string): Ajv2020 {
+export function buildAjv(schemaDir: string): Ajv2020 {
   const ajv = new Ajv2020({
     allErrors: true,
     strict: true,

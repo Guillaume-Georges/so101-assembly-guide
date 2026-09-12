@@ -1,0 +1,40 @@
+{
+  "sources": [
+    {
+      "owner": "huggingface",
+      "repo": "lerobot",
+      "mode": "search",
+      "query": "so101 OR \"so-101\" OR \"so 101\"",
+      "maintainer_associations": ["OWNER", "MEMBER", "COLLABORATOR"],
+      "confirms_stages": ["setup-motors", "calibration"]
+    },
+    {
+      "owner": "TheRobotStudio",
+      "repo": "SO-ARM100",
+      "mode": "all",
+      "maintainer_associations": ["OWNER", "MEMBER", "COLLABORATOR"],
+      "confirms_stages": ["assembly", "setup-motors", "calibration"]
+    },
+    {
+      "owner": "Guillaume-Georges",
+      "repo": "so101-assembly-guide",
+      "mode": "label",
+      "label": "troubleshooting",
+      "maintainer_associations": [],
+      "confirms_stages": []
+    }
+  ],
+  "v1_scopes": ["assembly", "setup-motors", "calibration"],
+  "blocked_domains": [
+    "discord.com",
+    "discord.gg",
+    "discordapp.com",
+    "slack.com",
+    "wechat.com",
+    "weixin.qq.com"
+  ],
+  "overlap_days": 7,
+  "cap": 5,
+  "quote_words": { "min": 5, "max": 60 },
+  "models": { "mine": "claude-opus-5", "falsify": "claude-opus-5" }
+}
