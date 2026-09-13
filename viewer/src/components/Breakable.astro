@@ -1,0 +1,8 @@
+---
+// Text with <wbr> after / _ # (see lib/wrap.ts): lets long file paths and upstream file names wrap
+// inside narrow table cells instead of widening the column.
+import { breakPoints } from '../lib/wrap';
+interface Props { text: string }
+const pieces = breakPoints(Astro.props.text);
+---
+{pieces.map((p, i) => (i === 0 ? p : <><wbr />{p}</>))}

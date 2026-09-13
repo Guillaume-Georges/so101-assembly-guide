@@ -1,5 +1,6 @@
 ---
 import { sourceLink, type Source } from '../lib/data';
+import Breakable from './Breakable.astro';
 interface Props { sources: Source[]; title?: string; note?: string }
 const { sources, title = 'Sources', note } = Astro.props;
 ---
@@ -11,9 +12,9 @@ const { sources, title = 'Sources', note } = Astro.props;
       const l = sourceLink(s);
       return (
         <li>
-          <a href={l.href} rel="noopener">{l.label}</a>
+          <a href={l.href} rel="noopener"><Breakable text={l.label} /></a>
           {s.retrieved && <span> (retrieved {s.retrieved})</span>}
-          {s.note && <span> — {s.note}</span>}
+          {s.note && <span> — <Breakable text={s.note} /></span>}
         </li>
       );
     })}
