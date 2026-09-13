@@ -1840,3 +1840,153 @@ a.icard span {
     padding: 0.5rem;
   }
 }
+
+/* FAQ: the questions as an index, then each answer at reading width with named links and its sources one tap
+   away. Beside each other on wide screens, the index staying in view. */
+.faq {
+  display: grid;
+  gap: 1.5rem;
+}
+.faq > header h1 {
+  margin-bottom: 0.35rem;
+}
+.faq > header p {
+  margin: 0;
+}
+.faq .grp {
+  margin: 0 0 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.faqindex {
+  display: grid;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-2);
+}
+.faqindex ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.faqindex a {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0.25rem 0;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.faqindex a:hover {
+  text-decoration: underline;
+}
+.faqgroup + .faqgroup {
+  margin-top: 1.5rem;
+}
+.faq .qa {
+  display: grid;
+  gap: 0.6rem;
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 5rem;
+}
+.faq .grp + .qa {
+  border-top: 0;
+  padding-top: 0.2rem;
+}
+.faq .qa h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.faq .qa p {
+  margin: 0;
+  /* About 75 characters of this text; 62ch measures the wide 0 glyph and let lines run to about 90. */
+  max-width: 34rem;
+}
+.faq .qa .sources ul {
+  margin-block: 0.3rem 0;
+}
+.faq ul.more {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.faq ul.more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: var(--tap);
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+.faq ul.more a:hover {
+  border-color: var(--accent);
+}
+.faq ul.more .kind {
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.faq ul.more .kind.code {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.faq ul.more .arr {
+  color: var(--accent);
+}
+.faqfoot {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  max-width: 34rem;
+}
+.faqfoot h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+.faqfoot p {
+  margin: 0;
+  color: var(--muted);
+}
+@media (min-width: 60rem) {
+  .faq {
+    grid-template-columns: 17rem minmax(0, 36rem);
+    grid-template-areas:
+      'index head'
+      'index body';
+    column-gap: 3.5rem;
+    row-gap: 1.25rem;
+    justify-content: center;
+    align-items: start;
+  }
+  .faq > header {
+    grid-area: head;
+  }
+  .faqindex {
+    grid-area: index;
+    position: sticky;
+    top: 1rem;
+  }
+  .faqbody {
+    grid-area: body;
+  }
+  .faq .qa {
+    scroll-margin-top: 1rem;
+  }
+  .faq .qa h3 {
+    font-size: 1.25rem;
+  }
+}

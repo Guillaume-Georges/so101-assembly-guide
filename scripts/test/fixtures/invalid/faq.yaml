@@ -1,1 +1,6 @@
-[]
+- id: faq-broken
+  question: Where does this link go?
+  answer: Nowhere.
+  related: [/nowhere/, D-999]
+  source:
+    - { ref: upstream/SO-ARM100/README.md }

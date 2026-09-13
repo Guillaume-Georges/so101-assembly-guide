@@ -99,6 +99,7 @@ export type PageRow = Flagged & {
   setting?: string;
   value?: string;
   notes?: string;
+  group?: FaqGroup;
   related?: string[];
 };
 export type Step = Flagged & {
@@ -148,8 +149,10 @@ export type Bundle = {
   faq: PageRow[];
   printing: PageRow[];
   glossary: GlossaryEntry[];
+  discrepancies: Discrepancy[];
   assemblies: Record<string, Step[]>;
 };
+export type Discrepancy = { id: string; title: string; anchor: string };
 
 export const data = bundle as unknown as Bundle;
 export const ASSEMBLIES = ['follower', 'leader'] as const;
@@ -197,6 +200,53 @@ export const STAGE_LABEL: Record<IssueStage, string> = {
   assembly: 'Building the arm',
   calibration: 'Calibrating',
 };
+/** FAQ page groups: page labels, not data. */
+export type FaqGroup = 'motors' | 'parts';
+export const FAQ_GROUP_ORDER: FaqGroup[] = ['motors', 'parts'];
+export const FAQ_GROUP_LABEL: Record<FaqGroup, string> = {
+  motors: 'Motors',
+  parts: 'Parts and hardware',
+};
+export const DISCREPANCIES_URL =
+  'https://github.com/Guillaume-Georges/so101-assembly-guide/blob/main/data/discrepancies.md';
+/** Section pages an FAQ answer may point to, by the name a builder reads. Keep in step with SECTION_PAGES in scripts/src/validate-lib.ts. */
+const SECTION_LINK: Record<string, string> = {
+  '/follower/': 'Build the follower arm',
+  '/leader/': 'Build the leader arm',
+  '/parts/': 'Parts list',
+  '/servos/': 'Servos table',
+  '/kits/': 'Kits and vendor part numbers',
+  '/troubleshooting/': 'Fix a problem',
+  '/print-settings/': 'Print settings',
+  '/compare/so-100-vs-so-101/': 'SO-100 vs SO-101',
+};
+export type FaqLink = {
+  href: string;
+  kind: string;
+  label: string;
+  code: boolean;
+  external: boolean;
+};
+/** A `related` entry from faq.yaml as a named link: a discrepancy id, a step path or a section page. Throws on anything else so the build fails. */
+export function faqLink(ref: string): FaqLink {
+  const d = data.discrepancies.find((x) => x.id === ref);
+  if (d)
+    return {
+      href: `${DISCREPANCIES_URL}#${d.anchor}`,
+      kind: d.id,
+      label: d.title,
+      code: true,
+      external: true,
+    };
+  const s = Object.values(data.assemblies)
+    .flat()
+    .find((x) => stepPath(x) === ref);
+  if (s)
+    return { href: ref, kind: s.id, label: s.title_short ?? s.title, code: true, external: false };
+  const label = SECTION_LINK[ref];
+  if (label) return { href: ref, kind: 'Page', label, code: false, external: false };
+  throw new Error(`faq.yaml related '${ref}' is not a discrepancy, a step or a section page`);
+}
 export const JOINT_ORDER = [
   'shoulder_pan',
   'shoulder_lift',

@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { loadDataset } from '../src/load.js';
+import { loadDataset, parseDiscrepancies } from '../src/load.js';
 import { resolveDataset } from '../src/resolve.js';
 import { listFlags, validateAll, validateCrossRefs, validateSchemas } from '../src/validate-lib.js';
 import { DATA_DIR, SCHEMA_DIR } from '../src/paths.js';
@@ -31,6 +31,9 @@ describe('cross-references', () => {
         expect.stringContaining("unknown tool 'nope'"),
         expect.stringContaining("servo_slot 'elbow_flex'"),
         expect.stringContaining('source is empty'),
+        expect.stringContaining('group is required'),
+        expect.stringContaining("unknown related '/nowhere/'"),
+        expect.stringContaining("unknown related 'D-999'"),
       ]),
     );
   });
@@ -80,5 +83,34 @@ describe('cross-references', () => {
       { file: 'tools.yaml', id: 'hex-1.5', flag: 'unverified' },
       { file: 'troubleshooting.yaml', id: 'horn-binds', flag: 'unverified' },
     ]);
+  });
+});
+
+describe('discrepancies', () => {
+  it('reads ids, titles and GitHub anchors from the D-### headings only', () => {
+    const md = [
+      '# Where sources disagree',
+      '## D-001 — Motor-mounting screw size',
+      'text',
+      '## D-005 — Part names in the assembly STEP vs the STL/README names',
+      '## Not discrepancies (checked, consistent)',
+    ].join('\n');
+    expect(parseDiscrepancies(md)).toEqual([
+      {
+        id: 'D-001',
+        title: 'Motor-mounting screw size',
+        anchor: 'd-001--motor-mounting-screw-size',
+      },
+      {
+        id: 'D-005',
+        title: 'Part names in the assembly STEP vs the STL/README names',
+        anchor: 'd-005--part-names-in-the-assembly-step-vs-the-stlreadme-names',
+      },
+    ]);
+  });
+  it('finds every recorded discrepancy in the real file, each id once', () => {
+    const ids = loadDataset(DATA_DIR).discrepancies.map((d) => d.id);
+    expect(ids.length).toBeGreaterThan(0);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });

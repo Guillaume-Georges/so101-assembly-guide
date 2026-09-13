@@ -1,10 +1,10 @@
 ---
 import { sourceLink, type Source } from '../lib/data';
 import Breakable from './Breakable.astro';
-interface Props { sources: Source[]; title?: string; note?: string }
-const { sources, title = 'Sources', note } = Astro.props;
+interface Props { sources: Source[]; title?: string; note?: string; open?: boolean }
+const { sources, title = 'Sources', note, open = true } = Astro.props;
 ---
-<details class="sources" open>
+<details class="sources" open={open}>
   <summary>{title} ({sources.length})</summary>
   {note && <p class="muted srcnote">{note}</p>}
   <ul>
