@@ -1,21 +1,57 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Sources from '../../../components/Sources.astro';
-import { data } from '../../../lib/data';
+import { data, faqLink, FAQ_GROUP_ORDER, FAQ_GROUP_LABEL, DISCREPANCIES_URL } from '../../../lib/data';
 import { withBase, breadcrumbs } from '../../../lib/seo';
 const site = Astro.site ?? new URL('https://kitsmith.dev');
 const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: data.faq.map((q) => ({ '@type': 'Question', name: q.question, acceptedAnswer: { '@type': 'Answer', text: q.answer } })) };
+const groups = FAQ_GROUP_ORDER.map((g) => ({ id: g, label: FAQ_GROUP_LABEL[g], rows: data.faq.filter((q) => q.group === g) })).filter((g) => g.rows.length);
 ---
 <Base title="FAQ" path="/faq/" section="/faq/" description="SO-101 assembly FAQ: which servo at which joint, which power supply, which screws, servo IDs before assembly, cable clips, why motor 5 has one horn." jsonLd={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq/' }], site.toString()), faq]}>
-  <h1>Frequently asked questions</h1>
-  {data.faq.map((q) => (
-    <section class="card" id={q.id}>
-      <h2>{q.question}</h2>
-      <p>{q.answer}</p>
-      {q.related?.length ? <p class="muted">See: {q.related.map((r) => <a href={withBase(r)}>{r} </a>)}</p> : null}
-      <Sources sources={q.source} />
-    </section>
-  ))}
-  <h2>Where sources disagree</h2>
-  <p>Six recorded discrepancies between the upstream repo, the LeRobot page, the Feetech datasheet and vendor wikis are kept in <a href="https://github.com/Guillaume-Georges/so101-assembly-guide/blob/main/data/discrepancies.md">discrepancies.md</a>.</p>
+  <div class="faq">
+    <header>
+      <h1>Frequently asked questions</h1>
+      <p class="muted">Short answers, each from the same sources as the guide.</p>
+    </header>
+    <nav class="faqindex" aria-label="Questions">
+      {groups.map((g) => (
+        <div>
+          <p class="grp">{g.label}</p>
+          <ul>{g.rows.map((q) => <li><a href={`#${q.id}`}>{q.question}</a></li>)}</ul>
+        </div>
+      ))}
+    </nav>
+    <div class="faqbody">
+      {groups.map((g) => (
+        <section class="faqgroup" aria-labelledby={`faq-${g.id}`}>
+          <h2 id={`faq-${g.id}`} class="grp">{g.label}</h2>
+          {g.rows.map((q) => (
+            <article class="qa" id={q.id}>
+              <h3>{q.question}</h3>
+              <p>{q.answer}</p>
+              {q.related?.length ? (
+                <ul class="more">
+                  {q.related.map((r) => {
+                    const l = faqLink(r);
+                    return (
+                      <li>
+                        <a href={l.external ? l.href : withBase(l.href)} rel={l.external ? 'noopener' : undefined}>
+                          <span class={l.code ? 'kind code' : 'kind'}>{l.kind}</span>{l.label}<span class="arr" aria-hidden="true">→</span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : null}
+              <Sources sources={q.source} open={false} />
+            </article>
+          ))}
+        </section>
+      ))}
+      <section class="faqfoot" aria-labelledby="faq-disagree">
+        <h2 id="faq-disagree">Where sources disagree</h2>
+        <p>{data.discrepancies.length} recorded discrepancies between the upstream repo, the LeRobot page, the Feetech datasheet and vendor wikis are kept in <a href={DISCREPANCIES_URL}>discrepancies.md</a>.</p>
+      </section>
+    </div>
+  </div>
 </Base>

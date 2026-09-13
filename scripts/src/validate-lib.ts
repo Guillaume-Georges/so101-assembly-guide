@@ -172,6 +172,34 @@ export function validateCrossRefs(raw: Dataset, placementsPath = PLACEMENTS_JSON
         });
   }
 
+  // FAQ: a group for the page layout; each related entry is a step page, a section page or a
+  // recorded discrepancy. Section pages here must match SECTION_LINK in viewer/src/lib/data.ts.
+  const SECTION_PAGES = [
+    '/follower/',
+    '/leader/',
+    '/parts/',
+    '/servos/',
+    '/kits/',
+    '/troubleshooting/',
+    '/print-settings/',
+    '/compare/so-100-vs-so-101/',
+  ];
+  const stepPaths = new Set(
+    Object.values(ds.assemblies)
+      .flat()
+      .map((st) => `/${st.assembly}/${st.id.slice(2)}-${st.slug}/`),
+  );
+  const discrepancyIds = new Set(ds.discrepancies.map((d) => d.id));
+  for (const q of ds.faq) {
+    if (!q.group) p.push({ file: 'faq.yaml', where: q.id, message: 'group is required' });
+    for (const r of q.related ?? []) {
+      const known = /^D-\d{3}$/.test(r)
+        ? discrepancyIds.has(r)
+        : stepPaths.has(r) || SECTION_PAGES.includes(r);
+      if (!known) p.push({ file: 'faq.yaml', where: q.id, message: `unknown related '${r}'` });
+    }
+  }
+
   // The Plain register and the glossary it links (scripts/plain.ts).
   p.push(...validatePlain(ds), ...validateGlossary(ds));
 

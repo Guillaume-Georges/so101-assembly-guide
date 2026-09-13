@@ -104,6 +104,7 @@ export type PageRow = Flagged & {
   setting?: string;
   value?: string;
   notes?: string;
+  group?: string;
   related?: string[];
 };
 export type Cable = Flagged & {
@@ -162,8 +163,23 @@ export type Dataset = {
   faq: PageRow[];
   printing: PageRow[];
   glossary: GlossaryEntry[];
+  discrepancies: Discrepancy[];
   assemblies: Record<string, Step[]>;
 };
+
+export type Discrepancy = { id: string; title: string; anchor: string };
+
+/** `## D-001 — Title` headings in data/discrepancies.md. `anchor` is the fragment GitHub renders for that heading. */
+export function parseDiscrepancies(md: string): Discrepancy[] {
+  return [...md.matchAll(/^## (D-\d{3}) — (.+)$/gm)].map((m) => {
+    const title = m[2].trim();
+    const anchor = `${m[1]} — ${title}`
+      .toLowerCase()
+      .replace(/[^\p{L}\p{M}\p{N}\p{Pc} -]/gu, '')
+      .replace(/ /g, '-');
+    return { id: m[1], title, anchor };
+  });
+}
 
 export function readYaml(file: string): unknown {
   return parse(fs.readFileSync(file, 'utf8')) ?? [];
@@ -216,6 +232,9 @@ export function loadDataset(dataDir = DATA_DIR): Dataset {
     printing: readYaml(path.join(dataDir, 'printing.yaml')) as PageRow[],
     glossary: fs.existsSync(path.join(dataDir, 'glossary.yaml'))
       ? (readYaml(path.join(dataDir, 'glossary.yaml')) as GlossaryEntry[])
+      : [],
+    discrepancies: fs.existsSync(path.join(dataDir, 'discrepancies.md'))
+      ? parseDiscrepancies(fs.readFileSync(path.join(dataDir, 'discrepancies.md'), 'utf8'))
       : [],
     assemblies,
   };

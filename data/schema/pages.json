@@ -17,6 +17,7 @@
       "setting": { "type": "string", "minLength": 1 },
       "value": { "type": "string", "minLength": 1 },
       "notes": { "type": "string" },
+      "group": { "enum": ["motors", "parts"] },
       "related": { "type": "array", "items": { "type": "string" } },
       "source": { "$ref": "common.json#/$defs/sources" },
       "unverified": { "type": "boolean", "default": false }
