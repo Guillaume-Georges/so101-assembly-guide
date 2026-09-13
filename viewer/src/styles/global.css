@@ -702,10 +702,10 @@ nav.steps span.count {
   padding: 0 0.4rem;
 }
 
-/* Flag popovers: the pill is the summary; the panel explains the flag and carries the item's note. */
+/* Flag popovers: the pill is the summary; the panel explains the flag and carries the item's note. The panel is
+   positioned against the card, like the src and glossary panels (see details.from below). */
 details.flagmore {
   display: inline-block;
-  position: relative;
 }
 details.flagmore > summary {
   list-style: none;
@@ -720,9 +720,10 @@ details.flagmore > summary::-webkit-details-marker {
 details.flagmore .flagpanel {
   position: absolute;
   z-index: 15;
-  left: 0;
-  top: 100%;
-  width: min(22rem, 80vw);
+  left: 1rem;
+  right: 1rem;
+  max-width: 22rem;
+  overflow-wrap: anywhere;
   background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1383,11 +1384,17 @@ html[data-register='exact'] .x-plain {
 .steppanel ol.do .sentence {
   display: inline;
 }
-/* Source marks: one small "src" per sentence that opens what it rewords. <details> is inline-block with an
-   absolute panel (the flag popover pattern) because browsers lay <details> out as a block otherwise. */
+/* Source marks: one small "src" per sentence that opens what it rewords. <details> is inline-block because
+   browsers lay it out as a block otherwise. Its panel (and the glossary panel below) is positioned against the
+   card or page, not the word: it opens under the line from the content edge. Anchored at the word, it ran off the
+   right edge whenever the word sat right of the margin, on phones and on the two-column step layout alike.
+   CSS only: a step page reads without JS. */
+main,
+.card {
+  position: relative;
+}
 details.from {
   display: inline-block;
-  position: relative;
   vertical-align: baseline;
 }
 details.from > summary {
@@ -1413,9 +1420,10 @@ details.from[open] > summary {
 details.from .fromlist {
   position: absolute;
   z-index: 15;
-  left: 0;
-  top: 100%;
-  width: min(28rem, calc(100vw - 3rem));
+  left: 1rem;
+  right: 1rem;
+  max-width: 28rem;
+  overflow-wrap: anywhere;
   list-style: none;
   padding: 0.5rem 0.7rem;
   margin: 0.3rem 0 0;
@@ -1434,10 +1442,9 @@ details.from .fromlist li {
 details.from .fromlist .q {
   color: var(--muted);
 }
-/* Glossary terms: dotted underline, popover on first use per page. Same inline-block + absolute panel. */
+/* Glossary terms: dotted underline, popover on first use per page. Same inline-block + card-anchored panel. */
 details.term {
   display: inline-block;
-  position: relative;
 }
 details.term > summary {
   display: inline;
@@ -1455,9 +1462,10 @@ details.term[open] > summary {
 details.term .termpanel {
   position: absolute;
   z-index: 16;
-  left: 0;
-  top: 100%;
-  width: min(24rem, calc(100vw - 3rem));
+  left: 1rem;
+  right: 1rem;
+  max-width: 24rem;
+  overflow-wrap: anywhere;
   display: block;
   margin: 0.3rem 0 0;
   padding: 0.5rem 0.7rem;
