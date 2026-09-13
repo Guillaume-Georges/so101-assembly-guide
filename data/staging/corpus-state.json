@@ -4,7 +4,2203 @@
     "TheRobotStudio/SO-ARM100": "2026-09-09T00:00:00Z",
     "Guillaume-Georges/so101-assembly-guide": "2026-09-09T00:00:00Z"
   },
-  "index": {},
-  "ledger": {},
+  "index": {
+    "huggingface/lerobot#3211/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/3211",
+      "updated_at": "2026-07-31T20:00:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "84453e6419d2f6a7e7755dc1ef3edfffb2e6b37bede4f6a274cbd385f7b9cdd4"
+    },
+    "huggingface/lerobot#3211/c4152806614": {
+      "url": "https://github.com/huggingface/lerobot/issues/3211#issuecomment-4152806614",
+      "updated_at": "2026-03-30T07:16:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a9445fd19b03d97cc38f0b4bbc00ce2e9bd4a2537094f292b572b33f861722fd"
+    },
+    "huggingface/lerobot#3211/c4249526748": {
+      "url": "https://github.com/huggingface/lerobot/issues/3211#issuecomment-4249526748",
+      "updated_at": "2026-04-15T05:38:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "3a7f6fc15d77bd734af101914517ed0378f2ea30a3b1b7281e2a01ed37926d01"
+    },
+    "huggingface/lerobot#3211/c4582371577": {
+      "url": "https://github.com/huggingface/lerobot/issues/3211#issuecomment-4582371577",
+      "updated_at": "2026-07-31T20:00:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b5f3b1535504f43f53fdbcfa5e361a224a1de4e25c50b0315567addfb1def2f3"
+    },
+    "huggingface/lerobot#3211/c5096784170": {
+      "url": "https://github.com/huggingface/lerobot/issues/3211#issuecomment-5096784170",
+      "updated_at": "2026-07-27T21:02:11Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e995eb28686385fc0cf7f92d1774b57fac8af6cdb9903c139737b7f6f1ff0ce4"
+    },
+    "huggingface/lerobot#3211/c5145497133": {
+      "url": "https://github.com/huggingface/lerobot/issues/3211#issuecomment-5145497133",
+      "updated_at": "2026-07-31T17:05:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "082dc90a9cf2f68602667bfc1db08b9eb7907c783085e3e238a4f271af0c6342"
+    },
+    "huggingface/lerobot#3394/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/3394",
+      "updated_at": "2026-06-01T09:22:33Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6be7141bd106c4284e656524f34e423364ebaffba3a94b22193d3c113d6cf31f"
+    },
+    "huggingface/lerobot#3394/c4272690651": {
+      "url": "https://github.com/huggingface/lerobot/issues/3394#issuecomment-4272690651",
+      "updated_at": "2026-04-18T04:19:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "0cffb4d0c6d99f8509998f46f33dfcb3f89d60a8117c00158bbc07f28c93a0e2"
+    },
+    "huggingface/lerobot#3394/c4591226117": {
+      "url": "https://github.com/huggingface/lerobot/issues/3394#issuecomment-4591226117",
+      "updated_at": "2026-06-01T09:22:33Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d331d6402e0f0a6ad0cc9b7148d5686b2eed6cc89149c08cc82a671916a068a4"
+    },
+    "huggingface/lerobot#1110/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110",
+      "updated_at": "2025-09-06T18:16:00Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e50dbfae529324551b047d3f9aefacc0a85cec9a5d8feeaca5ed789fe165219c"
+    },
+    "huggingface/lerobot#1110/c2885044971": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2885044971",
+      "updated_at": "2025-05-15T21:01:34Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c65dc0be7ed69245bbe85ebab5c88ade71987742f699b6304e3eecf92f26bf2e"
+    },
+    "huggingface/lerobot#1110/c2885046505": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2885046505",
+      "updated_at": "2025-05-15T21:02:25Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "3b1996dbdac7110114d46191e09bf8ecdb5ca6b36455e1b2a1a994e345562df2"
+    },
+    "huggingface/lerobot#1110/c2885211222": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2885211222",
+      "updated_at": "2025-05-15T22:44:07Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "983045b4fd12aa16aa9a071a1757d45c112cc8fea1da13ab7af215557365c8ec"
+    },
+    "huggingface/lerobot#1110/c2885643041": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2885643041",
+      "updated_at": "2025-05-16T05:03:47Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "9aa2d5819086dd2b7bd20d7d8b910930ba3e875fe9c434a2632c965cee317bf3"
+    },
+    "huggingface/lerobot#1110/c2886246590": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2886246590",
+      "updated_at": "2025-05-16T09:57:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "78741e7f16e47ef0a452f4813b1163a85ac6ebacd029753bd13e4bcd48ae863f"
+    },
+    "huggingface/lerobot#1110/c2886466180": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2886466180",
+      "updated_at": "2025-05-16T11:33:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "bb162ecf342cc6f5422490c7bfaff3e593c5f44503edfe4169a629c5c5d816eb"
+    },
+    "huggingface/lerobot#1110/c2887828598": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2887828598",
+      "updated_at": "2025-05-16T23:15:37Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "550f56f5c608ca649ab21faf52338bef22329045c3768d5256a58a4df84909ce"
+    },
+    "huggingface/lerobot#1110/c2916302273": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-2916302273",
+      "updated_at": "2025-05-28T13:16:26Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b7255f87f6a26b75ace0da981c897d5f6e731e98c8687dc663af50a5cf231811"
+    },
+    "huggingface/lerobot#1110/c3020158329": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-3020158329",
+      "updated_at": "2025-06-30T17:45:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b5a9427870151992e984491f20a1f370b68fffec87eb9302f59b519738d7812b"
+    },
+    "huggingface/lerobot#1110/c3262889513": {
+      "url": "https://github.com/huggingface/lerobot/issues/1110#issuecomment-3262889513",
+      "updated_at": "2025-09-06T18:16:00Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "bd766a8e2ca992aedbe858c9c2839c5147a90712f589f6a02ea36d590a202cd4"
+    },
+    "huggingface/lerobot#2387/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387",
+      "updated_at": "2026-07-31T17:06:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ffd3fa20d09c4e434961df36e81d386fcb870dc37c09c05f6ee519669a45d52f"
+    },
+    "huggingface/lerobot#2387/c3536861545": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3536861545",
+      "updated_at": "2025-11-24T08:36:02Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e8457d103439811ced2a96f2c0b8d29aa66e379551849fb41dbfa4e6f67b455f"
+    },
+    "huggingface/lerobot#2387/c3568311849": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3568311849",
+      "updated_at": "2025-11-23T20:34:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ffe4f8381e6ba2d856884026493b3ad2a74ef2e6162875a2051092f827692321"
+    },
+    "huggingface/lerobot#2387/c3643214989": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3643214989",
+      "updated_at": "2025-12-11T18:20:34Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "37e08130886ebb0cae1d3ae8dde5ddc4ebdffde3d658aff2cf8f141432cac5e0"
+    },
+    "huggingface/lerobot#2387/c3643255964": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3643255964",
+      "updated_at": "2025-12-11T18:37:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "58317d77cc110e8eebb9efead90bc5e2c9bd7bd8772278d753c055653afec621"
+    },
+    "huggingface/lerobot#2387/c3728925073": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3728925073",
+      "updated_at": "2026-01-09T13:30:57Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ad7e477689bd0b0ba3b24f3a05c903621c09f4b69f63dcabb0965e7e8d401e7a"
+    },
+    "huggingface/lerobot#2387/c3868007686": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3868007686",
+      "updated_at": "2026-02-08T19:10:54Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4bc1788d6ee65b188bf3ab1dbbef7f7aef072314c9ec689e4d7a3fe8c1fbe0a0"
+    },
+    "huggingface/lerobot#2387/c3868021953": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3868021953",
+      "updated_at": "2026-02-08T19:19:18Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a58efb63f7eb6f9893d726b4723c4bba1541fc5daefa645230a14eb7f1e6dca5"
+    },
+    "huggingface/lerobot#2387/c3868092559": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3868092559",
+      "updated_at": "2026-02-08T19:46:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "62694462a01687f86dda61749758b55aa95cf9c344865fb564760e16efa469f9"
+    },
+    "huggingface/lerobot#2387/c3973848214": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-3973848214",
+      "updated_at": "2026-02-27T16:26:21Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ee5b580a17cef3d6a342e1223840c900785e53a36de0a694b2adabd6ba38c085"
+    },
+    "huggingface/lerobot#2387/c5145503111": {
+      "url": "https://github.com/huggingface/lerobot/issues/2387#issuecomment-5145503111",
+      "updated_at": "2026-07-31T17:06:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f33228c196563ae6f4f4b36cf701fcc25a9930c44a674add27345c6efdcf5ca8"
+    },
+    "huggingface/lerobot#1244/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244",
+      "updated_at": "2026-07-31T17:18:37Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "47469d493754fcb0d2181b46de33235010e578dbd2ace202c9f47187c77a5716"
+    },
+    "huggingface/lerobot#1244/c2958255449": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-2958255449",
+      "updated_at": "2025-06-10T08:54:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "0fb27df35978352e7b7eca48bdb4534417f889d5a8e804b9c8232db2753b59a7"
+    },
+    "huggingface/lerobot#1244/c3130107893": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-3130107893",
+      "updated_at": "2025-07-28T23:19:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "20a1a7e04968111773755c8b904b84262248ecd8710890a0f754ac00e8905960"
+    },
+    "huggingface/lerobot#1244/c3239016774": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-3239016774",
+      "updated_at": "2025-08-30T07:04:47Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e9306d08b4e6d2558da4567baeec17445cbcfeacafad5b445e4b6f5b8be657cc"
+    },
+    "huggingface/lerobot#1244/c3359241601": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-3359241601",
+      "updated_at": "2025-10-02T05:52:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "94476d8c5a0e735df65f438bd186899b4d3c7b967d888299d3d1630717eb0aa2"
+    },
+    "huggingface/lerobot#1244/c3457254692": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-3457254692",
+      "updated_at": "2025-10-28T16:02:17Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c5f24c291f6819cb5e99c981b079a768b3f130c0dbf30ffa831f591c97f77fc9"
+    },
+    "huggingface/lerobot#1244/c3475905392": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-3475905392",
+      "updated_at": "2025-11-01T07:42:44Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4e6a126bbf2ab8cac225079242a69dbb51f2c68dfe385cec5abfaa50fa8d2dde"
+    },
+    "huggingface/lerobot#1244/c4357559479": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-4357559479",
+      "updated_at": "2026-05-01T03:01:06Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#1244/c5145618250": {
+      "url": "https://github.com/huggingface/lerobot/issues/1244#issuecomment-5145618250",
+      "updated_at": "2026-07-31T17:18:36Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8e55dc11caeab2355d39980bd48df7f64c603954957a3651526490da77f278fd"
+    },
+    "huggingface/lerobot#1399/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399",
+      "updated_at": "2026-02-25T02:57:30Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "510d26a529653abbe90861109606a24931aa283fd88e3b1a1e96241ff9202a20"
+    },
+    "huggingface/lerobot#1399/c3015274069": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399#issuecomment-3015274069",
+      "updated_at": "2025-06-28T13:39:28Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ea6bf2466b9ea20997425f33632b67e1be3f092d98ecef70a21a92e46e097781"
+    },
+    "huggingface/lerobot#1399/c3021078110": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399#issuecomment-3021078110",
+      "updated_at": "2025-06-30T22:51:05Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d4599332ef204c8270a55274c78d64b501fec69c535b220b0f824e1a6f3895ab"
+    },
+    "huggingface/lerobot#1399/c3112701869": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399#issuecomment-3112701869",
+      "updated_at": "2025-07-24T09:28:16Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "91edf05eea18819e6549ed2401239679e2544c1c295b62da9fc588de97916682"
+    },
+    "huggingface/lerobot#1399/c3112714323": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399#issuecomment-3112714323",
+      "updated_at": "2025-07-24T09:20:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "1fe6476ac3c0c374d764e044692c1e41f4b997d346e4e81bc6b9a5c1db9ef517"
+    },
+    "huggingface/lerobot#1399/c3869022718": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399#issuecomment-3869022718",
+      "updated_at": "2026-02-09T02:59:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#1399/c3956415172": {
+      "url": "https://github.com/huggingface/lerobot/issues/1399#issuecomment-3956415172",
+      "updated_at": "2026-02-25T02:57:30Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "341cb47acffc4b6b43f2f11e3f0a78662de2205287113f3e593117ca6c627f62"
+    },
+    "TheRobotStudio/SO-ARM100#31/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/31",
+      "updated_at": "2025-02-07T14:17:10Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f1f8f0ef203fc3a167fe43abcd162567a8feb8de8644985558ebed1a5be0cc38"
+    },
+    "TheRobotStudio/SO-ARM100#31/c2615120271": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/31#issuecomment-2615120271",
+      "updated_at": "2025-01-27T08:32:12Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "287f1835c6aac6da62c0531986236e31746b947b5b586f2bb59f68ceaca11135"
+    },
+    "TheRobotStudio/SO-ARM100#31/c2616975468": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/31#issuecomment-2616975468",
+      "updated_at": "2025-01-27T21:53:10Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a96cee472fe039b9116961992b3bbf35891428d75df620ff14ec5b193a15bd91"
+    },
+    "TheRobotStudio/SO-ARM100#71/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71",
+      "updated_at": "2025-09-13T07:48:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d7c3b815a05957969b7559ed2959d443b580ce5f96d57f773aa76af2ef845126"
+    },
+    "TheRobotStudio/SO-ARM100#71/c2839500396": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2839500396",
+      "updated_at": "2025-04-29T16:19:17Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "88d26d0f8da10c0d882891acdec40b5aad655cbf5b8dfd71e49160899d5c40f0"
+    },
+    "TheRobotStudio/SO-ARM100#71/c2848655814": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2848655814",
+      "updated_at": "2025-05-03T14:40:44Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "0295d7732120564dec178c174493dad5e40c62e2adde99a8618ac73ee1bba6e0"
+    },
+    "TheRobotStudio/SO-ARM100#71/c2851568695": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2851568695",
+      "updated_at": "2025-05-05T16:33:51Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ac42e434cee8aa31645413958400f88641ea47597830f9c646a16441090722eb"
+    },
+    "TheRobotStudio/SO-ARM100#71/c2854930756": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2854930756",
+      "updated_at": "2025-05-06T15:11:29Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ffb49699c72b4f5ce0a70a31b3d1797b96a0f7e7338accc4ab844d21136438b0"
+    },
+    "TheRobotStudio/SO-ARM100#71/c2882850615": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-2882850615",
+      "updated_at": "2025-05-15T07:32:28Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "682032b5620bb6650baa65c296b16e2fca402ed0ecde547e1099562781c6840a"
+    },
+    "TheRobotStudio/SO-ARM100#71/c3287752399": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/71#issuecomment-3287752399",
+      "updated_at": "2025-09-13T07:48:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "736b8b267f83cc659d85e350d6b1a810637c8c5826745f55446e12670a29bc28"
+    },
+    "TheRobotStudio/SO-ARM100#174/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/174",
+      "updated_at": "2026-08-20T09:46:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e0871bb66c35147260622f0455a51a9e8a2e9d5e890419d2aae2900f353634f9"
+    },
+    "TheRobotStudio/SO-ARM100#151/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/151",
+      "updated_at": "2026-06-25T10:35:06Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d368a2b90cbdd629a0636bb4cb65198fddca2979e80f026687d7f55bba32f872"
+    },
+    "TheRobotStudio/SO-ARM100#151/c4798309281": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/151#issuecomment-4798309281",
+      "updated_at": "2026-06-25T10:35:05Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c4ab8d135c6337bbb82ed4a2124170387e2f5049fcc557c29fce020e79dfb7da"
+    },
+    "TheRobotStudio/SO-ARM100#142/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/142",
+      "updated_at": "2026-01-06T19:38:37Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "85da86a567666ade5196d3280d129b699c1226a4ae8cbcdcbb94aa6b4d971558"
+    },
+    "TheRobotStudio/SO-ARM100#142/c3716039526": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/142#issuecomment-3716039526",
+      "updated_at": "2026-01-06T19:36:30Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "dcf712822a0fc9f3c3e87cb039ae4023b45d875f75c8690869655c417f7739ea"
+    },
+    "TheRobotStudio/SO-ARM100#142/c3716045600": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/142#issuecomment-3716045600",
+      "updated_at": "2026-01-06T19:38:37Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b0af89a1282b290b6973dbd577542d7249fac7de29886b03d27e1b95d1f5f86c"
+    },
+    "TheRobotStudio/SO-ARM100#36/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/36",
+      "updated_at": "2025-03-30T19:00:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "888e3de838a128e84ad2278f493abd31651e9cbd1f7ea23242f0f0a0382ef629"
+    },
+    "TheRobotStudio/SO-ARM100#36/c2764699019": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/36#issuecomment-2764699019",
+      "updated_at": "2025-03-30T19:00:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "763e0a650c9e084b61e6d8fa00ec0ec888a005f28427c1c9c66229c1c4ab0bd7"
+    },
+    "TheRobotStudio/SO-ARM100#17/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/17",
+      "updated_at": "2024-11-07T05:54:27Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f61945309c0cd2c420f1b47960939bb91a5453fcf40eb568538bed5584f964a6"
+    },
+    "huggingface/lerobot#1342/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342",
+      "updated_at": "2026-02-25T02:57:44Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f544a0ddf19b847d01c8d4048e0e251a939041841d1b83eb932e969fe71f3ef6"
+    },
+    "huggingface/lerobot#1342/c2981904015": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-2981904015",
+      "updated_at": "2025-06-17T21:34:18Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e44f9716fd97443a6379cd1c374132a25dcf275ee056fa100722974be8f57ad0"
+    },
+    "huggingface/lerobot#1342/c2985120226": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-2985120226",
+      "updated_at": "2025-06-18T17:20:51Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "454c3ae9069ad50047957a3d50d7544aae1dbf0561030c3f363a0554ee01f9ee"
+    },
+    "huggingface/lerobot#1342/c2986809203": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-2986809203",
+      "updated_at": "2025-06-19T06:37:15Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "bee445c5e5a1148b9a0d5495ec285aae789cb151305b558e408a47973bfcc283"
+    },
+    "huggingface/lerobot#1342/c2986812209": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-2986812209",
+      "updated_at": "2025-06-19T06:38:39Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f6ea5fcd69446a57fc23a7603c2d7d708c5181b081eca14d9a6c6a9e0c434170"
+    },
+    "huggingface/lerobot#1342/c2987789963": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-2987789963",
+      "updated_at": "2025-06-19T11:46:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "202fc9abda37db83c15b06795d714f4a3c0e849186a64bbc570df68cb2219fe8"
+    },
+    "huggingface/lerobot#1342/c3014328477": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-3014328477",
+      "updated_at": "2025-06-27T20:51:09Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "57cf0c420eb328806734ef64e342c696ca0da9d77c90099fb2fff9126ee81c66"
+    },
+    "huggingface/lerobot#1342/c3869023240": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-3869023240",
+      "updated_at": "2026-02-09T03:00:02Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#1342/c3956415745": {
+      "url": "https://github.com/huggingface/lerobot/issues/1342#issuecomment-3956415745",
+      "updated_at": "2026-02-25T02:57:44Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "341cb47acffc4b6b43f2f11e3f0a78662de2205287113f3e593117ca6c627f62"
+    },
+    "huggingface/lerobot#1328/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1328",
+      "updated_at": "2025-06-29T17:24:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c97cb05abf7e29dcfdcf4c8b6f9f93b007fdfd34e8d025b8b81595711f0e618d"
+    },
+    "huggingface/lerobot#1328/c2978057137": {
+      "url": "https://github.com/huggingface/lerobot/issues/1328#issuecomment-2978057137",
+      "updated_at": "2025-06-16T20:39:22Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "45d1df760ef11e953e1362176375b96d4983514e83779991b24fb2f47799c90c"
+    },
+    "huggingface/lerobot#1328/c2979002617": {
+      "url": "https://github.com/huggingface/lerobot/issues/1328#issuecomment-2979002617",
+      "updated_at": "2025-06-17T05:34:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c1d79c3fe68916941962094da1eb18997edf9efe17f6498311fe14cd87d939f4"
+    },
+    "huggingface/lerobot#1328/c3016885913": {
+      "url": "https://github.com/huggingface/lerobot/issues/1328#issuecomment-3016885913",
+      "updated_at": "2025-06-29T17:24:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "37654dca2514f71083543e851b104c0de84faaedc194f132c4201e404ae8d5b1"
+    },
+    "huggingface/lerobot#1668/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1668",
+      "updated_at": "2025-08-05T05:43:39Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f7d5ae344490fd0afea68ed689e47de17158f294252e1498760652621e81634b"
+    },
+    "huggingface/lerobot#1668/c3153336459": {
+      "url": "https://github.com/huggingface/lerobot/issues/1668#issuecomment-3153336459",
+      "updated_at": "2025-08-05T05:22:41Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f83944c5d3f09a0d7c442f35f940781a9b152355420786ef32bed40a03dce6d5"
+    },
+    "huggingface/lerobot#1094/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094",
+      "updated_at": "2025-05-20T06:27:52Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2d48a93faad9a1fb4af54f9d83be4a8dcae5e1b94f00b6a141e0a429fe974d64"
+    },
+    "huggingface/lerobot#1094/c2870216529": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2870216529",
+      "updated_at": "2025-05-11T21:37:58Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "fecc9abfb1db54474fe3d3955cf8485c405754a1892bfe605608f69a001fb7be"
+    },
+    "huggingface/lerobot#1094/c2870268781": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2870268781",
+      "updated_at": "2025-05-11T23:04:37Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e900001ad512cc1216c10622497f42b084a523bfd58b89152ac23114d0dfdba1"
+    },
+    "huggingface/lerobot#1094/c2879615376": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2879615376",
+      "updated_at": "2025-05-14T10:09:29Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2669eb1f1eaaf7eb87b7d54e9ed2eccb19226c3c019e9b0fb21d2f679b7ca954"
+    },
+    "huggingface/lerobot#1094/c2880839729": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2880839729",
+      "updated_at": "2025-05-14T16:26:09Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "eb2ca07eee83088c21b8257a2d87c9ba199cdd81be6f76c08b7bf62171473fdd"
+    },
+    "huggingface/lerobot#1094/c2888824993": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2888824993",
+      "updated_at": "2025-05-18T07:21:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "56ae03a1581194cefc202147d0a01faa41a89bdd0d6c0f2dda444284320aa661"
+    },
+    "huggingface/lerobot#1094/c2890266398": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2890266398",
+      "updated_at": "2025-05-19T09:16:43Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e9a35789576da8034381e72fd3c62ad01a6012d83a83baf02cc23b1ddb981657"
+    },
+    "huggingface/lerobot#1094/c2892729923": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2892729923",
+      "updated_at": "2025-05-20T02:32:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "702851658a270e36c141f3d9bcdc155003034a3045b2d1ae5781de31d65cec7d"
+    },
+    "huggingface/lerobot#1094/c2893111171": {
+      "url": "https://github.com/huggingface/lerobot/issues/1094#issuecomment-2893111171",
+      "updated_at": "2025-05-20T06:27:51Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "9399d7765fb03d2f637f130f183cddf7a149055b0fede2678f155003d5c07f2a"
+    },
+    "TheRobotStudio/SO-ARM100#150/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/150",
+      "updated_at": "2026-01-29T15:40:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "aa48dc903d388b75aea09c84e2ef5ec73fc79458be8a56a3457fc4aad151268a"
+    },
+    "huggingface/lerobot#1084/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1084",
+      "updated_at": "2025-12-05T02:32:05Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f4157c59a130f67642917fb06e511d95d5f92a30d50f9b8ab1f85e4d8b7f4828"
+    },
+    "huggingface/lerobot#1084/c2879609273": {
+      "url": "https://github.com/huggingface/lerobot/issues/1084#issuecomment-2879609273",
+      "updated_at": "2025-05-14T10:07:31Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d0ed664d610b964bf0fc3d1b765a2ac1b31774ac8eb96c984d6f30eb5f5fa9bd"
+    },
+    "huggingface/lerobot#1084/c2906843458": {
+      "url": "https://github.com/huggingface/lerobot/issues/1084#issuecomment-2906843458",
+      "updated_at": "2025-05-24T13:50:23Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "67e38fbd429f8566f9649c443ad61507b1b5962012db5feaa91b4d5dfe01a379"
+    },
+    "huggingface/lerobot#1084/c3561058096": {
+      "url": "https://github.com/huggingface/lerobot/issues/1084#issuecomment-3561058096",
+      "updated_at": "2025-11-21T02:30:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#1084/c3615065490": {
+      "url": "https://github.com/huggingface/lerobot/issues/1084#issuecomment-3615065490",
+      "updated_at": "2025-12-05T02:32:04Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "341cb47acffc4b6b43f2f11e3f0a78662de2205287113f3e593117ca6c627f62"
+    },
+    "huggingface/lerobot#1296/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296",
+      "updated_at": "2026-04-14T08:44:52Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "02580fc6efd7d5cd32ec172464352be6ace08ac48a095c17106e77470368023f"
+    },
+    "huggingface/lerobot#1296/c2972924584": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2972924584",
+      "updated_at": "2025-06-14T18:00:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f7a79a5b57e2cf54253e26948d6dde0c6148e5c349b12daf0852f1879071585a"
+    },
+    "huggingface/lerobot#1296/c2973430341": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2973430341",
+      "updated_at": "2025-06-15T02:11:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "3a17cd1360e2e94462339164b2fe3693fdb847f179587956a95921b9f83a7909"
+    },
+    "huggingface/lerobot#1296/c2973607688": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2973607688",
+      "updated_at": "2025-06-15T09:09:52Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "642f0d3bda24fe0a2931609a416abd296fff7f16156d7848bc70d316fc553c1c"
+    },
+    "huggingface/lerobot#1296/c2973727752": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2973727752",
+      "updated_at": "2025-06-15T12:05:06Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "416801b35803b7ec6201928c419fcbcac10fa29f873853d95b8362b213f49dbb"
+    },
+    "huggingface/lerobot#1296/c2973844932": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2973844932",
+      "updated_at": "2025-06-15T13:24:57Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "1cd92cd7ee0957bfce1b9cff3381fd53fc5aee28863f7dd45325951b86816f03"
+    },
+    "huggingface/lerobot#1296/c2973931005": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2973931005",
+      "updated_at": "2025-06-15T14:18:29Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c403e84d9accfc201c73b2fd45ae29c77df0056fd255101a59c064d1e6180c8a"
+    },
+    "huggingface/lerobot#1296/c2993839640": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2993839640",
+      "updated_at": "2025-06-22T00:30:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f88881e8a7da293225f5d9f937a843fdd8df5ce547d31aeade132ae7a63e3a5e"
+    },
+    "huggingface/lerobot#1296/c2994779859": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2994779859",
+      "updated_at": "2025-06-23T03:19:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "bcabc75008f702a4e18c233cfa3a08082de4140bc5adb013cd49b3d0e949e406"
+    },
+    "huggingface/lerobot#1296/c2997666950": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-2997666950",
+      "updated_at": "2025-06-23T19:13:24Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "441b93dad178095eeec4e38d3efe07c9ef1d852ae2861f9fb05fcad799224eef"
+    },
+    "huggingface/lerobot#1296/c3002291987": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3002291987",
+      "updated_at": "2025-06-25T01:15:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "26de0764370a15088190ab02e2d7f81e1aab7427be9ef279f8185f816a8b6bd5"
+    },
+    "huggingface/lerobot#1296/c3003264593": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3003264593",
+      "updated_at": "2025-06-25T04:53:23Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c49d231de0ec788e54ca34913878305cdb4ed98f49b1ac5370f028964674a4c6"
+    },
+    "huggingface/lerobot#1296/c3151205122": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3151205122",
+      "updated_at": "2025-08-04T15:16:43Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "78b256380b7bd2b094e1280479c70381dee9d7403da52db68d7d0eab50284287"
+    },
+    "huggingface/lerobot#1296/c3162256478": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3162256478",
+      "updated_at": "2025-08-07T03:04:13Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6cd4f97074341a9c838c85747eb0f89face3aace0fcf217839e3802f26482fcb"
+    },
+    "huggingface/lerobot#1296/c3341074369": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3341074369",
+      "updated_at": "2025-09-27T02:50:37Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f44f9e477e3505c6fec63f481f9740e81e649ec57c253d4060dbcc1ef740b4d4"
+    },
+    "huggingface/lerobot#1296/c3346475949": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3346475949",
+      "updated_at": "2025-09-29T11:38:54Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a1a35e11a64296048fa87274066e5cccfe0d245c9937495b9a070454dcb1461c"
+    },
+    "huggingface/lerobot#1296/c3368105466": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3368105466",
+      "updated_at": "2025-10-04T10:36:32Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "3257296f804f6b57079db83daf0f21a75aa9f0fe9a0916858bfd23659b607589"
+    },
+    "huggingface/lerobot#1296/c3372288474": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3372288474",
+      "updated_at": "2025-10-06T15:24:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "260b2a6fc7b71d881fe9dd521c87be328c495624f617bc9320feda0362d1421b"
+    },
+    "huggingface/lerobot#1296/c3383577176": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3383577176",
+      "updated_at": "2025-10-08T23:46:13Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ee8f5272763ff9ba36a93bfe05c58ada939681e3d3d5dfac815380919fb86ec5"
+    },
+    "huggingface/lerobot#1296/c3420417444": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3420417444",
+      "updated_at": "2025-10-20T03:32:38Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "cfbb83b7ec363ddc62733e3e62f25b66fcb966d11327d5213181d788f921ad75"
+    },
+    "huggingface/lerobot#1296/c3469141556": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3469141556",
+      "updated_at": "2025-10-30T17:20:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2f9ff1bb62b3ae25d659a58de64fffe9270d731ba7e4e792e72a5d4b0d7ad6ac"
+    },
+    "huggingface/lerobot#1296/c3633427777": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3633427777",
+      "updated_at": "2025-12-09T17:31:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "5c31e089f9dbf775c4e5a299745b2b452b9a53b7c19e6e317a12fb3cde008f02"
+    },
+    "huggingface/lerobot#1296/c3905204616": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3905204616",
+      "updated_at": "2026-02-15T21:19:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e0376da9381555690c781218943d682ec9d4e60caa8a111b34e3d39ce0caee79"
+    },
+    "huggingface/lerobot#1296/c3925163316": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-3925163316",
+      "updated_at": "2026-02-19T07:33:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "607f641cdc8b6d931a7220b31184adab9165718b01f7b35eefbf8e28a5a20d4e"
+    },
+    "huggingface/lerobot#1296/c4242523650": {
+      "url": "https://github.com/huggingface/lerobot/issues/1296#issuecomment-4242523650",
+      "updated_at": "2026-04-14T08:44:52Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2a4796246ba44741a1d2f6829d43f254b53d6623f1c9ff8123701b3eb0fb922b"
+    },
+    "huggingface/lerobot#3193/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193",
+      "updated_at": "2026-08-25T09:52:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "543a6305baaa1ac75c745617d8b466eb10d9816c834ae108474ed9ea6904c426"
+    },
+    "huggingface/lerobot#3193/c4103878145": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-4103878145",
+      "updated_at": "2026-03-21T18:15:22Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "48f93a957cdfd967b303f1f3d176fafe4e0c402737d773eea388a0ebec85a7ba"
+    },
+    "huggingface/lerobot#3193/c4121760129": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-4121760129",
+      "updated_at": "2026-03-24T22:15:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b72b95f79bdaae02f6b0e00390df42585b810079024050a316b037c280e437ee"
+    },
+    "huggingface/lerobot#3193/c4242525173": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-4242525173",
+      "updated_at": "2026-04-14T08:45:07Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2a4796246ba44741a1d2f6829d43f254b53d6623f1c9ff8123701b3eb0fb922b"
+    },
+    "huggingface/lerobot#3193/c4627743784": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-4627743784",
+      "updated_at": "2026-06-05T03:08:13Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c9845fa2036e25d9623830be9dc613efb6db818112edf8c57c4fa0915067a390"
+    },
+    "huggingface/lerobot#3193/c5386125382": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-5386125382",
+      "updated_at": "2026-08-23T13:00:24Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8675759648b69db896239bcef34f01322cafbcb5f723fee8def5a44837c54576"
+    },
+    "huggingface/lerobot#3193/c5388080872": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-5388080872",
+      "updated_at": "2026-08-23T19:41:33Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8be82b8c48a2bbdc9d0ff6600c66d0d9722cd485f37e026c249827969173d23d"
+    },
+    "huggingface/lerobot#3193/c5408003117": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-5408003117",
+      "updated_at": "2026-08-25T09:01:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6ffd16599c257f551296408d0d2aa62f4c096dbc6f8d23cb3c9d6eeab24248a7"
+    },
+    "huggingface/lerobot#3193/c5408649421": {
+      "url": "https://github.com/huggingface/lerobot/issues/3193#issuecomment-5408649421",
+      "updated_at": "2026-08-25T09:52:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "781ed16cb3b1a91905a7c44b3ea4b3d539da91310b0a01a9c9a859fff92d9053"
+    },
+    "TheRobotStudio/SO-ARM100#116/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/116",
+      "updated_at": "2026-04-06T11:46:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ec0e0e98e5ab9f44c8cfc9193bdf6d4d3c26ef6c725e44fff00ffb95013334ac"
+    },
+    "TheRobotStudio/SO-ARM100#116/c3025010751": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/116#issuecomment-3025010751",
+      "updated_at": "2025-07-01T17:57:17Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "59fe8ecd8c35c03b1febe5eb55976a991c7f6dc0f05f76b0ac92818311c7bca0"
+    },
+    "TheRobotStudio/SO-ARM100#116/c4192063878": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/116#issuecomment-4192063878",
+      "updated_at": "2026-04-06T11:46:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "7a4ade10fbbe74fe21ca7bd6c7c120ebf79936ce884952f82bda15b96358d9b8"
+    },
+    "TheRobotStudio/SO-ARM100#55/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/55",
+      "updated_at": "2025-04-25T06:55:16Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "bf66b995ccea2694fd8e09650b8e9a15ef912efb321f0d1d34c60430bed5b97f"
+    },
+    "TheRobotStudio/SO-ARM100#55/c2826746071": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/55#issuecomment-2826746071",
+      "updated_at": "2025-04-24T12:45:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "9e66087a1b07a509f6dc5acae46a14c18527037fd3fbbf44347b4c9ce093dc81"
+    },
+    "TheRobotStudio/SO-ARM100#55/c2829532774": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/55#issuecomment-2829532774",
+      "updated_at": "2025-04-25T06:55:15Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "fa19d5d60e73007ce16ddb54a3733600dbd778c3fd5cf0a5d4acef7154b05d1b"
+    },
+    "TheRobotStudio/SO-ARM100#143/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143",
+      "updated_at": "2026-07-07T15:10:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c5ebe56dabc35ebae9568590af66bf28315c533479142841d43f7f172ef94353"
+    },
+    "TheRobotStudio/SO-ARM100#143/c3673907977": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143#issuecomment-3673907977",
+      "updated_at": "2025-12-19T07:23:51Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "7d7d9160abfab13bcddf7443f163bae91f4375a0b84357e5e6630726cb5d99be"
+    },
+    "TheRobotStudio/SO-ARM100#143/c3674390535": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143#issuecomment-3674390535",
+      "updated_at": "2025-12-19T10:02:54Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "69076b47c5c788f745e2b411e09acbf1f7faa68f83084390fc1260ef70356cc5"
+    },
+    "TheRobotStudio/SO-ARM100#143/c3677823414": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143#issuecomment-3677823414",
+      "updated_at": "2025-12-20T13:28:06Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "0441fefd519c64076b578d0244578851af9b0ea22368b55eb6c25024cd9c4236"
+    },
+    "TheRobotStudio/SO-ARM100#143/c4565079634": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143#issuecomment-4565079634",
+      "updated_at": "2026-05-28T14:29:33Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "75484cd040ef450cdcfaa8fef3cf3e8b152257a3483c64728db24e767a9e4aca"
+    },
+    "TheRobotStudio/SO-ARM100#143/c4801433576": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143#issuecomment-4801433576",
+      "updated_at": "2026-06-25T15:54:24Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "59487500306d3630c9dba6bb05a995529168a9bd3935801a471e2c348216fbe5"
+    },
+    "TheRobotStudio/SO-ARM100#143/c4905310401": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/143#issuecomment-4905310401",
+      "updated_at": "2026-07-07T15:10:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f1f16ebac4189fb56626f325eceb1b8d996a09b808de0cd12536d7601f3b4649"
+    },
+    "TheRobotStudio/SO-ARM100#163/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/163",
+      "updated_at": "2026-06-24T00:26:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "337e5433e7b73833cb3fffff2b033cccbedd65ea37038c3a1d97c581c5be4713"
+    },
+    "TheRobotStudio/SO-ARM100#163/c4784749579": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/163#issuecomment-4784749579",
+      "updated_at": "2026-06-24T00:26:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c0bc212078772ec021b1e0cd38834b28545caccc8c90fcb2b7acac0155743fbf"
+    },
+    "huggingface/lerobot#1255/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1255",
+      "updated_at": "2025-06-22T06:41:24Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "28bf00bfb5a8aa24e4f06caf9676d4e0b3a5260b441f18886a67ae5e0e48ab7a"
+    },
+    "huggingface/lerobot#3586/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/3586",
+      "updated_at": "2026-05-12T12:09:49Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f31759fa0d9d98f8346b4018c61a67f85b835dc88b8994df47f222a1c6085ba8"
+    },
+    "huggingface/lerobot#3586/c4430232171": {
+      "url": "https://github.com/huggingface/lerobot/issues/3586#issuecomment-4430232171",
+      "updated_at": "2026-05-12T12:09:49Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "5ebd40f0a5fed3a3724903e3ce07abcd64451c184f13ba4b5bec4e85ff62a6cd"
+    },
+    "huggingface/lerobot#3587/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/3587",
+      "updated_at": "2026-05-13T06:49:38Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "3938beab6e36b9d51c86582176d312547d091b8b0d7d36f7a044bf62d220573d"
+    },
+    "huggingface/lerobot#3587/c4437036683": {
+      "url": "https://github.com/huggingface/lerobot/issues/3587#issuecomment-4437036683",
+      "updated_at": "2026-05-13T06:49:38Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "361617d74ff524cec6385b7489177fb57dccbe27105a169111981f764e922d09"
+    },
+    "TheRobotStudio/SO-ARM100#63/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63",
+      "updated_at": "2026-01-20T03:08:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "cbfe7a9e7ac3c706f5e71665251e8ebf39d085fbe90220921b0b24a565f2c909"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2816890637": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2816890637",
+      "updated_at": "2025-04-19T22:33:48Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "78ba94bd8176b87e7c57a33c8702ee401d29aded87bb21d100779304b0057ad6"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2816960364": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2816960364",
+      "updated_at": "2025-04-20T02:45:24Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "88863d7afb9da62c5c36667171be8c0eaf5fe2c029a0b2ebd2bcdf4ea33dc2ec"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2816962687": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2816962687",
+      "updated_at": "2025-04-20T02:54:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "909fc753331b36ebc9c1c5f72ac5115fb522ca5679d21a64d36fa1a7091a2b1f"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2817001869": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2817001869",
+      "updated_at": "2025-04-20T05:27:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "10073e2df8b075781008edc6e4835432378d1888b3decbaf6715d313f867fa44"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2817289898": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2817289898",
+      "updated_at": "2025-04-20T18:43:07Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "16dfb0eb134ae74b665d8330b9ec1a0cfb8ec1916061b65d8182bcc32509efdd"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2819379299": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2819379299",
+      "updated_at": "2025-04-21T19:57:19Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8a43d17e5e879c46c8fee50099edccb167fad68b99ecef9d26eed865cca5c398"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2825534694": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2825534694",
+      "updated_at": "2025-04-23T21:25:56Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "403072d1743000a2aa5cb8f1e482bdb23147a9440c149efe6c16cfa3796ba30c"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2826964097": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2826964097",
+      "updated_at": "2025-04-24T09:29:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b69f8d8bbb7684f2999ce167a2f513c35f3698598a9fa79751b62c246a9a06df"
+    },
+    "TheRobotStudio/SO-ARM100#63/c2867882605": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-2867882605",
+      "updated_at": "2025-05-09T21:08:56Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6f71adc665c5b7b0767187b1b49a7b1ecc6b311835d7d71ce6049affe49357bf"
+    },
+    "TheRobotStudio/SO-ARM100#63/c3426556448": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-3426556448",
+      "updated_at": "2025-10-21T13:13:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "76375f1db805f10694ebb6500deb1a202cfe855ee231c486b9747d4ede4f5888"
+    },
+    "TheRobotStudio/SO-ARM100#63/c3470248666": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-3470248666",
+      "updated_at": "2025-10-30T21:09:26Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6032dc33d32f9d81ed337943e7addef78cc74c46dcf5a708c6b20365a9a9afcf"
+    },
+    "TheRobotStudio/SO-ARM100#63/c3693873791": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-3693873791",
+      "updated_at": "2025-12-27T09:55:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c636b17c383c8184bdf3bc63bebed9b3fb85a07851e05fe3873da0dddf997649"
+    },
+    "TheRobotStudio/SO-ARM100#63/c3770820654": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/63#issuecomment-3770820654",
+      "updated_at": "2026-01-20T03:08:58Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "09607283dc1b3058ab12b67db37b29bd5a4fd32da0b518f87cb9a0a95d81c42a"
+    },
+    "TheRobotStudio/SO-ARM100#12/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/12",
+      "updated_at": "2024-10-26T20:11:31Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "56495c937287243fc605bc26ca11b34712fb901edfa5725267960bcd6c947561"
+    },
+    "TheRobotStudio/SO-ARM100#12/c2439662943": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/12#issuecomment-2439662943",
+      "updated_at": "2024-10-26T17:23:01Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b8af1264df555f3f0a2b333430d25c86bf30440ede8ae8c36cd1cd68244ef8d4"
+    },
+    "TheRobotStudio/SO-ARM100#12/c2439673061": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/12#issuecomment-2439673061",
+      "updated_at": "2024-10-26T17:51:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6e52a8836f1f1c9f89df4a029dd2178554570564acc7c0d86d9d6c1b4b94b06d"
+    },
+    "TheRobotStudio/SO-ARM100#12/c2439723763": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/12#issuecomment-2439723763",
+      "updated_at": "2024-10-26T20:11:30Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a129e21aead3b789fdd8d8a5b6c5c3ec42e0928680e63a833c09e627dc5cefe4"
+    },
+    "TheRobotStudio/SO-ARM100#120/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/120",
+      "updated_at": "2025-11-05T02:06:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b10a4cdbe6875d7a15bc451b85a9181d86db9703e39a5961d0d1fc6821b45e57"
+    },
+    "TheRobotStudio/SO-ARM100#120/c3085462375": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/120#issuecomment-3085462375",
+      "updated_at": "2025-11-05T02:06:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "674412122ab10fb0add8245bc8fd49e99506ba610f4c212d68c27e9301a5b7ad"
+    },
+    "TheRobotStudio/SO-ARM100#120/c3105998704": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/120#issuecomment-3105998704",
+      "updated_at": "2025-07-23T06:29:47Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e655f5ab8c61abe0ff95864c366430ddb478fa7dbc5ea2f24be3f85da3914784"
+    },
+    "TheRobotStudio/SO-ARM100#105/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/105",
+      "updated_at": "2025-06-16T11:42:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "aab4491aa53649c190329b048daaac0e8d20fdda9789057328d9489e0c41d6e1"
+    },
+    "TheRobotStudio/SO-ARM100#122/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/122",
+      "updated_at": "2025-10-30T19:10:11Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6b48208c5d11881ca7663006abf5da24f253e91ce14401d6d0997f07028d20a8"
+    },
+    "TheRobotStudio/SO-ARM100#122/c3469666742": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/122#issuecomment-3469666742",
+      "updated_at": "2025-10-30T19:10:11Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4b605d131229353baac229de5ebf4ea288f19b52d1d75f2584169c9f3d0bca5d"
+    },
+    "TheRobotStudio/SO-ARM100#167/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/pull/167",
+      "updated_at": "2026-08-05T09:20:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4978b0cf78719463c48a854dc1916f5cc8a3b6ad484e8685f9e8f49900f45600"
+    },
+    "TheRobotStudio/SO-ARM100#94/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/94",
+      "updated_at": "2025-08-07T12:59:04Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "33cb6b29d90bf646b7ee9fa8297cf8b9abeaa72fcd345b71a1346f3b65b49303"
+    },
+    "TheRobotStudio/SO-ARM100#94/c3157179477": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/94#issuecomment-3157179477",
+      "updated_at": "2025-08-06T02:10:46Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6e8287bc010635f2a85ff8cc142fce490a4b6a5474bda358a432d9e82c2c030b"
+    },
+    "TheRobotStudio/SO-ARM100#94/c3164087597": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/94#issuecomment-3164087597",
+      "updated_at": "2025-08-07T12:59:04Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e7b5b1d50b335477eaf2b0f515f5bfc45e7f2a6ee2fbf7dd04e9b4ef404a6256"
+    },
+    "TheRobotStudio/SO-ARM100#149/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/149",
+      "updated_at": "2026-01-25T10:43:34Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a404f2e919967d203cfb6effcdca7f9af0f6c4cee1ce196392dfb919ea36db9a"
+    },
+    "TheRobotStudio/SO-ARM100#95/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/pull/95",
+      "updated_at": "2025-06-10T21:33:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6bd23d05e849786be5fd02e6706f74eb000fedfc3268a9badf6b9beca5ac23e2"
+    },
+    "huggingface/lerobot#1595/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1595",
+      "updated_at": "2025-07-25T09:25:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c3ad202f68e3c6a8e84ca779463e738d2cac8d1caba081b611428c56f20bd202"
+    },
+    "huggingface/lerobot#1595/c3117056727": {
+      "url": "https://github.com/huggingface/lerobot/issues/1595#issuecomment-3117056727",
+      "updated_at": "2025-07-25T09:25:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "38b19620b0a468d4ad96ee88c71a017ee1f3ad15ec064b060c5f6ce7bfa7a479"
+    },
+    "huggingface/lerobot#1694/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694",
+      "updated_at": "2026-02-26T02:54:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "01077692dafa03665e6a320d4bed5cbb8f86d54c53fbb43ed226c670190daaa2"
+    },
+    "huggingface/lerobot#1694/c3164799402": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3164799402",
+      "updated_at": "2025-08-07T15:50:22Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2f7249e0db1181c7860cea31ad87dfef7975c96a806ccd6224fde7e52e1e85b6"
+    },
+    "huggingface/lerobot#1694/c3177521093": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3177521093",
+      "updated_at": "2025-08-12T02:54:17Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "929ffb0290d1dd73d1e9ea7f81b35d74875dfea3b77ededad52ad1e7d2c1d429"
+    },
+    "huggingface/lerobot#1694/c3181596309": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3181596309",
+      "updated_at": "2025-08-12T23:59:34Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "85bf8621ff0fca8ea92d507b08c6a6602180e4bc1d6f57aa6e7d2a3ada489dbf"
+    },
+    "huggingface/lerobot#1694/c3182696550": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3182696550",
+      "updated_at": "2025-08-13T08:15:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "31a27eb5f9964461958c770f13ac16d2b97d05f9b808ad9e618f05711ff36c9b"
+    },
+    "huggingface/lerobot#1694/c3183996166": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3183996166",
+      "updated_at": "2025-08-13T13:44:24Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b1a054123b15d357a03705d8d0d4dd7a6cb17ab6af18240591bd2cad2b8fea93"
+    },
+    "huggingface/lerobot#1694/c3190402275": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3190402275",
+      "updated_at": "2025-08-15T02:07:28Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4eed7802cd0161ba94531b783cc393c5ae8bfb5708c83e70a7f138c518685ac2"
+    },
+    "huggingface/lerobot#1694/c3881850950": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3881850950",
+      "updated_at": "2026-02-11T02:59:16Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#1694/c3963651101": {
+      "url": "https://github.com/huggingface/lerobot/issues/1694#issuecomment-3963651101",
+      "updated_at": "2026-02-26T02:54:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "341cb47acffc4b6b43f2f11e3f0a78662de2205287113f3e593117ca6c627f62"
+    },
+    "huggingface/lerobot#607/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/607",
+      "updated_at": "2025-10-08T08:31:19Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "3504531cd1902cfa1a32b06d3343614c96aa1f04e2cacb67a16adb2609c35a43"
+    },
+    "huggingface/lerobot#607/c2601254065": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2601254065",
+      "updated_at": "2025-01-20T03:33:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "1ff038258828942b8d450e957648e082b01de11d8f647e2fe3f950df74635fff"
+    },
+    "huggingface/lerobot#607/c2607797163": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2607797163",
+      "updated_at": "2025-01-22T17:06:43Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a3f60765c696132f971082dd64b3b061a9a2fd3ae561788afc96353346c70de8"
+    },
+    "huggingface/lerobot#607/c2625338289": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2625338289",
+      "updated_at": "2025-01-30T19:06:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "2811b4d7583b574dacf7cedd003fd30afda432ff6b7ae6233a9edc48a68f7ac8"
+    },
+    "huggingface/lerobot#607/c2684222744": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2684222744",
+      "updated_at": "2025-02-26T08:05:41Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "7356cdef592e171b3402a7a761a6dc509fd196a3a690e20524f854c20c63238f"
+    },
+    "huggingface/lerobot#607/c2780726800": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2780726800",
+      "updated_at": "2025-04-05T13:34:05Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ef6caf0f770e71d4254def652a13008e281ef163f72284b958f7ddfbae988d75"
+    },
+    "huggingface/lerobot#607/c2781008205": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2781008205",
+      "updated_at": "2025-04-05T17:33:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d2459a9e5c4eacc70454be228bcc0188f1f3fbb872e662d1213a3e02d9ad45bd"
+    },
+    "huggingface/lerobot#607/c2815772589": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2815772589",
+      "updated_at": "2025-04-18T16:22:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4c6d996d5ef1950d08d8af72c1e578436eb7ceda1d2ba34fd648312f4e76f435"
+    },
+    "huggingface/lerobot#607/c2830056578": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2830056578",
+      "updated_at": "2025-04-25T10:39:54Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "46c7817c79c215508563e5d8a37a71719a512089d3e604b35fcc72f1405de9a7"
+    },
+    "huggingface/lerobot#607/c2884985757": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2884985757",
+      "updated_at": "2025-05-15T20:31:10Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "364ff0336862ab7d16b939b4c549644ab91974dfd2eaaf9675dae8d887123725"
+    },
+    "huggingface/lerobot#607/c2916308545": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2916308545",
+      "updated_at": "2025-05-28T13:17:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ee76e2cc2b6b460ed71c25a3017e0f417b8b8c0b3462b18167f9426b6a6e5839"
+    },
+    "huggingface/lerobot#607/c2924274014": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-2924274014",
+      "updated_at": "2025-05-31T04:51:09Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "48abd44651c4a3e84dade4ccd57dd1aa68af110ff089df20825baab344976165"
+    },
+    "huggingface/lerobot#607/c3380364027": {
+      "url": "https://github.com/huggingface/lerobot/issues/607#issuecomment-3380364027",
+      "updated_at": "2025-10-08T08:31:19Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "972d1bf445c5b3ac739ba82ef3d2fcb12dcdbb3058628df1a4965f2e83f08d42"
+    },
+    "TheRobotStudio/SO-ARM100#60/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/60",
+      "updated_at": "2025-04-23T16:32:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a8d33719b6aab0613fef9c38c6b8e709ebc83d65c07fca333633197cd751bcb7"
+    },
+    "TheRobotStudio/SO-ARM100#60/c2799994292": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/60#issuecomment-2799994292",
+      "updated_at": "2025-04-13T15:19:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "16c647b04d93d527370a3ba060c50eeb43e55b7a1e3d9a9ab6f1b667baf0a3ab"
+    },
+    "TheRobotStudio/SO-ARM100#60/c2817817022": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/60#issuecomment-2817817022",
+      "updated_at": "2025-04-21T07:15:30Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c698fc72844c839a987ae134cd78ece3fcc5bd2ad18243536ae5f41557c5703d"
+    },
+    "TheRobotStudio/SO-ARM100#60/c2824880723": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/60#issuecomment-2824880723",
+      "updated_at": "2025-04-23T16:32:32Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "0bd0eafd36f7d06fe88cc8aa0182d5989c78f107195db41936d76e09ff88b7b3"
+    },
+    "huggingface/lerobot#1130/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130",
+      "updated_at": "2026-01-27T02:42:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8a1d1c053a81aeab796896f02b494eb929c9d9db34aab8839909ac079f00e39a"
+    },
+    "huggingface/lerobot#1130/c2927643754": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-2927643754",
+      "updated_at": "2025-06-01T18:11:10Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a0133681a80175bf34551a89bbf95b67cc7945d6100cfecaa567b9d9e467b9b5"
+    },
+    "huggingface/lerobot#1130/c2928088909": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-2928088909",
+      "updated_at": "2025-06-01T23:16:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "46188c89560d96827c7f854c339db95a77ffcc04c869b54a98921814e1242fee"
+    },
+    "huggingface/lerobot#1130/c2988301515": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-2988301515",
+      "updated_at": "2025-06-19T14:29:21Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "47e122bb05f0ec4123064b8a52b99a3afe482c37e3e23f0bc4c7b27433d6f972"
+    },
+    "huggingface/lerobot#1130/c3007415871": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-3007415871",
+      "updated_at": "2025-06-26T07:08:52Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "9226a9b79e54f12d621cbb0f305561a6e76e3f15b4332be1dea89caf3a470284"
+    },
+    "huggingface/lerobot#1130/c3077132185": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-3077132185",
+      "updated_at": "2025-07-16T06:50:20Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "297ea4abb72f7487143d5a7cb27939782eaebb1aad7b964452cd0c143e4a662b"
+    },
+    "huggingface/lerobot#1130/c3741547201": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-3741547201",
+      "updated_at": "2026-01-13T02:36:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#1130/c3802761811": {
+      "url": "https://github.com/huggingface/lerobot/issues/1130#issuecomment-3802761811",
+      "updated_at": "2026-01-27T02:42:34Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "341cb47acffc4b6b43f2f11e3f0a78662de2205287113f3e593117ca6c627f62"
+    },
+    "huggingface/lerobot#3942/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/3942",
+      "updated_at": "2026-07-05T12:00:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e820899526f3e786e449b3ec57a239a8ed3f06d5cb4cdee2a938b5f4d005bb31"
+    },
+    "TheRobotStudio/SO-ARM100#47/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/47",
+      "updated_at": "2025-03-18T22:32:09Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b715f7fce321f49d8b5d489f37eb06bffbeb2f2aa43add4c3b46200418133394"
+    },
+    "TheRobotStudio/SO-ARM100#47/c2734881529": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/47#issuecomment-2734881529",
+      "updated_at": "2025-03-18T22:32:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "0dcd40d0886f3f91d438bb443e7ef1fa9364a48a4e5bfa4e728273959a847b8c"
+    },
+    "TheRobotStudio/SO-ARM100#48/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/pull/48",
+      "updated_at": "2025-03-25T12:29:42Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "52c21d35f2ca3ceedf5549d9f97c630eb6671cbce2b5ec91d2e8255c5fd203b7"
+    },
+    "TheRobotStudio/SO-ARM100#48/c2736375875": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/pull/48#issuecomment-2736375875",
+      "updated_at": "2025-03-19T11:58:39Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ff3362a866ae86cb8fcbb0fbd5567a73edb0a6208498b210255857d46b3114f5"
+    },
+    "TheRobotStudio/SO-ARM100#48/c2743556297": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/pull/48#issuecomment-2743556297",
+      "updated_at": "2025-03-21T14:35:56Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6a0e7208d1c2ee1a58ef492d8e2b286d89ba64e9217a2100ca5a9bfa91efe36f"
+    },
+    "TheRobotStudio/SO-ARM100#169/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/169",
+      "updated_at": "2026-08-15T20:50:48Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8b950cc5ae4e18ea1ef0e2c799530c956044e7e857f346ab2217d2706ec3d923"
+    },
+    "TheRobotStudio/SO-ARM100#169/c5304176407": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/169#issuecomment-5304176407",
+      "updated_at": "2026-08-15T20:50:48Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a7c641085d85fded570e0126465d53190779c202d7769ccf5a35efd5d15d40dc"
+    },
+    "huggingface/lerobot#4007/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/4007",
+      "updated_at": "2026-07-30T09:43:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6a6d0c12b2347bd55bc5fa3b89cb2e41b8261cab4ed83c86a306372036ea5ae5"
+    },
+    "TheRobotStudio/SO-ARM100#170/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/170",
+      "updated_at": "2026-08-15T23:56:49Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "42535ec27815d2397ad2700ca2643aa4b40dd8bb92045dcfb5a88dd13e451902"
+    },
+    "TheRobotStudio/SO-ARM100#170/c5304042515": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/170#issuecomment-5304042515",
+      "updated_at": "2026-08-15T20:28:03Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d90b8bc22187091f09e7d3cec37f1994f5084c148e50e7e910d116b37c91d9f5"
+    },
+    "TheRobotStudio/SO-ARM100#170/c5304822334": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/170#issuecomment-5304822334",
+      "updated_at": "2026-08-15T23:56:49Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "148aaa3e543c0984f1219b0d8f6ca018f1ab00c29c21a12bbc3872eb7983066e"
+    },
+    "TheRobotStudio/SO-ARM100#75/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/75",
+      "updated_at": "2025-05-22T08:41:15Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "805aa30d5d1d61cec81e053d967946e40f3150b7ff23355eaf832d69fb6a0877"
+    },
+    "TheRobotStudio/SO-ARM100#75/c2865894214": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/75#issuecomment-2865894214",
+      "updated_at": "2025-05-09T09:44:59Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "6a73acf8cb6a76f9ece95810a70391c21879bd0b43f9b93a1ca483aace4182be"
+    },
+    "TheRobotStudio/SO-ARM100#75/c2867398824": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/75#issuecomment-2867398824",
+      "updated_at": "2025-05-09T17:36:17Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b566b32a56eec023c2d4f6cd41207bcb6ab3f7c3c144c5bc72e9c99e14350a55"
+    },
+    "TheRobotStudio/SO-ARM100#75/c2900388825": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/75#issuecomment-2900388825",
+      "updated_at": "2025-05-22T08:41:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "5d79f1cbfadf3b0c72cef547f9483cf66192fa30ac74a858ebd6930d1ee222a2"
+    },
+    "TheRobotStudio/SO-ARM100#132/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/132",
+      "updated_at": "2025-10-05T13:26:44Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "fcb6d37e24ba1114e733e8808b9324a8924748ea56028b6e724bbebc6a2f0532"
+    },
+    "huggingface/lerobot#1779/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1779",
+      "updated_at": "2025-12-03T17:20:28Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "5372eddab66e4f8bc8a2b415568d750131f0ea080f8da907c08ebc08d320c01d"
+    },
+    "TheRobotStudio/SO-ARM100#64/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/64",
+      "updated_at": "2025-04-27T04:18:36Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d5e87236d6287ad3fa17323dbe9fc281fecfd53d4c55d92af494b08fff2843bb"
+    },
+    "TheRobotStudio/SO-ARM100#64/c2820328203": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/64#issuecomment-2820328203",
+      "updated_at": "2025-04-22T07:16:09Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "32af031f51776a8ff5ebd62226479db27c89b6d121af8abf40b48402de1966ab"
+    },
+    "TheRobotStudio/SO-ARM100#64/c2833070374": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/64#issuecomment-2833070374",
+      "updated_at": "2025-04-27T04:18:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c8a84e5936cb6cf82913a1b5ec925a4d5a856e74f00b793919854780ff112cf6"
+    },
+    "huggingface/lerobot#2819/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/2819",
+      "updated_at": "2026-01-30T23:53:27Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "50caf1572746c76f0f833a678748f02e6df9aae6681ab370f8eec2d185329d07"
+    },
+    "huggingface/lerobot#2819/c3768335194": {
+      "url": "https://github.com/huggingface/lerobot/issues/2819#issuecomment-3768335194",
+      "updated_at": "2026-01-19T13:26:50Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "802cc0159a06581502d86f02bbb4cc67871a9972ad107a5834f8e376ed717fc8"
+    },
+    "huggingface/lerobot#2819/c3770231580": {
+      "url": "https://github.com/huggingface/lerobot/issues/2819#issuecomment-3770231580",
+      "updated_at": "2026-01-19T21:50:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "fa7c6e90e0dcaf7655e84ff66464075a59b69dda7ba35b3c3a10af0df5b907f2"
+    },
+    "huggingface/lerobot#2819/c3796756689": {
+      "url": "https://github.com/huggingface/lerobot/issues/2819#issuecomment-3796756689",
+      "updated_at": "2026-01-25T14:41:27Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "920bd8a4725896530175b58679d570b4be54abce465b2cacfa4f4548cd18eb7b"
+    },
+    "huggingface/lerobot#2819/c3826528789": {
+      "url": "https://github.com/huggingface/lerobot/issues/2819#issuecomment-3826528789",
+      "updated_at": "2026-01-30T23:53:02Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "11cd655c391523428e822d6da6c0f8a90258bb8a37f8f4988aff3e94ee352ee7"
+    },
+    "huggingface/lerobot#2819/c3826530636": {
+      "url": "https://github.com/huggingface/lerobot/issues/2819#issuecomment-3826530636",
+      "updated_at": "2026-01-30T23:53:27Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "edfbbe7fb8176ba3131727ed4619a8e0dadafa7ec42a173907e810ac7636246e"
+    },
+    "huggingface/lerobot#1010/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010",
+      "updated_at": "2026-08-31T16:24:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f9f2c352cf388b5a0b21c7168cec8f2d904ff0c4feded3515d6107b0e45f3c46"
+    },
+    "huggingface/lerobot#1010/c2886395329": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2886395329",
+      "updated_at": "2025-05-16T11:00:34Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "78290b0cb41f393e9d50e6ef14047883c555e6fab2f0dc4578e14f1b392eba4a"
+    },
+    "huggingface/lerobot#1010/c2888074107": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2888074107",
+      "updated_at": "2025-05-17T04:44:13Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e35b188199034c97fd8968d7087e2ac5f2dde5d8512b5bc8549a1db4ad851fa1"
+    },
+    "huggingface/lerobot#1010/c2888304373": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2888304373",
+      "updated_at": "2025-05-17T11:12:38Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "35a245a6fa6daef49898000c646dda4d46c512151954757ea45a94efed8512e2"
+    },
+    "huggingface/lerobot#1010/c2888525692": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2888525692",
+      "updated_at": "2025-05-17T18:25:21Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "338442bd8c0e95d50acf6d0cf442129348b7e581adbca8ee166ae2fe2024468d"
+    },
+    "huggingface/lerobot#1010/c2888646615": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2888646615",
+      "updated_at": "2025-05-18T00:02:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "65a0fd2a4b6753f29fe3788b9a32f16736869a85c97e26572161390a5313df57"
+    },
+    "huggingface/lerobot#1010/c2890995593": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2890995593",
+      "updated_at": "2025-05-19T13:16:44Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "feb8ea787dc89d9570179343fb165863031c41e7c50aca6a2f14d32eb99cbfa7"
+    },
+    "huggingface/lerobot#1010/c2891088217": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2891088217",
+      "updated_at": "2025-05-19T13:46:26Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a0a2a446f27b5c00e3a539064eecb3a66fbc54314948aaf3a821195c2f4134e1"
+    },
+    "huggingface/lerobot#1010/c2891108727": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2891108727",
+      "updated_at": "2025-05-19T13:53:06Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d286cd687d31b31923ebf521ca2f22ed3dd04ec3d487d364681f92e78d5e1e07"
+    },
+    "huggingface/lerobot#1010/c2891396385": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2891396385",
+      "updated_at": "2025-05-19T15:12:36Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8a454f613fe1fdcad8d1abc71687df131ca745c1902fc39f16a2de91e51716fd"
+    },
+    "huggingface/lerobot#1010/c2892586326": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2892586326",
+      "updated_at": "2025-05-20T00:40:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "de3c2aaddc6033a09da4f0cc0840960ade5e3bf4bad93ef122b198aadcc96726"
+    },
+    "huggingface/lerobot#1010/c2893292725": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2893292725",
+      "updated_at": "2025-05-20T07:39:38Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "076240b0f9f0f1dc09db01ed9b49ef3312959930e9136a46aec657ace4d6cf0a"
+    },
+    "huggingface/lerobot#1010/c2894279245": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2894279245",
+      "updated_at": "2025-05-20T12:47:21Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "c71f530cf69628d0a88613fcad50fb8d34f1a23bd8dc063d40790aacb8c9faa0"
+    },
+    "huggingface/lerobot#1010/c2898025687": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2898025687",
+      "updated_at": "2025-05-21T13:43:56Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a72d38454cf8aed8cacc5946470b1ce7ef0db769026ea9222cd2336de35826e9"
+    },
+    "huggingface/lerobot#1010/c2913431462": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2913431462",
+      "updated_at": "2025-05-27T17:49:39Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "ba051176693fcb4fe5f24a623af14851b9a289fe4c84cfcbbfc6c9da2f177a0f"
+    },
+    "huggingface/lerobot#1010/c2914474242": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2914474242",
+      "updated_at": "2025-05-28T00:02:51Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b611d50b6457513ed02490965213cf28779896592e0a8ba3feb8f3b939684171"
+    },
+    "huggingface/lerobot#1010/c2972826382": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2972826382",
+      "updated_at": "2025-06-14T15:14:25Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d012d0412022ab9708f8bd91f631f1dca08384631f703f6cdbf856f15fa0d3cd"
+    },
+    "huggingface/lerobot#1010/c2993468781": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-2993468781",
+      "updated_at": "2025-06-21T08:49:56Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0fbbc805a73cf5ff4b5d059e313915b47dba56f60d6a871048554c00148c59a"
+    },
+    "huggingface/lerobot#1010/c3715914725": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-3715914725",
+      "updated_at": "2026-01-06T18:57:49Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d5362a9ebb7120880061cbdaca5c30ee0800deced02c4973070fe7b801d998eb"
+    },
+    "huggingface/lerobot#1010/c3763984730": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-3763984730",
+      "updated_at": "2026-01-17T15:08:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "787d6bd50890f65ff21b6aac29783210675c528546fb0bf0e481ff174b329195"
+    },
+    "huggingface/lerobot#1010/c5481245683": {
+      "url": "https://github.com/huggingface/lerobot/issues/1010#issuecomment-5481245683",
+      "updated_at": "2026-08-31T16:24:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "496c552b70d38da7b1470a796b47abd57144d64163f5391ccd03aefac66a6fcc"
+    },
+    "huggingface/lerobot#2074/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/2074",
+      "updated_at": "2026-05-04T03:00:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "76f0603836181955afc6ce69c4a7a52442f0c8827042cc553b9a818287beb40d"
+    },
+    "huggingface/lerobot#2074/c3429438700": {
+      "url": "https://github.com/huggingface/lerobot/issues/2074#issuecomment-3429438700",
+      "updated_at": "2025-10-21T20:26:35Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "d8ec461d4127ac8db17ba01578dc4b98d0d2c44a12418409577c5624e185f3ef"
+    },
+    "huggingface/lerobot#2074/c4277569586": {
+      "url": "https://github.com/huggingface/lerobot/issues/2074#issuecomment-4277569586",
+      "updated_at": "2026-04-20T03:00:11Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "f0c9c97febe1834ce8ab88836eabc08e77b8336f46d34e90b57cffe7158804a8"
+    },
+    "huggingface/lerobot#2074/c4367921818": {
+      "url": "https://github.com/huggingface/lerobot/issues/2074#issuecomment-4367921818",
+      "updated_at": "2026-05-04T03:00:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "341cb47acffc4b6b43f2f11e3f0a78662de2205287113f3e593117ca6c627f62"
+    },
+    "TheRobotStudio/SO-ARM100#24/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/24",
+      "updated_at": "2024-12-04T06:21:36Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "a9158400accefae971ee4286ca4b94518a51b8029f4c7cfc68270130bc76577b"
+    },
+    "TheRobotStudio/SO-ARM100#24/c2507969887": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/24#issuecomment-2507969887",
+      "updated_at": "2024-11-29T14:55:14Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "12c925c55e8e1c35e65a135263087cea9ec974e7cfaeb4b057509a3ff096452f"
+    },
+    "TheRobotStudio/SO-ARM100#24/c2509769647": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/24#issuecomment-2509769647",
+      "updated_at": "2024-12-01T13:27:00Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "bc0f7ab6c8d709aedfdb48900fe714f246995e1c0ed1d5385b7e74a74f5934ee"
+    },
+    "TheRobotStudio/SO-ARM100#24/c2514459257": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/24#issuecomment-2514459257",
+      "updated_at": "2024-12-03T12:42:11Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8bfb6f61f3f91fccfc693ea5bcd79c2616a0b1204e9cc41a481ce2aa628035e0"
+    },
+    "TheRobotStudio/SO-ARM100#24/c2516299577": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/24#issuecomment-2516299577",
+      "updated_at": "2024-12-04T06:21:08Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "b9afcf8e7ebe1fbd2e9d62775a84f4c68526fd434fb04b674f231fcb80b5ae4e"
+    },
+    "TheRobotStudio/SO-ARM100#58/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/58",
+      "updated_at": "2025-04-22T07:13:55Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "672760470431221b187f3ab4ede0fcac0d11289fcd97e81047ecaf32c27de269"
+    },
+    "TheRobotStudio/SO-ARM100#58/c2820319903": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/58#issuecomment-2820319903",
+      "updated_at": "2025-04-22T07:13:53Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "9787f5bf0d64c432e2b970a65fcf9f8062c5297f97cfe4c2248377a35b0ff318"
+    },
+    "TheRobotStudio/SO-ARM100#134/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/134",
+      "updated_at": "2025-10-14T16:56:00Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "da45f005bce0c3b2625b0ea9f01ab444aed00de8a3c8320e68a9ec3877ecd566"
+    },
+    "TheRobotStudio/SO-ARM100#175/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/175",
+      "updated_at": "2026-08-24T03:08:21Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "9e7367f4fe29e8454aa7efecfa5413be8d981923ebd3633319fb1065bda86a62"
+    },
+    "TheRobotStudio/SO-ARM100#166/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/166",
+      "updated_at": "2026-06-06T20:41:11Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "e30a40abfb9a688f07e7d66759c92c26b837ce68229db0309c609eaa4b4d4541"
+    },
+    "huggingface/lerobot#2924/c0": {
+      "url": "https://github.com/huggingface/lerobot/issues/2924",
+      "updated_at": "2026-04-13T17:22:29Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "24d64b854a26b38e4c43f8db2d62bfb10b5c3cee6104e775a2378c63feeae7b9"
+    },
+    "huggingface/lerobot#2924/c3869274704": {
+      "url": "https://github.com/huggingface/lerobot/issues/2924#issuecomment-3869274704",
+      "updated_at": "2026-02-09T04:55:16Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "349770252c4a5fffebfbc53e798593a347ba093c1f65ec18390d4e08a881d9dd"
+    },
+    "huggingface/lerobot#2924/c3973240595": {
+      "url": "https://github.com/huggingface/lerobot/issues/2924#issuecomment-3973240595",
+      "updated_at": "2026-02-27T14:26:48Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "90651acfc9e14b80ebbdfc6a577a7b7c6c2ff6bd57628de963ee8fd23cc5e8b2"
+    },
+    "TheRobotStudio/SO-ARM100#29/c0": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/29",
+      "updated_at": "2025-02-07T14:17:17Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "4099fa21535c9003744758065fd46661103dbb6baa054b81f395ff64d58dd10b"
+    },
+    "TheRobotStudio/SO-ARM100#29/c2600954323": {
+      "url": "https://github.com/TheRobotStudio/SO-ARM100/issues/29#issuecomment-2600954323",
+      "updated_at": "2025-01-19T17:34:40Z",
+      "retrieved": "2026-09-12",
+      "body_sha256": "8c9be1536f16a66479b075aaba79f1291ba95730b9d870040d733edc79eae524"
+    }
+  },
+  "ledger": {
+    "huggingface/lerobot#3211": {
+      "content_sha256": "a44e6fa53754555c5cc95323ed03bd2f7b7817ab932f356b1f4759c46b0e7610",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:setup-motors-no-response only; annotate mode touches staged candidates, and no staged in-scope candidate cites this thread.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#3394": {
+      "content_sha256": "476528ee5eb4fc21c591170287a69104e432424dc381ddb3ff1721ae17ebb044",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:setup-motors-no-response only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1110": {
+      "content_sha256": "701d4d5f9702df855dd0a450aa040532967d2ea49acbe75eb4046316e868f874",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:setup-motors-no-response only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#2387": {
+      "content_sha256": "ce1951059461abddcc5c9d39153f4a6bf2e9f2811e306e149150ddcdfbac3935",
+      "decision": "ignored:cited only by live entries",
+      "reason": "cited_by is live:setup-motors-no-response and live:power-supply-5v-or-12v-input-voltage-error only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1244": {
+      "content_sha256": "e808d370dbba513774f7707a60250f1e2dc9c01324a151802d93c58e8e07dcfc",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:setup-motors-no-response only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1399": {
+      "content_sha256": "13ba37767224ce9b0c1419bedbf0d16414082bed5d8dd483e4d15b7a884c544b",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:setup-motors-no-response only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#31": {
+      "content_sha256": "ac64ee3a0d053658b3791c837fe7b7ac1a13c61058335512071541e475228d35",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:wrong-leader-gear-ratio only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#71": {
+      "content_sha256": "29e6254d0be821660a6171154d786fa8418099a60a1ebdb481cf1e2151863e4b",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:wrong-leader-gear-ratio only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#174": {
+      "content_sha256": "2f2b7ec6dd2247f5cc5ff4861ebb0e3a9bfb1d409d8c1ae5cb8a9e96dac20e6e",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:power-supply-5v-or-12v-input-voltage-error only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#151": {
+      "content_sha256": "bcedc15ca1cae1282cc1cd06cd68dcb7c88fe90b8329232c8683add263107450",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:power-supply-5v-or-12v-input-voltage-error only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#142": {
+      "content_sha256": "63af9a4066700e4484d221d02a014a1aaaf4b2a76e9c2e1d3b13ec7b0aacd040",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:power-supply-5v-or-12v-input-voltage-error only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#36": {
+      "content_sha256": "91a9f24532506a8900e534377ce4d3d6a859ce321aad79e41eb74c085c48ebf0",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:power-supply-5v-or-12v-input-voltage-error only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#17": {
+      "content_sha256": "88c392ebf02bfd0c8aeab793f0e0f6715da31275a773a33139717ba9ce0a42f3",
+      "decision": "ignored:cited only by a live entry",
+      "reason": "cited_by is live:power-supply-5v-or-12v-input-voltage-error only; no staged candidate to annotate.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1342": {
+      "content_sha256": "d458d8842a45da3f0fb03b4f859df35d61564488a8017e6e7fa0e7cadbc0f8b6",
+      "decision": "annotated:calibration-not-persisted",
+      "reason": "Two cause records from the issue body (the reporter's negative-homing_offset analysis). No fix record: the fix field is the canonical 'no confirmed fix' sentence, which no quote can support.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1328": {
+      "content_sha256": "81ab87c01005641839a039227aaa46cf39991d850af563a88f29bd32086c225b",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:calibration-not-persisted as a symptom/alias source. Its closing comment 3 states no method at all ('I finally succeeded in the calibration...'), so it supports neither the cause nor the fix.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1668": {
+      "content_sha256": "49dc8df5a0b4bc21972eb5048569efc831992f40e1682515901d03cca0f74847",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:calibration-not-persisted as a symptom source. Comment 1 is 'I just tried to reproduce it again to debug further and I can't', which supports no cause or fix.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1094": {
+      "content_sha256": "e0141a0be1ba91a4548646e8bf904895170dc20aa0a56d0bd15ad1cc4dfb654a",
+      "decision": "annotated:could-not-connect-on-port",
+      "reason": "Cause and fix records both from comment 7 (brainwavecoder9, CONTRIBUTOR): non-editable install, then 'pip install -e'. See _gaps for the chmod half, which is vendor-wiki only.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#150": {
+      "content_sha256": "19b5af32c19b38ceb36752a23dff5ca7f347a79bda07ac5eca1e532cbf76d21b",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:could-not-connect-on-port for the termios error-22 symptom and alias. Zero comments; the body supports no cause and no fix (the reporter states 666 permissions were already set and did not help).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1084": {
+      "content_sha256": "0c91ef2bdd198d79b3dc87733af6a75e562297c994cf7b619e73868ce8ca4858",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:could-not-connect-on-port for the WSL2 symptom. Closed as stale, cause never established; supports no cause or fix sentence.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1296": {
+      "content_sha256": "8755c70aea87f28e87132fc61f6658d79650a5c2df2737a6cce6730fca9e152a",
+      "decision": "annotated:magnitude-exceeds-2047",
+      "reason": "cause = comment 15 (CarolinePascal, COLLABORATOR, assembly error / servos not at zero); fix = comment 18 (williamito, the middle-of-range step of the Feetech Offset procedure); confirmation = comment 19 (CarolinePascal, COLLABORATOR, later than the fix).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#3193": {
+      "content_sha256": "427f86aef489f7312ab7b55df129c4d4639f94bc1710a0cce10fda5f106eda6d",
+      "decision": "annotated:magnitude-exceeds-2047",
+      "reason": "Second cause record from comment 6 (Maximellerbach, MEMBER): the wrist motor's starting position becomes the zero, so alignment matters. Problem 2 of that thread (leader/follower zero points) is deliberately not evidenced here; it is flagged in the candidate's own review_notes.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#116": {
+      "content_sha256": "3b6a075ee32d969aae356183f04ddc2f2dfd3effe35ac61b4b94a8e2612cf7f2",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:magnitude-exceeds-2047 for the 'Magnitude 31272' alias and for an alternative remedy ('running the lerobot.setup_motors script again fixed the error') that the candidate's review_notes deliberately keep out of the fix field. Reviewer note: that comment IS the thread author reporting a remedy that worked, and would qualify as a confirmation if Guillaume ever promotes that remedy into the fix.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#55": {
+      "content_sha256": "0940a922d04633722b65a4f014aed3ff16a58c58c55dce61a0ae637c4b48d7be",
+      "decision": "annotated:camera-mount-does-not-fit-camera",
+      "reason": "Cause record for the Vinmooog-mount clause. The only ≥5-word single-line span in the body is a markdown-link blob; it is verbatim but ugly.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#143": {
+      "content_sha256": "9407acf191d3212b186fb46f1bc38fc27fe087d2d1b0c7d007338cc841d38d07",
+      "decision": "annotated:camera-mount-does-not-fit-camera",
+      "reason": "cause = the upstream mount README line quoted in the issue body ('centered for depth sensing'); fix = comment 2 (mcres, the reporter, re-centred the RGB optic). Comment 6 records that the modified part cannot be shared, which is why nothing here is a confirmation.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#163": {
+      "content_sha256": "edf5a14f615eb12bcb2669a7b64fd621c51237c688a44fc7c91e6a752d21bfcb",
+      "decision": "annotated:camera-mount-does-not-fit-camera",
+      "reason": "cause = issue body (overhead mount assumes a specific camera); fix = the code comment line carrying '3mm for each direction'.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1255": {
+      "content_sha256": "738986edc4f4493637bf80142d6214e6e5ba67d0488b03b936b2847c41e530fb",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:encoder-wrap-corrupts-recorded-range as the builder-visible report and title. Closed with zero comments; the body describes the symptom, not the record_ranges_of_motion / set_half_turn_homings cause the candidate states.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#3586": {
+      "content_sha256": "91ed7aea1815df7f41741bb9d3697c7878cc2cbafbb9a23928e132a3eaafb0df",
+      "decision": "annotated:encoder-wrap-corrupts-recorded-range",
+      "reason": "cause record = the Summary's naive min()/max() over mod-4096 Present_Position (0o8o0-blip, CONTRIBUTOR).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#3587": {
+      "content_sha256": "ab4e0fa2576235680f0b39c9ac116d1c2ad6fd1cf4a0e65a52192955a4ada0b2",
+      "decision": "annotated:encoder-wrap-corrupts-recorded-range",
+      "reason": "cause record = set_half_turn_homings runs before record_ranges_of_motion; two fix records = invert the order, and centre the calibrated range on Present=2048. Both are proposals by the same contributor; no confirmation exists.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#63": {
+      "content_sha256": "af87be54b8baa5679a8d5146e656534a07cb44266c8a3bf0b944b87546811a83",
+      "decision": "annotated:printed-part-too-tight-for-motor",
+      "reason": "Two cause records (reporter's 2 mm height measurement at comment 4; philfung CONTRIBUTOR's 'it fits fine' at comment 5) and two fix records (sanding at comment 6, scaling to 100.10% at comment 13).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#12": {
+      "content_sha256": "431fde85ae2702faecfa50a2ddf23fd35240fc0fdda6958b7d2a6f269630ee8c",
+      "decision": "annotated:printed-part-too-tight-for-motor",
+      "reason": "fix record = comment 2 (brainwavecoder9, that thread's own reporter): 'I was able to carve it out to make clearance.'",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#120": {
+      "content_sha256": "70ff2aae571602fb8c919ca2f506aa8a64e3623de7557e8059877cb0a24873f0",
+      "decision": "annotated:printed-part-too-tight-for-motor",
+      "reason": "cause record = 'material expansion and a few other factors'; fix record = the slicer-compensation advice (comment 1, dmosher42, NONE).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#105": {
+      "content_sha256": "b4fc8c7ac43d2982df4dd732a40a57c06e9d7ccdf4b528bfe8e2108594d07d05",
+      "decision": "annotated:which-stls-to-print-follower",
+      "reason": "cause record = issue body, 3DPRINT.md references non-existing paths.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#122": {
+      "content_sha256": "97f0d633134d8da7c76410bb3bfa836a5791e247b0c0c3259b1cc15d9c52d8d3",
+      "decision": "annotated:which-stls-to-print-follower",
+      "reason": "fix record = comment 1 (dmosher42, NONE): print the pre-arranged STL/SO101/Follower trays; Prusa MK4s, reoriented a few parts.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#167": {
+      "content_sha256": "0e8e4a898cf48f7023eae523fe285ccda4507116343da6a20eb7041ea5381d6c",
+      "decision": "annotated:which-stls-to-print-follower",
+      "reason": "cause record = the PR body naming the old stl_files_for_3dprinting/ tree. NOTE for the reviewer: this candidate's source note for #167 says 'thread body not fetched', which is now stale — the body was fetched in this run. I did not edit the note (annotate mode).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#94": {
+      "content_sha256": "b7e381f1be6783ab0f0424774c559a1846880b0c509198cc2c9731065f892cb6",
+      "decision": "annotated:zero-point-no-longer-matches-urdf",
+      "reason": "cause record = issue body, angle 0 is now the mid position of each joint.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#149": {
+      "content_sha256": "688dd08924a2756be1a0f627fe917f7c8a6d55b42ec42593d69f8d86d29db5b0",
+      "decision": "annotated:zero-point-no-longer-matches-urdf",
+      "reason": "cause record = issue body, 'Each joint's virtual zero is set to the middle of its joint range'.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#95": {
+      "content_sha256": "8772eb07d70a14629cf2533f2ce094b681e125093a5160fc431d31be3758e8f9",
+      "decision": "annotated:zero-point-no-longer-matches-urdf",
+      "reason": "two fix records from the PR body. NOTE: the source note says 'thread body not fetched'; the body was fetched in this run. Note left unedited (annotate mode).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1595": {
+      "content_sha256": "c231d5e7db1b55294fe6e06197cfd54f233a33e7a33635ca4104464925f2e8b6",
+      "decision": "annotated:calibrate-robot-type-vs-teleop-type",
+      "reason": "cause record = comment 1 by the thread author, 'It should be teleop rather than robot' (6 words, just over the minimum).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1694": {
+      "content_sha256": "13bd4647b9102fa7ee9efdfdf45446c81514af57e9d4fb53c3abf165866e1655",
+      "decision": "annotated:calibrate-robot-type-vs-teleop-type,calibration-works-on-old-version-not-new",
+      "reason": "Cited by both candidates by design. For calibrate-robot-type: fix record = comment 4 'solved by command : <lerobot-calibrate --teleop.type=...>' (the quote spans the comment's internal newline and is written with an explicit \\n escape). For calibration-works-on-old-version: cause = comment 1, fix = comment 5, both by the thread author.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#607": {
+      "content_sha256": "9da719856df805e03fcdf3609250a09d552b136825590ac4546d266321af34c9",
+      "decision": "annotated:calibration-range-outside-expected-bounds",
+      "reason": "Two cause records (comment 4 klhftco zero-range/inf analysis; comment 11 foxri87 corroboration) and two fix records (comment 4 gripper to its limits; comment 6 hold each pose longer).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#60": {
+      "content_sha256": "e351b8972f33849d73e8d50c8471a7b26dee3861337a50035a874fdf061011c8",
+      "decision": "ignored:no usable quote",
+      "reason": "Cited by staged:calibration-range-outside-expected-bounds for the 'GripperLeader calibration error' alias, the low_factor/upp_factor alias and one symptom. Its remedy (widening the software limits in the feetech class) is deliberately kept out of the candidate's cause and fix, so no evidence record cites it.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1130": {
+      "content_sha256": "d033ac5422b8c6e41dc788af421a69ba6d3beba4287de3c6ee7a7236df36c122",
+      "decision": "annotated:drive-mode-reversed-after-calibration",
+      "reason": "cause record = issue body (drive_mode reversed for one motor); two fix records from comment 2 (same for both arms / make them both 1's or both 0's).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#3942": {
+      "content_sha256": "26a74aae13b0209ac37be3865d70520ff5571ee5265ca43caf855acb5e890442",
+      "decision": "annotated:drive-mode-reversed-after-calibration",
+      "reason": "cause record = both arms record drive_mode 0 for the gripper; fix record = the JSON-signature blocker that makes the #1130 workaround inapplicable.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#47": {
+      "content_sha256": "23212d260dcb522e5ebd6cb14a6865047f000d9ac9fa20bd2d24791f137067e7",
+      "decision": "annotated:duplicate-part-in-bambu-print-file",
+      "reason": "Two cause records from the issue body. Comment 1 ('pull requested a fix.  thanks again for spotting!') could not be used: neither half of it reaches the 5-word minimum on its own, and the whole string carries a double space that YAML folding would destroy.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#48": {
+      "content_sha256": "58c55688e01b0ba5648a25d16b6b12659f9c7d2b63b004a8237a745b810884eb",
+      "decision": "annotated:duplicate-part-in-bambu-print-file",
+      "reason": "fix record = the PR body. REVIEWER NOTE: PR comment 1 by SRombauts ('Yes, I confirm that the change is looking good! I downloaded the new revision of the file and opened it in Bambu Studio on my end as well.') is a genuine confirmation from the reporter of issue #47, but he is neither the thread author of PR #48 (philfung) nor a maintainer, so it was NOT written as a confirmation record. This is the single strongest piece of evidence left out of the file.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#169": {
+      "content_sha256": "4dc86d614526b560ba91d67170815ebd5a6f9b2b8ad7d7b6d9a6c139d87f837e",
+      "decision": "annotated:leader-handle-attaches-to-holder-not-motor5",
+      "reason": "cause record = issue body; two fix records = the corrected wording in the body, and comment 1 reporting the change landed in docs v0.6.1.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#4007": {
+      "content_sha256": "24545751cebd5c06b383ff32d4b7c0902a76d9d1a3e9ff9c93edc07cc288810f",
+      "decision": "ignored:duplicate filing, no usable quote beyond #169",
+      "reason": "Same defect filed by the same reporter (asanoqm) on the other repo, zero comments, closed. Its cause sentence is the same as SO-ARM100#169's but wrapped in markdown bold; the cause record cites #169 instead.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#170": {
+      "content_sha256": "d3ed2d27c3115cc93df9e6614509a8507d8ae633da37bd73071b33a37e596001",
+      "decision": "annotated:servo-rotated-before-assembly-breaks-range",
+      "reason": "cause record = the EDIT half of comment 1 (the corrected diagnosis); fix record = comment 1's Wrist_Roll_SO101.stl line. No confirmation record: the reporter's acceptance (comment 2) is 'Thanks! I was mistaken.' — 4 words, below the 5-word minimum.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#75": {
+      "content_sha256": "348e3bcf1f3a85624a384cc05e738cc5c2f41d8e30e1fa1552fd1d24557f6d13",
+      "decision": "annotated:servo-rotated-before-assembly-breaks-range",
+      "reason": "cause record = issue body, 'I believe I rotated some of my servos before assembly so some of them act up.'",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#132": {
+      "content_sha256": "e6e1198cbb0c37cea3994210a11590699f557fe58a4349fa02b69e1bc134bc04",
+      "decision": "annotated:daisy-chain-power-brownout",
+      "reason": "Two cause records from the issue body (the daisy-chain sum-current paragraph and the stall-current spec line). No fix record: the candidate's fix is the canonical 'no confirmed fix' sentence and the thread has zero comments.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1779": {
+      "content_sha256": "c9e9b79764e493bf96e3c474d45fc0b7caeae633c169332e9ac73b19ffd38607",
+      "decision": "annotated:find-joint-limits-config-fails",
+      "reason": "cause record = the DecodingError line from the traceback in the issue body. Zero comments, so no fix record.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#64": {
+      "content_sha256": "7af25867bae9f6ed841c089c31b7ba202d83b02495415c87a39c48678d50dc53",
+      "decision": "annotated:floating-cantilever-print-warning",
+      "reason": "cause and fix records both from comment 2 (bicepjai, the thread author). No confirmation record: the sentence that says the warnings are gone is inside the same comment as the fix, so nothing is 'later than the fix quote'.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#2819": {
+      "content_sha256": "304e7f3f30341795881a9a0f49cc49949dff15db54f552a8e2239462e90765ca",
+      "decision": "annotated:gripper-servo-very-stiff",
+      "reason": "cause record = comment 1 (pkooij, MEMBER, servo broken by prolonged overload); fix record = comment 3 (the thread author continuing with a new servo). The fix quote spans the comment's \\r\\n and is written with explicit escapes.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#1010": {
+      "content_sha256": "d09d6f8349e92a5e83710248daabf42d7a5bc82f42566591ab01e0dab3b90189",
+      "decision": "annotated:incorrect-status-packet",
+      "reason": "Three cause records (7.4V motors on 12V from the body; the maintainer's firmware-mismatch note at comment 9; 'all 6 motors should have the same version' at comment 13) and four fix records (firmware+7.4V from the body; Feetech utility on Windows from comment 9; chmod 666 at comment 18; replug at comment 17).",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#2074": {
+      "content_sha256": "93a595480541d6abbfaf02f6e05c7d09ed65d6c29b01e3dba03fe87d95f0fde4",
+      "decision": "annotated:leader-joints-lock-into-detents",
+      "reason": "cause record = comment 1, 'This may be due to the STS3215 servos.' No fix record: the candidate's fix is the canonical 'no confirmed fix' sentence.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#24": {
+      "content_sha256": "7560c7ea09c1b08f736db89d3b97478ad5695fb04c84639756712ef404214349",
+      "decision": "annotated:loose-base-shoulder-joints-vibration",
+      "reason": "Two cause records and one fix record, all from comment 3 (nomorewzx, the thread author). No confirmation record: the OWNER's reply is 'Great!' (1 word, below the minimum), and the reporter's own 'the vibration is almost gone' sits inside the fix quote's own comment.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#58": {
+      "content_sha256": "d893d46a6273668ba3969db4b56667a1bd2af11b7047c59f6644406a86705e6f",
+      "decision": "annotated:print-infill-13-or-30-percent",
+      "reason": "Two cause records from the issue body (13% vs the 30% .3mf profile); fix record = comment 1 (pkooij, COLLABORATOR). No confirmation record: the maintainer's answer IS the fix and there is no later comment in the thread.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#134": {
+      "content_sha256": "72457bcba0571d1d4910716ce8e8b6a03e2dbd12abfcd156690321999a9b8dc7",
+      "decision": "annotated:sts3215-backlash-1-degree",
+      "reason": "cause record = the measurement table's Encoder Backlash row. Zero comments, so no fix record.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#175": {
+      "content_sha256": "a827e943390da9838871abe7867ea8b948fa6ebbf07309c222a3940b5b398b1c",
+      "decision": "annotated:wall-thickness-0-8mm",
+      "reason": "cause record = the issue body (the whole thread). Zero comments, so no fix record.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#166": {
+      "content_sha256": "d309513990a71cf3ed03393f0657ff2f8ca120ed956e286a2f4591d2b373e160",
+      "decision": "annotated:wrist-camera-folder-link-broken",
+      "reason": "cause record = the issue body. Zero comments, so no fix record.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "huggingface/lerobot#2924": {
+      "content_sha256": "2e90f419ff207303a7fd12101584fa3c7d213461aaeaa93b00d64c91232bd73b",
+      "decision": "annotated:wrist-roll-missing-from-calibration",
+      "reason": "Two cause records: comment 1 (thunder-007, NONE, wrist_roll hard-coded as full_turn) and comment 2 (imstevenpmwork, COLLABORATOR, the calibration-video pointer that diagnoses nothing). No fix record.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    },
+    "TheRobotStudio/SO-ARM100#29": {
+      "content_sha256": "fc6458001f2b811fb3a24152b207c7a6e4833a8716a33a32b282ef48d50dafdb",
+      "decision": "annotated:youtube-tutorial-differs-from-stl",
+      "reason": "cause and fix records from comment 1 (jbrownkramer, the thread author, self-resolved). The fix quote includes the playlist URL and spans the comment's blank line, written with explicit \\n escapes. No confirmation record: the resolution is inside the same comment as the fix.",
+      "prompt_sha": "bfdf7630feae212875e3d260cc23bd28192f9e3b4e020669684af49b83e36652",
+      "model": "claude-opus-5",
+      "run": "2026-09-12"
+    }
+  },
   "retired_slugs": []
 }
