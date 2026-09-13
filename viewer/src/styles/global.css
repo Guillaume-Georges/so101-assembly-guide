@@ -582,7 +582,9 @@ nav.steps a span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 22rem;
+  /* 100%: in the column-flex link nothing else ties the title to the link's width, so on a narrow phone it
+     never ellipsized and pushed the page wider than the screen. */
+  max-width: min(22rem, 100%);
 }
 nav.steps a.next {
   margin-left: auto;
@@ -604,7 +606,7 @@ nav.steps span.count {
     display: none;
   }
   nav.steps a span {
-    max-width: 12rem;
+    max-width: min(12rem, 100%);
   }
 }
 
@@ -1565,6 +1567,11 @@ details.provenance > summary {
   ol.milestones li.here .lbl {
     overflow: visible;
     text-overflow: clip;
+  }
+  /* In the second half of the bar the full label grows leftwards from its segment's right edge; growing
+     right, "Board and cables" ran past the screen edge. */
+  ol.milestones li.here:nth-last-child(-n + 4) .lbl {
+    align-self: flex-end;
   }
   .steppanel .goal {
     display: block;
