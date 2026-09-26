@@ -27,5 +27,20 @@ const preloads = islandPreloads(assembly, s.id, sitePath('/'));
       <Viewer client:load assembly={assembly} stepId={s.id} base={sitePath('/')} embed />
       <a class="pick steplink" style="top:0.5rem;left:0.5rem;max-width:calc(100% - 13rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title={`${s.id} ${s.title}`} href={new URL(withBase(stepPath(s)), site).toString()} target="_blank" rel="noopener">{s.id} {s.title} ↗</a>
     </div>
+    <script>
+      // Inside a frame (the Hugging Face Space, a vendor wiki) ← and → are relayed to the host page,
+      // which owns the step list, so the keys work wherever the focus is. Not when the focusable 3D
+      // view has focus: there the arrows turn the model (KeyOrbit), also while it is still loading.
+      // Nothing sensitive is sent, hence the '*' target; the host checks the origin.
+      if (window.parent !== window)
+        document.addEventListener('keydown', (e) => {
+          if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+          const delta = e.key === 'ArrowLeft' ? -1 : e.key === 'ArrowRight' ? 1 : 0;
+          if (!delta) return;
+          if ((e.target as HTMLElement | null)?.closest?.('[role="img"][tabindex]')) return;
+          e.preventDefault();
+          window.parent.postMessage({ kitsmith: 'step', delta }, '*');
+        });
+    </script>
   </body>
 </html>

@@ -601,6 +601,22 @@ nav.steps span.count {
   font-variant-numeric: tabular-nums;
   padding: 0 0.5rem;
 }
+/* Key hint: only where there is a keyboard to press, and not on a phone-width layout. */
+nav.steps .keys {
+  display: none;
+  margin: 0.35rem auto 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+nav.steps .keys kbd {
+  font-size: 0.85em;
+  border: 1px solid var(--line);
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 40rem) {
+  nav.steps .keys {
+    display: block;
+  }
+}
 @media (max-width: 40rem) {
   nav.steps a.prev span {
     display: none;
