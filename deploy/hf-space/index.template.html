@@ -131,29 +131,6 @@
         opacity: 0.45;
         cursor: default;
       }
-      .keys {
-        display: none;
-        margin: 0.5rem 0 0;
-        color: var(--muted);
-        font-size: 0.85rem;
-      }
-      .keys kbd {
-        font:
-          600 0.75em/1 ui-monospace,
-          SFMono-Regular,
-          Menlo,
-          monospace;
-        padding: 0.15em 0.4em;
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        background: var(--bg-2);
-      }
-      /* Only where there is a keyboard to press. */
-      @media (hover: hover) and (pointer: fine) {
-        .keys {
-          display: block;
-        }
-      }
       .cta {
         display: inline-flex;
         align-items: center;
@@ -341,15 +318,22 @@
             ></iframe>
           </div>
           <div class="controls">
-            <button type="button" id="prev" aria-keyshortcuts="ArrowLeft" disabled>
+            <button
+              type="button"
+              id="prev"
+              aria-keyshortcuts="ArrowLeft"
+              title="Shortcut: ←"
+              disabled
+            >
               ← Previous
             </button>
-            <button type="button" id="next" aria-keyshortcuts="ArrowRight">Next →</button>
+            <button type="button" id="next" aria-keyshortcuts="ArrowRight" title="Shortcut: →">
+              Next →
+            </button>
             <a class="cta" id="cta" href="{{FIRST_PAGE}}" target="_blank" rel="noopener"
               >Open {{FIRST_ID}} on kitsmith.dev: the full step with its check and sources ↗</a
             >
           </div>
-          <p class="keys" aria-hidden="true"><kbd>←</kbd> <kbd>→</kbd> previous / next step</p>
         </section>
 
         <nav class="steps" id="steps" aria-label="All steps">{{STEP_LIST}}</nav>
